@@ -21,5 +21,4 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.helse", appContext.packageName)
     }
-    
 }
