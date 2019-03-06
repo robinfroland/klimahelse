@@ -10,35 +10,49 @@ import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+    lateinit var builder: NotificationCompat.Builder
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         // show notification
-        val builder = NotificationCompat.Builder(/*Find a suitable context..*/this, "123")
+        builder = NotificationCompat.Builder(/*Find a suitable context..*/this, "123")
             .setSmallIcon(R.drawable.notification_icon_background).setContentTitle("A notification")
             .setContentText("Tailored to you").setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
+        createNotificationChannel()
+    }
+
+    override fun onResume() {
+        super.onResume()
         with(NotificationManagerCompat.from(this)) {
             notify(123, builder.build())
         }
     }
-}
-}
 
-private fun createNotificationChannel() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channelName = "A test"
-        val descriptionText = "Made to serve as an example notification"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel("123", channelName, importance).apply {
-            description = descriptionText
+    override fun onPause() {
+        super.onPause()
+        with(NotificationManagerCompat.from(this)) {
+            notify(123, builder.build())
         }
-        // Register the channel with the system
-        val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
     }
-    // I
 
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = "A test"
+            val descriptionText = "Made to serve as an example notification"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("123", channelName, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+        // I
+
+    }
 }
