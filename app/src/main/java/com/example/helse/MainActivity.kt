@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
     private lateinit var notificationService: NotificationService
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         notificationService = NotificationService(this)
@@ -14,13 +15,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        notificationService.sendNotification()
+        notificationService.sendNotification(NotificationService.NotificationTypes.Resume)
     }
 
     override fun onPause() {
         super.onPause()
-        notificationService.sendNotification()
+        notificationService.sendNotification(NotificationService.NotificationTypes.Pause)
     }
-
 
 }

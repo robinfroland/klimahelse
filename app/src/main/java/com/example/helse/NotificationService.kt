@@ -8,28 +8,44 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 
 class NotificationService(private val context: Context) {
-    private lateinit var builder: NotificationCompat.Builder
+    private lateinit var onResumeNotification: NotificationCompat.Builder
+    private lateinit var onPauseNotification: NotificationCompat.Builder
+
+    enum class NotificationTypes {
+        Resume, Pause
+    }
 
     init {
         setupNotification()
     }
 
     private fun setupNotification() {
-        // show notification
-        builder = NotificationCompat.Builder(/*Find a suitable context..*/context, "123")
-            .setSmallIcon(R.drawable.notification_icon).setContentTitle("A notification")
-            .setContentText("Tailored to you").setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        // Create notifications
+        onPauseNotification = NotificationCompat.Builder(context, "123")
+            .setSmallIcon(R.drawable.notification_icon).setContentTitle("You paused me")
+            .setContentText("It's okay").setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        onResumeNotification = NotificationCompat.Builder(context, "456")
+            .setSmallIcon(R.drawable.notification_icon).setContentTitle("Brought me back to life!!")
+            .setContentText("Many thanks").setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         createNotificationChannel()
     }
 
-    fun sendNotification() {
-        with(NotificationManagerCompat.from(context)) {
-            notify(123, builder.build())
+    fun sendNotification(type: NotificationTypes) {
+        // Show notification
+        when (type) {
+            NotificationTypes.Resume -> with(NotificationManagerCompat.from(context)) {
+                notify(456, onResumeNotification.build())
+            }
+            NotificationTypes.Pause -> with(NotificationManagerCompat.from(context)) {
+                notify(123, onPauseNotification.build())
+            }
         }
     }
 
     private fun createNotificationChannel() {
+        // Creating a notificationChannel is required in API level 26 and higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelName = "A test"
             val descriptionText = "Made to serve as an example notification"
