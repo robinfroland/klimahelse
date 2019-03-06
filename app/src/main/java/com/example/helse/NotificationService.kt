@@ -7,7 +7,7 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 
-class NotificationService(val context: Context) {
+class NotificationService(private val context: Context) {
     private lateinit var builder: NotificationCompat.Builder
 
     init {

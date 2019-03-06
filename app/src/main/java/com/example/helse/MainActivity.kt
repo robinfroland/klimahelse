@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    lateinit var notificationService: NotificationService
+    private lateinit var notificationService: NotificationService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
