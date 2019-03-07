@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 class AirqualityForecastViewModel : ViewModel() {
     lateinit var airqualityForecastRepository: AirqualityForecastRepository
 
-    private val forecast: MutableLiveData<List<Any>> by lazy {
-        MutableLiveData<List<Any>>().also {
+    private val forecast: MutableLiveData<List<AirqualityForecast>> by lazy {
+        MutableLiveData<List<AirqualityForecast>>().also {
             loadForecast()
         }
     }

@@ -7,7 +7,7 @@ import okhttp3.Response
 import org.json.JSONObject
 
 interface AirqualityForecastApi {
-    fun fetchAirquality(): List<Any>
+    fun fetchAirquality(): List<AirqualityForecast>
 }
 
 class AirqualityForecastApiImpl : AirqualityForecastApi {
@@ -15,7 +15,7 @@ class AirqualityForecastApiImpl : AirqualityForecastApi {
     private val client = OkHttpClient()
     private val url = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station=NO0057A"
 
-    override fun fetchAirquality(): List<Any> {
+    override fun fetchAirquality(): List<AirqualityForecast> {
         try {
             val request = Request.Builder()
                 .url(url)
