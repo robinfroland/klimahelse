@@ -2,58 +2,47 @@ package com.example.helse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
-import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.helse.forecast.AirqualityForecast
-import com.example.helse.forecast.AirqualityForecastApiImpl
-import com.example.helse.forecast.AirqualityForecastRepositoryImpl
-import com.example.helse.forecast.AirqualityForecastViewModel
+import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.activity_main.*
+import com.example.helse.airquality.*
+import com.example.helse.locations.*
+
+
+
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var text: String
-    private val url = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
-    val locations = ArrayList<Location>()
+
+    private val locations = ArrayList<Locations>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fetchData(url)
-    }
 
-    fun fetchData(url: String){
-        val response= LocationApiRequest().execute(url).get()
-        val jObject = JSONArray(response)
+        locationText.text = LocationStringBuilder.buildString(locations)
 
-        for (i in 0 until jObject.length()) {
-            val jobject = jObject.getJSONObject(i)
-            val name = jobject.getString("name")
-            val kommuneName = jobject.getJSONObject("kommune").getString("name")
-            locations.add(Location(name, kommuneName))
+        val locationsViewModel = ViewModelProviders.of(this).get(LocationsViewModel::class.java).apply {
+            locationsRepository = LocationsRepositoryImpl(LocationsApiImpl())
         }
 
-        text.text = LocationStringBuilder.buildString(locations)
-    }
+        locationsViewModel.getAllLocations().observe(this, Observer { locations ->
+            locationText.text = LocationStringBuilder.buildString(locations)
+        })
+        println("locationsResponse: ${locationText.text}")
 
-    object LocationStringBuilder {
-        fun buildString(locations: List<Location>): String {
-            val locationString = StringBuilder().append("Locations:\n")
-            locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n") }
-            return locationString.toString()
+
+        val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply {
+            airqualityForecastRepository = AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl())
         }
+
+        airqualityViewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
+            dataText.text = ForecastStringBuilder.buildString(airqualityForecast)
+        })
+        println("airqualityResponse: ${dataText.text}")
+
     }
 
-    text = "temp"
-
-    val viewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply { airqualityForecastRepository = AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl()) }
-
-    viewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
-            findViewById<TextView>(R.id.text).text = ForecastStringBuilder.buildString(airqualityForecast)})
-    println("apiResponse: ${findViewById<TextView>(R.id.text).text}")
 }
-
 
 object ForecastStringBuilder {
     fun buildString(forecast: List<AirqualityForecast>): String {
@@ -71,5 +60,13 @@ object ForecastStringBuilder {
             )
         }
         return forecastString.toString()
+    }
+}
+
+object LocationStringBuilder {
+    fun buildString(locations: List<Locations>): String {
+        val locationString = StringBuilder().append("Locations:\n")
+        locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n" + ", " + it.stasjon + "\n") }
+        return locationString.toString()
     }
 }
