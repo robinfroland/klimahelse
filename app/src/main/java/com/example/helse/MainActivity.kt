@@ -1,6 +1,7 @@
 package com.example.helse
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -9,6 +10,7 @@ import com.example.helse.api.location.ApiLocation
 import com.example.helse.api.location.LocationsApiImpl
 import com.example.helse.api.location.LocationsRepositoryImpl
 import com.example.helse.api.location.LocationsViewModel
+import com.example.helse.views.startActivityAirquality
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -30,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         locationsViewModel.getAllLocations().observe(this, Observer { locations ->
             locationText.text = LocationStringBuilder.buildString(locations)
         })
+    }
 
+    fun showStationData(v: View) {
+        startActivityAirquality(this, ApiLocation("Skip", "Ostfold", "NO0057A"))
     }
 }
 
