@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.helse.airquality.*
-import com.example.helse.locations.*
+import com.example.helse.api.location.Locations
+import com.example.helse.api.location.LocationsApiImpl
+import com.example.helse.api.location.LocationsRepositoryImpl
+import com.example.helse.api.location.LocationsViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModels() {
         val locationsViewModel = ViewModelProviders.of(this).get(LocationsViewModel::class.java).apply {
-            locationsRepository = LocationsRepositoryImpl(LocationsApiImpl())
+            locationsRepository =
+                LocationsRepositoryImpl(LocationsApiImpl())
         }
 
         locationsViewModel.getAllLocations().observe(this, Observer { locations ->

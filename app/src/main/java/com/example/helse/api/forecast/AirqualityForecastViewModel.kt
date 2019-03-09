@@ -1,4 +1,4 @@
-package com.example.helse.airquality
+package com.example.helse.api.forecast
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

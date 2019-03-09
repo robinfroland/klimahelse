@@ -12,6 +12,11 @@
             android:layout_height="wrap_content"
             android:text="Fetching data"/>
 
+    <Button
+        android:id="@+id/open_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="openStation" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Fetching data"/>
+
 
     </ScrollView>
 </LinearLayout>

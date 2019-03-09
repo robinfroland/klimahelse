@@ -1,10 +1,11 @@
-package com.example.helse.locations
+package com.example.helse.api.location
 
 interface LocationsRepository {
     suspend fun fetchLocations(): List<Locations>
 }
 
-class LocationsRepositoryImpl(private val api: LocationsApi) : LocationsRepository {
+class LocationsRepositoryImpl(private val api: LocationsApi) :
+    LocationsRepository {
 
     override suspend fun fetchLocations(): List<Locations> {
         // TODO: check if load from disk (implement a Room Database?) or fetch from server
