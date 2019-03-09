@@ -1,4 +1,4 @@
-package com.example.helse.forecast
+package com.example.helse.airquality
 
 data class AirqualityVariables(
     val o3_concentration: Double,

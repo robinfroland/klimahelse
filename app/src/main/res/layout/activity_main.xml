@@ -7,10 +7,10 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:id="@+id/text"
+            android:id="@+id/locationText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fetching data" />
+            android:text="Fetching data"/>
 
 
     <ScrollView
@@ -18,10 +18,10 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fetching data" />
+                android:id="@+id/dataText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fetching data"/>
 
     </ScrollView>
 </LinearLayout>
