@@ -9,18 +9,16 @@ import com.example.helse.airquality.*
 import com.example.helse.locations.*
 
 
-
-
 class MainActivity : AppCompatActivity() {
-
-    private val locations = ArrayList<Locations>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        locationText.text = LocationStringBuilder.buildString(locations)
+        setupViewModels()
+    }
 
+    private fun setupViewModels() {
         val locationsViewModel = ViewModelProviders.of(this).get(LocationsViewModel::class.java).apply {
             locationsRepository = LocationsRepositoryImpl(LocationsApiImpl())
         }
@@ -28,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         locationsViewModel.getAllLocations().observe(this, Observer { locations ->
             locationText.text = LocationStringBuilder.buildString(locations)
         })
-        println("locationsResponse: ${locationText.text}")
-
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply {
             airqualityForecastRepository = AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl())
@@ -38,10 +34,7 @@ class MainActivity : AppCompatActivity() {
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
             dataText.text = ForecastStringBuilder.buildString(airqualityForecast)
         })
-        println("airqualityResponse: ${dataText.text}")
-
     }
-
 }
 
 object ForecastStringBuilder {
