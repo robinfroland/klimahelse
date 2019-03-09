@@ -2,14 +2,14 @@ package com.example.helse
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_main.*
-import com.example.helse.airquality.*
-import com.example.helse.api.location.Locations
+import androidx.lifecycle.ViewModelProviders
+import com.example.helse.api.forecast.AirqualityForecast
+import com.example.helse.api.location.ApiLocation
 import com.example.helse.api.location.LocationsApiImpl
 import com.example.helse.api.location.LocationsRepositoryImpl
 import com.example.helse.api.location.LocationsViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,13 +31,6 @@ class MainActivity : AppCompatActivity() {
             locationText.text = LocationStringBuilder.buildString(locations)
         })
 
-        val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply {
-            airqualityForecastRepository = AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl())
-        }
-
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
-            dataText.text = ForecastStringBuilder.buildString(airqualityForecast)
-        })
     }
 }
 
@@ -61,9 +54,9 @@ object ForecastStringBuilder {
 }
 
 object LocationStringBuilder {
-    fun buildString(locations: List<Locations>): String {
+    fun buildString(locations: List<ApiLocation>): String {
         val locationString = StringBuilder().append("Locations:\n")
-        locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n" + ", " + it.stasjon + "\n") }
+        locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n" + ", " + it.station + "\n") }
         return locationString.toString()
     }
 }

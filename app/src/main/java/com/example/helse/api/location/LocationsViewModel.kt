@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 class LocationsViewModel : ViewModel() {
     lateinit var locationsRepository: LocationsRepository
 
-    private val locations: MutableLiveData<List<Locations>> by lazy {
-        MutableLiveData<List<Locations>>().also {
+    private val locations: MutableLiveData<List<ApiLocation>> by lazy {
+        MutableLiveData<List<ApiLocation>>().also {
             loadLocations()
         }
     }
