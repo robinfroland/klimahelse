@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">helse</string>
-    <string name="location_text">Luftkvalitet for min posisjon/default:</string>
+    <string name="location_text">Luftkvalitet for %1$s :</string>
     <string name="o3">03: %.0f</string>
     <string name="pm10">pm10: %.0f</string>
     <string name="pm25">pm25: %.0f</string>

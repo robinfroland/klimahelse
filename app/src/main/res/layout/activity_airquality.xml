@@ -12,7 +12,7 @@
         android:text="SE ANDRE STEDER" />
 
     <TextView
-        android:id="@+id/location_text"
+        android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/location_text" />

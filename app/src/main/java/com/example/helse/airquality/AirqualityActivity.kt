@@ -15,9 +15,9 @@ class AirqualityActivity : AppCompatActivity() {
         setContentView(R.layout.activity_airquality)
 
 
-        // TODO: Get data passed when activity was initiated
-        // default == "min posisjon" eller valgt sted i setup
+        // defaultLocation == user location or defined location during setup
         val defaultLocation = AirqualityLocation("Skip", "Ostfold", "NO0057A")
+        location.text = defaultLocation.name
 
 
 
