@@ -1,5 +1,6 @@
 package com.example.helse.airquality
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -14,10 +15,14 @@ class AirqualityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_airquality)
 
+        showLocations.setOnClickListener {
+            startActivity(Intent(this, LocationListActivity::class.java))
+        }
+
 
         // defaultLocation == user location or defined location during setup
-        val defaultLocation = AirqualityLocation("Skip", "Ostfold", "NO0057A")
-        location.text = defaultLocation.name
+        val defaultLocation = AirqualityLocation("Oslo", "Alnabru", "NO0057A")
+        location.text = getString(R.string.location_text, defaultLocation.name, defaultLocation.kommune)
 
 
 
