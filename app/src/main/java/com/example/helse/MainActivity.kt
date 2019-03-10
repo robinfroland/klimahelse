@@ -1,12 +1,17 @@
 package com.example.helse
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.example.helse.forecast.AirqualityForecast
+import com.example.helse.location.ApiLocation
+import com.example.helse.location.LocationsApiImpl
+import com.example.helse.location.LocationsRepositoryImpl
+import com.example.helse.location.LocationsViewModel
+import com.example.helse.forecast.startActivityAirquality
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.helse.airquality.*
-import com.example.helse.locations.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,20 +25,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModels() {
         val locationsViewModel = ViewModelProviders.of(this).get(LocationsViewModel::class.java).apply {
-            locationsRepository = LocationsRepositoryImpl(LocationsApiImpl())
+            locationsRepository =
+                LocationsRepositoryImpl(LocationsApiImpl())
         }
 
         locationsViewModel.getAllLocations().observe(this, Observer { locations ->
             locationText.text = LocationStringBuilder.buildString(locations)
         })
+    }
 
-        val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply {
-            airqualityForecastRepository = AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl())
-        }
-
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
-            dataText.text = ForecastStringBuilder.buildString(airqualityForecast)
-        })
+    fun showStationData(v: View) {
+        startActivityAirquality(this, ApiLocation("Skip", "Ostfold", "NO0057A"))
     }
 }
 
@@ -57,9 +59,9 @@ object ForecastStringBuilder {
 }
 
 object LocationStringBuilder {
-    fun buildString(locations: List<Locations>): String {
+    fun buildString(locations: List<ApiLocation>): String {
         val locationString = StringBuilder().append("Locations:\n")
-        locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n" + ", " + it.stasjon + "\n") }
+        locations.forEach { locationString.append(it.name + ", " + it.kommune + "\n" + ", " + it.station + "\n") }
         return locationString.toString()
     }
 }

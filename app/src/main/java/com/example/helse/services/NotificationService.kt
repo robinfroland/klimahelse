@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.services
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.helse.R
 
 class NotificationService(private val context: Context) {
     private lateinit var onResumeNotification: NotificationCompat.Builder

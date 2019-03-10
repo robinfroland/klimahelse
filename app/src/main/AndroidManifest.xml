@@ -13,8 +13,12 @@
             android:theme="@style/AppTheme">
 
         <activity
-                android:name=".MainActivity"
-                android:label="Main.. for now..">
+            android:name=".forecast.AirqualityActivity"
+            android:label="Stuff.." />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Main.. for now..">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
