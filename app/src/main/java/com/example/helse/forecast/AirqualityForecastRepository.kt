@@ -1,4 +1,4 @@
-package com.example.helse.api.forecast
+package com.example.helse.forecast
 
 interface AirqualityForecastRepository {
     suspend fun fetchAirqualityForecast(): List<AirqualityForecast>

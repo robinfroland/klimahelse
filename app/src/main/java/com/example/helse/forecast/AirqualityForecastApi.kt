@@ -1,4 +1,4 @@
-package com.example.helse.api.forecast
+package com.example.helse.forecast
 
 import android.util.Log
 import okhttp3.OkHttpClient

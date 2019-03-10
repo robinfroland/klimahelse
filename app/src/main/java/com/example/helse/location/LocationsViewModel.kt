@@ -1,4 +1,4 @@
-package com.example.helse.api.location
+package com.example.helse.location
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

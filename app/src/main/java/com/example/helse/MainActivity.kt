@@ -5,12 +5,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.helse.api.forecast.AirqualityForecast
-import com.example.helse.api.location.ApiLocation
-import com.example.helse.api.location.LocationsApiImpl
-import com.example.helse.api.location.LocationsRepositoryImpl
-import com.example.helse.api.location.LocationsViewModel
-import com.example.helse.views.startActivityAirquality
+import com.example.helse.forecast.AirqualityForecast
+import com.example.helse.location.ApiLocation
+import com.example.helse.location.LocationsApiImpl
+import com.example.helse.location.LocationsRepositoryImpl
+import com.example.helse.location.LocationsViewModel
+import com.example.helse.forecast.startActivityAirquality
 import kotlinx.android.synthetic.main.activity_main.*
 
 

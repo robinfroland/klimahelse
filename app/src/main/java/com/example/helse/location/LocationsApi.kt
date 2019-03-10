@@ -1,4 +1,4 @@
-package com.example.helse.api.location
+package com.example.helse.location
 
 import android.util.Log
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package com.example.helse.api.forecast
+package com.example.helse.forecast
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

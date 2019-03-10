@@ -1,4 +1,4 @@
-package com.example.helse.api.location
+package com.example.helse.location
 
 interface LocationsRepository {
     suspend fun fetchLocations(): List<ApiLocation>

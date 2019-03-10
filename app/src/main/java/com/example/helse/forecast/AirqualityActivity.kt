@@ -1,4 +1,4 @@
-package com.example.helse.views
+package com.example.helse.forecast
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.helse.ForecastStringBuilder
 import com.example.helse.R
-import com.example.helse.api.forecast.AirqualityForecastApiImpl
-import com.example.helse.api.forecast.AirqualityForecastRepositoryImpl
-import com.example.helse.api.forecast.AirqualityForecastViewModel
-import com.example.helse.api.location.ApiLocation
+import com.example.helse.location.ApiLocation
 
 
 class AirqualityActivity : AppCompatActivity() {
