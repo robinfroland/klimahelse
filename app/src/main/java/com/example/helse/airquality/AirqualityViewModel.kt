@@ -16,8 +16,8 @@ class AirqualityViewModel : ViewModel() {
         }
     }
 
-    private val forecast: MutableLiveData<List<AirqualityForecast>> by lazy {
-        MutableLiveData<List<AirqualityForecast>>().also {
+    private val forecast: MutableLiveData<AirqualityForecast> by lazy {
+        MutableLiveData<AirqualityForecast>().also {
             loadForecast()
         }
     }

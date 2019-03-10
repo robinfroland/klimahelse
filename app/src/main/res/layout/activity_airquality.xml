@@ -18,28 +18,28 @@
         android:text="@string/location_text" />
 
     <TextView
-        android:id="@+id/o3_text"
+        android:id="@+id/o3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/o3_text" />
+        android:text="@string/o3" />
 
     <TextView
-        android:id="@+id/pm10_text"
+        android:id="@+id/pm10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pm10_text" />
+        android:text="@string/pm10" />
 
     <TextView
-        android:id="@+id/pm25_text"
+        android:id="@+id/pm25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pm25_text" />
+        android:text="@string/pm25" />
 
     <TextView
-        android:id="@+id/no2_text"
+        android:id="@+id/no2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no2_text" />
+        android:text="@string/no2" />
 
     <ScrollView
         android:layout_width="match_parent"

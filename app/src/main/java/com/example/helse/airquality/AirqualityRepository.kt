@@ -1,8 +1,8 @@
 package com.example.helse.airquality
 
 interface AirqualityRepository {
-    suspend fun fetchAirquality(): List<AirqualityForecast>
     suspend fun fetchLocations(): List<AirqualityLocation>
+    suspend fun fetchAirquality(): AirqualityForecast
 }
 
 class AirqualityRepositoryImpl(private val api: AirqualityApi) :
@@ -13,7 +13,7 @@ class AirqualityRepositoryImpl(private val api: AirqualityApi) :
         return api.fetchAirqualityLocations()
     }
 
-    override suspend fun fetchAirquality(): List<AirqualityForecast> {
+    override suspend fun fetchAirquality(): AirqualityForecast {
         return api.fetchAirquality()
     }
 }

@@ -1,15 +1,11 @@
 package com.example.helse.airquality
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.helse.ForecastStringBuilder
-import com.example.helse.LocationStringBuilder
 import com.example.helse.R
+import kotlinx.android.synthetic.main.activity_airquality.*
 
 
 class AirqualityActivity : AppCompatActivity() {
@@ -18,26 +14,26 @@ class AirqualityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_airquality)
 
-        // Get data passed when activity was initiated
-        val station = intent.getStringExtra("station")
+
+        // TODO: Get data passed when activity was initiated
+        // default == "min posisjon" eller valgt sted i setup
+        val defaultLocation = AirqualityLocation("Skip", "Ostfold", "NO0057A")
+
+
 
         val viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java).apply {
             airqualityRepository =
-                AirqualityRepositoryImpl(AirqualityApiImpl(station))
+                AirqualityRepositoryImpl(AirqualityApiImpl(defaultLocation))
         }
 
 
-        viewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
-            findViewById<TextView>(R.id.airquality_data).text = ForecastStringBuilder.buildString(airqualityForecast)
+        viewModel.getAirqualityForecast().observe(this, Observer { forecast ->
+            o3.text = getString(R.string.o3, forecast.Airquality.variables.o3_concentration)
+            no2.text = getString(R.string.no2, forecast.Airquality.variables.no2_concentration)
+            pm10.text = getString(R.string.pm10, forecast.Airquality.variables.pm10_concentration)
+            pm25.text = getString(R.string.pm25, forecast.Airquality.variables.pm25_concentration)
+
         })
     }
 
-}
-
-fun startActivityAirquality(fromContext: Context, airqualityLocation: AirqualityLocation) {
-
-    val intent = Intent(fromContext, AirqualityActivity::class.java)
-    intent.putExtra("station", airqualityLocation.station)
-
-    fromContext.startActivity(intent)
 }
