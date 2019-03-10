@@ -5,4 +5,7 @@
     <string name="pm10">pm10: %.0f</string>
     <string name="pm25">pm25: %.0f</string>
     <string name="no2">no2: %.0f</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

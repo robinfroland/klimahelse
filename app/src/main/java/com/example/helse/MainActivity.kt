@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.helse.airquality.AirqualityActivity
-import com.example.helse.airquality.AirqualityForecast
 import com.example.helse.airquality.AirqualityLocation
 import kotlinx.android.synthetic.main.activity_main.*
 
