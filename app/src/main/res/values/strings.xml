@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">helse</string>
+    <string name="location_text">Luftkvalitet for min posisjon/default:</string>
+    <string name="o3_text">03: 1$s</string>
+    <string name="pm10_text">pm10: 1$s</string>
+    <string name="pm25_text">pm25: 1$s</string>
+    <string name="no2_text">no2: 1$s</string>
 </resources>

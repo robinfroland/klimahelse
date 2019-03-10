@@ -4,6 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/showLocations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="SE ANDRE STEDER" />
+
+    <TextView
+        android:id="@+id/location_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location_text" />
+
+    <TextView
+        android:id="@+id/o3_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/o3_text" />
+
+    <TextView
+        android:id="@+id/pm10_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pm10_text" />
+
+    <TextView
+        android:id="@+id/pm25_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pm25_text" />
+
+    <TextView
+        android:id="@+id/no2_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no2_text" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
