@@ -1,4 +1,4 @@
-package com.example.helse.forecast
+package com.example.helse.airquality
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.helse.ForecastStringBuilder
+import com.example.helse.LocationStringBuilder
 import com.example.helse.R
-import com.example.helse.location.ApiLocation
 
 
 class AirqualityActivity : AppCompatActivity() {
@@ -21,10 +21,11 @@ class AirqualityActivity : AppCompatActivity() {
         // Get data passed when activity was initiated
         val station = intent.getStringExtra("station")
 
-        val viewModel = ViewModelProviders.of(this).get(AirqualityForecastViewModel::class.java).apply {
-            airqualityForecastRepository =
-                AirqualityForecastRepositoryImpl(AirqualityForecastApiImpl(station))
+        val viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java).apply {
+            airqualityRepository =
+                AirqualityRepositoryImpl(AirqualityApiImpl(station))
         }
+
 
         viewModel.getAirqualityForecast().observe(this, Observer { airqualityForecast ->
             findViewById<TextView>(R.id.airquality_data).text = ForecastStringBuilder.buildString(airqualityForecast)
@@ -33,10 +34,10 @@ class AirqualityActivity : AppCompatActivity() {
 
 }
 
-fun startActivityAirquality(fromContext: Context, location: ApiLocation) {
+fun startActivityAirquality(fromContext: Context, airqualityLocation: AirqualityLocation) {
 
     val intent = Intent(fromContext, AirqualityActivity::class.java)
-    intent.putExtra("station", location.station)
+    intent.putExtra("station", airqualityLocation.station)
 
     fromContext.startActivity(intent)
 }
