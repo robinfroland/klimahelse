@@ -13,7 +13,7 @@
             android:theme="@style/AppTheme">
 
         <activity
-            android:name=".forecast.AirqualityActivity"
+            android:name=".airquality.AirqualityActivity"
             android:label="Stuff.." />
 
         <activity
