@@ -1,4 +1,4 @@
-package com.example.helse.airquality
+package com.example.helse.data
 
 import android.util.Log
 import okhttp3.OkHttpClient
@@ -13,7 +13,8 @@ interface AirqualityApi {
     fun fetchAirquality(): AirqualityForecast
 }
 
-class AirqualityApiImpl(private val location: AirqualityLocation) : AirqualityApi {
+class AirqualityApiImpl(private val location: AirqualityLocation) :
+    AirqualityApi {
 
     private val client = OkHttpClient()
     private val baseUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="

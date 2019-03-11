@@ -1,4 +1,4 @@
-package com.example.helse.services
+package com.example.helse.utilities
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

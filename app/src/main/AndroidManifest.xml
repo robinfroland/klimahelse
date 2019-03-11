@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".airquality.LocationListActivity"
+            android:name=".LocationListActivity"
             android:label="Søkeresultater" />
         <activity
-            android:name=".airquality.AirqualityActivity"
+            android:name=".AirqualityActivity"
             android:label="Luftkvalitet" />
         <activity
             android:name=".MainActivity"
