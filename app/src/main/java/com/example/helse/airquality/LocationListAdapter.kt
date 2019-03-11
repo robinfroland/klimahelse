@@ -21,8 +21,8 @@ class LocationListAdapter(private var locations: ArrayList<AirqualityLocation>):
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, index: Int) {
-        val location = locations[index].name
-        val superlocation = locations[index].kommune + ", Norway" //TODO: Add to dataclass or not?
+        val location = locations[index].location
+        val superlocation = locations[index].superlocation
         holder.view.location.text = location
         holder.view.superlocation.text = superlocation
     }

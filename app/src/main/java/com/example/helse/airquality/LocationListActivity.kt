@@ -17,8 +17,8 @@ class LocationListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_list)
 
-        locationArray = arrayListOf(AirqualityLocation("Oslo", "Alnabru", "NO0057A"),
-            AirqualityLocation("Oslo", "Majorstuen", "NO0057A"))
+        locationArray = arrayListOf(AirqualityLocation("Alnabru", "Oslo", "NO0057A"),
+            AirqualityLocation("Majorstuen", "Oslo", "NO0057A"))
 
         recyclerView_locations.layoutManager = LinearLayoutManager(this)
         recyclerView_locations.adapter = LocationListAdapter(locationArray)

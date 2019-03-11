@@ -21,8 +21,8 @@ class AirqualityActivity : AppCompatActivity() {
 
 
         // defaultLocation == user location or defined location during setup
-        val defaultLocation = AirqualityLocation("Oslo", "Alnabru", "NO0057A")
-        location.text = getString(R.string.location_text, defaultLocation.name, defaultLocation.kommune)
+        val defaultLocation = AirqualityLocation("Alnabru", "Oslo", "NO0057A")
+        location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
 
 
