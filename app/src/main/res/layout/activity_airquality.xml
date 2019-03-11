@@ -4,52 +4,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/showLocations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="SE ANDRE STEDER" />
-
     <TextView
         android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/location_text" />
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/location_text"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/o3"
+        android:id="@+id/o3_concentration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/o3" />
+        android:layout_marginTop="5dp"
+        android:text="@string/o3_concentration"
+        android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/pm10"
+        android:id="@+id/no2_concentration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pm10" />
+        android:text="@string/no2_concentration"
+        android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/pm25"
+        android:id="@+id/pm25_concentration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pm25" />
+        android:text="@string/pm25_concentration"
+        android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/no2"
+        android:id="@+id/pm10_concentration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no2" />
+        android:text="@string/pm10_concentration"
+        android:textAlignment="center" />
 
-    <ScrollView
+    <Button
+        android:id="@+id/showLocations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/airquality_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="SE ANDRE STEDER" />
 
 </LinearLayout>

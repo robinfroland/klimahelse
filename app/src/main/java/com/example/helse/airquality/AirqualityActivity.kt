@@ -1,5 +1,6 @@
 package com.example.helse.airquality
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -14,10 +15,14 @@ class AirqualityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_airquality)
 
+        showLocations.setOnClickListener {
+            startActivity(Intent(this, LocationListActivity::class.java))
+        }
+
 
         // defaultLocation == user location or defined location during setup
-        val defaultLocation = AirqualityLocation("Skip", "Ostfold", "NO0057A")
-        location.text = defaultLocation.name
+        val defaultLocation = AirqualityLocation("Alnabru", "Oslo", "NO0057A")
+        location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
 
 
@@ -28,10 +33,10 @@ class AirqualityActivity : AppCompatActivity() {
 
 
         viewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-            o3.text = getString(R.string.o3, forecast.Airquality.variables.o3_concentration)
-            no2.text = getString(R.string.no2, forecast.Airquality.variables.no2_concentration)
-            pm10.text = getString(R.string.pm10, forecast.Airquality.variables.pm10_concentration)
-            pm25.text = getString(R.string.pm25, forecast.Airquality.variables.pm25_concentration)
+            o3_concentration.text = getString(R.string.o3_concentration, forecast.Airquality.variables.o3_concentration)
+            no2_concentration.text = getString(R.string.no2_concentration, forecast.Airquality.variables.no2_concentration)
+            pm10_concentration.text = getString(R.string.pm10_concentration, forecast.Airquality.variables.pm10_concentration)
+            pm25_concentration.text = getString(R.string.pm25_concentration, forecast.Airquality.variables.pm25_concentration)
 
         })
     }
