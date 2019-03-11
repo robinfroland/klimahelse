@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
-import com.example.helse.data.AirqualityLocation
+import com.example.helse.data.entity.AirqualityLocation
 import kotlinx.android.synthetic.main.location_element.view.*
 
 class LocationListAdapter(private var locations: ArrayList<AirqualityLocation>): RecyclerView.Adapter<ListViewHolder>() {

@@ -1,5 +1,8 @@
 package com.example.helse.data
 
+import com.example.helse.data.entity.AirqualityForecast
+import com.example.helse.data.entity.AirqualityLocation
+
 interface AirqualityRepository {
     suspend fun fetchLocations(): List<AirqualityLocation>
     suspend fun fetchAirquality(): AirqualityForecast

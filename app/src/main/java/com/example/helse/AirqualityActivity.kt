@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.helse.data.AirqualityApiImpl
-import com.example.helse.data.AirqualityLocation
+import com.example.helse.data.entity.AirqualityLocation
 import com.example.helse.data.AirqualityRepositoryImpl
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.activity_airquality.*

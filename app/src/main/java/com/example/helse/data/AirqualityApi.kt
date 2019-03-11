@@ -1,6 +1,10 @@
 package com.example.helse.data
 
 import android.util.Log
+import com.example.helse.data.entity.Airquality
+import com.example.helse.data.entity.AirqualityForecast
+import com.example.helse.data.entity.AirqualityLocation
+import com.example.helse.data.entity.AirqualityVariables
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -17,13 +21,13 @@ class AirqualityApiImpl(private val location: AirqualityLocation) :
     AirqualityApi {
 
     private val client = OkHttpClient()
-    private val baseUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="
+    private val baseUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/?stationID="
     private val locationsUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
 
     override fun fetchAirquality(): AirqualityForecast {
 
         val request = Request.Builder()
-            .url(baseUrl.plus(location.station?.trim()))
+            .url(baseUrl.plus(location.stationID?.trim()))
             .build()
 
         val response = client.newCall(request).execute()

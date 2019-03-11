@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.adapters.LocationListAdapter
-import com.example.helse.data.AirqualityLocation
+import com.example.helse.data.entity.AirqualityLocation
 import kotlinx.android.synthetic.main.activity_location_list.*
 
 
