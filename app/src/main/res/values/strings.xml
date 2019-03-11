@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">helse</string>
     <string name="location_text">Luftkvalitet for %1$s, %2$s:</string>
-    <string name="o3">03: %.0f</string>
-    <string name="pm10">pm10: %.0f</string>
-    <string name="pm25">pm25: %.0f</string>
-    <string name="no2">no2: %.0f</string>
+    <string name="o3_concentration">Ozon på bakkenivå: %.0f</string>
+    <string name="no2_concentration">Nitrogenoksid: %.0f</string>
+    <string name="pm10_concentration">Svevestøv (PM10): %.0f</string>
+    <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f</string>
 
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s, %2$s</string>

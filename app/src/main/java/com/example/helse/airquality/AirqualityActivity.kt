@@ -33,10 +33,10 @@ class AirqualityActivity : AppCompatActivity() {
 
 
         viewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-            o3.text = getString(R.string.o3, forecast.Airquality.variables.o3_concentration)
-            no2.text = getString(R.string.no2, forecast.Airquality.variables.no2_concentration)
-            pm10.text = getString(R.string.pm10, forecast.Airquality.variables.pm10_concentration)
-            pm25.text = getString(R.string.pm25, forecast.Airquality.variables.pm25_concentration)
+            o3_concentration.text = getString(R.string.o3_concentration, forecast.Airquality.variables.o3_concentration)
+            no2_concentration.text = getString(R.string.no2_concentration, forecast.Airquality.variables.no2_concentration)
+            pm10_concentration.text = getString(R.string.pm10_concentration, forecast.Airquality.variables.pm10_concentration)
+            pm25_concentration.text = getString(R.string.pm25_concentration, forecast.Airquality.variables.pm25_concentration)
 
         })
     }
