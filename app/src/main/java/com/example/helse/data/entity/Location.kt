@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey
 const val CURRENT_LOCATION_ID = 0 // TODO: create key for current
 
 @Entity(tableName = "airquality_locations")
-data class AirqualityLocation(
+data class Location(
     val location: String,
     val superlocation: String,
+    val stationID: String,
+    // unique ID per API/StationID? Add as system expand
     @PrimaryKey
-    val stationID: String)
+    val id: String = location)

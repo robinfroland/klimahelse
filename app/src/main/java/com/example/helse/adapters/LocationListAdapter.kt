@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
-import com.example.helse.data.entity.AirqualityLocation
+import com.example.helse.data.entity.Location
 import kotlinx.android.synthetic.main.location_element.view.*
 
-class LocationListAdapter(private var locations: ArrayList<AirqualityLocation>): RecyclerView.Adapter<ListViewHolder>() {
+class LocationListAdapter(private var locations: ArrayList<Location>): RecyclerView.Adapter<ListViewHolder>() {
 
 
     override fun getItemCount(): Int {

@@ -3,7 +3,7 @@ package com.example.helse.data
 import android.util.Log
 import com.example.helse.data.entity.Airquality
 import com.example.helse.data.entity.AirqualityForecast
-import com.example.helse.data.entity.AirqualityLocation
+import com.example.helse.data.entity.Location
 import com.example.helse.data.entity.AirqualityVariables
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -13,11 +13,11 @@ import org.json.JSONObject
 import java.io.IOException
 
 interface AirqualityApi {
-    fun fetchAirqualityLocations(): List<AirqualityLocation>
+    fun fetchAirqualityLocations(): List<Location>
     fun fetchAirquality(): AirqualityForecast
 }
 
-class AirqualityApiImpl(private val location: AirqualityLocation) :
+class AirqualityApiImpl(private val location: Location) :
     AirqualityApi {
 
     private val client = OkHttpClient()
@@ -38,7 +38,7 @@ class AirqualityApiImpl(private val location: AirqualityLocation) :
 
     }
 
-    override fun fetchAirqualityLocations(): List<AirqualityLocation> {
+    override fun fetchAirqualityLocations(): List<Location> {
         try {
             val request = Request.Builder()
                 .url(locationsUrl)
@@ -90,16 +90,16 @@ class AirqualityApiImpl(private val location: AirqualityLocation) :
         )
     }
 
-    private fun parseAirqualityLocations(response: Response): ArrayList<AirqualityLocation> {
+    private fun parseAirqualityLocations(response: Response): ArrayList<Location> {
         val bodyAsJSON = JSONArray(response.body()?.string())
-        val parsedLocations = ArrayList<AirqualityLocation>()
+        val parsedLocations = ArrayList<Location>()
 
         for (i in 0 until bodyAsJSON.length()) {
             val jsonObject = bodyAsJSON.getJSONObject(i)
             val location = jsonObject.getString("superlocation")
             val superlocation = jsonObject.getJSONObject("location").getString("superlocation")
             val station = jsonObject.getString("eoi")
-            parsedLocations.add(AirqualityLocation(location, superlocation, station))
+            parsedLocations.add(Location(location, superlocation, station))
         }
         return parsedLocations
     }

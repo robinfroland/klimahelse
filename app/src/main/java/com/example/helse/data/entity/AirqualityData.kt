@@ -6,7 +6,7 @@ import androidx.room.Entity
 @Entity
 data class Airquality(val from: String, val to: String, val variables: AirqualityVariables)
 
-data class AirqualityForecast(val location: AirqualityLocation, val Airquality: Airquality)
+data class AirqualityForecast(val location: Location, val Airquality: Airquality)
 
 data class AirqualityVariables(
     val o3_concentration: Double,
