@@ -1,12 +1,11 @@
-package com.example.helse.airquality
+package com.example.helse
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.helse.R
+import com.example.helse.adapters.LocationListAdapter
+import com.example.helse.data.AirqualityLocation
 import kotlinx.android.synthetic.main.activity_location_list.*
-import kotlinx.android.synthetic.main.activity_location_list.view.*
 
 
 class LocationListActivity : AppCompatActivity() {
@@ -17,8 +16,10 @@ class LocationListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_list)
 
-        locationArray = arrayListOf(AirqualityLocation("Alnabru", "Oslo", "NO0057A"),
-            AirqualityLocation("Majorstuen", "Oslo", "NO0057A"))
+        locationArray = arrayListOf(
+            AirqualityLocation("Alnabru", "Oslo", "NO0057A"),
+            AirqualityLocation("Majorstuen", "Oslo", "NO0057A")
+        )
 
         recyclerView_locations.layoutManager = LinearLayoutManager(this)
         recyclerView_locations.adapter = LocationListAdapter(locationArray)

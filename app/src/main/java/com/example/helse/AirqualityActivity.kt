@@ -1,11 +1,14 @@
-package com.example.helse.airquality
+package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.helse.R
+import com.example.helse.data.AirqualityApiImpl
+import com.example.helse.data.AirqualityLocation
+import com.example.helse.data.AirqualityRepositoryImpl
+import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.activity_airquality.*
 
 
@@ -28,7 +31,11 @@ class AirqualityActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java).apply {
             airqualityRepository =
-                AirqualityRepositoryImpl(AirqualityApiImpl(defaultLocation))
+                AirqualityRepositoryImpl(
+                    AirqualityApiImpl(
+                        defaultLocation
+                    )
+                )
         }
 
 

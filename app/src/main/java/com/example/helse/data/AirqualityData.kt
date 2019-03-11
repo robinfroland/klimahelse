@@ -1,4 +1,4 @@
-package com.example.helse.airquality
+package com.example.helse.data
 
 data class Airquality(val from: String, val to: String, val variables: AirqualityVariables)
 

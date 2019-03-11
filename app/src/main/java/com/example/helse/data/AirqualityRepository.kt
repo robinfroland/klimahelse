@@ -1,4 +1,4 @@
-package com.example.helse.airquality
+package com.example.helse.data
 
 interface AirqualityRepository {
     suspend fun fetchLocations(): List<AirqualityLocation>
