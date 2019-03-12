@@ -2,18 +2,19 @@ package com.example.helse
 
 
 import android.os.Bundle
-import android.widget.ListAdapter
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.helse.databinding.ActivitySearchBinding
+import com.example.helse.utilities.ListAdapter
 import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
-    internal lateinit var activitySearchBinding: ActivitySearchBinding
+    private lateinit var activitySearchBinding: ActivitySearchBinding
     internal lateinit var adapter: ListAdapter
 
-    internal var searchList: MutableList<String> = ArrayList()
+    private var searchList: MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +25,13 @@ class SearchActivity : AppCompatActivity() {
         searchList.add("Stavanger")
         searchList.add("Trondheim")
 
-        adapter = com.example.helse.utilities.ListAdapter(searchList)
+        adapter = ListAdapter(searchList)
         activitySearchBinding.listView.adapter = adapter
 
-        activitySearchBinding.search.setActivated(true)
-        activitySearchBinding.search.setQueryHint("Søk etter område")
+        activitySearchBinding.search.isActivated = true
+        activitySearchBinding.search.queryHint = "Søk etter område"
         activitySearchBinding.search.onActionViewExpanded()
-        activitySearchBinding.search.setIconified(false)
+        activitySearchBinding.search.isIconified = false
         activitySearchBinding.search.clearFocus()
 
         activitySearchBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
