@@ -1,14 +1,12 @@
 package com.example.helse
 
+
 import android.os.Bundle
 import android.widget.ListAdapter
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.helse.databinding.ActivitySearchBinding
-
-
-import java.util.ArrayList
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -27,7 +25,7 @@ class SearchActivity : AppCompatActivity() {
         searchList.add("Trondheim")
 
         adapter = com.example.helse.utilities.ListAdapter(searchList)
-        activitySearchBinding.listView.setAdapter(adapter)
+        activitySearchBinding.listView.adapter = adapter
 
         activitySearchBinding.search.setActivated(true)
         activitySearchBinding.search.setQueryHint("Søk etter område")
@@ -41,7 +39,6 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-
                 adapter.filter.filter(newText)
 
                 return false
