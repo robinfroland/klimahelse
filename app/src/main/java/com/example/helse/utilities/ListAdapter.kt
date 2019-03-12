@@ -1,6 +1,5 @@
 package com.example.helse.utilities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,74 +12,63 @@ import androidx.databinding.DataBindingUtil
 import com.example.helse.R
 import com.example.helse.databinding.ActivityRowitemBinding
 
-class ListAdapter(internal var mData: List<String>) : BaseAdapter(), Filterable {
-    internal var mStringFilterList: List<String>
-    internal var valueFilter: ValueFilter? = null
+
+
+
+class ListAdapter(internal var data: List<String>) : BaseAdapter(), Filterable {
+    private var stringFilterList: List<String> = data
     private var inflater: LayoutInflater? = null
 
-    init {
-        mStringFilterList = mData
-    }
-
-
     override fun getCount(): Int {
-        return mData.size
+        return data.size
     }
 
     override fun getItem(position: Int): String {
-        return mData[position]
+        return data[position]
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         if (inflater == null) {
             inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
         val rowItemBinding: ActivityRowitemBinding = DataBindingUtil.inflate(inflater!!, R.layout.activity_rowitem, parent, false)
-        rowItemBinding.stringName.setText(mData[position])
+        rowItemBinding.stringName.text = data[position]
 
-
-        return rowItemBinding.getRoot()
+        return rowItemBinding.root
     }
 
     override fun getFilter(): Filter {
-        if (valueFilter == null) {
-            valueFilter = ValueFilter()
-        }
-        return valueFilter as ValueFilter
+        return ValueFilter()
     }
 
     inner class ValueFilter : Filter() {
         override fun performFiltering(constraint: CharSequence?): Filter.FilterResults {
             val results = Filter.FilterResults()
 
-            if (constraint != null && constraint.isNotEmpty()) {
+            if (!constraint.isNullOrEmpty()) {
                 val filterList = ArrayList<String>()
-                for (i in mStringFilterList.indices) {
-                    if (mStringFilterList[i].toUpperCase().contains(constraint.toString().toUpperCase())) {
-                        filterList.add(mStringFilterList[i])
+                for (i in stringFilterList.indices) {
+                    if (stringFilterList[i].toUpperCase().contains(constraint.toString().toUpperCase())) {
+                        filterList.add(stringFilterList[i])
                     }
                 }
                 results.count = filterList.size
                 results.values = filterList
             } else {
-                results.count = mStringFilterList.size
-                results.values = mStringFilterList
+                results.count = stringFilterList.size
+                results.values = stringFilterList
             }
             return results
 
         }
 
-        override fun publishResults(
-            constraint: CharSequence,
-            results: Filter.FilterResults
-        ) {
-            mData = results.values as ArrayList<String>
+        override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
+            data = results.values as ArrayList<String>
             notifyDataSetChanged()
         }
 

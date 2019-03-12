@@ -11,14 +11,13 @@ import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var activitySearchBinding: ActivitySearchBinding
+    private lateinit var activitySearch: ActivitySearchBinding
     internal lateinit var adapter: ListAdapter
-
     private var searchList: MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activitySearchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search)
+        activitySearch = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
         searchList.add("Oslo")
         searchList.add("Bergen")
@@ -26,15 +25,15 @@ class SearchActivity : AppCompatActivity() {
         searchList.add("Trondheim")
 
         adapter = ListAdapter(searchList)
-        activitySearchBinding.listView.adapter = adapter
+        activitySearch.listView.adapter = adapter
 
-        activitySearchBinding.search.isActivated = true
-        activitySearchBinding.search.queryHint = "Søk etter område"
-        activitySearchBinding.search.onActionViewExpanded()
-        activitySearchBinding.search.isIconified = false
-        activitySearchBinding.search.clearFocus()
+        activitySearch.search.isActivated = true
+        activitySearch.search.queryHint = "Søk etter område"
+        activitySearch.search.onActionViewExpanded()
+        activitySearch.search.isIconified = false
+        activitySearch.search.clearFocus()
 
-        activitySearchBinding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        activitySearch.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
