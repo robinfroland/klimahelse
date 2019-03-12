@@ -24,7 +24,7 @@ class SearchActivity : AppCompatActivity() {
         searchList.add("Stavanger")
         searchList.add("Trondheim")
 
-        adapter = ListAdapter(searchList)
+        adapter = ListAdapter(searchList, this)
         activitySearch.listView.adapter = adapter
 
         activitySearch.search.isActivated = true
