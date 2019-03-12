@@ -1,8 +1,11 @@
-package com.example.helse.airquality
+package com.example.helse.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.helse.data.AirqualityForecast
+import com.example.helse.data.AirqualityLocation
+import com.example.helse.data.AirqualityRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
