@@ -1,44 +1,32 @@
-package com.example.helse.data
+package com.example.helse.data.api
 
 import android.util.Log
+import com.example.helse.data.entities.Airquality
+import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.entities.AirqualityVariables
+import com.example.helse.data.entities.Location
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
 interface AirqualityApi {
-    fun fetchAirqualityLocations(): List<AirqualityLocation>
     fun fetchAirquality(): AirqualityForecast
 }
 
-class AirqualityApiImpl(private val location: AirqualityLocation) :
-    AirqualityApi {
+class AirqualityResponse(
+    private val location: Location
+) : AirqualityApi {
 
     private val client = OkHttpClient()
-    private val baseUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="
-    private val locationsUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
+    private val baseURL = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="
+    private lateinit var airqualityForecast: AirqualityForecast
 
     override fun fetchAirquality(): AirqualityForecast {
-
-        val request = Request.Builder()
-            .url(baseUrl.plus(location.station?.trim()))
-            .build()
-
-        val response = client.newCall(request).execute()
-
-        //TODO: Gjøre strukturen mer sikker og robust
-
-        return parseAirqualityForecastData(response)
-
-    }
-
-    override fun fetchAirqualityLocations(): List<AirqualityLocation> {
         try {
             val request = Request.Builder()
-                .url(locationsUrl)
-                .get()
+                .url("${baseURL}NO0057A")
                 .build()
 
             val response = client.newCall(request).execute()
@@ -48,15 +36,16 @@ class AirqualityApiImpl(private val location: AirqualityLocation) :
                 throw Error("Something went wrong, error code is not 200 ${response.message()}")
             }
 
-            return parseAirqualityLocations(response)
+            airqualityForecast = response.parseResponse()
+
         } catch (e: IOException) {
             Log.getStackTraceString(e)
         }
-        return emptyList()
+        return airqualityForecast
     }
 
-    private fun parseAirqualityForecastData(response: Response): AirqualityForecast {
-        val bodyAsJSON = JSONObject(response.body()?.string())
+    private fun Response.parseResponse(): AirqualityForecast {
+        val bodyAsJSON = JSONObject(this.body()?.string())
 
         val data = bodyAsJSON.getJSONObject("data").getJSONArray("time")
 
@@ -85,20 +74,5 @@ class AirqualityApiImpl(private val location: AirqualityLocation) :
             )
         )
     }
-
-    private fun parseAirqualityLocations(response: Response): ArrayList<AirqualityLocation> {
-        val bodyAsJSON = JSONArray(response.body()?.string())
-        val parsedLocations = ArrayList<AirqualityLocation>()
-
-        for (i in 0 until bodyAsJSON.length()) {
-            val jsonObject = bodyAsJSON.getJSONObject(i)
-            val location = jsonObject.getString("superlocation")
-            val superlocation = jsonObject.getJSONObject("location").getString("superlocation")
-            val station = jsonObject.getString("eoi")
-            parsedLocations.add(AirqualityLocation(location, superlocation, station))
-        }
-        return parsedLocations
-    }
-
 }
 
