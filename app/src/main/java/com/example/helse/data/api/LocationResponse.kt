@@ -11,7 +11,8 @@ import java.io.IOException
 interface LocationApi {
     fun fetchAllLocations(): List<Location>
 }
-class LocationResponse: LocationApi {
+
+class LocationResponse : LocationApi {
 
     private val client = OkHttpClient()
     private val locationUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"

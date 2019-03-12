@@ -7,12 +7,14 @@ import androidx.room.RoomDatabase
 import com.example.helse.data.entities.Location
 
 @Database(entities = [Location::class], version = 1, exportSchema = false)
-abstract class LocalDatabase: RoomDatabase() {
+abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao
 
     companion object {
-        @Volatile private var instance: LocalDatabase? = null
+        @Volatile
+        private var instance: LocalDatabase? = null
+
         fun getInstance(context: Context): LocalDatabase {
             return instance ?: synchronized(this) {
                 instance
@@ -21,8 +23,10 @@ abstract class LocalDatabase: RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context.applicationContext,
-                LocalDatabase::class.java, "local_database")
+            Room.databaseBuilder(
+                context.applicationContext,
+                LocalDatabase::class.java, "local_database"
+            )
                 .build()
     }
 

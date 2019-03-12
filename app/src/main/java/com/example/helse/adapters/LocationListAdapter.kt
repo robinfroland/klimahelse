@@ -9,7 +9,8 @@ import com.example.helse.data.entities.Location
 import kotlinx.android.synthetic.main.location_element.view.*
 
 class LocationListAdapter(
-    private var locations: List<Location>): RecyclerView.Adapter<ListViewHolder>() {
+    private var locations: List<Location>
+) : RecyclerView.Adapter<ListViewHolder>() {
 
     override fun getItemCount(): Int {
         return locations.size
@@ -30,4 +31,4 @@ class LocationListAdapter(
 
 }
 
-class ListViewHolder(val view: View): RecyclerView.ViewHolder(view)
+class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view)

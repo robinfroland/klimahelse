@@ -11,7 +11,7 @@ interface Locations {
 class LocationRepository(
     private val locationDao: LocationDao,
     private val locationApi: LocationApi
-): Locations {
+) : Locations {
 
 
     override suspend fun getAllLocations(): List<Location> {
@@ -25,7 +25,7 @@ class LocationRepository(
 
     private fun locationsExist(): Boolean {
         val locations = locationDao.getAllLocations()
-        if(locations.isEmpty()) {
+        if (locations.isEmpty()) {
             return false
         }
         return true

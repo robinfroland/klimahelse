@@ -3,8 +3,8 @@ package com.example.helse.data.api
 import android.util.Log
 import com.example.helse.data.entities.Airquality
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.AirqualityVariables
+import com.example.helse.data.entities.Location
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -16,7 +16,8 @@ interface AirqualityApi {
 }
 
 class AirqualityResponse(
-    private val location: Location): AirqualityApi {
+    private val location: Location
+) : AirqualityApi {
 
     private val client = OkHttpClient()
     private val baseURL = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="
@@ -25,7 +26,7 @@ class AirqualityResponse(
     override fun fetchAirquality(): AirqualityForecast {
         try {
             val request = Request.Builder()
-                .url("https://api.met.no/weatherapi/airqualityforecast/0.1/?station=NO0057A")
+                .url("${baseURL}NO0057A")
                 .build()
 
             val response = client.newCall(request).execute()

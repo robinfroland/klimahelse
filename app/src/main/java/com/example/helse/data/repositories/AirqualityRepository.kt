@@ -9,7 +9,7 @@ interface Airquality {
 
 class AirqualityRepository(
     private val airqualityApi: AirqualityApi
-): Airquality {
+) : Airquality {
 
     override suspend fun fetchAirquality(): AirqualityForecast {
         return airqualityApi.fetchAirquality()
