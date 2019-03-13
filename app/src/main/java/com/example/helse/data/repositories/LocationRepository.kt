@@ -1,11 +1,12 @@
 package com.example.helse.data.repositories
 
+import androidx.annotation.WorkerThread
 import com.example.helse.data.api.LocationApi
 import com.example.helse.data.database.LocationDao
 import com.example.helse.data.entities.Location
 
 interface Locations {
-    suspend fun getAllLocations(): List<Location>
+    suspend fun getAllLocations(): MutableList<Location>
 }
 
 class LocationRepository(
@@ -13,8 +14,8 @@ class LocationRepository(
     private val locationApi: LocationApi
 ) : Locations {
 
-
-    override suspend fun getAllLocations(): List<Location> {
+    @WorkerThread
+    override suspend fun getAllLocations(): MutableList<Location> {
         if (!locationsExist()) {
             locationDao.insertAll(
                 locationApi.fetchAllLocations()

@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         open_searchfrag.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
+            supportFragmentManager.beginTransaction()
+                .add(R.id.root_layout, SearchFragment())
+                .commit()
         }
 
     }

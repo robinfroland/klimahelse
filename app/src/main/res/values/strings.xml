@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">helse</string>
+    <string name="loading_text">Loading ...</string>
+    <string name="search_hint">Søk etter område</string>
     <string name="location_text">Luftkvalitet for %1$s, %2$s:</string>
     <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f</string>
     <string name="no2_concentration">Nitrogenoksid (NO2): %.0f</string>

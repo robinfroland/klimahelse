@@ -13,8 +13,8 @@ class SearchViewModel() : ViewModel() {
 
     lateinit var locationRepository: Locations
 
-    private val getLocations: MutableLiveData<List<Location>> by lazy {
-        MutableLiveData<List<Location>>().also {
+    private val getLocations: MutableLiveData<MutableList<Location>> by lazy {
+        MutableLiveData<MutableList<Location>>().also {
             loadLocations()
         }
     }

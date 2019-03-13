@@ -18,9 +18,9 @@ class AirqualityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_airquality)
 
-        showLocations.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-        }
+//        showLocations.setOnClickListener {
+//            startActivity(Intent(this, SearchActivity::class.java))
+//        }
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
