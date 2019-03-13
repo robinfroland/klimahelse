@@ -9,10 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class LocationViewModel : ViewModel() {
-    lateinit var locations: Locations
+class SearchViewModel() : ViewModel() {
 
-    private val getLocations:  MutableLiveData<List<Location>> by lazy {
+    lateinit var locationRepository: Locations
+
+    private val getLocations: MutableLiveData<List<Location>> by lazy {
         MutableLiveData<List<Location>>().also {
             loadLocations()
         }
@@ -20,10 +21,10 @@ class LocationViewModel : ViewModel() {
 
     private fun loadLocations() {
         viewModelScope.launch {
-            val deferred = async(Dispatchers.IO) { locations.getAllLocations() }
+            val deferred = async(Dispatchers.IO) { locationRepository.getAllLocations() }
             getLocations.value = deferred.await()
         }
     }
 
-    fun getAllLocations() = getLocations
+    fun getLocations() = getLocations
 }

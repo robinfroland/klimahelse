@@ -19,7 +19,7 @@ class AirqualityActivity : AppCompatActivity() {
         setContentView(R.layout.activity_airquality)
 
         showLocations.setOnClickListener {
-            startActivity(Intent(this, LocationListActivity::class.java))
+            startActivity(Intent(this, SearchActivity::class.java))
         }
 
         // defaultLocation == user location or defined location during setup

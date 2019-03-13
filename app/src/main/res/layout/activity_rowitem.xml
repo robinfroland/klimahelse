@@ -4,7 +4,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.example.helse.utilities.ListAdapter">
+        tools:context="com.example.helse.adapters.SearchAdapter">
 
         <TextView
             android:id="@+id/title"

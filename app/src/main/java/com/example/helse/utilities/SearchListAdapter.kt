@@ -13,7 +13,7 @@ import com.example.helse.databinding.ActivityRowitemBinding
 import kotlinx.android.synthetic.main.activity_rowitem.view.*
 
 
-class ListAdapter(internal var data: List<String>, context: Context) : BaseAdapter(), Filterable {
+class SearchListAdapter(internal var data: List<String>, context: Context) : BaseAdapter(), Filterable {
     private var stringFilterList: List<String> = data
     private var inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private var filter = ValueFilter()

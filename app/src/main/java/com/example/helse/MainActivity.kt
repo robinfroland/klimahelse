@@ -16,5 +16,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AirqualityActivity::class.java))
         }
 
+        open_searchfrag.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+
     }
 }
