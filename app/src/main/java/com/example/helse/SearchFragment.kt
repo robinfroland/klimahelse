@@ -20,8 +20,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var viewAdapter: LocationAdapter
-
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_search, container, false)
 
@@ -44,8 +43,13 @@ class SearchFragment : Fragment() {
                 return false
             }
 
-            override fun onQueryTextChange(userInput: String?): Boolean {
-                viewAdapter.filter.filter(userInput)
+            override fun onQueryTextChange(userInput: String): Boolean {
+                if (userInput.isNotEmpty()) {
+                    viewAdapter.filter.filter(userInput)
+                    search_view.visibility = View.VISIBLE
+                } else {
+                    search_view.visibility = View.GONE
+                }
                 return false
             }
         })
