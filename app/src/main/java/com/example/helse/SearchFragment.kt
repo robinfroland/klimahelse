@@ -1,6 +1,7 @@
 package com.example.helse
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
@@ -34,7 +35,7 @@ class SearchFragment : Fragment() {
 
         viewModel.getLocations().observe(this, Observer { locations ->
             recyclerView_locations.layoutManager = LinearLayoutManager(context)
-            viewAdapter = LocationAdapter()
+            viewAdapter = LocationAdapter { location : Location -> locationClicked(location)}
             recyclerView_locations.adapter = viewAdapter
             viewAdapter.submitList(locations)
         })
@@ -50,6 +51,15 @@ class SearchFragment : Fragment() {
 
 //
         setHasOptionsMenu(true)
+    }
+
+    private fun locationClicked(location: Location) {
+        val intent = Intent(activity, AirqualityActivity::class.java)
+        val extras = Bundle()
+        extras.putString("LOCATION", location.location)
+        extras.putString("SUPERLOCATION", location.superlocation)
+        intent.putExtras(extras)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

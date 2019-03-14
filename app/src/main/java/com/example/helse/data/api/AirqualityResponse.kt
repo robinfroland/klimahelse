@@ -20,7 +20,7 @@ class AirqualityResponse(
 ) : AirqualityApi {
 
     private val client = OkHttpClient()
-    private val baseURL = "https://api.met.no/weatherapi/airqualityforecast/0.1/?station="
+    private val baseURL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
     private lateinit var airqualityForecast: AirqualityForecast
 
     override fun fetchAirquality(): AirqualityForecast {
@@ -34,12 +34,15 @@ class AirqualityResponse(
             if (!response.isSuccessful) {
                 print("responseCode: ${response.code()}")
                 throw Error("Something went wrong, error code is not 200 ${response.message()}")
+
             }
+            Thread.sleep(1000)
 
             airqualityForecast = response.parseResponse()
 
         } catch (e: IOException) {
             Log.getStackTraceString(e)
+            Thread.sleep(1000)
         }
         return airqualityForecast
     }

@@ -23,8 +23,19 @@ class AirqualityActivity : AppCompatActivity() {
 //        }
 
         // defaultLocation == user location or defined location during setup
-        val defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+        var defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+
+
+        val extras = intent.extras
+
+        if (extras != null) {
+            defaultLocation = Location(extras.getString("LOCATION")!!, extras.getString("SUPERLOCATION")!!, 2.00, 2.12, "NO0057A")
+        }
+
         location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
+
+
+
 
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)

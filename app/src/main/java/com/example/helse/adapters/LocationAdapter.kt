@@ -10,12 +10,13 @@ import com.example.helse.R
 import com.example.helse.data.entities.Location
 import kotlinx.android.synthetic.main.list_item_location.view.*
 //private var locations: MutableList<Location>
-class LocationAdapter() : RecyclerView.Adapter<LocationViewHolder>(), Filterable {
+class LocationAdapter(val clickListener: (Location) -> Unit) : RecyclerView.Adapter<LocationViewHolder>(), Filterable {
 
 //    private var locationList = locations
 //    private var locationListFull = locationList.toMutableList()
     private lateinit var locationList: MutableList<Location>
     private lateinit var locationListFull: MutableList<Location>
+    private val emptyList = mutableListOf<Location>()
     private var searchFilter = ValueFilter()
 
 
@@ -34,6 +35,7 @@ class LocationAdapter() : RecyclerView.Adapter<LocationViewHolder>(), Filterable
         val superlocation = locationList[index].superlocation
         holder.view.location.text = location
         holder.view.superlocation.text = superlocation
+        holder.view.setOnClickListener{clickListener(locationList[index])}
     }
 
     fun submitList(locations: MutableList<Location>) {
