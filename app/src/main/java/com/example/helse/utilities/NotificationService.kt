@@ -23,11 +23,11 @@ class NotificationService(private val context: Context) {
     private fun setupNotification() {
         // Create notifications
         onPauseNotification = NotificationCompat.Builder(context, "123")
-            .setSmallIcon(R.drawable.notification_icon).setContentTitle("You paused me")
+            .setSmallIcon(R.drawable.ic_notification).setContentTitle("You paused me")
             .setContentText("It's okay").setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         onResumeNotification = NotificationCompat.Builder(context, "456")
-            .setSmallIcon(R.drawable.notification_icon).setContentTitle("Brought me back to life!!")
+            .setSmallIcon(R.drawable.ic_notification).setContentTitle("Brought me back to life!!")
             .setContentText("Many thanks").setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         createNotificationChannel()

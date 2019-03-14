@@ -9,20 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.Location
 import kotlinx.android.synthetic.main.list_item_location.view.*
-//private var locations: MutableList<Location>
+
 class LocationAdapter(val clickListener: (Location) -> Unit) : RecyclerView.Adapter<LocationViewHolder>(), Filterable {
 
-//    private var locationList = locations
-//    private var locationListFull = locationList.toMutableList()
     private lateinit var locationList: MutableList<Location>
     private lateinit var locationListFull: MutableList<Location>
-    private val emptyList = mutableListOf<Location>()
     private var searchFilter = ValueFilter()
-
-
-    override fun getItemCount(): Int {
-        return locationList.size
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -35,7 +27,11 @@ class LocationAdapter(val clickListener: (Location) -> Unit) : RecyclerView.Adap
         val superlocation = locationList[index].superlocation
         holder.view.location.text = location
         holder.view.superlocation.text = superlocation
-        holder.view.setOnClickListener{clickListener(locationList[index])}
+        holder.view.setOnClickListener { clickListener(locationList[index]) }
+    }
+
+    override fun getItemCount(): Int {
+        return locationList.size
     }
 
     fun submitList(locations: MutableList<Location>) {
@@ -65,7 +61,6 @@ class LocationAdapter(val clickListener: (Location) -> Unit) : RecyclerView.Adap
             }
             results.values = filteredLocations
             return results
-
         }
 
         @Suppress("UNCHECKED_CAST")
