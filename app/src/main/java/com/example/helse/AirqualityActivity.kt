@@ -1,6 +1,5 @@
 package com.example.helse
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -18,25 +17,11 @@ class AirqualityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_airquality)
 
-//        showLocations.setOnClickListener {
-//            startActivity(Intent(this, SearchActivity::class.java))
-//        }
-
         // defaultLocation == user location or defined location during setup
-        var defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
-
-
-        val extras = intent.extras
-
-        if (extras != null) {
-            defaultLocation = Location(extras.getString("LOCATION")!!, extras.getString("SUPERLOCATION")!!, 2.00, 2.12, "NO0057A")
-        }
+        val defaultLocation = intent.getParcelableExtra("LOCATION")
+            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
 
         location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
-
-
-
-
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {

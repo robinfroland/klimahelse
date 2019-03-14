@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SearchViewModel() : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     lateinit var locationRepository: Locations
 

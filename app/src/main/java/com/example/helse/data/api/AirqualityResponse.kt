@@ -26,7 +26,7 @@ class AirqualityResponse(
     override fun fetchAirquality(): AirqualityForecast {
         try {
             val request = Request.Builder()
-                .url("${baseURL}NO0057A")
+                .url(baseURL + location.stationID)
                 .build()
 
             val response = client.newCall(request).execute()

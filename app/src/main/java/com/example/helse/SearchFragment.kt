@@ -76,10 +76,7 @@ class SearchFragment : Fragment() {
 
     private fun locationClicked(location: Location) {
         val intent = Intent(activity, AirqualityActivity::class.java)
-        val extras = Bundle()
-        extras.putString("LOCATION", location.location)
-        extras.putString("SUPERLOCATION", location.superlocation)
-        intent.putExtras(extras)
+        intent.putExtra("LOCATION", location)
         startActivity(intent)
     }
 
