@@ -36,13 +36,11 @@ class AirqualityResponse(
                 throw Error("Something went wrong, error code is not 200 ${response.message()}")
 
             }
-            Thread.sleep(1000)
 
             airqualityForecast = response.parseResponse()
 
         } catch (e: IOException) {
             Log.getStackTraceString(e)
-            Thread.sleep(1000)
         }
         return airqualityForecast
     }
