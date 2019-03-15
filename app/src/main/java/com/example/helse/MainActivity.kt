@@ -16,5 +16,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AirqualityActivity::class.java))
         }
 
+        open_searchfrag.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.root_layout, SearchFragment())
+                .commit()
+        }
+
     }
 }

@@ -1,11 +1,11 @@
 package com.example.helse.data.entities
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
-//Constant to retrieve currently selected location
-const val CURRENT_LOCATION_ID = 0 // TODO: create key for selected location
-
+@Parcelize
 @Entity(tableName = "locations")
 data class Location(
     val location: String,
@@ -15,4 +15,4 @@ data class Location(
     // unique ID per API/StationID? Add as system expand
     @PrimaryKey
     val stationID: String
-)
+) : Parcelable

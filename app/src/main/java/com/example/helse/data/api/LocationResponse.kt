@@ -9,16 +9,16 @@ import org.json.JSONArray
 import java.io.IOException
 
 interface LocationApi {
-    fun fetchAllLocations(): List<Location>
+    fun fetchAllLocations(): MutableList<Location>
 }
 
 class LocationResponse : LocationApi {
 
     private val client = OkHttpClient()
     private val locationUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
-    private lateinit var locations: List<Location>
+    private lateinit var locations: MutableList<Location>
 
-    override fun fetchAllLocations(): List<Location> {
+    override fun fetchAllLocations(): MutableList<Location> {
         try {
             val request = Request.Builder()
                 .url(locationUrl)
@@ -40,7 +40,7 @@ class LocationResponse : LocationApi {
         return locations
     }
 
-    private fun Response.parseResponse(): List<Location> {
+    private fun Response.parseResponse(): MutableList<Location> {
         val body = JSONArray(this.body()?.string())
         val parsedResponse = ArrayList<Location>()
 

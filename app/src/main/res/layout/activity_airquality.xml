@@ -43,11 +43,4 @@
         android:text="@string/pm10_concentration"
         android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/showLocations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="SE ANDRE STEDER" />
-
 </LinearLayout>
