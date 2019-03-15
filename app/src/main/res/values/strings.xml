@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">helse</string>
-    <string name="loading_text">Loading ...</string>
     <string name="search_hint">Søk etter område</string>
     <string name="location_text">Luftkvalitet for %1$s, %2$s:</string>
     <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f</string>
@@ -10,4 +9,14 @@
 
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s</string>
+
+    <string name="onboarding_title">Første gang du bruker værhelse?</string>
+    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. For å motta mer relevante varslet kan du sette opp en tilpasset helseprofil</string>
+    <string name="skip">Hopp over</string>
+    <string name="setup_preferences">Opprett helseprofil</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="application_logo">Application logo</string>
+    <string name="userlocation_switch">Bruk min posisjon for varsler</string>
 </resources>
