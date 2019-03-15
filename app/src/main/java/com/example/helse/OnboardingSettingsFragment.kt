@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.activity_onboarding.view.*
 import kotlinx.android.synthetic.main.fragment_onboarding_settings.view.*
 
 
 class OnboardingSettingsFragment : Fragment() {
 
     private lateinit var finishOnboarding: Button
+    private lateinit var dot: TabLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +30,7 @@ class OnboardingSettingsFragment : Fragment() {
 
         finishOnboarding.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
+            // destroy onboarding lifecycle
         }
         return view
     }

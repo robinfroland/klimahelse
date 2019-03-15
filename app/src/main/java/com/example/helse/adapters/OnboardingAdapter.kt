@@ -3,6 +3,7 @@ package com.example.helse.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.helse.OnboardingActivity
 import com.example.helse.OnboardingFragment
 import com.example.helse.OnboardingSettingsFragment
 
