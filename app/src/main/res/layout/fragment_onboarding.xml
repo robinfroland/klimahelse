@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".OnboardingFragment">
@@ -15,11 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintBottom_toTopOf="@+id/onboardingTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/logoDescription" />
 
     <TextView
         android:id="@+id/onboardingTitle"
@@ -32,7 +33,7 @@
         android:gravity="center"
         android:text="@string/onboarding_title"
         android:textColor="@color/design_default_color_background"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/onboardingDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="40dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="@string/onboarding_description"
@@ -54,30 +55,25 @@
 
     <Button
         android:id="@+id/setupBtn"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/colorWhite"
+        android:letterSpacing="0"
         android:text="@string/setup_preferences"
-        android:textColor="@color/dark_grey"
-        app:layout_constraintBottom_toTopOf="@+id/skipSetupBtn"
+        android:textColor="@color/mtrl_dark_on_surface_emphasis_high_type"
+        app:layout_constraintBottom_toTopOf="@+id/skipBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/skipSetupBtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <TextView
+        android:id="@+id/skipBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="128dp"
-        android:fontFamily="sans-serif-light"
-        android:minHeight="0dp"
-        android:padding="0dp"
+        android:layout_marginBottom="192dp"
         android:text="@string/skip"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="italic"
+        android:textColor="@color/mtrl_on_primary_emphasis_medium"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

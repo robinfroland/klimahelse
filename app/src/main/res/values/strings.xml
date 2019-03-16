@@ -20,5 +20,8 @@
     <string name="setup_preferences">Opprett helseprofil</string>
     <string name="application_logo">Application logo</string>
     <string name="userlocation_switch">Bruk min posisjon for varsler</string>
+    <string name="done">Ferdig</string>
+    <string name="preferencesDescription">Valgte kategorier vil vises i ditt dashboard.\nDette kan alltids endres i ettertid.</string>
+    <string name="logoDescription">Logo</string>
 
 </resources>

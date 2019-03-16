@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.fragment_onboarding_settings.view.*
 
 class OnboardingSettingsFragment : Fragment() {
 
-    private lateinit var finishOnboarding: Button
-    private lateinit var dot: TabLayout
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,9 +23,7 @@ class OnboardingSettingsFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_onboarding_settings, container, false)
 
-        finishOnboarding = view.finishOnboardingBtn
-
-        finishOnboarding.setOnClickListener {
+        view.finishBtn.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
             // destroy onboarding lifecycle
         }

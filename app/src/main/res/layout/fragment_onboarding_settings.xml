@@ -8,39 +8,74 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/preferencesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Tilpass for dine behov"
+        android:textColor="@color/mtrl_dark_on_surface_emphasis_high_type"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="42dp"
+        android:text="@string/preferencesDescription"
+        android:textAlignment="center"
+        android:textColor="@color/mtrl_dark_on_surface_emphasis_medium"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/preferencesTitle" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
-        android:text="Varsel for område"
+        android:layout_marginTop="40dp"
+        android:text="Område"
+        android:textColor="@color/mtrl_dark_on_surface_emphasis_high_type"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Switch
         android:id="@+id/switchMaterial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:checked="true"
-        android:paddingEnd="30dp"
+        android:layout_marginEnd="24dp"
+        android:checked="false"
+        android:fontFamily="sans-serif"
         android:text="@string/userlocation_switch"
+        android:textColor="@color/mtrl_dark_on_surface_emphasis_medium"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/finishOnboardingBtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+    <TextView
+        android:id="@+id/finishBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:text="FERDIG"
-        android:textColor="@color/colorAccent"
-        app:rippleColor="@color/design_default_color_primary_variant"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/done"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
