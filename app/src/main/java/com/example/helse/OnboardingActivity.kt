@@ -12,21 +12,25 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var onboardingAdapter: OnboardingAdapter
+
     // Check for first time launch before setting content
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullscreen()
 
-        onboardingAdapter = OnboardingAdapter(supportFragmentManager)
-        viewPager.adapter = onboardingAdapter
+        viewPager.adapter = OnboardingAdapter(supportFragmentManager)
 
         updateDotIndicator(0)
         viewPager.setOnPageListener()
 
+        firstDot.setOnClickListener {
+            viewPager.currentItem = 0
+        }
 
-
+        secondDot.setOnClickListener {
+            viewPager.currentItem = 1
+        }
     }
 
     override fun onBackPressed() {
