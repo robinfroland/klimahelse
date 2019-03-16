@@ -7,12 +7,10 @@
 
     <!-- Secondary color palette -->
     
-    <!-- Dot indicator colors -->
-    <color name="dot_light_active">#EBEBEB</color>
-    <color name="dot_color_active">#f98da5</color>
-    <color name="dot_light_inactive">#C9C9C9</color>
-    <color name="dot_color_inactive">#d1395c</color>
-    
+    <!-- Dot indicators -->
+    <color name="dot_white">#FFFFFF</color>
+    <color name="dot_color">#d1395c</color>
+
     <!-- Miscellaneous -->
     <color name="white">#FFFFFF</color>
     <color name="dark_grey">#1B1B1B</color>
