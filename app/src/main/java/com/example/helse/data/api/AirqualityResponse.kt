@@ -1,48 +1,39 @@
 package com.example.helse.data.api
 
-import android.util.Log
-import com.example.helse.data.entities.Airquality
-import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.AirqualityVariables
-import com.example.helse.data.entities.Location
+import android.app.Activity
+import com.example.helse.data.entities.*
+import com.example.helse.utilities.showNetworkError
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
-import java.io.IOException
 
 interface AirqualityApi {
     fun fetchAirquality(): AirqualityForecast
 }
 
 class AirqualityResponse(
-    private val location: Location
+    private val location: Location,
+    private val airqualityActivity: Activity
 ) : AirqualityApi {
 
     private val client = OkHttpClient()
-    private val baseURL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
-    private lateinit var airqualityForecast: AirqualityForecast
+    private val baseURL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?stations="
 
     override fun fetchAirquality(): AirqualityForecast {
-        try {
+        lateinit var response: Response
+        return try {
             val request = Request.Builder()
                 .url(baseURL + location.stationID)
                 .build()
 
-            val response = client.newCall(request).execute()
+            response = client.newCall(request).execute()
 
-            if (!response.isSuccessful) {
-                print("responseCode: ${response.code()}")
-                throw Error("Something went wrong, error code is not 200 ${response.message()}")
-
-            }
-
-            airqualityForecast = response.parseResponse()
-
-        } catch (e: IOException) {
-            Log.getStackTraceString(e)
+            response.parseResponse()
+        } catch (e: Exception) {
+            showNetworkError(airqualityActivity, response.code())
+            emptyAirqualityForecast
         }
-        return airqualityForecast
     }
 
     private fun Response.parseResponse(): AirqualityForecast {

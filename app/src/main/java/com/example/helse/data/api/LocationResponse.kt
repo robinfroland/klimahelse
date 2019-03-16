@@ -1,43 +1,38 @@
 package com.example.helse.data.api
 
-import android.util.Log
+import android.app.Activity
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyLocation
+import com.example.helse.utilities.showNetworkError
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONArray
-import java.io.IOException
 
 interface LocationApi {
     fun fetchAllLocations(): MutableList<Location>
 }
 
-class LocationResponse : LocationApi {
+class LocationResponse(private val activity: Activity?) : LocationApi {
 
     private val client = OkHttpClient()
-    private val locationUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
-    private lateinit var locations: MutableList<Location>
+    private val locationUrl = "https://api.met.no/weatherapi/airqualityforecast/0.1/statio"
 
     override fun fetchAllLocations(): MutableList<Location> {
-        try {
+        lateinit var response: Response
+        return try {
             val request = Request.Builder()
                 .url(locationUrl)
                 .get()
                 .build()
 
-            val response = client.newCall(request).execute()
+            response = client.newCall(request).execute()
 
-            if (!response.isSuccessful) {
-                print("responseCode: ${response.code()}")
-                throw Error("Something went wrong, error code is not 200 ${response.message()}")
-            }
-
-            locations = response.parseResponse()
-
-        } catch (e: IOException) {
-            Log.getStackTraceString(e)
+            response.parseResponse()
+        } catch (e: Exception) {
+            showNetworkError(activity, response.code())
+            mutableListOf(emptyLocation)
         }
-        return locations
     }
 
     private fun Response.parseResponse(): MutableList<Location> {
