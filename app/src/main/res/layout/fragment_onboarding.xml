@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="@string/onboarding_description"
@@ -61,7 +61,7 @@
         android:backgroundTint="@color/colorWhite"
         android:letterSpacing="0"
         android:text="@string/setup_preferences"
-        android:textColor="@color/mtrl_dark_on_surface_emphasis_high_type"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/skipBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

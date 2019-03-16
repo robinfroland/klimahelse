@@ -15,9 +15,9 @@
 
     <!-- Onboarding -->
     <string name="onboarding_title">Første gang du bruker værhelse?</string>
-    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. For å motta mer relevante varslet kan du sette opp en tilpasset helseprofil</string>
+    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne veiledningen for å lære mer eller tilpasse hva du ønsker å bli varslet om</string>
     <string name="skip">Hopp over</string>
-    <string name="setup_preferences">Opprett helseprofil</string>
+    <string name="setup_preferences">Start veiledning</string>
     <string name="application_logo">Application logo</string>
     <string name="userlocation_switch">Bruk min posisjon for varsler</string>
     <string name="done">Ferdig</string>

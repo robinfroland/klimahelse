@@ -25,7 +25,7 @@ class OnboardingSettingsFragment : Fragment() {
 
         view.finishBtn.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
-            // destroy onboarding lifecycle
+            requireActivity().finish()
         }
         return view
     }
