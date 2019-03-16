@@ -1,8 +1,13 @@
 package com.example.helse
 
-internal class SplashActivity : AppCompatActivity() {
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import java.lang.Thread.sleep
 
-    protected fun onCreate(savedInstanceState: Bundle) {
+class SplashActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
