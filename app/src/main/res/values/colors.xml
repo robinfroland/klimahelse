@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary color palette -->
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Secondary color palette -->
+    
+    <!-- Dot indicator colors -->
+    <color name="dot_light_active">#EBEBEB</color>
+    <color name="dot_color_active">#f98da5</color>
+    <color name="dot_light_inactive">#C9C9C9</color>
+    <color name="dot_color_inactive">#d1395c</color>
+    
+    <!-- Miscellaneous -->
     <color name="white">#FFFFFF</color>
     <color name="dark_grey">#1B1B1B</color>
+
 </resources>
