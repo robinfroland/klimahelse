@@ -17,6 +17,7 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.OnboardingTheme)
         super.onCreate(savedInstanceState)
         preferences = AppPreferences(this)
 

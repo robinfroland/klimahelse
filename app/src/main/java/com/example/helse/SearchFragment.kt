@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.helse.data.api.LocationResponse
 import com.example.helse.adapters.LocationAdapter
+import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.LocationRepository
@@ -20,7 +20,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var viewAdapter: LocationAdapter
-    
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_search, container, false)
 
@@ -69,7 +69,7 @@ class SearchFragment : Fragment() {
             .apply {
                 locationRepository = LocationRepository(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse()
+                    LocationResponse(this@SearchFragment.activity)
                 )
             }
     }

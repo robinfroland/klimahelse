@@ -54,8 +54,11 @@ class PreferencesFragment : Fragment() {
                 val location = locationClient.lastLocation
                 location.addOnSuccessListener {
                     val currentLocation = location.result
-                    lat.text = currentLocation?.latitude.toString()
-                    longt.text = currentLocation?.longitude.toString()
+                    // For demonstration purposes
+                    val latitude = "Latitude: " + currentLocation?.latitude.toString()
+                    val longtitude = "Longtitude: " + currentLocation?.longitude.toString()
+                    lat.text = latitude
+                    longt.text = longtitude
                 }
             } catch (e: SecurityException) {
                 println(e)
