@@ -16,8 +16,6 @@ class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var preferences: Preferences
 
-    // Check for first time launch before setting content
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = AppPreferences(this)
