@@ -16,3 +16,5 @@ data class Location(
     @PrimaryKey
     val stationID: String
 ) : Parcelable
+
+val emptyLocation = Location("", "", 0.00, 0.00, "")
