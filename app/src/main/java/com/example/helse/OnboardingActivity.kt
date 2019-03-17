@@ -20,6 +20,7 @@ class OnboardingActivity : AppCompatActivity() {
     // Check for first time launch before setting content
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.OnboardingTheme)
         super.onCreate(savedInstanceState)
         preferences = AppPreferences(this)
 
