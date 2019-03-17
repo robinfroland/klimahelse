@@ -31,7 +31,7 @@ class AirqualityResponse(
 
             response.parseResponse()
         } catch (e: Exception) {
-            showNetworkError(airqualityActivity, response.code())
+            showNetworkError(airqualityActivity, response.code(), e)
             emptyAirqualityForecast
         }
     }

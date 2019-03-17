@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import com.example.helse.MainActivity
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -59,12 +58,15 @@ class ExceptionHandler(private val context: Context) : Thread.UncaughtExceptionH
     }
 }
 
-fun showNetworkError(activity: Activity?, responseCode: Int) {
+fun showNetworkError(activity: Activity?, responseCode: Int, e: Throwable) {
     if (activity == null) {
         throw Error("showNetworkError(): activity can't be null..")
     }
+    Log.e("ERROR", e.toString())
     val message = when (responseCode) {
-        304, 400, 401, 403, 404, 409, 422, 500 -> "Network error. Please try again. If the problem persists, kill yourself."
+        301, 302, 404, 410 -> "Link does not exist. Please contact the developers."
+        500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511 -> "Server error. Wait some minutes and try again!"
+        304, 400, 401, 403, 409, 422 -> "Network error. Please try again. If the problem persists, contact devz"
         else -> "Something went wrong, very sorry about this. Please try again."
     }
     activity.runOnUiThread {

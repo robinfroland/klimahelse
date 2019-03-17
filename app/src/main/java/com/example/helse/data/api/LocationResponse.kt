@@ -30,7 +30,7 @@ class LocationResponse(private val activity: Activity?) : LocationApi {
 
             response.parseResponse()
         } catch (e: Exception) {
-            showNetworkError(activity, response.code())
+            showNetworkError(activity, response.code(), e)
             mutableListOf(emptyLocation)
         }
     }
