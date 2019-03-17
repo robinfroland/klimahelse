@@ -1,21 +1,21 @@
 <resources>
 
     <!-- Base application theme -->
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="ThemeMyApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <!-- Onboarding theme -->
-    <style name="Theme.MyApp.NoActionBar">
+    <style name="OnboardingTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-
+    <!-- Splash theme-->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splashscreen</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
 
