@@ -1,10 +1,9 @@
 package com.example.helse
 
-import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-
+import android.os.Bundle
+import com.example.helse.utilities.AppPreferences
+import com.example.helse.utilities.Preferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,15 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        open_airquality.setOnClickListener {
-            startActivity(Intent(this, AirqualityActivity::class.java))
-        }
-
-        open_searchfrag.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.root_layout, SearchFragment())
-                .commit()
-        }
-
+        val pref = AppPreferences(this)
+        pref.setFirstLaunch(true)
     }
 }
