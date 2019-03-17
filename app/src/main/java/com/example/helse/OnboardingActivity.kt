@@ -26,7 +26,7 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         // UNCOMMENT TO ACTIVATE FIRST LAUNCH ONLY:
-        //preferences.setFirstLaunch(false)
+        //pref.setFirstLaunch(false)
 
         setFullscreen()
 
@@ -85,4 +85,5 @@ class OnboardingActivity : AppCompatActivity() {
 
         })
     }
+
 }

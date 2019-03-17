@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_onboarding.view.*
+import com.example.helse.utilities.AppPreferences
+import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.fragment_onboarding.view.*
 
 class OnboardingFragment : Fragment() {
 
     private lateinit var onboardingPager: ViewPager
     private lateinit var setupBtn: Button
+    private lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +24,7 @@ class OnboardingFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
+        preferences = AppPreferences(requireContext())
 
         onboardingPager = requireActivity().findViewById(R.id.viewPager)
         setupBtn = view.setupBtn

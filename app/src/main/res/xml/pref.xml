@@ -23,7 +23,7 @@
             android:defaultValue="true"
             android:disableDependentsState="true"/>
 
-        <!-- Checkbox preferences for categories? -->
+        <!-- Checkbox pref for categories? -->
 
     </PreferenceCategory>
 
