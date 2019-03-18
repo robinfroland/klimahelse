@@ -23,7 +23,10 @@
         <activity
             android:name=".MainActivity"
             android:label="Værhelse"
-            android:theme="@style/SplashTheme"/>
+            android:theme="@style/SplashTheme" />
+        <activity
+            android:name=".NotificationsSettingsActivity"
+            android:label="Do not Disturb" />
         <activity
             android:name=".AirqualityActivity"
             android:label="Luftkvalitet" />
