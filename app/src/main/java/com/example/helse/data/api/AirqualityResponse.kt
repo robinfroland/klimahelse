@@ -29,41 +29,41 @@ class AirqualityResponse(
 
             response = client.newCall(request).execute()
 
-            response.parseResponse()
+            response.parseResponse(location)
         } catch (e: Exception) {
             showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
             emptyAirqualityForecast
         }
     }
 
-    private fun Response.parseResponse(): AirqualityForecast {
-        val bodyAsJSON = JSONObject(this.body()?.string())
+    companion object {
+        fun parseResponse(location: Location): AirqualityForecast {
+            val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
 
-        val data = bodyAsJSON.getJSONObject("data").getJSONArray("time")
+            //TODO: implement userdefined timeframe for forecast. Index 0 temporarily
+            val jsonObj = data.getJSONObject(0)
+            val to = jsonObj.getString("to")
+            val from = jsonObj.getString("from")
 
-        val jsonObj = data.getJSONObject(0)
-        val to = jsonObj.getString("to")
-        val from = jsonObj.getString("from")
+            val variables = jsonObj.getJSONObject("variables")
+            val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
+            val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
+            val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
+            val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
 
-        val variables = jsonObj.getJSONObject("variables")
-        val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
-        val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
-        val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
-        val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
-
-        return AirqualityForecast(
-            location,
-            Airquality(
-                from,
-                to,
-                AirqualityVariables(
-                    o3Concentration,
-                    pm10Concentration,
-                    pm25Concentration,
-                    no2Concentration
+            return AirqualityForecast(
+                location,
+                Airquality(
+                    from,
+                    to,
+                    AirqualityVariables(
+                        o3Concentration,
+                        pm10Concentration,
+                        pm25Concentration,
+                        no2Concentration
+                    )
                 )
             )
-        )
+        }
     }
 }
-

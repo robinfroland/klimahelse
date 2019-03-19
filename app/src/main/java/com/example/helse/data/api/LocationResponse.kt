@@ -35,27 +35,29 @@ class LocationResponse(private val activity: Activity?) : LocationApi {
         }
     }
 
-    private fun Response.parseResponse(): MutableList<Location> {
-        val body = JSONArray(this.body()?.string())
-        val parsedResponse = ArrayList<Location>()
+    companion object {
+        fun Response.parseResponse(): MutableList<Location> {
+            val body = JSONArray(this.body()?.string())
+            val parsedResponse = ArrayList<Location>()
 
-        for (i in 0 until body.length()) {
-            val locationObject = body.getJSONObject(i)
-            val location = locationObject.getString("name")
-            val superlocation = locationObject.getJSONObject("kommune").getString("name")
-            val longitude = locationObject.getString("longitude").toDouble()
-            val latitude = locationObject.getString("latitude").toDouble()
-            val station = locationObject.getString("eoi")
-            parsedResponse.add(
-                Location(
-                    location,
-                    superlocation,
-                    longitude,
-                    latitude,
-                    station
+            for (i in 0 until body.length()) {
+                val locationObject = body.getJSONObject(i)
+                val location = locationObject.getString("name")
+                val superlocation = locationObject.getJSONObject("kommune").getString("name")
+                val longitude = locationObject.getString("longitude").toDouble()
+                val latitude = locationObject.getString("latitude").toDouble()
+                val station = locationObject.getString("eoi")
+                parsedResponse.add(
+                    Location(
+                        location,
+                        superlocation,
+                        longitude,
+                        latitude,
+                        station
+                    )
                 )
-            )
+            }
+            return parsedResponse
         }
-        return parsedResponse
     }
 }
