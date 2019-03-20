@@ -10,8 +10,6 @@
             android:defaultValue="true"
             android:disableDependentsState="true"/>
 
-        <!-- Select location from search preference -->
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -22,8 +20,6 @@
             android:summary="Allow the app to send you relevant push-notifications"
             android:defaultValue="true"
             android:disableDependentsState="true"/>
-
-        <!-- Checkbox pref for categories? -->
 
     </PreferenceCategory>
 
