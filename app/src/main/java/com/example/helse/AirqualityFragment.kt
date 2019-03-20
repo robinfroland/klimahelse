@@ -28,14 +28,10 @@ class AirqualityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO: Fiks mtp. fragment
-        //setupErrorHandling(, this)
 
         // defaultLocation == user location or defined location during setup
-//        val defaultLocation = intent.getParcelableExtra("LOCATION")
-//            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
-
-        val defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+        val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
+            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
 
         location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
