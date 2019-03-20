@@ -54,7 +54,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun updateDotIndicator(page: Int) {
-        when(page) {
+        when (page) {
             0 -> {
                 firstDot.setBackgroundResource(R.drawable.dot_on_color)
                 secondDot.setBackgroundResource(R.drawable.dot_on_color)
@@ -79,12 +79,13 @@ class OnboardingActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 updateDotIndicator(position)
             }
+
             override fun onPageScrollStateChanged(state: Int) {
             }
+
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
         })
     }
-
 }
