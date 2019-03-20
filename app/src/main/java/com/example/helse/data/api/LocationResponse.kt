@@ -22,7 +22,7 @@ class LocationResponse(private val activity: Activity?) : LocationApi {
         lateinit var response: Response
         return try {
             val request = Request.Builder()
-                .url(locationUrl)
+                .url(locationUrlnact)
                 .get()
                 .build()
 
