@@ -6,7 +6,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
@@ -20,7 +19,6 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.OnboardingTheme)
         super.onCreate(savedInstanceState)
-        preferences = AppPreferences(this)
 
         setFullscreen()
 
@@ -32,6 +30,7 @@ class OnboardingActivity : AppCompatActivity() {
         firstDot.setOnClickListener {
             viewPager.currentItem = 0
         }
+
 
         secondDot.setOnClickListener {
             viewPager.currentItem = 1
