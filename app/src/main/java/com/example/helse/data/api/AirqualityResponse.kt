@@ -18,7 +18,7 @@ class AirqualityResponse(
 ) : AirqualityApi {
 
     private val client = OkHttpClient()
-    private val baseURL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?stations="
+    private val baseURL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
 
     override fun fetchAirquality(): AirqualityForecast {
         lateinit var response: Response
