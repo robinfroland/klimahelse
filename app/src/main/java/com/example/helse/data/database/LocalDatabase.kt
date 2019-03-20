@@ -8,7 +8,7 @@ import com.example.helse.data.entities.Location
 
 @Database(entities = [Location::class], version = 1, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
-// TODO: CURRENT LOCATION DAO
+
     abstract fun locationDao(): LocationDao
 
     companion object {
