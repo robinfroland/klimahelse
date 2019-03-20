@@ -25,9 +25,6 @@
             android:name=".MainActivity"
             android:label="Værhelse"
             android:theme="@style/SplashTheme" />
-        <activity
-            android:name=".AirqualityActivity"
-            android:label="Luftkvalitet" />
 
     </application>
 

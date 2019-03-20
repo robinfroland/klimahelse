@@ -1,7 +1,10 @@
 package com.example.helse
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.helse.data.api.AirqualityResponse
@@ -9,20 +12,30 @@ import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
 import com.example.helse.utilities.setupErrorHandling
 import com.example.helse.viewmodels.AirqualityViewModel
-import kotlinx.android.synthetic.main.activity_airquality.*
+import kotlinx.android.synthetic.main.fragment_airquality.*
 
 
-class AirqualityActivity : AppCompatActivity() {
+class AirqualityFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_airquality)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        setupErrorHandling(intent, this)
+        return inflater.inflate(R.layout.fragment_airquality, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //TODO: Fiks mtp. fragment
+        //setupErrorHandling(, this)
 
         // defaultLocation == user location or defined location during setup
-        val defaultLocation = intent.getParcelableExtra("LOCATION")
-            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+//        val defaultLocation = intent.getParcelableExtra("LOCATION")
+//            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+
+        val defaultLocation = Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
 
         location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
@@ -31,7 +44,7 @@ class AirqualityActivity : AppCompatActivity() {
                 airquality = AirqualityRepository(
                     AirqualityResponse(
                         defaultLocation,
-                        this@AirqualityActivity
+                        this@AirqualityFragment
                     )
                 )
             }
