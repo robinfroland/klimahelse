@@ -14,7 +14,7 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_preferences.*
 
 
-class PreferencesFragment : Fragment() {
+class SettingsFragment : Fragment() {
     // extend PreferenceFragment later
 
     private lateinit var locationClient: FusedLocationProviderClient
@@ -86,7 +86,7 @@ class PreferencesFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PreferencesFragment()
+        fun newInstance() = SettingsFragment()
     }
 
 }
