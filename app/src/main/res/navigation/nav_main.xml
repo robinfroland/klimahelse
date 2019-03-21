@@ -3,22 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/onboardingActivity">
+    app:startDestination="@id/dashboardFragment">
 
-    <activity
-        android:id="@+id/onboardingActivity"
-        android:name="com.example.helse.OnboardingActivity"
-        android:label="OnboardingActivity" />
     <fragment
-        android:id="@+id/onboardingFragment"
-        android:name="com.example.helse.OnboardingFragment"
-        android:label="OnboardingFragment" />
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.helse.DashboardFragment"
+        android:label="DashboardFragment"
+        tools:layout="@layout/fragment_dashboard"/>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.helse.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map" />
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.helse.SettingsFragment"
-        android:label="SettingsFragment" />
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.helse.MainActivity"
-        android:label="MainActivity" />
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/airqualityFragment"
+        android:name="com.example.helse.AirqualityFragment"
+        android:label="AirqualityFragment">
+        <action
+            android:id="@+id/airquality_to_information"
+            app:destination="@id/airqualityInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/airqualityInformationFragment"
+        android:name="com.example.helse.AirqualityInformationFragment"
+        android:label="AirqualityInformationFragment">
+        <action
+            android:id="@+id/information_to_airquality"
+            app:destination="@id/airqualityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
 </navigation>

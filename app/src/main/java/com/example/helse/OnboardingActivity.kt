@@ -19,15 +19,8 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.OnboardingTheme)
         super.onCreate(savedInstanceState)
-        preferences = AppPreferences(this)
 
-        if (!preferences.isFirstLaunch()) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
 
-        // UNCOMMENT TO ACTIVATE FIRST LAUNCH ONLY:
-        //pref.setFirstLaunch(false)
 
         setFullscreen()
 

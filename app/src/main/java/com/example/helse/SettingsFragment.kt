@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.fragment_preferences.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 class SettingsFragment : Fragment() {
@@ -25,7 +25,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_preferences, container, false)
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
         locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         preferences = AppPreferences(requireContext())
 
