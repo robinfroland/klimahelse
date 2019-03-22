@@ -1,5 +1,4 @@
-package com.example.helse
-
+package com.example.helse.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.helse.MainActivity
+import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.fragment_preferences.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 
-
-class PreferencesFragment : Fragment() {
+class SettingsFragment : Fragment() {
     // extend PreferenceFragment later
 
     private lateinit var locationClient: FusedLocationProviderClient
@@ -25,7 +25,7 @@ class PreferencesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_preferences, container, false)
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
         locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         preferences = AppPreferences(requireContext())
 
@@ -86,7 +86,6 @@ class PreferencesFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PreferencesFragment()
+        fun newInstance() = SettingsFragment()
     }
-
 }

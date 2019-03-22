@@ -1,6 +1,6 @@
 package com.example.helse.data.api
 
-import android.app.Activity
+import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.data.entities.*
 import com.example.helse.utilities.showNetworkError
 import okhttp3.OkHttpClient
@@ -14,7 +14,7 @@ interface AirqualityApi {
 
 class AirqualityResponse(
     private val location: Location,
-    private val airqualityActivity: Activity
+    private val airqualityFragment: AirqualityFragment
 ) : AirqualityApi {
 
     private val client = OkHttpClient()
@@ -31,7 +31,7 @@ class AirqualityResponse(
 
             response.parseResponse()
         } catch (e: Exception) {
-            showNetworkError(airqualityActivity, response.code(), e)
+            showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
             emptyAirqualityForecast
         }
     }
@@ -41,7 +41,6 @@ class AirqualityResponse(
 
         val data = bodyAsJSON.getJSONObject("data").getJSONArray("time")
 
-        //TODO: implement userdefined timeframe for forecast. Index 0 temporarily
         val jsonObj = data.getJSONObject(0)
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")

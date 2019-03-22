@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.ui.onboarding
 
 
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.viewpager.widget.ViewPager
+import com.example.helse.R
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.fragment_onboarding.view.*
@@ -40,6 +41,4 @@ class OnboardingFragment : Fragment() {
         fun newInstance() = OnboardingFragment()
 
     }
-
-
 }

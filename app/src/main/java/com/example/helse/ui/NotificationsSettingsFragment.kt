@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.helse.R
 import kotlinx.android.synthetic.main.fragment_notifications_settings.*
 
 class NotificationsSettingsFragment : Fragment() {

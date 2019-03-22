@@ -1,35 +1,23 @@
-package com.example.helse
+package com.example.helse.ui.onboarding
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.activity_onboarding.*
-
 
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.OnboardingTheme)
-        super.onCreate(savedInstanceState)
-        preferences = AppPreferences(this)
-
-        if (!preferences.isFirstLaunch()) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-
-        // UNCOMMENT TO ACTIVATE FIRST LAUNCH ONLY:
-        //pref.setFirstLaunch(false)
-
+        setTheme(R.style.AppTheme)
         setFullscreen()
+        super.onCreate(savedInstanceState)
 
         viewPager.adapter = OnboardingAdapter(supportFragmentManager)
 
