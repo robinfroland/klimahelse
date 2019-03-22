@@ -1,6 +1,5 @@
 package com.example.helse.ui.airquality
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,5 +16,4 @@ class AirqualityInformationFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_airquality_information, container, false)
     }
-
 }

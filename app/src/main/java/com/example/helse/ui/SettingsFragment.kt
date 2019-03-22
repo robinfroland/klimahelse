@@ -1,6 +1,5 @@
 package com.example.helse.ui
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_settings.*
-
 
 class SettingsFragment : Fragment() {
     // extend PreferenceFragment later
@@ -90,5 +88,4 @@ class SettingsFragment : Fragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
-
 }

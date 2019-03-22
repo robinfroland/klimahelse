@@ -41,6 +41,4 @@ class OnboardingFragment : Fragment() {
         fun newInstance() = OnboardingFragment()
 
     }
-
-
 }

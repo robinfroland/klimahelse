@@ -15,7 +15,6 @@ import com.example.helse.data.repositories.AirqualityRepository
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 
-
 class AirqualityFragment : Fragment() {
 
     override fun onCreateView(
@@ -26,12 +25,11 @@ class AirqualityFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_airquality, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         informationBtn.setOnClickListener {
-                Navigation.findNavController(it).navigate(R.id.airquality_to_information)
+            Navigation.findNavController(it).navigate(R.id.airquality_to_information)
         }
 
         // defaultLocation == user location or defined location during setup
@@ -61,5 +59,4 @@ class AirqualityFragment : Fragment() {
 
         })
     }
-
 }
