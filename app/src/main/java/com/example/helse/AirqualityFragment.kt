@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
@@ -28,6 +29,10 @@ class AirqualityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        informationBtn.setOnClickListener {
+                Navigation.findNavController(it).navigate(R.id.airquality_to_information)
+        }
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")

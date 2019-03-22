@@ -2,13 +2,17 @@ package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
+import com.example.helse.utilities.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,35 +20,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setFirstLaunch()
-        setTheme(R.style.Theme_MyApp)
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme)
+        setFirstLaunch()
         setContentView(R.layout.activity_main)
+
         setupErrorHandling(intent, this)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        setSupportActionBar(toolbar)
 
         bottom_navbar.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-//        button.setOnClickListener {
-//            startActivity(Intent(this, AirqualityActivity::class.java))
-//        }
-//
-//        setupErrorHandling(intent, this)
-//
-//        open_settings_button.setOnClickListener {
-//            supportFragmentManager.beginTransaction()
-//                .add(R.id.main, NotificationsSettingsFragment()).commit()
-//        }
+
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, null)
+    }
+
 
     private fun setFirstLaunch() {
         val preferences = AppPreferences(this)
 
         if (preferences.isFirstLaunch()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
-            preferences.setFirstLaunch(false) // comment out code to test onboardingprocess
+            preferences.setFirstLaunch(false) // set true to test onboarding
             finish()
         }
     }
