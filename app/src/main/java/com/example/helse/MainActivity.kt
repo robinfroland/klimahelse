@@ -2,17 +2,14 @@ package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
-import com.example.helse.utilities.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.ui
 
 
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.helse.MainActivity
+import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices

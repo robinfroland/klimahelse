@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.ui.airquality
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.example.helse.R
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
-import com.example.helse.utilities.setupErrorHandling
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 

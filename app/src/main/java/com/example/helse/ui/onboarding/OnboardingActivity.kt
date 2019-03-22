@@ -1,13 +1,12 @@
-package com.example.helse
+package com.example.helse.ui.onboarding
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.activity_onboarding.*
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.helse.DashboardFragment"
+        android:name="com.example.helse.ui.DashboardFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -35,19 +35,19 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.helse.MapFragment"
+        android:name="com.example.helse.ui.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.helse.SettingsFragment"
+        android:name="com.example.helse.ui.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/airqualityFragment"
-        android:name="com.example.helse.AirqualityFragment"
+        android:name="com.example.helse.ui.airquality.AirqualityFragment"
         android:label="AirqualityFragment"
         tools:layout="@layout/fragment_airquality">
         <action
@@ -61,13 +61,13 @@
 
     <fragment
         android:id="@+id/airqualityInformationFragment"
-        android:name="com.example.helse.AirqualityInformationFragment"
+        android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
         android:label="AirqualityInformationFragment"
         tools:layout="@layout/fragment_airquality_information" />
 
     <fragment
         android:id="@+id/allergyFragment"
-        android:name="com.example.helse.AllergyFragment"
+        android:name="com.example.helse.ui.allergy.AllergyFragment"
         android:label="fragment_allergy"
         tools:layout="@layout/fragment_allergy" >
         <action
@@ -81,13 +81,13 @@
 
     <fragment
         android:id="@+id/allergyInformationFragment"
-        android:name="com.example.helse.AllergyInformationFragment"
+        android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
         android:label="fragment_allergy_information"
         tools:layout="@layout/fragment_allergy_information" />
 
     <fragment
         android:id="@+id/uvFragment"
-        android:name="com.example.helse.UvFragment"
+        android:name="com.example.helse.ui.uv.UvFragment"
         android:label="fragment_uv"
         tools:layout="@layout/fragment_uv" >
         <action
@@ -101,7 +101,7 @@
 
     <fragment
         android:id="@+id/uvInformationFragment"
-        android:name="com.example.helse.UvInformationFragment"
+        android:name="com.example.helse.ui.uv.UvInformationFragment"
         android:label="fragment_uv_information"
         tools:layout="@layout/fragment_uv_information" />
 

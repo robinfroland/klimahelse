@@ -1,6 +1,6 @@
 package com.example.helse.data.api
 
-import com.example.helse.AirqualityFragment
+import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.data.entities.*
 import com.example.helse.utilities.showNetworkError
 import okhttp3.OkHttpClient
