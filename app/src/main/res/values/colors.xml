@@ -6,14 +6,13 @@
     <color name="colorPrimaryLight">#58a5f0</color>
 
     <!-- Secondary color palette -->
-    
+
     <!-- Dot indicators -->
     <color name="dotWhite">#FFFFFF</color>
     <color name="dotColor">#0277bd</color>
 
     <!-- Miscellaneous -->
     <color name="colorAccent">#C2185B</color>
-    <color name="colorError"></color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
