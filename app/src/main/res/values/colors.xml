@@ -17,5 +17,7 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
+    <color name="colorWhite_transparent">#31FFFFFF</color>
+    <color name="moduleCardBackground">#64FFFFFF</color>
 
 </resources>
