@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.AirqualityResponse
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
 import com.example.helse.viewmodels.AirqualityViewModel
@@ -43,6 +44,7 @@ class AirqualityFragment : Fragment() {
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airquality = AirqualityRepository(
+                    LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,
                         this@AirqualityFragment
@@ -51,13 +53,13 @@ class AirqualityFragment : Fragment() {
             }
 
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-            o3_concentration.text = getString(R.string.o3_concentration, forecast.Airquality.variables.o3_concentration)
+            o3_concentration.text = getString(R.string.o3_concentration, forecast.o3_concentration)
             no2_concentration.text =
-                getString(R.string.no2_concentration, forecast.Airquality.variables.no2_concentration)
+                getString(R.string.no2_concentration, forecast.no2_concentration)
             pm10_concentration.text =
-                getString(R.string.pm10_concentration, forecast.Airquality.variables.pm10_concentration)
+                getString(R.string.pm10_concentration, forecast.pm10_concentration)
             pm25_concentration.text =
-                getString(R.string.pm25_concentration, forecast.Airquality.variables.pm25_concentration)
+                getString(R.string.pm25_concentration, forecast.pm25_concentration)
 
         })
     }

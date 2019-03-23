@@ -53,16 +53,12 @@ class AirqualityResponse(
 
         return AirqualityForecast(
             location,
-            Airquality(
-                from,
-                to,
-                AirqualityVariables(
-                    o3Concentration,
-                    pm10Concentration,
-                    pm25Concentration,
-                    no2Concentration
-                )
-            )
+            from,
+            to,
+            o3Concentration,
+            pm10Concentration,
+            pm25Concentration,
+            no2Concentration
         )
     }
 }

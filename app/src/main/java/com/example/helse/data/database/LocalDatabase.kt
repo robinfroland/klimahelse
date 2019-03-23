@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 
@@ -12,6 +13,7 @@ abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao
     abstract fun airqualityDao(): RecentAirqualityDao
+    @TypeConverters(LocationConverter::class)
 
     companion object {
         @Volatile
