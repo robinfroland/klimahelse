@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.helse.ui.DashboardFragment"
+        android:label="DashboardFragment"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/dashboard_to_uv"
+            app:destination="@+id/uvFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/dashboard_to_allergy"
+            app:destination="@+id/allergyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/dashboard_to_airquality"
+            app:destination="@+id/airqualityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.helse.ui.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.helse.ui.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/airqualityFragment"
+        android:name="com.example.helse.ui.airquality.AirqualityFragment"
+        android:label="AirqualityFragment"
+        tools:layout="@layout/fragment_airquality">
+        <action
+            android:id="@+id/airquality_to_information"
+            app:destination="@id/airqualityInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/airqualityInformationFragment"
+        android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
+        android:label="AirqualityInformationFragment"
+        tools:layout="@layout/fragment_airquality_information" />
+
+    <fragment
+        android:id="@+id/allergyFragment"
+        android:name="com.example.helse.ui.allergy.AllergyFragment"
+        android:label="fragment_allergy"
+        tools:layout="@layout/fragment_allergy" >
+        <action
+            android:id="@+id/allergy_to_information"
+            app:destination="@+id/allergyInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allergyInformationFragment"
+        android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
+        android:label="fragment_allergy_information"
+        tools:layout="@layout/fragment_allergy_information" />
+
+    <fragment
+        android:id="@+id/uvFragment"
+        android:name="com.example.helse.ui.uv.UvFragment"
+        android:label="fragment_uv"
+        tools:layout="@layout/fragment_uv" >
+        <action
+            android:id="@+id/uv_to_information"
+            app:destination="@+id/uvInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/uvInformationFragment"
+        android:name="com.example.helse.ui.uv.UvInformationFragment"
+        android:label="fragment_uv_information"
+        tools:layout="@layout/fragment_uv_information" />
+
+</navigation>

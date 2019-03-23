@@ -3,6 +3,7 @@
     package="com.example.helse">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -10,22 +11,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApp">
+        android:theme="@style/AppTheme">
 
         <activity
-            android:name=".OnboardingActivity"
-            android:theme="@style/Theme.MyApp.NoActionBar">
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:theme="@style/SplashTheme" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Værhelse"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="Værhelse" />
-        <activity
-            android:name=".AirqualityActivity"
-            android:label="Luftkvalitet" />
 
     </application>
 

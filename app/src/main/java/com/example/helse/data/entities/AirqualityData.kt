@@ -14,3 +14,8 @@ data class AirqualityForecast(
     val pm25_concentration: Double,
     val no2_concentration: Double
 )
+
+val emptyAirqualityForecast = AirqualityForecast(
+    Location("", "", 0.00, 0.00, ""),
+    Airquality("", "", AirqualityVariables(0.00, 0.00, 0.00, 0.00))
+)

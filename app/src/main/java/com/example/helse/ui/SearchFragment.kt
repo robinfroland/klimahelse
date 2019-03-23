@@ -1,4 +1,4 @@
-package com.example.helse
+package com.example.helse.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.helse.data.api.LocationResponse
+import com.example.helse.R
 import com.example.helse.adapters.LocationAdapter
+import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.LocationRepository
+import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -20,7 +22,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var viewAdapter: LocationAdapter
-    
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_search, container, false)
 
@@ -69,13 +71,13 @@ class SearchFragment : Fragment() {
             .apply {
                 locationRepository = LocationRepository(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse()
+                    LocationResponse(this@SearchFragment.activity)
                 )
             }
     }
 
     private fun locationClicked(location: Location) {
-        val intent = Intent(activity, AirqualityActivity::class.java)
+        val intent = Intent(activity, AirqualityFragment::class.java)
         intent.putExtra("LOCATION", location)
         startActivity(intent)
     }
