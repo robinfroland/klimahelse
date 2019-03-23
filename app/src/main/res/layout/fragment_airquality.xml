@@ -52,4 +52,13 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_info" />
 
+    <ImageButton
+        android:id="@+id/informationBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_info"
+        android:contentDescription="@string/airquality_information_button" />
+
 </LinearLayout>
