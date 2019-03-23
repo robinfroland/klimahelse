@@ -35,7 +35,7 @@ class UnitTest {
     }
 
     @Test
-    fun parse_bad_location_response_is_not_equal() {
+    fun parse_bad_location_response_is_not_equal_to_sample() {
         val server = MockWebServer()
         val serverUrl = server.url("/")
         server.enqueue(MockResponse().setBody(badLocationResponse))
@@ -82,7 +82,7 @@ class UnitTest {
     }
 
     @Test
-    fun parse_bad_airquality_response_is_not_equal() {
+    fun parse_bad_airquality_response_is_not_equal_to_sample() {
         val server = MockWebServer()
         val serverUrl = server.url("/")
         server.enqueue(MockResponse().setBody(badAirqualitySampleResponse))
