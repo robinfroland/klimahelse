@@ -28,24 +28,22 @@ val parsedAirqualityResponse = AirqualityForecast(
         "2019-03-18T01:00:00Z",
         "2019-03-18T01:00:00Z",
         AirqualityVariables(
-            68.15038,
-            1.5612731,
-            1.073361,
-            3.354196
+            68.15038299560547,
+            1.5612730979919434,
+            1.0733610391616821,
+            3.354196071624756
         )
     )
 )
 
 val goodLocationResponse =
-    "[{\"delomrade\": {\"name\": \"Alfaset\", \"areacode\": \"03013700\"}, \"longitude\": \"10.84655\", \"name\": \"Alnabru\", \"eoi\": \"NO0057A\", \"height\": 3.0, \"grunnkrets\": {\"name\": \"Alfaset\", \"areacode\": \"03013701\"}, \"kommune\": {\"name\": \"Oslo\", \"areacode\": \"0301\"}, \"latitude\": \"59.92767\"}, {\"delomrade\": {\"name\": \"Sarpsborg vest\", \"areacode\": \"01050100\"}, \"longitude\": \"11.08919\", \"name\": \"Alvim\", \"eoi\": \"NO0110A\", \"height\": 3.0, \"grunnkrets\": {\"name\": \"Alvimhaugen\", \"areacode\": \"01050102\"}, \"kommune\": {\"name\": \"Sarpsborg\", \"areacode\": \"0105\"}, \"latitude\": \"59.27378\"}]"
+    "[{\"eoi\": \"NO0057A\", \"latitude\": \"59.92767\", \"height\": 3.0, \"delomrade\": {\"name\": \"Alfaset\", \"areacode\": \"03013700\"}, \"grunnkrets\": {\"name\": \"Alfaset\", \"areacode\": \"03013701\"}, \"name\": \"Alnabru\", \"kommune\": {\"name\": \"Oslo\", \"areacode\": \"0301\"}, \"longitude\": \"10.84655\"}, {\"eoi\": \"NO0110A\", \"latitude\": \"59.27378\", \"height\": 3.0, \"delomrade\": {\"name\": \"Sarpsborg vest\", \"areacode\": \"01050100\"}, \"grunnkrets\": {\"name\": \"Alvimhaugen\", \"areacode\": \"01050102\"}, \"name\": \"Alvim\", \"kommune\": {\"name\": \"Sarpsborg\", \"areacode\": \"0105\"}, \"longitude\": \"11.08919\"}]"
 
 // The first name is what makes it bad
 val badLocationResponse =
-    "[{\"delomrade\": {\"name\": \"Alfaset\", \"areacode\": \"03013700\"}, \"longitude\": \"10.84655\", \"name\": \"HURRDURRLAND\", \"eoi\": \"NO0057A\", \"height\": 3.0, \"grunnkrets\": {\"name\": \"Alfaset\", \"areacode\": \"03013701\"}, \"kommune\": {\"name\": \"Oslo\", \"areacode\": \"0301\"}, \"latitude\": \"59.92767\"}, {\"delomrade\": {\"name\": \"Sarpsborg vest\", \"areacode\": \"01050100\"}, \"longitude\": \"11.08919\", \"name\": \"Alvim\", \"eoi\": \"NO0110A\", \"height\": 3.0, \"grunnkrets\": {\"name\": \"Alvimhaugen\", \"areacode\": \"01050102\"}, \"kommune\": {\"name\": \"Sarpsborg\", \"areacode\": \"0105\"}, \"latitude\": \"59.27378\"}]"
+    "[{\"eoi\": \"NO0057A\", \"latitude\": \"59.92767\", \"height\": 3.0, \"delomrade\": {\"name\": \"DETTEERIKKERIKTIGLOL\", \"areacode\": \"03013700\"}, \"grunnkrets\": {\"name\": \"Alfaset\", \"areacode\": \"03013701\"}, \"name\": \"JASÅ JA DU TROR DET ER ALNABRU\", \"kommune\": {\"name\": \"Oslo\", \"areacode\": \"0301\"}, \"longitude\": \"10.84655\"}, {\"eoi\": \"NO0110A\", \"latitude\": \"59.27378\", \"height\": 3.0, \"delomrade\": {\"name\": \"Sarpsborg vest\", \"areacode\": \"01050100\"}, \"grunnkrets\": {\"name\": \"Alvimhaugen\", \"areacode\": \"01050102\"}, \"name\": \"Alvim\", \"kommune\": {\"name\": \"Sarpsborg\", \"areacode\": \"0105\"}, \"longitude\": \"11.08919\"}]"
 
 val parsedLocationResponse = mutableListOf(
     Location("Alnabru", "Oslo", 10.84655, 59.92767, "NO0057A"),
     Location("Alvim", "Sarpsborg", 11.08919, 59.27378, "NO0110A")
 )
-
-
