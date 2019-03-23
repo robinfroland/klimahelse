@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/module_title" />
 
             <ImageView
-                android:id="@+id/module_notification"
+                android:id="@+id/module_push"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
