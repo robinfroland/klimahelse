@@ -6,18 +6,27 @@
     <color name="colorPrimaryLight">#58a5f0</color>
 
     <!-- Secondary color palette -->
-    
+
+    <!-- Danger indicator colors -->
+    <color name="colorDangerHigh">#CC0000</color>
+    <color name="colorDangerMedium">#FF8800</color>
+    <color name="colorDangerLow">#007E33</color>
+
     <!-- Dot indicators -->
-    <color name="dotWhite">#FFFFFF</color>
-    <color name="dotColor">#0277bd</color>
+    <color name="colorDotWhite">#FFFFFF</color>
+    <color name="colorDot">#0277bd</color>
+
+    <!-- Push notification -->
+    <color name="colorPushIconDisabled">#B3FFFFFF</color>
+    <color name="colorPushIconEnabled">#DAFFFFFF</color>
 
     <!-- Miscellaneous -->
     <color name="colorAccent">#C2185B</color>
-    <color name="colorError"></color>
+    <color name="colorError">#CC0000</color>
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
     <color name="colorWhite_transparent">#31FFFFFF</color>
-    <color name="moduleCardBackground">#64FFFFFF</color>
+    <color name="moduleCardBackground">#41FFFFFF</color>
 
 </resources>
