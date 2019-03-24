@@ -3,6 +3,8 @@ package com.example.helse.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.ModuleCard
@@ -27,7 +29,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : Recycle
         holder.module.module_icon.setImageResource(iconResourceId)
         holder.module.module_title.text = category
         holder.module.module_dangerindicator.text = dangerIndicator
-        when(dangerIndicator) {
+        when (dangerIndicator) {
             "HIGH" -> {
                 holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_high)
                 holder.module.module_dangerindicator.text = "HØY RISIKO"
@@ -46,6 +48,15 @@ class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : Recycle
         } else {
             holder.module.module_push.setImageResource(R.drawable.ic_notifications_disabled)
         }
+        holder.module.card_module.setOnClickListener {
+            when (category.toLowerCase()) {
+                "luftkvalitet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_airquality)
+                "uv-stråling" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_uv)
+                "luftfuktighet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_allergy)
+            }
+
+        }
+
     }
 
 }

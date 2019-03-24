@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="0dp"
         app:cardBackgroundColor="@color/moduleCardBackground"
         app:cardCornerRadius="5dp"
