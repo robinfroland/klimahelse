@@ -28,7 +28,18 @@ class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : Recycle
         holder.module.module_title.text = category
         holder.module.module_dangerindicator.text = dangerIndicator
         when(dangerIndicator) {
-            // change color and text of dangerindicator
+            "HIGH" -> {
+                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_high)
+                holder.module.module_dangerindicator.text = "HØY RISIKO"
+            }
+            "MEDIUM" -> {
+                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_medium)
+                holder.module.module_dangerindicator.text = "MIDDELS RISIKO"
+            }
+            "LOW" -> {
+                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_low)
+                holder.module.module_dangerindicator.text = "LAV RISIKO"
+            }
         }
         if (pushEnabled) {
             holder.module.module_push.setImageResource(R.drawable.ic_notifications_enabled)

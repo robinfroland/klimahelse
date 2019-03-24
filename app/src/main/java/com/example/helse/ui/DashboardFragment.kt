@@ -38,7 +38,7 @@ class DashboardFragment : Fragment() {
     private fun submitModules() {
         enabledModules = arrayListOf(
             ModuleCard(R.drawable.ic_launcher_foreground, "luftkvalitet", "HIGH", true),
-            ModuleCard(R.drawable.ic_launcher_foreground, "UV-Stråling", "LOW", true),
+            ModuleCard(R.drawable.ic_launcher_foreground, "UV-Stråling", "LOW", false),
             ModuleCard(R.drawable.ic_launcher_foreground, "Luftfuktighet", "MEDIUM", true)
         )
     }
