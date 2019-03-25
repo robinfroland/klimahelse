@@ -28,10 +28,11 @@ class AirqualityResponse(
                 .build()
 
             response = client.newCall(request).execute()
-
             response.parseResponse()
+
         } catch (e: Exception) {
             showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
+
             emptyAirqualityForecast
         }
     }
@@ -50,9 +51,12 @@ class AirqualityResponse(
         val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
         val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
         val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
+        val stationID = location.stationID
+        val id = 0
 
         return AirqualityForecast(
-            location,
+            id,
+            stationID,
             from,
             to,
             o3Concentration,

@@ -12,8 +12,7 @@ import com.example.helse.data.entities.Location
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao
-    abstract fun airqualityDao(): RecentAirqualityDao
-    @TypeConverters(LocationConverter::class)
+    abstract fun airqualityDao(): AirqualityDao
 
     companion object {
         @Volatile

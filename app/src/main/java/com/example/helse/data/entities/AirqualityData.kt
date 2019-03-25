@@ -1,17 +1,19 @@
 package com.example.helse.data.entities
+import androidx.room.*
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.helse.data.database.LocationConverter
+/*@Entity(tableName = "airqualityForecast", foreignKeys =
+[ForeignKey(
+    entity = Location::class,
+    parentColumns = ["stationID"],
+    childColumns = ["stationID"],
+    onDelete = ForeignKey.CASCADE)
+])*/
 
-
-//Database needs a primarykey here unsure as to where to put it.
 @Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
-    @PrimaryKey(autoGenerate = true)
-    @TypeConverters(LocationConverter::class)
-    val location : Location,
+    @PrimaryKey(autoGenerate = false)
+    var id: Int = 0,
+    val stationID: String,
     val from: String,
     val to: String,
     val o3_concentration: Double,
@@ -21,14 +23,8 @@ data class AirqualityForecast(
 )
 
 val emptyAirqualityForecast = AirqualityForecast(
-    Location(
-        "",
-        "",
-        0.00,
-        0.00,
-        ""
-    ),
-
+    0,
+    "",
     "",
     "",
     0.00,
@@ -36,4 +32,3 @@ val emptyAirqualityForecast = AirqualityForecast(
     0.00,
     0.00
 )
-

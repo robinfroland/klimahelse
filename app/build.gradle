@@ -75,4 +75,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
     testImplementation "androidx.room:room-testing:$room_version"
     kapt "com.android.databinding:compiler:3.1.4"
+
+    //Background processing
+    implementation "androidx.work:work-runtime-ktx:2.0.0"
 }
