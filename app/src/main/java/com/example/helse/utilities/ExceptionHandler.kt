@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import androidx.fragment.app.Fragment
 import com.example.helse.MainActivity
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -61,7 +60,7 @@ class ExceptionHandler(private val context: Context) : Thread.UncaughtExceptionH
 
 fun showNetworkError(activity: Activity?, responseCode: Int, e: Throwable) {
     if (activity == null) {
-        throw Error("showNetworkError(): activity can't be null..")
+        throw Error("showNetworkError(): activity can't be null..\nERROR: ${e.localizedMessage}")
     }
     Log.e("ERROR", e.toString())
     val message = when (responseCode) {
