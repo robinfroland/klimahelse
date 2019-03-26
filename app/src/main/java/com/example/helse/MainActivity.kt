@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
-    
+
     private fun setFirstLaunch() {
         PreferenceManager.setDefaultValues(this, R.xml.settings, false)
         val preferences = AppPreferences(this)

@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
-import com.example.helse.data.entities.ModuleCard
+import com.example.helse.data.entities.Module
 import kotlinx.android.synthetic.main.list_item_module.view.*
 
-class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : RecyclerView.Adapter<ModuleViewHolder>() {
+class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerView.Adapter<ModuleViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val moduleLayout = layoutInflater.inflate(R.layout.list_item_module, parent, false)
