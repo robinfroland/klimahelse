@@ -45,9 +45,9 @@ class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : Recycle
         }
 
         if (pushEnabled) {
-            holder.module.module_push.setImageResource(R.drawable.ic_notifications_enabled)
+            holder.module.push_btn.setImageResource(R.drawable.ic_notifications_enabled)
         } else {
-            holder.module.module_push.setImageResource(R.drawable.ic_notifications_disabled)
+            holder.module.push_btn.setImageResource(R.drawable.ic_notifications_disabled)
         }
 
         holder.module.card_module.setOnClickListener {
@@ -56,6 +56,14 @@ class ModuleAdapter(private var enabledModules: ArrayList<ModuleCard>) : Recycle
                 "uv-stråling" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_uv)
                 "luftfuktighet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_allergy)
             }
+        }
+        holder.module.push_btn.setOnClickListener {
+            var enablePush = true
+            when(pushEnabled) {
+                true -> enablePush = false
+                false -> enablePush = true
+            }
+            println(enablePush)
         }
     }
 }
