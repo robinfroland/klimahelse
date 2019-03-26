@@ -15,6 +15,7 @@ class AirqualityRepository(
 
     override suspend fun fetchAirquality(): AirqualityForecast {
         if(!haveRecentData()) {
+
             airqualityDao.insert(airqualityApi.fetchAirquality())
         }
         return airqualityDao.getRecent()
