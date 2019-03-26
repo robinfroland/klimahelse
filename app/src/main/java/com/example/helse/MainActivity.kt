@@ -31,7 +31,15 @@ class MainActivity : AppCompatActivity() {
         bottom_navbar.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-        
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.label != "DashboardFragment") {
+                supportActionBar?.setDisplayShowTitleEnabled(true)
+            } else {
+                supportActionBar?.setDisplayShowTitleEnabled(false)
+            }
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
