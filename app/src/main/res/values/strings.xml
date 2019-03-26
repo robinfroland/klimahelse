@@ -40,4 +40,5 @@
     <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f</string>
 
     <string name="airquality_information_button">Informasjon om luftkvalitet</string>
+    <string name="my_location_icon_desc">Min posisjon ikon</string>
 </resources>
