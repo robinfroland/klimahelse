@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
@@ -47,9 +48,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
-
-
+    
     private fun setFirstLaunch() {
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false)
         val preferences = AppPreferences(this)
 
         if (preferences.isFirstLaunch()) {

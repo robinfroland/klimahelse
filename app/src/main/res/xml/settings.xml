@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:disableDependentsState="true"
+        android:key="@"
+        android:summary="La appen bruke din nåværende posisjon for varsler"
+        android:title="Bruk min posisjon"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:disableDependentsState="false"
+        android:key="ENABLE_NOTIFICATIONS"
+        android:summary="Tillat appen å sende deg push-varsler for valgte kategorier"
+        android:title="Slå på push-varsler"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ENABLE_AIRQUALITY_NOTIFICATONS"
+        android:title="Luftkvalitet"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ENABLE_UV_NOTIFICATONS"
+        android:title="UV-stråling"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ENABLE_ALLERGY_NOTIFICATONS"
+        android:title="Pollenspredning"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ENABLE_HUMIDITY_NOTIFICATONS"
+        android:title="Luftfuktighet"
+        app:iconSpaceReserved="false" />
+</PreferenceScreen>

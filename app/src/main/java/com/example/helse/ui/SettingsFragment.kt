@@ -1,21 +1,21 @@
 package com.example.helse.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.preference.PreferenceFragmentCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import com.example.helse.MainActivity
 import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-class SettingsFragment : Fragment() {
-    // extend PreferenceFragment later
+class SettingsFragment : PreferenceFragmentCompat() {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        addPreferencesFromResource(R.xml.settings)
+    }
 
     private lateinit var locationClient: FusedLocationProviderClient
     private lateinit var preferences: Preferences
@@ -32,21 +32,33 @@ class SettingsFragment : Fragment() {
         return view
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        finishBtn.setOnClickListener {
-            startActivity(Intent(activity, MainActivity::class.java))
-            requireActivity().finish()
-        }
-
-        locationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                getDeviceLocation()
-            }
-        }
-    }
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//
+//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+//        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        preferences = AppPreferences(requireContext())
+//
+//        return view
+//    }
+//
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        finishBtn.setOnClickListener {
+//            startActivity(Intent(activity, MainActivity::class.java))
+//            requireActivity().finish()
+//        }
+//
+//        locationSwitch.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                getDeviceLocation()
+//            }
+//        }
+//    }
 
     private fun getDeviceLocation() {
         if (preferences.locationPermissionGranted()) {
