@@ -26,10 +26,19 @@ class MainActivity : AppCompatActivity() {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottom_navbar.setupWithNavController(navController)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.label != "DashboardFragment") {
+                supportActionBar?.setDisplayShowTitleEnabled(true)
+            } else {
+                supportActionBar?.setDisplayShowTitleEnabled(false)
+            }
+        }
 
     }
 
