@@ -35,7 +35,6 @@ class AppPreferences(context: Context) : Preferences {
             LOCATION_PERMISSION
         ) == PERMISSION_GRANTED
     }
-
 }
 
 

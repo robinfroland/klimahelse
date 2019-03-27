@@ -81,5 +81,4 @@ class SearchFragment : Fragment() {
         intent.putExtra("LOCATION", location)
         startActivity(intent)
     }
-
 }

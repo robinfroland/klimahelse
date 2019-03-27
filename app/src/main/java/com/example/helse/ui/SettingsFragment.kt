@@ -1,12 +1,10 @@
 package com.example.helse.ui
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.helse.MainActivity
 import com.example.helse.R
@@ -14,7 +12,6 @@ import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_settings.*
-
 
 class SettingsFragment : Fragment() {
     // extend PreferenceFragment later
@@ -80,7 +77,7 @@ class SettingsFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                     getDeviceLocation()
                 } else {
-                    Toast.makeText(context, "Velg område manuelt!", Toast.LENGTH_LONG).show()
+                    "Velg område manuelt!".toast(context)
                 }
             }
             // check push-notification permission
@@ -90,5 +87,4 @@ class SettingsFragment : Fragment() {
     companion object {
         fun newInstance() = SettingsFragment()
     }
-
 }

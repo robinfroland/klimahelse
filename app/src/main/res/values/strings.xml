@@ -1,18 +1,6 @@
 <resources>
     <string name="app_name">helse</string>
 
-    <!-- Search and location -->
-    <string name="search_hint">Søk etter område</string>
-    <string name="location_text">Luftkvalitet for %1$s, %2$s:</string>
-    <string name="location">%1$s</string>
-    <string name="superlocation">%1$s</string>
-
-    <!-- Airquality -->
-    <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f</string>
-    <string name="no2_concentration">Nitrogenoksid (NO2): %.0f</string>
-    <string name="pm10_concentration">Svevestøv (PM10): %.0f</string>
-    <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f</string>
-
     <!-- Onboarding -->
     <string name="onboarding_title">Første gang du bruker værhelse?</string>
     <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne veiledningen for å lære mer eller tilpasse hva du ønsker å bli varslet om</string>
@@ -23,11 +11,34 @@
     <string name="done">Ferdig</string>
     <string name="preferencesDescription">Valgte kategorier vil vises i ditt dashboard.\nDette kan alltids endres i ettertid.</string>
     <string name="logoDescription">Logo</string>
+
+    <!-- Search and location -->
+    <string name="search_hint">Søk etter område</string>
+    <string name="location_text">Luftkvalitet for %1$s, %2$s:</string>
+    <string name="location">%1$s</string>
+    <string name="superlocation">%1$s</string>
+
+    <!-- Bottom navigation -->
     <string name="nav_home">Hjem</string>
     <string name="nav_map">Kart</string>
     <string name="nav_settings">Innstillinger</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Dashboard -->
+    <string name="categories">Kategorier</string>
+    <string name="categories_description">Trykk for mer informasjon og helsekonsekvenser</string>
 
+    <!-- Cardmodule -->
+    <string name="category_icon">Ikon</string>
+    <string name="category_title">Kategori</string>
+    <string name="dangerindicator">Risikonivå</string>
+    <string name="push_notification_icon">Pushvarsler</string>
+
+    <!-- Airquality -->
+    <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f</string>
+    <string name="no2_concentration">Nitrogenoksid (NO2): %.0f</string>
+    <string name="pm10_concentration">Svevestøv (PM10): %.0f</string>
+    <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f</string>
+
+    <string name="airquality_information_button">Informasjon om luftkvalitet</string>
+    <string name="my_location_icon_desc">Min posisjon ikon</string>
 </resources>
