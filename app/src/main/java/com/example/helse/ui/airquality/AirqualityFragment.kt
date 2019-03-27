@@ -12,7 +12,7 @@ import com.example.helse.R
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.AirqualityRepository
+import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 
@@ -43,7 +43,7 @@ class AirqualityFragment : Fragment() {
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airquality = AirqualityRepository(
+                airquality = AirqualityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,

@@ -13,7 +13,7 @@ import com.example.helse.adapters.LocationAdapter
 import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.LocationRepository
+import com.example.helse.data.repositories.LocationRepositoryImpl
 import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -69,7 +69,7 @@ class SearchFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
             .apply {
-                locationRepository = LocationRepository(
+                locationRepository = LocationRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
                     LocationResponse(this@SearchFragment.activity)
                 )

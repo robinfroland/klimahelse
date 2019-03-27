@@ -8,7 +8,7 @@ interface Airquality {
     suspend fun fetchAirquality(): AirqualityForecast
 }
 
-class AirqualityRepository(
+class AirqualityRepositoryImpl(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityApi
 ) : Airquality {
