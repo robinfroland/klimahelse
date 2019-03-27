@@ -89,4 +89,7 @@ dependencies {
     testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.3.0'
     testImplementation "org.robolectric:robolectric:4.2"
     androidTestImplementation 'androidx.test:rules:1.1.2-alpha02'
+
+    //Background processing
+    implementation "androidx.work:work-runtime-ktx:2.0.0"
 }

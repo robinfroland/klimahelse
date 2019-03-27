@@ -1,8 +1,6 @@
 package com.example.helse.utilities
 
-import com.example.helse.data.entities.Airquality
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.AirqualityVariables
 import com.example.helse.data.entities.Location
 import okhttp3.Response
 import org.json.JSONArray
@@ -45,18 +43,18 @@ fun Response.parseAirqualityResponse(location: Location): AirqualityForecast {
     val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
     val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
     val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
+    val id = 0
+    val stationID = location.stationID
 
     return AirqualityForecast(
-        location,
-        Airquality(
-            from,
-            to,
-            AirqualityVariables(
-                o3Concentration,
-                pm10Concentration,
-                pm25Concentration,
-                no2Concentration
-            )
-        )
+        id,
+        stationID,
+        from,
+        to,
+        o3Concentration,
+        pm10Concentration,
+        pm25Concentration,
+        no2Concentration
+
     )
 }
