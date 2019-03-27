@@ -1,8 +1,6 @@
 package com.example.helse
 
-import com.example.helse.data.entities.Airquality
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.AirqualityVariables
 import com.example.helse.data.entities.Location
 
 val alnabruLocation = Location(
@@ -23,17 +21,14 @@ const val badAirqualitySampleResponse =
 const val wrongResponse = "{\"message\": \"undefined station requested\"}"
 
 val parsedAirqualityResponse = AirqualityForecast(
-    alnabruLocation,
-    Airquality(
+         alnabruLocation.stationID,
         "2019-03-18T01:00:00Z",
         "2019-03-18T01:00:00Z",
-        AirqualityVariables(
-            68.15038299560547,
-            1.5612730979919434,
-            1.0733610391616821,
-            3.354196071624756
-        )
-    )
+        68.15038299560547,
+        1.5612730979919434,
+        1.0733610391616821,
+        3.354196071624756,
+        2.1
 )
 
 const val goodLocationResponse =

@@ -2,13 +2,6 @@ package com.example.helse.utilities
 
 import android.content.Context
 import android.widget.Toast
-import com.example.helse.data.entities.Airquality
-import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.AirqualityVariables
-import com.example.helse.data.entities.Location
-import okhttp3.Response
-import org.json.JSONArray
-import org.json.JSONObject
 
 fun String.toast(context: Context?, duration: Int = Toast.LENGTH_LONG): Toast? {
     if (context === null) {
@@ -17,5 +10,3 @@ fun String.toast(context: Context?, duration: Int = Toast.LENGTH_LONG): Toast? {
     }
     return Toast.makeText(context, this, duration).apply { show() }
 }
-
-
