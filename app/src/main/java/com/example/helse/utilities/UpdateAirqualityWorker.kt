@@ -8,7 +8,7 @@ class UpdateAirqualityWorker(appContext: Context, workerParams: WorkerParameters
     : Worker(appContext, workerParams) {
 
     override fun doWork(): Result {
-        
+        //this should be empty until the bug is resolved
         return Result.success()
     }
 }

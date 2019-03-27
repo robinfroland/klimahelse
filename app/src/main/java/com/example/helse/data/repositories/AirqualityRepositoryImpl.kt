@@ -4,14 +4,14 @@ import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 
-interface Airquality {
+interface AirqualityRepository {
     suspend fun fetchAirquality(): AirqualityForecast
 }
 
 class AirqualityRepositoryImpl(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityApi
-) : Airquality {
+) : AirqualityRepository {
 
     override suspend fun fetchAirquality(): AirqualityForecast {
         if(!haveRecentData()) {

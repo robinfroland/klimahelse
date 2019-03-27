@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences

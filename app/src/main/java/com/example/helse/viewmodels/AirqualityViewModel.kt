@@ -4,13 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.repositories.Airquality
+import com.example.helse.data.repositories.AirqualityRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AirqualityViewModel : ViewModel() {
-    lateinit var airquality: Airquality
+    lateinit var airqualityRepository: AirqualityRepository
 
     private val forecast: MutableLiveData<AirqualityForecast> by lazy {
         MutableLiveData<AirqualityForecast>().also {
@@ -19,8 +19,9 @@ class AirqualityViewModel : ViewModel() {
     }
 
     private fun loadForecast() {
+
         viewModelScope.launch {
-            val deferred = async(Dispatchers.IO) { airquality.fetchAirquality() }
+            val deferred = async(Dispatchers.IO) { airqualityRepository.fetchAirquality() }
             forecast.value = deferred.await()
         }
     }

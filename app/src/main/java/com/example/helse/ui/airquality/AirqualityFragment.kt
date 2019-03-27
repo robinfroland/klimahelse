@@ -41,7 +41,7 @@ class AirqualityFragment : Fragment() {
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airquality = AirqualityRepositoryImpl(
+                airqualityRepository = AirqualityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,

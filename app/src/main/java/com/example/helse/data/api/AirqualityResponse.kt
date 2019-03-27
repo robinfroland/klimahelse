@@ -1,5 +1,6 @@
 package com.example.helse.data.api
 
+import android.content.Context
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.emptyAirqualityForecast
@@ -9,6 +10,7 @@ import com.example.helse.utilities.showNetworkError
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import java.security.AccessControlContext
 
 private const val BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
 
