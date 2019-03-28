@@ -24,11 +24,15 @@ val parsedAirqualityResponse = AirqualityForecast(
          alnabruLocation.stationID,
         "2019-03-18T01:00:00Z",
         "2019-03-18T01:00:00Z",
-        68.15038299560547,
+        "LAV",
+    68.15038299560547,
+        "LAV",
         1.5612730979919434,
+        "LAV",
         1.0733610391616821,
+            "LAV",
         3.354196071624756,
-        2.1
+        "LAV"
 )
 
 const val goodLocationResponse =

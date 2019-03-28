@@ -78,8 +78,7 @@ fun checkRiskValue(aqi : Double): String {
 }
 
 //NB! This might not be needed
-
-//these methods calculates
+//these method returns 1, 2 , 3 or 4 for each respective value in checkRiskValue()
 fun pm25Calculate (x : Double): Double {
     var aqi: Double
     if (x < 0.999) aqi = 1.00
