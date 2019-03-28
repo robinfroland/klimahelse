@@ -53,7 +53,7 @@ class AirqualityFragment : Fragment() {
             no2_concentration.text = getString(R.string.no2_concentration, forecast.no2_concentration, forecast.no2_riskValue)
             pm10_concentration.text = getString(R.string.pm10_concentration, forecast.pm10_concentration, forecast.pm10_riskValue)
             pm25_concentration.text = getString(R.string.pm25_concentration, forecast.pm25_concentration, forecast.pm25_riskValue)
-            AQI.text = getString(R.string.risk_value, forecast.riskValue)
+            risk_value.text = getString(R.string.risk_value, forecast.riskValue)
 
         })
     }
