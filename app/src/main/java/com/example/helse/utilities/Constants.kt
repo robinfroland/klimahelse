@@ -8,10 +8,22 @@ const val LOCATION_PERMISSION_CODE = 1
 const val LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION
 const val PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED
 
-const val LOW_AQI_VALUE = 2.00      //low       = <1.0-2.0>
-const val MEDIUM_AQI_VALUE= 3.00    //medium    = <2.1-3.0>
-const val HIGH_AQI_VALUE = 4.00     //high      = <3.1-4.0>
-const val VERY_HIGH_AQI_VALUE= 5.00 //very high = <4.1-5.0>
+const val LOW_AQI_VALUE = "LAV"            //low       = <1.0-2.0>
+const val MEDIUM_AQI_VALUE = "MODERAT"     //medium    = <2.1-3.0>
+const val HIGH_AQI_VALUE = "BETYDELIG"     //high      = <3.1-4.0>
+const val VERY_HIGH_AQI_VALUE = "ALVORLIG" //very high = <4.1-5.0>
 
+enum class AirqualityMetrics {
+    O3,
+    PM10,
+    PM25,
+    NO2
+}
 
+val airqualityMetricRanges = HashMap<AirqualityMetrics, Array<Int>>()
+
+val o3Values = arrayOf(100, 180, 240)
+val pm10Values = arrayOf(60, 120, 400)
+val pm25Values = arrayOf(30, 50, 150)
+val no2Values = arrayOf(100, 200, 400)
 
