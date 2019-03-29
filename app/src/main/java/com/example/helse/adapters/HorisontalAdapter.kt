@@ -1,10 +1,8 @@
 package com.example.helse.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.helse.utilities.AMOUNT_OF_HOURS
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
@@ -26,7 +24,7 @@ class HorisontalAdapter(private val timeList : ArrayList<Int>) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return AMOUNT_OF_HOURS
+        return 24
     }
 
 

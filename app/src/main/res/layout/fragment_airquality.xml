@@ -51,14 +51,23 @@
         android:text="@string/risk_value"
         android:textAlignment="center" />
 
+    <ImageButton
+        android:id="@+id/informationBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_info"
+        android:contentDescription="@string/airquality_information_button" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/risk_list"
         android:paddingTop="5dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="20dp"
         android:scrollbarThumbHorizontal="@color/colorWhite"
         android:orientation="horizontal"
 
