@@ -1,8 +1,6 @@
 package com.example.helse.utilities
 
-import com.example.helse.data.entities.Airquality
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.AirqualityVariables
 import com.example.helse.data.entities.Location
 import okhttp3.Response
 import org.json.JSONArray
@@ -40,23 +38,34 @@ fun Response.parseAirqualityResponse(location: Location): AirqualityForecast {
     val to = jsonObj.getString("to")
     val from = jsonObj.getString("from")
 
+
     val variables = jsonObj.getJSONObject("variables")
     val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
     val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
     val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
     val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
+    val overallRisk = calculateOverallRiskValue(variables.getJSONObject("AQI").getDouble("value"))
+    val stationID = location.stationID
+    val o3RiskValue = calculateRiskFor(AirqualityMetrics.PM25, o3Concentration)
+    val pm10RiskValue = calculateRiskFor(AirqualityMetrics.PM10, pm10Concentration)
+    val pm25RiskValue = calculateRiskFor(AirqualityMetrics.PM25, pm25Concentration)
+    val no2RiskValue = calculateRiskFor(AirqualityMetrics.NO2, no2Concentration)
 
     return AirqualityForecast(
-        location,
-        Airquality(
-            from,
-            to,
-            AirqualityVariables(
-                o3Concentration,
-                pm10Concentration,
-                pm25Concentration,
-                no2Concentration
-            )
-        )
+        stationID,
+        from,
+        to,
+        overallRisk,
+        o3Concentration,
+        o3RiskValue,
+        pm10Concentration,
+        pm10RiskValue,
+        pm25Concentration,
+        pm25RiskValue,
+        no2Concentration,
+        no2RiskValue
+
     )
 }
+
+
