@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
+import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
@@ -16,6 +18,9 @@ import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 
 class AirqualityFragment : Fragment() {
+
+    private lateinit var viewAdapter: HorisontalAdapter
+    private var timeList = ArrayList<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +31,16 @@ class AirqualityFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        updateHorizontalSlider()
         super.onViewCreated(view, savedInstanceState)
+
+        val viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        viewAdapter = HorisontalAdapter(timeList)
+
+        risk_list.apply {
+            adapter = viewAdapter
+            layoutManager = viewManager
+        }
 
         informationBtn.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
@@ -58,5 +72,13 @@ class AirqualityFragment : Fragment() {
                 getString(R.string.pm25_concentration, forecast.Airquality.variables.pm25_concentration)
 
         })
+    }
+
+    fun updateHorizontalSlider() {
+        var i = 1
+        while ( i <= 24) {
+            timeList.add(i)
+            i++
+        }
     }
 }
