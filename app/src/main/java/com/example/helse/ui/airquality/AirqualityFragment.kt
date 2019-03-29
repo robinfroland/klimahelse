@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
@@ -16,6 +17,8 @@ import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepository
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
+import java.util.*
+
 
 class AirqualityFragment : Fragment() {
 
@@ -36,11 +39,13 @@ class AirqualityFragment : Fragment() {
 
         val viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = HorisontalAdapter(timeList)
-
+        LinearSnapHelper().attachToRecyclerView(risk_list)
         risk_list.apply {
             adapter = viewAdapter
             layoutManager = viewManager
         }
+        val sliderPosition = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 3
+        viewManager.scrollToPosition(sliderPosition)
 
         informationBtn.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
