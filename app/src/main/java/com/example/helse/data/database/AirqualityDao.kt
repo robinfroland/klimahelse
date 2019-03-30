@@ -12,7 +12,7 @@ interface AirqualityDao {
     fun getRecent(): ArrayList<AirqualityForecast>*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(airquality: ArrayList<AirqualityForecast>)
+    fun insertAll(airquality: MutableList<AirqualityForecast>)
 
 
     //used to check if table is empty
