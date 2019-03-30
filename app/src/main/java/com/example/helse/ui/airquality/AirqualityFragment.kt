@@ -19,7 +19,6 @@ import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 
-
 class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
@@ -84,8 +83,7 @@ class AirqualityFragment : Fragment() {
     fun updateHorizontalSlider() {
         var i = 1
         while ( i <= 24) {
-            timeList.add(i)
-            i++
+            timeList.add(i++)
         }
     }
 }
