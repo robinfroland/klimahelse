@@ -1,14 +1,11 @@
 package com.example.helse.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.helse.MainActivity
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
 import com.example.helse.data.entities.ModuleCard

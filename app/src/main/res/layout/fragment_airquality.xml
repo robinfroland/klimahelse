@@ -43,14 +43,12 @@
         android:text="@string/pm10_concentration"
         android:textAlignment="center" />
 
-    <ImageButton
-        android:id="@+id/informationBtn"
-        android:contentDescription="@string/airquality_information_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_info" />
+    <TextView
+        android:id="@+id/risk_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/risk_value"
+        android:textAlignment="center" />
 
     <ImageButton
         android:id="@+id/informationBtn"

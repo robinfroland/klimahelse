@@ -33,11 +33,12 @@
     <string name="dangerindicator">Risikonivå</string>
     <string name="push_notification_icon">Pushvarsler</string>
 
-    <!-- AirqualityRepository -->
-    <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f</string>
-    <string name="no2_concentration">Nitrogenoksid (NO2): %.0f</string>
-    <string name="pm10_concentration">Svevestøv (PM10): %.0f</string>
-    <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f</string>
+    <!-- Airquality -->
+    <string name="o3_concentration">Ozon på bakkenivå (O3): %.0f  %s RISIKO</string>
+    <string name="no2_concentration">Nitrogenoksid (NO2): %.0f  %s RISIKO</string>
+    <string name="pm10_concentration">Svevestøv (PM10): %.0f  %s RISIKO</string>
+    <string name="pm25_concentration">Farlig svevestøv (PM2.5): %.0f  %s RISIKO</string>
+    <string name="risk_value">Risiko verdi: %s RISIKO </string>
 
     <string name="airquality_information_button">Informasjon om luftkvalitet</string>
     <string name="my_location_icon_desc">Min posisjon ikon</string>
