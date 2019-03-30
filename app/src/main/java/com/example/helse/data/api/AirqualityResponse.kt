@@ -2,7 +2,6 @@ package com.example.helse.data.api
 
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.utilities.parseAirqualityResponse
 import com.example.helse.utilities.showNetworkError
@@ -13,7 +12,7 @@ import okhttp3.Response
 private const val BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
 
 interface AirqualityApi {
-    fun fetchAirquality(url: String = BASE_URL): AirqualityForecast
+    fun fetchAirquality(url: String = BASE_URL): ArrayList<AirqualityForecast>
 }
 
 class AirqualityResponse(
@@ -23,7 +22,7 @@ class AirqualityResponse(
 
     private val client = OkHttpClient()
 
-    override fun fetchAirquality(url: String): AirqualityForecast {
+    override fun fetchAirquality(url: String): ArrayList<AirqualityForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()
@@ -35,7 +34,7 @@ class AirqualityResponse(
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
             showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
-            emptyAirqualityForecast
+            ArrayList()
         }
     }
 

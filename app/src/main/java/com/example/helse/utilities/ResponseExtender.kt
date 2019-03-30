@@ -30,42 +30,45 @@ fun Response.parseLocationResponse(): MutableList<Location> {
     return parsedResponse
 }
 
-fun Response.parseAirqualityResponse(location: Location): AirqualityForecast {
+fun Response.parseAirqualityResponse(location: Location): ArrayList<AirqualityForecast> {
     val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
+    val aqiForecastTimeArray = ArrayList<AirqualityForecast>()
 
-    //TODO: implement userdefined timeframe for forecast. Index 0 temporarily
-    val jsonObj = data.getJSONObject(0)
-    val to = jsonObj.getString("to")
-    val from = jsonObj.getString("from")
+    for (i in 0..(data.length() - 1)) {
+        val jsonObj = data.getJSONObject(i)
+        val to = jsonObj.getString("to")
+        val from = jsonObj.getString("from")
 
+        val variables = jsonObj.getJSONObject("variables")
+        val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
+        val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
+        val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
+        val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
+        val overallRisk = calculateOverallRiskValue(variables.getJSONObject("AQI").getDouble("value"))
+        val stationID = location.stationID
+        val id = 0
+        val o3RiskValue = calculateRiskFor(AirqualityMetrics.PM25, o3Concentration)
+        val pm10RiskValue = calculateRiskFor(AirqualityMetrics.PM10, pm10Concentration)
+        val pm25RiskValue = calculateRiskFor(AirqualityMetrics.PM25, pm25Concentration)
+        val no2RiskValue = calculateRiskFor(AirqualityMetrics.NO2, no2Concentration)
+        val tempAqi = AirqualityForecast(
+            id,
+            stationID,
+            from,
+            to,
+            overallRisk,
+            o3Concentration,
+            o3RiskValue,
+            pm10Concentration,
+            pm10RiskValue,
+            pm25Concentration,
+            pm25RiskValue,
+            no2Concentration,
+            no2RiskValue
+        )
 
-    val variables = jsonObj.getJSONObject("variables")
-    val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
-    val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")
-    val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
-    val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
-    val overallRisk = calculateOverallRiskValue(variables.getJSONObject("AQI").getDouble("value"))
-    val stationID = location.stationID
-    val o3RiskValue = calculateRiskFor(AirqualityMetrics.PM25, o3Concentration)
-    val pm10RiskValue = calculateRiskFor(AirqualityMetrics.PM10, pm10Concentration)
-    val pm25RiskValue = calculateRiskFor(AirqualityMetrics.PM25, pm25Concentration)
-    val no2RiskValue = calculateRiskFor(AirqualityMetrics.NO2, no2Concentration)
+        aqiForecastTimeArray.add(tempAqi)
+    }
 
-    return AirqualityForecast(
-        stationID,
-        from,
-        to,
-        overallRisk,
-        o3Concentration,
-        o3RiskValue,
-        pm10Concentration,
-        pm10RiskValue,
-        pm25Concentration,
-        pm25RiskValue,
-        no2Concentration,
-        no2RiskValue
-
-    )
+    return aqiForecastTimeArray
 }
-
-

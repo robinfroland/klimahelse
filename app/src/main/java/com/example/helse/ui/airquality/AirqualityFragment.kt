@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.AirqualityRepository
+import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
@@ -58,7 +59,8 @@ class AirqualityFragment : Fragment() {
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airquality = AirqualityRepository(
+                airqualityRepository = AirqualityRepositoryImpl(
+                    LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,
                         this@AirqualityFragment
@@ -66,7 +68,8 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecast ->
+        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
+            val forecast = forecasts.get(1)
             o3_concentration.text =
                 getString(R.string.o3_concentration, forecast.o3_concentration, forecast.o3_riskValue)
             no2_concentration.text =

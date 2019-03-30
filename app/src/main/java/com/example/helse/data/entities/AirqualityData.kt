@@ -1,10 +1,19 @@
 package com.example.helse.data.entities
+import androidx.room.*
 
-import androidx.room.Entity
+/*@Entity(tableName = "airqualityForecast", foreignKeys =
+[ForeignKey(
+    entity = Location::class,
+    parentColumns = ["stationID"],
+    childColumns = ["stationID"],
+    onDelete = ForeignKey.CASCADE)
+])*/
 
-@Entity
+@Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
+    var id: Int,
     val stationID: String,
+    @PrimaryKey(autoGenerate = false)
     val from: String,
     val to: String,
     val riskValue: String,
@@ -20,6 +29,7 @@ data class AirqualityForecast(
 )
 
 val emptyAirqualityForecast = AirqualityForecast(
+    0,
     "",
     "",
     "",
