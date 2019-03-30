@@ -7,10 +7,14 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.Module
+import com.example.helse.utilities.AppPreferences
+import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.list_item_module.view.*
 
 class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerView.Adapter<ModuleViewHolder>() {
+    private lateinit var preferences: Preferences
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
+        preferences = AppPreferences(parent.context)
         val layoutInflater = LayoutInflater.from(parent.context)
         val moduleLayout = layoutInflater.inflate(R.layout.list_item_module, parent, false)
         return ModuleViewHolder(moduleLayout)
@@ -24,7 +28,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
         val iconResourceId = enabledModules[position].iconResourceId
         val category = enabledModules[position].category
         val dangerIndicator = enabledModules[position].dangerIndicator
-        val pushEnabled = enabledModules[position].pushEnabled
+        var pushEnabled = enabledModules[position].pushEnabled
         holder.module.module_icon.setImageResource(iconResourceId)
         holder.module.module_title.text = category
         holder.module.module_dangerindicator.text = dangerIndicator
@@ -63,7 +67,6 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
                 true -> enablePush = false
                 false -> enablePush = true
             }
-            println(enablePush)
         }
     }
 }

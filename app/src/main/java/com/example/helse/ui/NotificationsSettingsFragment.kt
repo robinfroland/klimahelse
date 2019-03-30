@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.helse.R
+import com.example.helse.utilities.ENABLE_NOTIFICATIONS_FROM
+import com.example.helse.utilities.ENABLE_NOTIFICATIONS_TO
 import kotlinx.android.synthetic.main.fragment_notifications_settings.*
 
 class NotificationsSettingsFragment : Fragment() {
@@ -19,12 +21,12 @@ class NotificationsSettingsFragment : Fragment() {
 
         pickerNotificationsFrom.setIs24HourView(true)
         pickerNotificationsFrom.setOnTimeChangedListener { _, hourOfDay, minute ->
-            updatePreferences("notificationsFrom", hourOfDay, minute)
+            updatePreferences(ENABLE_NOTIFICATIONS_FROM, hourOfDay, minute)
         }
 
         pickerNotificationsTo.setIs24HourView(true)
         pickerNotificationsTo.setOnTimeChangedListener { _, hourOfDay, minute ->
-            updatePreferences("notificationsTo", hourOfDay, minute)
+            updatePreferences(ENABLE_NOTIFICATIONS_TO, hourOfDay, minute)
         }
     }
 

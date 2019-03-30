@@ -5,7 +5,7 @@
     <SwitchPreference
         android:defaultValue="true"
         android:disableDependentsState="true"
-        android:key="@"
+        android:key="USE_DEVICE_LOCATION"
         android:summary="La appen bruke din nåværende posisjon for varsler"
         android:title="Bruk min posisjon"
         app:iconSpaceReserved="false" />
@@ -21,28 +21,28 @@
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="ENABLE_AIRQUALITY_NOTIFICATONS"
+        android:key="AIRQUALITY_MODULE_ENABLE_NOTIFICATIONS"
         android:title="Luftkvalitet"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="ENABLE_UV_NOTIFICATONS"
+        android:key="UV_MODULE_ENABLE_NOTIFICATIONS"
         android:title="UV-stråling"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="ENABLE_ALLERGY_NOTIFICATONS"
+        android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
         android:title="Pollenspredning"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="ENABLE_HUMIDITY_NOTIFICATONS"
+        android:key="HUMIDITY_MODULE_ENABLE_NOTIFICATIONS"
         android:title="Luftfuktighet"
         app:iconSpaceReserved="false" />
 </PreferenceScreen>

@@ -1,12 +1,10 @@
 package com.example.helse.ui
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.preference.PreferenceManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
 import com.example.helse.data.entities.Module
+import com.example.helse.utilities.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : Fragment() {
@@ -25,13 +24,13 @@ class DashboardFragment : Fragment() {
     private lateinit var uvModule: Module
     private lateinit var allergyModule: Module
     private lateinit var humidityModule: Module
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferences: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        preferences = PreferenceManager.getDefaultSharedPreferences(context?.applicationContext)
+        preferences = Injector.getAppPreferences(requireContext())
         initModules()
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
@@ -59,10 +58,23 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initModules() {
-        airqualityModule = Module(R.drawable.ic_launcher_foreground, "Luftkvalitet", "HIGH", false)
-        uvModule = Module(R.drawable.ic_launcher_foreground, "UV-stråling", "LOW", false)
-        allergyModule = Module(R.drawable.ic_launcher_foreground, "Pollenspredning", "MEDIUM", false)
-        humidityModule = Module(R.drawable.ic_launcher_foreground, "Luftfuktighet", "MEDIUM", false)
+        airqualityModule = Module(
+            AIRQUALITY_MODULE, R.drawable.ic_launcher_foreground,
+            "Luftkvalitet", "HIGH", false
+        )
+        uvModule = Module(
+            UV_MODULE, R.drawable.ic_launcher_foreground, "UV-stråling",
+            "LOW", false
+        )
+        allergyModule = Module(
+            ALLERGY_MODULE, R.drawable.ic_launcher_foreground,
+            "Pollenspredning", "MEDIUM", false
+        )
+        humidityModule = Module(
+            HUMIDITY_MODULE, R.drawable.ic_launcher_foreground,
+            "Luftfuktighet", "MEDIUM", false
+        )
+
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule, allergyModule)
     }
 }
