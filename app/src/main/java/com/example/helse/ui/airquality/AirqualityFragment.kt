@@ -50,7 +50,8 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecast ->
+        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
+            val forecast = forecasts.get(1)
             o3_concentration.text =
                 getString(R.string.o3_concentration, forecast.o3_concentration, forecast.o3_riskValue)
             no2_concentration.text =

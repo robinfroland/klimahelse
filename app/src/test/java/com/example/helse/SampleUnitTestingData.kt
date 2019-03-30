@@ -21,6 +21,7 @@ const val badAirqualitySampleResponse =
 const val wrongResponse = "{\"message\": \"undefined station requested\"}"
 
 val parsedAirqualityResponse = AirqualityForecast(
+        0,
          alnabruLocation.stationID,
         "2019-03-18T01:00:00Z",
         "2019-03-18T01:00:00Z",

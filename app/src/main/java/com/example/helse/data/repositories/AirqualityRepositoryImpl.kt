@@ -1,11 +1,12 @@
 package com.example.helse.data.repositories
 
+import androidx.annotation.WorkerThread
 import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 
 interface AirqualityRepository {
-    suspend fun fetchAirquality(): AirqualityForecast
+    suspend fun fetchAirquality(): MutableList<AirqualityForecast>
 }
 
 class AirqualityRepositoryImpl(
@@ -13,12 +14,14 @@ class AirqualityRepositoryImpl(
     private val airqualityApi: AirqualityApi
 ) : AirqualityRepository {
 
-    override suspend fun fetchAirquality(): AirqualityForecast {
+    @WorkerThread
+    override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
         if(!haveRecentData()) {
-
-            airqualityDao.insert(airqualityApi.fetchAirquality())
+            airqualityDao.insertAll(
+                airqualityApi.fetchAirquality()
+            )
         }
-        return airqualityDao.getRecent()
+        return airqualityDao.getAll()
     }
 
     private fun haveRecentData() : Boolean {
@@ -28,5 +31,4 @@ class AirqualityRepositoryImpl(
         }
         return true
     }
-
 }

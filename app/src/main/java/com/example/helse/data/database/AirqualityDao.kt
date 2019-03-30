@@ -8,11 +8,12 @@ import com.example.helse.data.entities.AirqualityForecast
 
 @Dao
 interface AirqualityDao {
-    @Query("SELECT * FROM airqualityForecast WHERE id = 0")
-    fun getRecent(): AirqualityForecast
+    /*@Query("SELECT * FROM airqualityForecast")
+    fun getRecent(): ArrayList<AirqualityForecast>*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(airquality: AirqualityForecast)
+    fun insertAll(airquality: ArrayList<AirqualityForecast>)
+
 
     //used to check if table is empty
     @Query("SELECT * FROM airqualityForecast")

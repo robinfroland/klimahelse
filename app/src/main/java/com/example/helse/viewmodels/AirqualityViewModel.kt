@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 class AirqualityViewModel : ViewModel() {
     lateinit var airqualityRepository: AirqualityRepository
 
-    private val forecast: MutableLiveData<AirqualityForecast> by lazy {
-        MutableLiveData<AirqualityForecast>().also {
+    private val forecasts: MutableLiveData<MutableList<AirqualityForecast>> by lazy {
+        MutableLiveData<MutableList<AirqualityForecast>>().also {
             loadForecast()
         }
     }
@@ -22,9 +22,9 @@ class AirqualityViewModel : ViewModel() {
 
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) { airqualityRepository.fetchAirquality() }
-            forecast.value = deferred.await()
+            forecasts.value = deferred.await()
         }
     }
 
-    fun getAirqualityForecast() = forecast
+    fun getAirqualityForecast() = forecasts
 }
