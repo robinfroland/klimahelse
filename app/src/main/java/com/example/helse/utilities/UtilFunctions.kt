@@ -35,11 +35,30 @@ fun calculateRiskFor(metric: AirqualityMetrics, value: Double): String {
     }
 }
 
-fun calculateOverallRiskValue(x: Double): String {
+fun calculateOverallRiskValue(
+    riskValues: Array<String>
+): String {
+    var accum = 0
+    riskValues.forEach { riskValue ->
+        accum += convertRiskToInt(riskValue)
+    }
+
     return when {
-        x < 1 -> LOW_AQI_VALUE
-        x < 2 -> MEDIUM_AQI_VALUE
-        x < 3 -> HIGH_AQI_VALUE
+        accum <= 1 -> LOW_AQI_VALUE
+        accum <= 2 -> MEDIUM_AQI_VALUE
+        accum <= 3 -> HIGH_AQI_VALUE
         else -> VERY_HIGH_AQI_VALUE
     }
+}
+
+fun convertRiskToInt(riskString: String): Int {
+    return when (riskString) {
+        LOW_AQI_VALUE -> 1
+        MEDIUM_AQI_VALUE -> 2
+        HIGH_AQI_VALUE -> 3
+        VERY_HIGH_AQI_VALUE -> 4
+        // Something went wrong, don't count it
+        else -> 0
+        // Divide by 4 to get average
+    } / 4
 }
