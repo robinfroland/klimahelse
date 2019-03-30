@@ -9,7 +9,7 @@ import com.example.helse.data.entities.RiskCircles
 import kotlinx.android.synthetic.main.list_item_risk.view.*
 
 
-class HorisontalAdapter(private val timeList : ArrayList<RiskCircles>) : RecyclerView.Adapter<CardViewHolder>() {
+class HorisontalAdapter(private val timeList : MutableList<RiskCircles>) : RecyclerView.Adapter<CardViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -23,10 +23,10 @@ class HorisontalAdapter(private val timeList : ArrayList<RiskCircles>) : Recycle
         holder.view.risk_circle.risk_text.text = timeList[index].hourOfDay.toString()
         val riskValue = timeList[index].overallRiskValue
         when (riskValue) {
-            "LAV RISIKO" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
+            "LAV" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
             "MODERAT" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
-            "BETYDELIG RISIKO" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
-            "ALVORLIG RISIKO" -> holder.view.risk_circle.setBackgroundResource(R.drawable.indicator_danger_very_high)
+            "BETYDELIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
+            "ALVORLIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
         }
 
     }

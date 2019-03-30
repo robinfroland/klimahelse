@@ -16,12 +16,12 @@ class AirqualityRepositoryImpl(
 
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
-        if(!haveRecentData()) {
-            airqualityDao.insertAll(
-                airqualityApi.fetchAirquality()
+       /* if(!haveRecentData()) { airqualityDao.insertAll(
+
             )
         }
-        return airqualityDao.getAll()
+        return airqualityDao.getAll()*/
+        return airqualityApi.fetchAirquality()
     }
 
     private fun haveRecentData() : Boolean {

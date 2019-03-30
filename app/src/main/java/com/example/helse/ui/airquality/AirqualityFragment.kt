@@ -14,8 +14,11 @@ import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.database.LocalDatabase
+import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
+import com.example.helse.utilities.toast
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
@@ -23,7 +26,8 @@ import java.util.*
 class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
-    private var timeList = ArrayList<Int>()
+    private var timeList = ArrayList<RiskCircles>()
+    private val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +38,6 @@ class AirqualityFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        updateHorizontalSlider()
         super.onViewCreated(view, savedInstanceState)
 
         val viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -44,8 +47,6 @@ class AirqualityFragment : Fragment() {
             adapter = viewAdapter
             layoutManager = viewManager
         }
-        val sliderPosition = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 3
-        viewManager.scrollToPosition(sliderPosition)
 
         informationBtn.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
@@ -69,7 +70,10 @@ class AirqualityFragment : Fragment() {
             }
 
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
-            val forecast = forecasts.get(1)
+            updateHorizontalSlider(forecasts)
+            viewManager.scrollToPosition(hourOfDay-3)
+            viewAdapter.notifyDataSetChanged()
+            val forecast = forecasts[hourOfDay]
             o3_concentration.text =
                 getString(R.string.o3_concentration, forecast.o3_concentration, forecast.o3_riskValue)
             no2_concentration.text =
@@ -83,10 +87,15 @@ class AirqualityFragment : Fragment() {
         })
     }
 
-    fun updateHorizontalSlider() {
-        var i = 1
-        while ( i <= 24) {
-            timeList.add(i++)
+    fun updateHorizontalSlider(forecasts: MutableList<AirqualityForecast>) {
+        if(timeList.isEmpty()) {
+            for (i in 0..23) {
+                timeList.add(RiskCircles(i+1, forecasts[i].riskValue))
+            }
         }
+        /*for (i in 0..23) {
+            val test = arrayOf("LAV", "MODERAT", "BETYDELIG", "ALVORLIG")
+            timeList.add(RiskCircles(i+1, test.random()))
+        }*/
     }
 }

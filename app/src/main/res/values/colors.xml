@@ -8,9 +8,9 @@
     <!-- Secondary color palette -->
 
     <!-- Danger indicator colors -->
-    <color name="colorDangerVeryHigh">#9D1C4B</color>
-    <color name="colorDangerHigh">#D7402E</color>
-    <color name="colorDangerMedium">#E07E00</color>
+    <color name="colorDangerVeryHigh">#D7402E</color>
+    <color name="colorDangerHigh">#E07E00</color>
+    <color name="colorDangerMedium">#E6C52F</color>
     <color name="colorDangerLow">#33AD3A</color>
 
     <!-- Dot indicators -->

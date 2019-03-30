@@ -37,9 +37,9 @@ fun calculateRiskFor(metric: AirqualityMetrics, value: Double): String {
 
 fun calculateOverallRiskValue(x: Double): String {
     return when {
-        x < 1 -> LOW_AQI_VALUE
-        x < 2 -> MEDIUM_AQI_VALUE
-        x < 3 -> HIGH_AQI_VALUE
+        x < 2 -> LOW_AQI_VALUE
+        x < 3 -> MEDIUM_AQI_VALUE
+        x < 4 -> HIGH_AQI_VALUE
         else -> VERY_HIGH_AQI_VALUE
     }
 }

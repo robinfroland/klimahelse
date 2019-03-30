@@ -12,7 +12,7 @@ import okhttp3.Response
 private const val BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?station="
 
 interface AirqualityApi {
-    fun fetchAirquality(url: String = BASE_URL): ArrayList<AirqualityForecast>
+    fun fetchAirquality(url: String = BASE_URL): MutableList<AirqualityForecast>
 }
 
 class AirqualityResponse(
@@ -22,7 +22,7 @@ class AirqualityResponse(
 
     private val client = OkHttpClient()
 
-    override fun fetchAirquality(url: String): ArrayList<AirqualityForecast> {
+    override fun fetchAirquality(url: String): MutableList<AirqualityForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()
