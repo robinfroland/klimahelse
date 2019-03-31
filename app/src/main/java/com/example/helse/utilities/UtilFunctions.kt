@@ -41,7 +41,7 @@ fun calculateOverallRiskValue(
     var highestRisk = 0
     riskValues.forEach { riskValue ->
         val risk = convertRiskToInt(riskValue)
-       
+
         if (risk > highestRisk) {
             highestRisk = risk
         }
