@@ -1,63 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/vertical_gradient_divider"
+        app:layout_constraintEnd_toStartOf="@+id/pm10_concentration"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/o3_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/vertical_gradient_divider"
+        app:layout_constraintEnd_toStartOf="@+id/o3_concentration"
+        app:layout_constraintStart_toEndOf="@+id/pm25_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+
+    <ImageView
+        android:id="@+id/location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_location_on_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/location"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/location_text"
-        android:textAlignment="center"
-        android:textSize="18sp" />
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/location_icon"
+        app:layout_constraintStart_toStartOf="@+id/location_icon"
+        app:layout_constraintTop_toBottomOf="@+id/location_icon" />
 
     <TextView
-        android:id="@+id/o3_concentration"
-        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/o3_concentration"
-        android:textAlignment="center" />
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/airquality_fragment_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/location"
+        app:layout_constraintStart_toStartOf="@+id/location"
+        app:layout_constraintTop_toBottomOf="@+id/location" />
 
-    <TextView
-        android:id="@+id/no2_concentration"
+    <ImageView
+        android:id="@+id/gauge"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+    <ImageView
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no2_concentration"
-        android:textAlignment="center" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_info_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gauge" />
+
+    <View
+        android:id="@+id/horizontal_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient_divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/o3_concentration"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/vertical_divider"
+        android:layout_width="1dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/vertical_gradient_divider"
+        app:layout_constraintEnd_toStartOf="@+id/pm25_concentration"
+        app:layout_constraintStart_toEndOf="@+id/no2_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/pm25_concentration"
-        android:layout_width="match_parent"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="47dp"
+        android:gravity="center"
+        android:text="@string/concentration_placeholder"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/o3_concentration"
+        app:layout_constraintStart_toEndOf="@+id/no2_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+
+    <TextView
+        android:id="@+id/no2_concentration"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="@string/pm25_concentration"
-        android:textAlignment="center" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/concentration_placeholder"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/pm25_concentration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+
+    <TextView
+        android:id="@+id/o3_concentration"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="47dp"
+        android:gravity="center"
+        android:text="@string/concentration_placeholder"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/pm10_concentration"
+        app:layout_constraintStart_toEndOf="@+id/pm25_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/pm10_concentration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pm10_concentration"
-        android:textAlignment="center" />
+        android:layout_width="50dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="@string/concentration_placeholder"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/o3_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
-        android:id="@+id/risk_value"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/risk_value"
-        android:textAlignment="center" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/pm1_0"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/pm10_concentration"
+        app:layout_constraintEnd_toEndOf="@+id/pm10_concentration"
+        app:layout_constraintStart_toStartOf="@+id/pm10_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <ImageButton
-        android:id="@+id/informationBtn"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_info"
-        android:contentDescription="@string/airquality_information_button" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/pm2_5"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/pm25_concentration"
+        app:layout_constraintEnd_toEndOf="@+id/pm25_concentration"
+        app:layout_constraintStart_toStartOf="@+id/pm25_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintVertical_bias="0.966" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/o3"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/o3_concentration"
+        app:layout_constraintEnd_toEndOf="@+id/o3_concentration"
+        app:layout_constraintStart_toStartOf="@+id/o3_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/no2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/no2_concentration"
+        app:layout_constraintEnd_toEndOf="@+id/no2_concentration"
+        app:layout_constraintStart_toStartOf="@+id/no2_concentration"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:requiresFadingEdge="horizontal"
@@ -71,8 +232,10 @@
         android:layout_marginEnd="20dp"
         android:scrollbarThumbHorizontal="@color/colorWhite"
         android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
-         />
+        />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

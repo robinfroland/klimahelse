@@ -1,5 +1,6 @@
 package com.example.helse.ui.airquality
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,7 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        informationBtn.setOnClickListener {
+        infoButton.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
         }
 
@@ -56,7 +57,8 @@ class AirqualityFragment : Fragment() {
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
             ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
 
-        location.text = getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
+        location.text =
+            getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
@@ -69,21 +71,25 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
+        var riskValue = ""
+
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
             updateHorizontalSlider(forecasts)
             viewManager.scrollToPosition(hourOfDay-3)
             viewAdapter.notifyDataSetChanged()
             val forecast = forecasts[hourOfDay]
             o3_concentration.text =
-                getString(R.string.o3_concentration, forecast.o3_concentration, forecast.o3_riskValue)
+                getString(R.string.concentration, forecast.o3_concentration)
             no2_concentration.text =
-                getString(R.string.no2_concentration, forecast.no2_concentration, forecast.no2_riskValue)
+                getString(R.string.concentration, forecast.no2_concentration)
             pm10_concentration.text =
-                getString(R.string.pm10_concentration, forecast.pm10_concentration, forecast.pm10_riskValue)
+                getString(R.string.concentration, forecast.pm10_concentration)
             pm25_concentration.text =
-                getString(R.string.pm25_concentration, forecast.pm25_concentration, forecast.pm25_riskValue)
-            risk_value.text = getString(R.string.risk_value, forecast.riskValue)
-
+                getString(R.string.concentration, forecast.pm25_concentration)
+            riskValue = forecast.riskValue
+            val gaugeUri = "@drawable/gauge_${riskValue.toLowerCase()}"
+            val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName))
+            gauge.setImageDrawable(res)
         })
     }
 
