@@ -45,7 +45,7 @@ fun Response.parseAirqualityResponse(location: Location): AirqualityForecast {
     val pm25Concentration = variables.getJSONObject("pm25_concentration").getDouble("value")
     val no2Concentration = variables.getJSONObject("no2_concentration").getDouble("value")
     val stationID = location.stationID
-    val o3RiskValue = calculateRiskFor(AirqualityMetrics.PM25, o3Concentration)
+    val o3RiskValue = calculateRiskFor(AirqualityMetrics.O3, o3Concentration)
     val pm10RiskValue = calculateRiskFor(AirqualityMetrics.PM10, pm10Concentration)
     val pm25RiskValue = calculateRiskFor(AirqualityMetrics.PM25, pm25Concentration)
     val no2RiskValue = calculateRiskFor(AirqualityMetrics.NO2, no2Concentration)

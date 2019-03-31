@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toStartOf="@+id/pm10_concentration"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toEndOf="@+id/o3_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <View
         android:layout_width="1dp"
@@ -26,7 +26,7 @@
         android:background="@drawable/vertical_gradient_divider"
         app:layout_constraintEnd_toStartOf="@+id/o3_concentration"
         app:layout_constraintStart_toEndOf="@+id/pm25_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <ImageView
         android:id="@+id/location_icon"
@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/location"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
@@ -112,7 +112,7 @@
         android:background="@drawable/vertical_gradient_divider"
         app:layout_constraintEnd_toStartOf="@+id/pm25_concentration"
         app:layout_constraintStart_toEndOf="@+id/no2_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/pm25_concentration"
@@ -126,7 +126,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/o3_concentration"
         app:layout_constraintStart_toEndOf="@+id/no2_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/no2_concentration"
@@ -139,7 +139,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/pm25_concentration"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/o3_concentration"
@@ -152,7 +152,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/pm10_concentration"
         app:layout_constraintStart_toEndOf="@+id/pm25_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:id="@+id/pm10_concentration"
@@ -166,7 +166,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/o3_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
         app:layout_constraintBottom_toTopOf="@+id/pm10_concentration"
         app:layout_constraintEnd_toEndOf="@+id/pm10_concentration"
         app:layout_constraintStart_toStartOf="@+id/pm10_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -191,7 +191,7 @@
         app:layout_constraintBottom_toTopOf="@+id/pm25_concentration"
         app:layout_constraintEnd_toEndOf="@+id/pm25_concentration"
         app:layout_constraintStart_toStartOf="@+id/pm25_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="0.966" />
 
     <TextView
@@ -204,7 +204,7 @@
         app:layout_constraintBottom_toTopOf="@+id/o3_concentration"
         app:layout_constraintEnd_toEndOf="@+id/o3_concentration"
         app:layout_constraintStart_toStartOf="@+id/o3_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -217,7 +217,7 @@
         app:layout_constraintBottom_toTopOf="@+id/no2_concentration"
         app:layout_constraintEnd_toEndOf="@+id/no2_concentration"
         app:layout_constraintStart_toStartOf="@+id/no2_concentration"
-        app:layout_constraintTop_toBottomOf="@+id/info_button"
+        app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
