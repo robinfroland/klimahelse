@@ -71,11 +71,10 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-        var riskValue = ""
 
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
             updateHorizontalSlider(forecasts)
-            viewManager.scrollToPosition(hourOfDay-3)
+            viewManager.scrollToPosition(hourOfDay)
             viewAdapter.notifyDataSetChanged()
             val forecast = forecasts[hourOfDay]
             o3_concentration.text =
@@ -86,7 +85,7 @@ class AirqualityFragment : Fragment() {
                 getString(R.string.concentration, forecast.pm10_concentration)
             pm25_concentration.text =
                 getString(R.string.concentration, forecast.pm25_concentration)
-            riskValue = forecast.riskValue
+            val riskValue = forecast.riskValue
             val gaugeUri = "@drawable/gauge_${riskValue.toLowerCase()}"
             val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName))
             gauge.setImageDrawable(res)
