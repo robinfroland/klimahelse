@@ -7,14 +7,15 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.Module
-import com.example.helse.utilities.AppPreferences
+import com.example.helse.utilities.Injector
 import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.list_item_module.view.*
 
 class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerView.Adapter<ModuleViewHolder>() {
     private lateinit var preferences: Preferences
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
-        preferences = AppPreferences(parent.context)
+        preferences = Injector.getAppPreferences(parent.context)
         val layoutInflater = LayoutInflater.from(parent.context)
         val moduleLayout = layoutInflater.inflate(R.layout.list_item_module, parent, false)
         return ModuleViewHolder(moduleLayout)
@@ -62,10 +63,17 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
             }
         }
         holder.module.push_btn.setOnClickListener {
-            var enablePush = true
-            when(pushEnabled) {
-                true -> enablePush = false
-                false -> enablePush = true
+            when (pushEnabled) {
+                true -> {
+                    pushEnabled = false
+                    preferences.enableNotifications(enabledModules[position], false)
+                    holder.module.push_btn.setImageResource(R.drawable.ic_notifications_disabled)
+                }
+                false -> {
+                    pushEnabled = true
+                    holder.module.push_btn.setImageResource(R.drawable.ic_notifications_enabled)
+                    preferences.enableNotifications(enabledModules[position], true)
+                }
             }
         }
     }

@@ -33,16 +33,15 @@
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
-        android:defaultValue="false"
-        android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
-        android:title="Pollenspredning"
-        app:iconSpaceReserved="false" />
-
-    <CheckBoxPreference
-        android:defaultValue="false"
         android:dependency="ENABLE_NOTIFICATIONS"
         android:key="HUMIDITY_MODULE_ENABLE_NOTIFICATIONS"
         android:title="Luftfuktighet"
         app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
+        android:title="Pollenspredning"
+        app:iconSpaceReserved="false" />
+    
 </PreferenceScreen>

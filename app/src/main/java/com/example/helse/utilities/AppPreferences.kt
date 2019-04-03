@@ -12,6 +12,7 @@ interface Preferences {
     fun locationPermissionGranted(): Boolean
     fun enableNotifications(module: Module, enable: Boolean)
     fun isNotificationEnabled(module: Module): Boolean
+    fun getSharedPreferences(): SharedPreferences
 }
 
 class AppPreferences(context: Context) : Preferences {
@@ -23,6 +24,10 @@ class AppPreferences(context: Context) : Preferences {
         get() = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
     private val preferenceEditor = preferences.edit()
+
+    override fun getSharedPreferences(): SharedPreferences {
+        return preferences
+    }
 
     override fun isFirstLaunch(): Boolean {
         return preferences.getBoolean(IS_FIRST_LAUNCH, true)

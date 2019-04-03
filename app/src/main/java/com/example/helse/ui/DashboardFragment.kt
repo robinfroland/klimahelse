@@ -55,6 +55,9 @@ class DashboardFragment : Fragment() {
 
     private fun submitModules() {
         enabledModules = allModules
+        enabledModules.forEach {
+            it.pushEnabled = preferences.isNotificationEnabled(it)
+        }
     }
 
     private fun initModules() {
