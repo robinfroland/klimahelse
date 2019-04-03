@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.entities.emptyAirqualityForecast
 
 interface AirqualityRepository {
     suspend fun fetchAirquality(): MutableList<AirqualityForecast>
@@ -16,11 +17,12 @@ class AirqualityRepositoryImpl(
 
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
-       /* if(!haveRecentData()) { airqualityDao.insertAll(
 
-            )
-        }
-        return airqualityDao.getAll()*/
+        /*val responseArray = airqualityApi.fetchAirquality()
+        //if api call fails get from database and we have backup data return from database
+        if(responseArray[0] == emptyAirqualityForecast && haveRecentData()) return airqualityDao.getAll()
+        //return the response
+        return responseArray*/
         return airqualityApi.fetchAirquality()
     }
 

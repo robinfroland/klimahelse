@@ -18,6 +18,7 @@ import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
+import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER
 import com.example.helse.utilities.toast
@@ -29,7 +30,7 @@ class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
     private var timeList = ArrayList<RiskCircles>()
-    private val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
+    private var hourOfDay = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,10 +75,11 @@ class AirqualityFragment : Fragment() {
 
 
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
-            updateHorizontalSlider(forecasts)
+            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
+            val forecast = updateHorizontalSlider(forecasts)
             viewManager.scrollToPosition(hourOfDay)
             viewAdapter.notifyDataSetChanged()
-            val forecast = forecasts[hourOfDay]
+
             o3_concentration.text =
                 getString(R.string.concentration, forecast.o3_concentration)
             no2_concentration.text =
@@ -88,20 +90,19 @@ class AirqualityFragment : Fragment() {
                 getString(R.string.concentration, forecast.pm25_concentration)
             val riskValue = forecast.riskValue
             val gaugeUri = "@drawable/gauge_${riskValue.toLowerCase()}"
-            val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName))
-            gauge.setImageDrawable(res)
+            //val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName))
+            //gauge.setImageDrawable(res)
         })
     }
 
-    fun updateHorizontalSlider(forecasts: MutableList<AirqualityForecast>) {
-        if(timeList.isEmpty()) {
+    fun updateHorizontalSlider(forecasts: MutableList<AirqualityForecast>): AirqualityForecast {
+        if(forecasts[0] != emptyAirqualityForecast) {
+            timeList.clear()
             for (i in 0..23) {
                 timeList.add(RiskCircles(i+1, forecasts[i].riskValue))
             }
+            return forecasts[hourOfDay]
         }
-        /*for (i in 0..23) {
-            val test = arrayOf("LAV", "MODERAT", "BETYDELIG", "ALVORLIG")
-            timeList.add(RiskCircles(i+1, test.random()))
-        }*/
+        return emptyAirqualityForecast
     }
 }

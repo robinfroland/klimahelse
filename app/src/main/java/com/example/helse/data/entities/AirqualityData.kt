@@ -11,7 +11,6 @@ import androidx.room.*
 
 @Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
-    var id: Int,
     val stationID: String,
     @PrimaryKey(autoGenerate = false)
     val from: String,
@@ -29,7 +28,6 @@ data class AirqualityForecast(
 )
 
 val emptyAirqualityForecast = AirqualityForecast(
-    0,
     "",
     "",
     "",
