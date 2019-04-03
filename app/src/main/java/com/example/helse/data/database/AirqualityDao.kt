@@ -8,14 +8,16 @@ import com.example.helse.data.entities.AirqualityForecast
 
 @Dao
 interface AirqualityDao {
-    /*@Query("SELECT * FROM airqualityForecast")
-    fun getRecent(): ArrayList<AirqualityForecast>*/
+    @Query("SELECT * FROM airqualityForecast WHERE id = :hour")
+    fun getAtHour(hour: Int ): ArrayList<AirqualityForecast>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(airquality: MutableList<AirqualityForecast>)
 
 
-    //used to check if table is empty
+    @Query("DELETE FROM airqualityForecast")
+    fun deleteAll()
+
     @Query("SELECT * FROM airqualityForecast")
     fun getAll(): MutableList<AirqualityForecast>
 }

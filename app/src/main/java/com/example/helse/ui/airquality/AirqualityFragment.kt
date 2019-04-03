@@ -19,6 +19,7 @@ import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
+import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER
 import com.example.helse.utilities.toast
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
@@ -28,7 +29,7 @@ class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
     private var timeList = ArrayList<RiskCircles>()
-    private val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 3
+    private val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

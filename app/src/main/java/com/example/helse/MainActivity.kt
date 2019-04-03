@@ -30,13 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         setupErrorHandling(intent, this)
 
-        val saveRequest = PeriodicWorkRequest.Builder(UpdateAirqualityWorker::class.java,15, TimeUnit.MINUTES).build()
-        val workMan = WorkManager.getInstance()
-        workMan.enqueue(saveRequest)
-        workMan.getWorkInfoByIdLiveData(saveRequest.id).observe(this, Observer { workInfo ->
-                d("ConcurrentWorker", "Status: ${workInfo.state}")
-        })
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)

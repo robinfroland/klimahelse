@@ -27,3 +27,6 @@ val pm10Values = arrayOf(60, 120, 400)
 val pm25Values = arrayOf(30, 50, 150)
 val no2Values = arrayOf(100, 200, 400)
 
+
+const val  OFFSET_FOR_HORIZONTAL_SLIDER = -3
+

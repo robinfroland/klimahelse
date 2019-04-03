@@ -2,6 +2,7 @@ package com.example.helse.data.api
 
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.utilities.parseAirqualityResponse
 import com.example.helse.utilities.showNetworkError
@@ -34,7 +35,7 @@ class AirqualityResponse(
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
             showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
-            ArrayList()
+            arrayListOf(emptyAirqualityForecast)
         }
     }
 

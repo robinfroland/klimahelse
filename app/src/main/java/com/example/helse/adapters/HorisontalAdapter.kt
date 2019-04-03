@@ -8,9 +8,7 @@ import com.example.helse.R
 import com.example.helse.data.entities.RiskCircles
 import kotlinx.android.synthetic.main.list_item_risk.view.*
 
-
 class HorisontalAdapter(private val timeList : MutableList<RiskCircles>) : RecyclerView.Adapter<CardViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
 
@@ -35,10 +33,6 @@ class HorisontalAdapter(private val timeList : MutableList<RiskCircles>) : Recyc
         return timeList.size
     }
 
-
 }
 
 class CardViewHolder(val view: CardView) : RecyclerView.ViewHolder(view)
-
-
-
