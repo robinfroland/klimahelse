@@ -29,6 +29,7 @@ import java.util.*
 class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
+    private lateinit var viewManager: LinearLayoutManager
     private var timeList = ArrayList<RiskCircles>()
     private var hourOfDay = 0
 
@@ -43,8 +44,8 @@ class AirqualityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        viewAdapter = HorisontalAdapter(timeList)
+        viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        viewAdapter = HorisontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)
         risk_list.apply {
             adapter = viewAdapter
@@ -60,6 +61,7 @@ class AirqualityFragment : Fragment() {
             ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
 
         location.text =
+
             getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
@@ -73,36 +75,36 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
-            val forecast = updateHorizontalSlider(forecasts)
-            viewManager.scrollToPosition(hourOfDay)
-            viewAdapter.notifyDataSetChanged()
+            timeList.clear()
+            for (i in 0..23) {
+                val gaugeUri = "@drawable/gauge_${forecasts[i].riskValue.toLowerCase()}"
+                val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
+                timeList.add(RiskCircles(
+                    (i+1),
+                    forecasts[i].riskValue,
+                    getString(R.string.concentration, forecasts[i].o3_concentration),
+                    getString(R.string.concentration, forecasts[i].no2_concentration),
+                    getString(R.string.concentration, forecasts[i].pm10_concentration),
+                    getString(R.string.concentration, forecasts[i].pm25_concentration),
+                    res
+                ))
 
-            o3_concentration.text =
-                getString(R.string.concentration, forecast.o3_concentration)
-            no2_concentration.text =
-                getString(R.string.concentration, forecast.no2_concentration)
-            pm10_concentration.text =
-                getString(R.string.concentration, forecast.pm10_concentration)
-            pm25_concentration.text =
-                getString(R.string.concentration, forecast.pm25_concentration)
-            val riskValue = forecast.riskValue
-            val gaugeUri = "@drawable/gauge_${riskValue.toLowerCase()}"
-            //val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName))
-            //gauge.setImageDrawable(res)
+            }
+
+            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
+            viewAdapter.notifyDataSetChanged()
+            setScreenToChosenTime(hourOfDay)
         })
     }
 
-    fun updateHorizontalSlider(forecasts: MutableList<AirqualityForecast>): AirqualityForecast {
-        if(forecasts[0] != emptyAirqualityForecast) {
-            timeList.clear()
-            for (i in 0..23) {
-                timeList.add(RiskCircles(i+1, forecasts[i].riskValue))
-            }
-            return forecasts[hourOfDay]
-        }
-        return emptyAirqualityForecast
+    fun setScreenToChosenTime(time: Int ) {
+        viewManager.scrollToPosition(time)
+        o3_concentration.text = timeList[time].o3_concentration
+        no2_concentration.text =timeList[time].no2_concentration
+        pm10_concentration.text =timeList[time].pm10_concentration
+        pm25_concentration.text =timeList[time].pm25_concentration
+        gauge.setImageDrawable(timeList[time].gaugeImg)
+        viewAdapter.notifyDataSetChanged()
     }
 }

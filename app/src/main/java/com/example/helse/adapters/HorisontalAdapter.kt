@@ -7,8 +7,11 @@ import androidx.cardview.widget.CardView
 import com.example.helse.R
 import com.example.helse.data.entities.RiskCircles
 import kotlinx.android.synthetic.main.list_item_risk.view.*
+import android.content.Context
+import com.example.helse.ui.airquality.AirqualityFragment
 
-class HorisontalAdapter(private val timeList : MutableList<RiskCircles>) : RecyclerView.Adapter<CardViewHolder>() {
+
+class HorisontalAdapter(private val timeList : MutableList<RiskCircles>, private val fragment: AirqualityFragment) : RecyclerView.Adapter<CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
 
@@ -25,6 +28,10 @@ class HorisontalAdapter(private val timeList : MutableList<RiskCircles>) : Recyc
             "MODERAT" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
             "BETYDELIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
             "ALVORLIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
+        }
+
+        holder.view.risk_circle.setOnClickListener {
+            fragment.setScreenToChosenTime(index)
         }
 
     }
