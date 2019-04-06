@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="Location">
+    <PreferenceCategory android:title="Location">
 
         <SwitchPreference
-            android:key="USE_DEVICE_LOCATION"
-            android:title="Use device location"
-            android:summary="Allow the app to get your current location"
             android:defaultValue="true"
-            android:disableDependentsState="true"/>
+            android:disableDependentsState="true"
+            android:key="USE_DEVICE_LOCATION"
+            android:summary="Allow the app to get your current location"
+            android:title="Use device location" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Notifications">
+    <PreferenceCategory android:title="Notifications">
         <SwitchPreference
-            android:key="ENABLE_NOTIFICATIONS"
-            android:title="Enable notifications"
-            android:summary="Allow the app to send you relevant push-notifications"
             android:defaultValue="true"
-            android:disableDependentsState="true"/>
+            android:disableDependentsState="true"
+            android:key="ENABLE_NOTIFICATIONS"
+            android:summary="Allow the app to send you relevant push-notifications"
+            android:title="Enable notifications" />
 
     </PreferenceCategory>
 

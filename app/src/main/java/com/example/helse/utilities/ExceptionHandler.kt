@@ -22,7 +22,7 @@ class ExceptionHandler(private val context: Context) : Thread.UncaughtExceptionH
         errorReport.append("************ CAUSE OF ERROR ************\n\n")
         errorReport.append(stackTrace.toString())
 
-        errorReport.append("\n************ DEVICE INFORMATION ***********\n");
+        errorReport.append("\n************ DEVICE INFORMATION ***********\n")
         errorReport.append("Brand: ")
         errorReport.append(Build.BRAND)
         errorReport.append(LINE_SEPARATOR)
