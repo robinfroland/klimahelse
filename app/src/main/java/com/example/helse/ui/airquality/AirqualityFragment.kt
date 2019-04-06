@@ -56,9 +56,10 @@ class AirqualityFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
         }
 
+
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+            ?: Location("Alnabru", "Oslo", 59.932141, 10.846132, "NO0057A")
 
         location.text =
 
