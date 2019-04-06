@@ -7,12 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.utilities.Preferences
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : AppCompatActivity() {
-
-    private lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)

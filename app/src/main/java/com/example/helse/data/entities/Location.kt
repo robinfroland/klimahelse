@@ -10,8 +10,8 @@ import kotlinx.android.parcel.Parcelize
 data class Location(
     val location: String,
     val superlocation: String,
-    val longitude: Double,
     val latitude: Double,
+    val longitude: Double,
     // unique ID per API/StationID? Add as system expand
     @PrimaryKey
     val stationID: String
