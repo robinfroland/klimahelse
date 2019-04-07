@@ -35,7 +35,7 @@ class AirqualityResponse(
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
             showNetworkError(airqualityFragment.requireActivity(), response.code(), e)
-            arrayListOf(emptyAirqualityForecast)
+            mutableListOf(emptyAirqualityForecast)
         }
     }
 

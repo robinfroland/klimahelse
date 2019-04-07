@@ -39,7 +39,6 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")
 
-
         val variables = jsonObj.getJSONObject("variables")
         val o3Concentration = variables.getJSONObject("o3_concentration").getDouble("value")
         val pm10Concentration = variables.getJSONObject("pm10_concentration").getDouble("value")

@@ -15,13 +15,10 @@ import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.database.LocalDatabase
-import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
-import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER
-import com.example.helse.utilities.toast
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*

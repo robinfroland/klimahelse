@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 
 const val IS_FIRST_LAUNCH = "IS_FIRST_LAUNCH"
+const val OFFSET_FOR_HORIZONTAL_SLIDER = -3
 const val LOCATION_PERMISSION_CODE = 1
 const val LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION
 const val PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED
@@ -26,7 +27,3 @@ val o3Values = arrayOf(100, 180, 240)
 val pm10Values = arrayOf(60, 120, 400)
 val pm25Values = arrayOf(30, 50, 150)
 val no2Values = arrayOf(100, 200, 400)
-
-
-const val  OFFSET_FOR_HORIZONTAL_SLIDER = -3
-

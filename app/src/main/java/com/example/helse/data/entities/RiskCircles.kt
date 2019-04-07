@@ -10,6 +10,4 @@ data class RiskCircles(
     val pm10_concentration: String,
     val pm25_concentration: String,
     val gaugeImg: Drawable
-
-
 )
