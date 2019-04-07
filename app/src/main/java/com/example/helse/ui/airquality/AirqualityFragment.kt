@@ -80,7 +80,7 @@ class AirqualityFragment : Fragment() {
                 timeList.add(
                     RiskCircles(
                         (i + 1),
-                        forecasts[i].riskValue,
+                        forecasts[i].riskValuee
                         getString(R.string.concentration, forecasts[i].o3_concentration),
                         getString(R.string.concentration, forecasts[i].no2_concentration),
                         getString(R.string.concentration, forecasts[i].pm10_concentration),

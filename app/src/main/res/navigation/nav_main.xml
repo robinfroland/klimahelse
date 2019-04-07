@@ -31,6 +31,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/dashboard_to_search"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -69,7 +72,7 @@
         android:id="@+id/allergyFragment"
         android:name="com.example.helse.ui.allergy.AllergyFragment"
         android:label="fragment_allergy"
-        tools:layout="@layout/fragment_allergy" >
+        tools:layout="@layout/fragment_allergy">
         <action
             android:id="@+id/allergy_to_information"
             app:destination="@+id/allergyInformationFragment"
@@ -89,7 +92,7 @@
         android:id="@+id/uvFragment"
         android:name="com.example.helse.ui.uv.UvFragment"
         android:label="fragment_uv"
-        tools:layout="@layout/fragment_uv" >
+        tools:layout="@layout/fragment_uv">
         <action
             android:id="@+id/uv_to_information"
             app:destination="@+id/uvInformationFragment"
@@ -104,5 +107,13 @@
         android:name="com.example.helse.ui.uv.UvInformationFragment"
         android:label="fragment_uv_information"
         tools:layout="@layout/fragment_uv_information" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.helse.ui.SearchFragment"
+        android:label="SearchFragment">
+        <action
+            android:id="@+id/search_to_dashboard"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 
 </navigation>
