@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
@@ -26,6 +27,9 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         submitModules()
         super.onViewCreated(view, savedInstanceState)
+        search_dashboard.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
+        }
         val viewManager = LinearLayoutManager(context)
         viewAdapter = ModuleAdapter(enabledModules)
         module_list.apply {

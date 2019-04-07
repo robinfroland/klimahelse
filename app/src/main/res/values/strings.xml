@@ -17,6 +17,8 @@
     <string name="location_text">%1$s, %2$s</string>
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s</string>
+    <string name="your_location">Din posisjon</string>
+    <string name="your_superlocation">Forskningsparken, Oslo</string>
 
     <!--Time and date -->
     <string name="time_and_date">Currently showing: %s  </string>

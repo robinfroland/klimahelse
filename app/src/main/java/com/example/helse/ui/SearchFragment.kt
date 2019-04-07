@@ -1,12 +1,12 @@
 package com.example.helse.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.LocationAdapter
@@ -14,7 +14,6 @@ import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.LocationRepositoryImpl
-import com.example.helse.ui.airquality.AirqualityFragment
 import com.example.helse.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -30,7 +29,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         submitData()
-
         setHasOptionsMenu(true)
     }
 
@@ -48,9 +46,6 @@ class SearchFragment : Fragment() {
             override fun onQueryTextChange(userInput: String): Boolean {
                 if (userInput.isNotEmpty()) {
                     viewAdapter.filter.filter(userInput)
-                    search_view.visibility = View.VISIBLE
-                } else {
-                    search_view.visibility = View.GONE
                 }
                 return false
             }
@@ -77,8 +72,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun locationClicked(location: Location) {
-        val intent = Intent(activity, AirqualityFragment::class.java)
-        intent.putExtra("LOCATION", location)
-        startActivity(intent)
+        println("LOCATION CLICKED IS $location")
+        val view = this.view ?: return
+        Navigation.findNavController(view).navigate(R.id.search_to_dashboard)
     }
 }
