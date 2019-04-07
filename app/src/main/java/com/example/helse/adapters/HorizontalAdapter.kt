@@ -2,15 +2,15 @@ package com.example.helse.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.RiskCircles
-import kotlinx.android.synthetic.main.list_item_risk.view.*
-import android.content.Context
 import com.example.helse.ui.airquality.AirqualityFragment
+import kotlinx.android.synthetic.main.list_item_risk.view.*
 
-class HorisontalAdapter(private val timeList : MutableList<RiskCircles>, private val fragment: AirqualityFragment) : RecyclerView.Adapter<CardViewHolder>() {
+class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private val fragment: AirqualityFragment) :
+    RecyclerView.Adapter<CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
 

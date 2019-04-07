@@ -50,6 +50,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
         val pm25RiskValue = calculateRiskFor(AirqualityMetrics.PM25, pm25Concentration)
         val no2RiskValue = calculateRiskFor(AirqualityMetrics.NO2, no2Concentration)
         val overallRisk = calculateOverallRiskValue(arrayOf(o3RiskValue, pm10RiskValue, pm25RiskValue, no2RiskValue))
+
         val tempAqi = AirqualityForecast(
             stationID,
             from,
@@ -64,7 +65,6 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
             no2Concentration,
             no2RiskValue
         )
-
         aqiForecastTimeArray.add(tempAqi)
     }
 

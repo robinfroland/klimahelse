@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
@@ -64,7 +63,6 @@ class AirqualityFragment : Fragment() {
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airqualityRepository = AirqualityRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,
                         this@AirqualityFragment
@@ -76,31 +74,34 @@ class AirqualityFragment : Fragment() {
             timeList.clear()
             for (i in 0..23) {
                 val gaugeUri = "@drawable/gauge_${forecasts[i].riskValue.toLowerCase()}"
-                val res: Drawable = resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
-                timeList.add(RiskCircles(
-                    (i+1),
-                    forecasts[i].riskValue,
-                    getString(R.string.concentration, forecasts[i].o3_concentration),
-                    getString(R.string.concentration, forecasts[i].no2_concentration),
-                    getString(R.string.concentration, forecasts[i].pm10_concentration),
-                    getString(R.string.concentration, forecasts[i].pm25_concentration),
-                    res
-                ))
-
+                println("RISKVALUE ${forecasts[i].riskValue.toLowerCase()}")
+                val res: Drawable =
+                    resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
+                timeList.add(
+                    RiskCircles(
+                        (i + 1),
+                        forecasts[i].riskValue,
+                        getString(R.string.concentration, forecasts[i].o3_concentration),
+                        getString(R.string.concentration, forecasts[i].no2_concentration),
+                        getString(R.string.concentration, forecasts[i].pm10_concentration),
+                        getString(R.string.concentration, forecasts[i].pm25_concentration),
+                        res
+                    )
+                )
             }
 
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)+ OFFSET_FOR_HORIZONTAL_SLIDER
+            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + OFFSET_FOR_HORIZONTAL_SLIDER
             viewAdapter.notifyDataSetChanged()
             setScreenToChosenTime(hourOfDay)
         })
     }
 
-    fun setScreenToChosenTime(time: Int ) {
+    fun setScreenToChosenTime(time: Int) {
         viewManager.scrollToPosition(time)
         o3_concentration.text = timeList[time].o3_concentration
-        no2_concentration.text =timeList[time].no2_concentration
-        pm10_concentration.text =timeList[time].pm10_concentration
-        pm25_concentration.text =timeList[time].pm25_concentration
+        no2_concentration.text = timeList[time].no2_concentration
+        pm10_concentration.text = timeList[time].pm10_concentration
+        pm25_concentration.text = timeList[time].pm25_concentration
         gauge.setImageDrawable(timeList[time].gaugeImg)
         viewAdapter.notifyDataSetChanged()
     }
