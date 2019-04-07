@@ -14,8 +14,8 @@ import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.AirqualityRepository
-import com.example.helse.data.repositories.LocationRepository
+import com.example.helse.data.repositories.AirqualityRepositoryImpl
+import com.example.helse.data.repositories.LocationRepositoryImpl
 import com.example.helse.utilities.HIGH_AQI_VALUE
 import com.example.helse.utilities.LOW_AQI_VALUE
 import com.example.helse.utilities.MEDIUM_AQI_VALUE
@@ -26,6 +26,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import java.util.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
@@ -59,7 +60,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
             .apply {
-                locationRepository = LocationRepository(
+                locationRepository = LocationRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
                     LocationResponse(this@MapFragment.activity)
                 )
@@ -91,7 +92,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         for (location in locations) {
             val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
                 .apply {
-                    airquality = AirqualityRepository(
+                    airqualityRepository = AirqualityRepositoryImpl(
                         AirqualityResponse(
                             location, this@MapFragment
                         )
@@ -99,7 +100,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
 
             airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-                var color = when (forecast.riskValue) {
+                val hourOfDay = Calendar.HOUR_OF_DAY
+                var color = when (forecast[hourOfDay].riskValue) {
                     LOW_AQI_VALUE -> R.color.greenLowRisk
                     MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
                     HIGH_AQI_VALUE -> R.color.orangeHighRisk

@@ -79,7 +79,6 @@ class AirqualityFragment : Fragment() {
             timeList.clear()
             for (i in 0..23) {
                 val gaugeUri = "@drawable/gauge_${forecasts[i].riskValue.toLowerCase()}"
-                println("RISKVALUE ${forecasts[i].riskValue.toLowerCase()}")
                 val res: Drawable =
                     resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
                 timeList.add(
