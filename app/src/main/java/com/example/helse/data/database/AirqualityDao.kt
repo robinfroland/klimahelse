@@ -8,8 +8,6 @@ import com.example.helse.data.entities.AirqualityForecast
 
 @Dao
 interface AirqualityDao {
-    @Query("SELECT * FROM airqualityForecast WHERE 'from' = :hour")
-    fun getAtHour(hour: Int ): AirqualityForecast
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(airquality: MutableList<AirqualityForecast>)
