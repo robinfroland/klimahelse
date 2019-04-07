@@ -29,8 +29,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
         submitData()
-        println("I WAS CREATED!! WHY AM I NOT SHOWN?")
-
         setHasOptionsMenu(true)
     }
 
