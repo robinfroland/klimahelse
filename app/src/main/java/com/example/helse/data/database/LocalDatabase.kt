@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 
-@Database(entities = [Location::class, AirqualityForecast::class ], version = 1, exportSchema = false)
+@Database(entities = [Location::class, AirqualityForecast::class], version = 1, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao

@@ -231,19 +231,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:requiresFadingEdge="horizontal"
-        android:fadingEdgeLength="100dp"
         android:id="@+id/risk_list"
-        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:scrollbarThumbHorizontal="@color/colorWhite"
+        android:fadingEdgeLength="100dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/time_and_date"
+        android:paddingTop="5dp"
+        android:requiresFadingEdge="horizontal"
+        android:scrollbarThumbHorizontal="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_and_dater" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
