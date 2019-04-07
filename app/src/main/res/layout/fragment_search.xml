@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/bottom_border">
 
         <ImageView
             android:id="@+id/myLocationIcon"
@@ -32,7 +34,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Din posisjon"
+            android:text="@string/your_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/myLocationIcon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-light"
-            android:text="Forskningsparken, Oslo"
+            android:text="@string/your_superlocation"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/location"
@@ -55,7 +57,7 @@
         android:id="@+id/recyclerView_locations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.google.samples.apps.sunflower.GardenActivity"
