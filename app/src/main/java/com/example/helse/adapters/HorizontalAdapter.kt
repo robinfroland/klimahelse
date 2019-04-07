@@ -20,7 +20,8 @@ class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private 
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, index: Int) {
-        holder.view.risk_circle.risk_text.text = timeList[index].hourOfDay.toString()
+        val hourOfDay = timeList[index].hourOfDay.toString()
+        holder.view.risk_circle.risk_text.text = ("00$hourOfDay").substring(hourOfDay.length)
         val riskValue = timeList[index].overallRiskValue
         when (riskValue) {
             "LAV" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
