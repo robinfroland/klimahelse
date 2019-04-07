@@ -18,6 +18,9 @@
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s</string>
 
+    <!--Time and date -->
+    <string name="time_and_date">Currently showing: %s  </string>
+
     <!-- Bottom navigation -->
     <string name="nav_home">Hjem</string>
     <string name="nav_map">Kart</string>
@@ -34,6 +37,7 @@
     <string name="push_notification_icon">Pushvarsler</string>
 
     <!-- Airquality -->
+
     <string name="concentration">%.0f μm</string>
     <string name="risk_value">%s RISIKO </string>
     <string name="concentration_placeholder">44 µm</string>

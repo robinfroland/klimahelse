@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 
 data class RiskCircles(
     val hourOfDay: Int,
+    val dateAndDay: String,
     val overallRiskValue: String,
     val o3_concentration: String,
     val no2_concentration: String,

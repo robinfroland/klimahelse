@@ -17,10 +17,14 @@ import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
+import com.example.helse.utilities.DATE_PATTERN
 import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER
+import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER_CENTER
+import com.example.helse.utilities.ORIGINAL_DATE_PATTERN
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
+import java.text.SimpleDateFormat
 
 class AirqualityFragment : Fragment() {
 
@@ -80,6 +84,7 @@ class AirqualityFragment : Fragment() {
                 timeList.add(
                     RiskCircles(
                         (i + 1),
+                        forecasts[i].from,
                         forecasts[i].riskValue,
                         getString(R.string.concentration, forecasts[i].o3_concentration),
                         getString(R.string.concentration, forecasts[i].no2_concentration),
@@ -90,19 +95,22 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + OFFSET_FOR_HORIZONTAL_SLIDER
+            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(hourOfDay)
+            setScreenToChosenTime(hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER)
         })
     }
 
     fun setScreenToChosenTime(time: Int) {
-        viewManager.scrollToPosition(time)
+        viewManager.scrollToPositionWithOffset(time + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         o3_concentration.text = timeList[time].o3_concentration
         no2_concentration.text = timeList[time].no2_concentration
         pm10_concentration.text = timeList[time].pm10_concentration
         pm25_concentration.text = timeList[time].pm25_concentration
         gauge.setImageDrawable(timeList[time].gaugeImg)
+        val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(timeList[time].dateAndDay)
+        val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)
+        time_and_date.text = getString(R.string.time_and_date, formattedDate)
         viewAdapter.notifyDataSetChanged()
     }
 }
