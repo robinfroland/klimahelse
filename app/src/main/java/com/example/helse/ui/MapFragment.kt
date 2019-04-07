@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,10 +23,6 @@ import com.example.helse.utilities.MEDIUM_AQI_VALUE
 import com.example.helse.utilities.VERY_HIGH_AQI_VALUE
 import com.example.helse.viewmodels.AirqualityViewModel
 import com.example.helse.viewmodels.MapViewModel
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import java.util.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -45,8 +42,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
 
-        mapView = activity!!.findViewById(R.id.map)
+        mapView = requireActivity().findViewById(R.id.map)
         mapView.onCreate(savedInstanceState)
+
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
 
         mapView.onResume()
         try {
