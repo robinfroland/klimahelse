@@ -5,14 +5,14 @@ import com.example.helse.data.api.LocationApi
 import com.example.helse.data.database.LocationDao
 import com.example.helse.data.entities.Location
 
-interface Locations {
+interface LocationRepository {
     suspend fun getAllLocations(): MutableList<Location>
 }
 
-class LocationRepository(
+class LocationRepositoryImpl(
     private val locationDao: LocationDao,
     private val locationApi: LocationApi
-) : Locations {
+) : LocationRepository {
 
     @WorkerThread
     override suspend fun getAllLocations(): MutableList<Location> {

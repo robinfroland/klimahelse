@@ -21,18 +21,18 @@ const val badAirqualitySampleResponse =
 const val wrongResponse = "{\"message\": \"undefined station requested\"}"
 
 val parsedAirqualityResponse = AirqualityForecast(
-         alnabruLocation.stationID,
-        "2019-03-18T01:00:00Z",
-        "2019-03-18T01:00:00Z",
-        "LAV",
-    68.15038299560547,
-        "LAV",
-        1.5612730979919434,
-        "LAV",
-        1.0733610391616821,
-            "LAV",
-        3.354196071624756,
-        "LAV"
+    stationID = alnabruLocation.stationID,
+    from = "2019-03-18T01:00:00Z",
+    to = "2019-03-18T01:00:00Z",
+    riskValue = "LAV",
+    o3_concentration = 68.15038299560547,
+    o3_riskValue = "LAV",
+    pm10_concentration = 1.5612730979919434,
+    pm10_riskValue = "LAV",
+    pm25_concentration = 1.0733610391616821,
+    pm25_riskValue = "LAV",
+    no2_concentration = 3.354196071624756,
+    no2_riskValue = "LAV"
 )
 
 const val goodLocationResponse =

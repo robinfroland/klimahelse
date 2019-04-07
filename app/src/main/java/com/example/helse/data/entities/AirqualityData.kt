@@ -1,10 +1,12 @@
 package com.example.helse.data.entities
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
     val stationID: String,
+    @PrimaryKey(autoGenerate = false)
     val from: String,
     val to: String,
     val riskValue: String,
@@ -16,7 +18,6 @@ data class AirqualityForecast(
     val pm25_riskValue: String,
     val no2_concentration: Double,
     val no2_riskValue: String
-
 )
 
 val emptyAirqualityForecast = AirqualityForecast(
