@@ -3,15 +3,12 @@ package com.example.helse.utilities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import com.example.helse.MainActivity
 import java.io.PrintWriter
 import java.io.StringWriter
 
 class ExceptionHandler(private val context: Context) : Thread.UncaughtExceptionHandler {
-    private val LINE_SEPARATOR = "\n"
-
     override fun uncaughtException(t: Thread?, e: Throwable?) {
         val stackTrace = StringWriter()
         if (e == null) {
@@ -21,33 +18,6 @@ class ExceptionHandler(private val context: Context) : Thread.UncaughtExceptionH
         val errorReport = StringBuilder()
         errorReport.append("************ CAUSE OF ERROR ************\n\n")
         errorReport.append(stackTrace.toString())
-
-        errorReport.append("\n************ DEVICE INFORMATION ***********\n");
-        errorReport.append("Brand: ")
-        errorReport.append(Build.BRAND)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Device: ")
-        errorReport.append(Build.DEVICE)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Model: ")
-        errorReport.append(Build.MODEL)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Id: ")
-        errorReport.append(Build.ID)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Product: ")
-        errorReport.append(Build.PRODUCT)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("\n************ FIRMWARE ************\n")
-        errorReport.append("SDK: ")
-        errorReport.append(Build.VERSION.SDK_INT)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Release: ")
-        errorReport.append(Build.VERSION.RELEASE)
-        errorReport.append(LINE_SEPARATOR)
-        errorReport.append("Incremental: ")
-        errorReport.append(Build.VERSION.INCREMENTAL)
-        errorReport.append(LINE_SEPARATOR)
 
         val mainIntent = Intent(context, MainActivity::class.java)
         mainIntent.putExtra("error", errorReport.toString())

@@ -6,14 +6,12 @@
     <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne veiledningen for å lære mer eller tilpasse hva du ønsker å bli varslet om</string>
     <string name="skip">Hopp over</string>
     <string name="setup_preferences">Start veiledning</string>
-    <string name="application_logo">Application logo</string>
     <string name="userlocation_switch">Bruk min posisjon for varsler</string>
     <string name="done">Ferdig</string>
     <string name="preferencesDescription">Valgte kategorier vil vises i ditt dashboard.\nDette kan alltids endres i ettertid.</string>
     <string name="logoDescription">Logo</string>
 
     <!-- Search and location -->
-    <string name="search_hint">Søk etter område</string>
     <string name="location_text">%1$s, %2$s</string>
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s</string>
@@ -41,11 +39,9 @@
     <!-- Airquality -->
 
     <string name="concentration">%.0f μm</string>
-    <string name="risk_value">%s RISIKO </string>
     <string name="concentration_placeholder">44 µm</string>
     <string name="airquality_fragment_title">LUFTKVALITET</string>
 
-    <string name="airquality_information_button">Informasjon om luftkvalitet</string>
     <string name="my_location_icon_desc">Min posisjon ikon</string>
     <string name="pm1_0">PM1.0</string>
     <string name="o3">O3</string>

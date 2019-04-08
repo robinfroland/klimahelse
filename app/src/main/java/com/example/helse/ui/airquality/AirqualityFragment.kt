@@ -56,9 +56,10 @@ class AirqualityFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.airquality_to_information)
         }
 
+
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+            ?: Location("Alnabru", "Oslo", 59.932141, 10.846132, "NO0057A")
 
         location.text =
 
@@ -78,7 +79,6 @@ class AirqualityFragment : Fragment() {
             timeList.clear()
             for (i in 0..23) {
                 val gaugeUri = "@drawable/gauge_${forecasts[i].riskValue.toLowerCase()}"
-                println("RISKVALUE ${forecasts[i].riskValue.toLowerCase()}")
                 val res: Drawable =
                     resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
                 timeList.add(
