@@ -70,3 +70,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
 
     return aqiForecastTimeArray
 }
+
+fun Response.parseUvResponse(): MutableList<Location> {
+    return mutableListOf()
+}
