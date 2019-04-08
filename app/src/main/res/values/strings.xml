@@ -39,7 +39,6 @@
     <string name="push_notification_icon">Pushvarsler</string>
 
     <!-- Airquality -->
-
     <string name="concentration">%.0f μm</string>
     <string name="risk_value">%s RISIKO </string>
     <string name="concentration_placeholder">44 µm</string>
@@ -52,4 +51,11 @@
     <string name="o3">O3</string>
     <string name="no2">NO2</string>
     <string name="pm2_5">PM2.5</string>
+
+    <!-- UV -->
+    <string name="clear">CLEAR</string>
+    <string name="cloudy">CLOUDY</string>
+    <string name="partlyCloudy">PARTLY CLOUDY</string>
+    <string name="uviForecast">FORECAST</string>
+
 </resources>

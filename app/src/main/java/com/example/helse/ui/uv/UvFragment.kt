@@ -1,5 +1,6 @@
 package com.example.helse.ui.uv
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class UvFragment : Fragment() {
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location("Alnabru", "Oslo", 2.00, 2.12, "NO0057A")
+            ?: Location("Alnabru", "Oslo", 10.84655, 59.92767, "NO0057A")
 
         location.text =
 
@@ -50,7 +51,16 @@ class UvFragment : Fragment() {
                 )
             }
 
-        uvViewModel.getUvForecast().observe(this, Observer { uvForecast ->
+        uvViewModel.getUvForecast().observe(this, Observer { forecast ->
+            val uvForecast = forecast[0]
+            uviClear.text = uvForecast.uvClear.toString()
+            uviPartlyCloudy.text = uvForecast.uvPartlyCloudy.toString()
+            uviForecast.text = uvForecast.uvForecast.toString()
+            uviCloudy.text = uvForecast.uvCloudy.toString()
+            val gaugeUri = "@drawable/gauge_${uvForecast.riskValue.toLowerCase()}"
+            val res: Drawable =
+                resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
+            gauge.setImageDrawable(res)
         })
     }
 }

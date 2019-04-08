@@ -12,9 +12,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/vertical_gradient_divider"
-        app:layout_constraintEnd_toStartOf="@+id/clear"
+        app:layout_constraintEnd_toStartOf="@+id/uviClear"
         app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toEndOf="@+id/partly_cloudy"
+        app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <View
@@ -24,8 +24,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/vertical_gradient_divider"
-        app:layout_constraintEnd_toStartOf="@+id/partly_cloudy"
-        app:layout_constraintStart_toEndOf="@+id/cloudy"
+        app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
+        app:layout_constraintStart_toEndOf="@+id/uviCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <ImageView
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/partly_cloudy"
+        app:layout_constraintTop_toBottomOf="@+id/uviPartlyCloudy"
         app:layout_constraintVertical_bias="0.0" />
 
     <View
@@ -110,12 +110,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/vertical_gradient_divider"
-        app:layout_constraintEnd_toStartOf="@+id/cloudy"
-        app:layout_constraintStart_toEndOf="@+id/forecast"
+        app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
+        app:layout_constraintStart_toEndOf="@+id/uviForecast"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
-        android:id="@+id/cloudy"
+        android:id="@+id/uviCloudy"
         android:layout_width="50dp"
         android:layout_height="18dp"
         android:layout_marginStart="48dp"
@@ -124,12 +124,12 @@
         android:gravity="center"
         android:text="@string/concentration_placeholder"
         android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/partly_cloudy"
-        app:layout_constraintStart_toEndOf="@+id/forecast"
+        app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
+        app:layout_constraintStart_toEndOf="@+id/uviForecast"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
-        android:id="@+id/forecast"
+        android:id="@+id/uviForecast"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -137,12 +137,12 @@
         android:gravity="center"
         android:text="@string/concentration_placeholder"
         android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/cloudy"
+        app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
-        android:id="@+id/partly_cloudy"
+        android:id="@+id/uviPartlyCloudy"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -150,12 +150,12 @@
         android:gravity="center"
         android:text="@string/concentration_placeholder"
         android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/clear"
-        app:layout_constraintStart_toEndOf="@+id/cloudy"
+        app:layout_constraintEnd_toStartOf="@+id/uviClear"
+        app:layout_constraintStart_toEndOf="@+id/uviCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
-        android:id="@+id/clear"
+        android:id="@+id/uviClear"
         android:layout_width="50dp"
         android:layout_height="19dp"
         android:layout_marginTop="60dp"
@@ -165,7 +165,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/partly_cloudy"
+        app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
     <TextView
@@ -173,11 +173,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/pm1_0"
+        android:text="@string/clear"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/clear"
-        app:layout_constraintEnd_toEndOf="@+id/clear"
-        app:layout_constraintStart_toStartOf="@+id/clear"
+        app:layout_constraintBottom_toTopOf="@+id/uviClear"
+        app:layout_constraintEnd_toEndOf="@+id/uviClear"
+        app:layout_constraintStart_toStartOf="@+id/uviClear"
         app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -186,11 +186,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/pm2_5"
+        android:text="@string/cloudy"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/cloudy"
-        app:layout_constraintEnd_toEndOf="@+id/cloudy"
-        app:layout_constraintStart_toStartOf="@+id/cloudy"
+        app:layout_constraintBottom_toTopOf="@+id/uviCloudy"
+        app:layout_constraintEnd_toEndOf="@+id/uviCloudy"
+        app:layout_constraintStart_toStartOf="@+id/uviCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="0.966" />
 
@@ -199,11 +199,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/o3"
+        android:text="@string/partlyCloudy"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/partly_cloudy"
-        app:layout_constraintEnd_toEndOf="@+id/partly_cloudy"
-        app:layout_constraintStart_toStartOf="@+id/partly_cloudy"
+        app:layout_constraintBottom_toTopOf="@+id/uviPartlyCloudy"
+        app:layout_constraintEnd_toEndOf="@+id/uviPartlyCloudy"
+        app:layout_constraintStart_toStartOf="@+id/uviPartlyCloudy"
         app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -212,11 +212,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/no2"
+        android:text="@string/uviForecast"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/forecast"
-        app:layout_constraintEnd_toEndOf="@+id/forecast"
-        app:layout_constraintStart_toStartOf="@+id/forecast"
+        app:layout_constraintBottom_toTopOf="@+id/uviForecast"
+        app:layout_constraintEnd_toEndOf="@+id/uviForecast"
+        app:layout_constraintStart_toStartOf="@+id/uviForecast"
         app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
