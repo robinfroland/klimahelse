@@ -38,7 +38,6 @@ class UvFragment : Fragment() {
             ?: Location("Alnabru", "Oslo", 10.84655, 59.92767, "NO0057A")
 
         location.text =
-
             getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)

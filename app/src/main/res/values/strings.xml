@@ -43,7 +43,6 @@
     <string name="risk_value">%s RISIKO </string>
     <string name="concentration_placeholder">44 µm</string>
     <string name="airquality_fragment_title">LUFTKVALITET</string>
-    <string name="uv_fragment_title">UV-STRÅLING</string>
 
     <string name="airquality_information_button">Informasjon om luftkvalitet</string>
     <string name="my_location_icon_desc">Min posisjon ikon</string>
@@ -57,5 +56,6 @@
     <string name="cloudy">CLOUDY</string>
     <string name="partlyCloudy">PARTLY CLOUDY</string>
     <string name="uviForecast">FORECAST</string>
+    <string name="uv_fragment_title">UV-STRÅLING</string>
 
 </resources>
