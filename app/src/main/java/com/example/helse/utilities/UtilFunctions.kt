@@ -60,3 +60,27 @@ fun convertRiskToInt(riskString: String): Int {
         // Divide by 4 to get average
     }
 }
+
+fun calculateUvRiskValue(uvi_val: Double): String {
+    return when {
+        uvi_val <= 2.9 -> LOW_AQI_VALUE
+        uvi_val <= 5.9 -> MEDIUM_AQI_VALUE
+        uvi_val <= 7.9 -> HIGH_AQI_VALUE
+        else -> VERY_HIGH_AQI_VALUE
+    }
+}
+
+
+fun calculateDistanceBetweenCoordinates(fromLat: Double, fromLong: Double, toLat: Double, toLong: Double): Double {
+    val R = 6371e3
+    val lat1Radians = Math.toRadians(fromLat)
+    val lat2Radians = Math.toRadians(toLat)
+    val deltaLat = Math.toRadians(toLat - fromLat)
+    val deltaLon = Math.toRadians(toLong - fromLong)
+
+    val a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+            Math.cos(lat1Radians) * Math.cos(lat2Radians) *
+            Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2)
+    val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return R * c
+}

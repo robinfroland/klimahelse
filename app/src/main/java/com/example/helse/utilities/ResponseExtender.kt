@@ -1,10 +1,13 @@
 package com.example.helse.utilities
 
+import android.util.Xml
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.UvForecast
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
+import org.xmlpull.v1.XmlPullParser
 
 fun Response.parseLocationResponse(): MutableList<Location> {
     val body = JSONArray(this.body()?.string())
@@ -70,4 +73,66 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
 
 
     return aqiForecastTimeArray
+}
+
+fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast> {
+    val parsedResponse = ArrayList<UvForecast>()
+
+    this.body()?.byteStream()
+        .use { inputStream ->
+            val parser: XmlPullParser = Xml.newPullParser()
+                .apply { setInput(inputStream, null) }
+            var previousDistance = Double.MAX_VALUE
+
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                if (parser.eventType != XmlPullParser.START_TAG) {
+                    continue
+                }
+
+                if (parser.name == "location") {
+                    val latitude = parser.getAttributeValue(0).toDouble()
+                    val longitude = parser.getAttributeValue(1).toDouble()
+                    repeat(4) {
+                        parser.next()
+                    }
+                    val uviClear = parser.getAttributeValue(1).toDouble()
+                    repeat(3) {
+                        parser.next()
+                    }
+                    val uviPartlyCloudy = parser.getAttributeValue(1).toDouble()
+                    repeat(3) {
+                        parser.next()
+                    }
+                    val uviCloudy = parser.getAttributeValue(1).toDouble()
+                    repeat(3) {
+                        parser.next()
+                    }
+                    val uviForecast = parser.getAttributeValue(1).toDouble()
+
+                    val distance = calculateDistanceBetweenCoordinates(
+                        currentLocation.latitude,
+                        currentLocation.longitude,
+                        latitude,
+                        longitude
+                    )
+
+                    if (distance < previousDistance) {
+                        parsedResponse.add(
+                            0,
+                            UvForecast(
+                                latitude = latitude,
+                                longitude = longitude,
+                                uvClear = uviClear,
+                                uvPartlyCloudy = uviPartlyCloudy,
+                                uvCloudy = uviCloudy,
+                                uvForecast = uviForecast,
+                                riskValue = calculateUvRiskValue(uviClear)
+                            )
+                        )
+                        previousDistance = distance
+                    }
+                }
+            }
+        }
+    return parsedResponse
 }
