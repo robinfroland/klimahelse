@@ -3,6 +3,7 @@ package com.example.helse
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottom_navbar.setupWithNavController(navController)
+        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
