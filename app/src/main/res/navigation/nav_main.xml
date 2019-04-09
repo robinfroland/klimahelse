@@ -51,7 +51,7 @@
     <fragment
         android:id="@+id/airqualityFragment"
         android:name="com.example.helse.ui.airquality.AirqualityFragment"
-        android:label="AirqualityFragment"
+        android:label="Airquality"
         tools:layout="@layout/fragment_airquality">
         <action
             android:id="@+id/airquality_to_information"
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/allergyFragment"
         android:name="com.example.helse.ui.allergy.AllergyFragment"
-        android:label="fragment_allergy"
+        android:label="Allergy"
         tools:layout="@layout/fragment_allergy">
         <action
             android:id="@+id/allergy_to_information"
@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/uvFragment"
         android:name="com.example.helse.ui.uv.UvFragment"
-        android:label="fragment_uv"
+        android:label="UV"
         tools:layout="@layout/fragment_uv">
         <action
             android:id="@+id/uv_to_information"

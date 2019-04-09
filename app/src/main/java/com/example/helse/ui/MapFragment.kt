@@ -23,6 +23,10 @@ import com.example.helse.utilities.MEDIUM_AQI_VALUE
 import com.example.helse.utilities.VERY_HIGH_AQI_VALUE
 import com.example.helse.viewmodels.AirqualityViewModel
 import com.example.helse.viewmodels.MapViewModel
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import java.util.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {

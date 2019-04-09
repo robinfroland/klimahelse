@@ -5,7 +5,6 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -29,7 +28,7 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/colorWhite_transparent"
+        app:itemBackground="@color/colorBottomNavbar"
         app:itemIconTint="@drawable/selector"
         app:itemRippleColor="@color/colorWhite"
         app:itemTextColor="@drawable/selector"
