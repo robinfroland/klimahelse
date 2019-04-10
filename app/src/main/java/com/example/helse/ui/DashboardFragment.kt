@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +28,10 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         submitModules()
+
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
