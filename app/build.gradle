@@ -93,6 +93,8 @@ dependencies {
     testImplementation "org.robolectric:robolectric:4.2"
 
     //Background processing
-    implementation "androidx.work:work-runtime-ktx:2.0.0"
+    implementation "androidx.work:work-runtime-ktx:2.0.1"
     androidTestImplementation 'androidx.test:rules:1.2.0-alpha03'
+
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
 }

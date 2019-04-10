@@ -34,4 +34,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
     <color name="moduleCardBackground">#26FFFFFF</color>
+    <color name="lightGrey">#D3D3D3</color>
 </resources>
