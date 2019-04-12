@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:disableDependentsState="true"
+        android:key="USE_DEVICE_LOCATION"
+        android:summary="La appen bruke din nåværende posisjon for varsler"
+        android:title="Bruk min posisjon"
+        app:iconSpaceReserved="false" />
+
+</PreferenceScreen>

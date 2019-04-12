@@ -8,13 +8,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     private lateinit var navController: NavController
 
@@ -49,8 +51,18 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, null)
     }
 
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat?, pref: Preference?): Boolean {
+        when(pref?.key) {
+            "location_settings" -> navController.navigate(R.id.settings_to_locationsettings)
+            "dashboard_settings" -> navController.navigate(R.id.settings_to_dashboardsettings)
+            "push_settings" -> navController.navigate(R.id.settings_to_pushsettings)
+        }
+        return true
+    }
+
+
     private fun setFirstLaunch() {
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false)
+        PreferenceManager.setDefaultValues(this, R.xml.root_settings, false)
         val preferences = AppPreferences(this)
 
         if (preferences.isFirstLaunch()) {
