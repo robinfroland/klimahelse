@@ -12,4 +12,11 @@
         android:title="Bruk min posisjon"
         app:iconSpaceReserved="false" />
 
+    <Preference
+        android:dependency="USE_DEVICE_LOCATION"
+        android:key="location_search_settings"
+        android:title="Velg egen posisjon"
+        app:fragment="com.example.helse.ui.SearchFragment"
+        app:iconSpaceReserved="false" />
+
 </PreferenceScreen>
