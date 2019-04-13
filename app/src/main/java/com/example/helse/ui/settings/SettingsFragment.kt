@@ -12,6 +12,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         addPreferencesFromResource(R.xml.root_settings)
     }
 
+//    private lateinit var locationClient: FusedLocationProviderClient
+//    private lateinit var preferences: Preferences
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+//        view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
+//        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        preferences = Injector.getAppPreferences(requireContext())
+//
+//        return view
     private lateinit var locationClient: FusedLocationProviderClient
     private lateinit var preferences: Preferences
 //
