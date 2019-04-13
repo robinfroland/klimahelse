@@ -2,6 +2,7 @@ package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -25,12 +26,12 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         super.onCreate(savedInstanceState)
         setFirstLaunch()
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         setupErrorHandling(intent, this)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottom_navbar.setupWithNavController(navController)
         bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
@@ -38,10 +39,11 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.label != "DashboardFragment") {
-                supportActionBar?.setDisplayShowTitleEnabled(true)
+            if (destination.label != "Dashboard") {
+                toolbar_title.visibility = View.VISIBLE
+                toolbar_title.text = destination.label
             } else {
-                supportActionBar?.setDisplayShowTitleEnabled(false)
+                toolbar_title.visibility = View.INVISIBLE
             }
         }
 
