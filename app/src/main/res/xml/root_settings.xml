@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen android:layout="@layout/top_layout_settings" />
+
+    <Preference
+        android:icon="@drawable/ic_location"
+        android:key="location_settings"
+        android:title="Posisjon"
+        app:fragment="com.example.helse.ui.settings.LocationSettingsFragment" />
+
+    <Preference
+        android:icon="@drawable/ic_notifications"
+        android:key="push_settings"
+        android:title="Varslinger"
+        app:fragment="com.example.helse.ui.settings.PushSettingsFragment" />
+
+    <Preference
+        android:icon="@drawable/ic_home_black"
+        android:key="dashboard_settings"
+        android:title="Dashboard"
+        app:fragment="com.example.helse.ui.settings.DashboardSettingsFragment" />
+</PreferenceScreen>
+

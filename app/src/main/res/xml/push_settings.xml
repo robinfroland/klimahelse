@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceScreen android:layout="@layout/top_layout_settings" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:disableDependentsState="false"
+        android:key="ENABLE_NOTIFICATIONS"
+        android:summary="Tillat appen å sende deg push-varsler for valgte kategorier"
+        android:title="Slå på push-varsler"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="AIRQUALITY_MODULE_ENABLE_NOTIFICATIONS"
+        android:title="Luftkvalitet"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="UV_MODULE_ENABLE_NOTIFICATIONS"
+        android:title="UV-stråling"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="HUMIDITY_MODULE_ENABLE_NOTIFICATIONS"
+        android:title="Luftfuktighet"
+        app:iconSpaceReserved="false" />
+
+    <CheckBoxPreference
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
+        android:title="Pollenspredning"
+        app:iconSpaceReserved="false" />
+
+    <Preference
+        android:dependency="ENABLE_NOTIFICATIONS"
+        android:key="push_advanced_settings"
+        android:title="Avanserte innstillinger"
+        app:fragment="com.example.helse.ui.settings.PushAdvancedSettingsFragment"
+        app:iconSpaceReserved="false" />
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package com.example.helse.ui
+package com.example.helse.ui.settings
 
 import android.content.Context
 import android.os.Bundle
@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.helse.R
+import com.example.helse.utilities.ENABLE_NOTIFICATIONS_FROM
+import com.example.helse.utilities.ENABLE_NOTIFICATIONS_TO
 import kotlinx.android.synthetic.main.fragment_notifications_settings.*
 
-class NotificationsSettingsFragment : Fragment() {
+class PushAdvancedSettingsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_notifications_settings, container, false)
 
@@ -19,12 +21,12 @@ class NotificationsSettingsFragment : Fragment() {
 
         pickerNotificationsFrom.setIs24HourView(true)
         pickerNotificationsFrom.setOnTimeChangedListener { _, hourOfDay, minute ->
-            updatePreferences("notificationsFrom", hourOfDay, minute)
+            updatePreferences(ENABLE_NOTIFICATIONS_FROM, hourOfDay, minute)
         }
 
         pickerNotificationsTo.setIs24HourView(true)
         pickerNotificationsTo.setOnTimeChangedListener { _, hourOfDay, minute ->
-            updatePreferences("notificationsTo", hourOfDay, minute)
+            updatePreferences(ENABLE_NOTIFICATIONS_TO, hourOfDay, minute)
         }
     }
 

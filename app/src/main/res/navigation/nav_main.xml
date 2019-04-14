@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.helse.ui.DashboardFragment"
-        android:label="DashboardFragment"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/dashboard_to_uv"
@@ -39,14 +39,37 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.helse.ui.MapFragment"
-        android:label="MapFragment"
+        android:label="Kart"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.helse.ui.SettingsFragment"
-        android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        android:name="com.example.helse.ui.settings.SettingsFragment"
+        android:label="Innstillinger"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/settings_to_dashboardsettings"
+            app:destination="@+id/dashboardSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/settings_to_locationsettings"
+            app:destination="@+id/locationSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/settings_to_pushsettings"
+            app:destination="@+id/pushSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/airqualityFragment"
@@ -65,7 +88,7 @@
     <fragment
         android:id="@+id/airqualityInformationFragment"
         android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
-        android:label="AirqualityInformationFragment"
+        android:label="Luftkvalitet"
         tools:layout="@layout/fragment_airquality_information" />
 
     <fragment
@@ -85,7 +108,7 @@
     <fragment
         android:id="@+id/allergyInformationFragment"
         android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
-        android:label="fragment_allergy_information"
+        android:label="Allergi"
         tools:layout="@layout/fragment_allergy_information" />
 
     <fragment
@@ -105,7 +128,7 @@
     <fragment
         android:id="@+id/uvInformationFragment"
         android:name="com.example.helse.ui.uv.UvInformationFragment"
-        android:label="fragment_uv_information"
+        android:label="UV"
         tools:layout="@layout/fragment_uv_information" />
     <fragment
         android:id="@+id/searchFragment"
@@ -115,5 +138,38 @@
             android:id="@+id/search_to_dashboard"
             app:destination="@id/dashboardFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/dashboardSettingsFragment"
+        android:name="com.example.helse.ui.settings.DashboardSettingsFragment"
+        android:label="Dashboard" />
+    <fragment
+        android:id="@+id/locationSettingsFragment"
+        android:name="com.example.helse.ui.settings.LocationSettingsFragment"
+        android:label="Posisjon">
+        <action
+            android:id="@+id/locationsettings_to_search"
+            app:destination="@+id/searchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/pushSettingsFragment"
+        android:name="com.example.helse.ui.settings.PushSettingsFragment"
+        android:label="Varslinger">
+        <action
+            android:id="@+id/pushsettings_to_advanced"
+            app:destination="@+id/pushAdvancedSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/pushAdvancedSettingsFragment"
+        android:name="com.example.helse.ui.settings.PushAdvancedSettingsFragment"
+        android:label="Varslinger" />
 
 </navigation>
