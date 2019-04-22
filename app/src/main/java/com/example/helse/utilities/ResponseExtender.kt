@@ -159,31 +159,33 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                         parser.next()
                     }
 
-                    if(parser.getAttributeValue(0) == "TTT" ){
+                    if(parser.name == "temperature" ) {
                         val temperature = parser.getAttributeValue(2).toDouble()
-                        repeat(6) {
+                        repeat(9) {
                             parser.nextTag()
                         }
 
-                        val humidityValue= parser.getAttributeValue(0).toDouble()
-                        val distance = calculateDistanceBetweenCoordinates(
-                            currentLocation.latitude,
-                            currentLocation.longitude,
-                            latitude,
-                            longitude
-                        )
-
-                        if (distance < previousDistance) {
-                            parsedResponse.add(
-                                0,
-                                HumidityForecast(
-                                    latitude = latitude,
-                                    longitude = longitude,
-                                    humidityValue = humidityValue,
-                                    temperature = temperature
-                                )
+                        if(parser.name == "humidity"){
+                            val humidityValue = parser.getAttributeValue(0).toDouble()
+                            val distance = calculateDistanceBetweenCoordinates(
+                                currentLocation.latitude,
+                                currentLocation.longitude,
+                                latitude,
+                                longitude
                             )
-                            previousDistance = distance
+
+                            if (distance < previousDistance) {
+                                parsedResponse.add(
+                                    0,
+                                    HumidityForecast(
+                                        latitude = latitude,
+                                        longitude = longitude,
+                                        humidityValue = humidityValue,
+                                        temperature = temperature
+                                    )
+                                )
+                                previousDistance = distance
+                            }
                         }
                     }
 

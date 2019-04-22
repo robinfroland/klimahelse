@@ -60,5 +60,4 @@ class HumidityFragment: Fragment() {
             humidity_textView.text = getString(R.string.precentage, humidityForecast.humidityValue)
         })
     }
-
 }

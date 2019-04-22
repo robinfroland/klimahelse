@@ -96,5 +96,6 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.0.1"
     androidTestImplementation 'androidx.test:rules:1.2.0-alpha03'
 
+    //Gauge
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
 }
