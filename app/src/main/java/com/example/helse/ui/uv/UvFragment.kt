@@ -35,7 +35,13 @@ class UvFragment : Fragment() {
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location("Alnabru", "Oslo", 10.84655, 59.92767, "NO0057A")
+            ?: Location(
+                location="Alnabru",
+                superlocation = "Oslo",
+                latitude = 59.92767,
+                longitude = 10.84655,
+                stationID = "NO0057A"
+            )
 
         location.text =
             getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)

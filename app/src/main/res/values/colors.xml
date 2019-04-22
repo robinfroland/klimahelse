@@ -44,4 +44,5 @@
     <color name="colorWhite_transparent">#31FFFFFF</color>
     <color name="moduleCardBackground">#26FFFFFF</color>
     <color name="colorBottomNavbar">#3391CA</color>
+    <color name="lightGrey">#D3D3D3</color>
 </resources>

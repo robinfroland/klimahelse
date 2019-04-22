@@ -3,7 +3,7 @@ package com.example.helse.data.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "airqualityForecast")
+@Entity(tableName = "uvForecast")
 data class UvForecast(
     @PrimaryKey(autoGenerate = false)
     val latitude: Double,

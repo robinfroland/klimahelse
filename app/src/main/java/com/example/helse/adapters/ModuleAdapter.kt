@@ -59,7 +59,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
             when (category.toLowerCase()) {
                 "luftkvalitet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_airquality)
                 "uv-stråling" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_uv)
-                "luftfuktighet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_allergy)
+                "luftfuktighet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_humidity)
             }
         }
         holder.module.push_btn.setOnClickListener {

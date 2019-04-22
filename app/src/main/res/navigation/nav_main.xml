@@ -5,6 +5,7 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/dashboardFragment">
 
+    <!-- Dashboard -->
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.helse.ui.DashboardFragment"
@@ -18,15 +19,22 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/dashboard_to_allergy"
-            app:destination="@+id/allergyFragment"
+            android:id="@+id/dashboard_to_airquality"
+            app:destination="@+id/airqualityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/dashboard_to_airquality"
-            app:destination="@+id/airqualityFragment"
+            android:id="@+id/dashboard_to_humidity"
+            app:destination="@+id/humidityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/dashboard_to_allergy"
+            app:destination="@+id/allergyFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -36,12 +44,14 @@
             app:destination="@id/searchFragment" />
     </fragment>
 
+    <!-- Map -->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.helse.ui.MapFragment"
         android:label="Kart"
         tools:layout="@layout/fragment_map" />
 
+    <!-- Settings -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.helse.ui.settings.SettingsFragment"
@@ -71,6 +81,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- Airquality -->
     <fragment
         android:id="@+id/airqualityFragment"
         android:name="com.example.helse.ui.airquality.AirqualityFragment"
@@ -85,12 +96,14 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- Airquality Information -->
     <fragment
         android:id="@+id/airqualityInformationFragment"
         android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
         android:label="Luftkvalitet"
         tools:layout="@layout/fragment_airquality_information" />
 
+    <!-- Allergy- -->
     <fragment
         android:id="@+id/allergyFragment"
         android:name="com.example.helse.ui.allergy.AllergyFragment"
@@ -105,12 +118,14 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- Allergy Information -->
     <fragment
         android:id="@+id/allergyInformationFragment"
         android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
         android:label="Allergi"
         tools:layout="@layout/fragment_allergy_information" />
 
+    <!-- UV -->
     <fragment
         android:id="@+id/uvFragment"
         android:name="com.example.helse.ui.uv.UvFragment"
@@ -125,11 +140,36 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- UV Information -->
     <fragment
         android:id="@+id/uvInformationFragment"
         android:name="com.example.helse.ui.uv.UvInformationFragment"
         android:label="UV"
         tools:layout="@layout/fragment_uv_information" />
+
+    <!-- Humidity -->
+    <fragment
+        android:id="@+id/humidityFragment"
+        android:name="com.example.helse.ui.humidity.HumidityFragment"
+        android:label="fragment_humidity"
+        tools:layout="@layout/fragment_humidity">
+        <action
+            android:id="@+id/humidity_to_information"
+            app:destination="@+id/humidityInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Humidity Information -->
+    <fragment
+        android:id="@+id/humidityInformationFragment"
+        android:name="com.example.helse.ui.humidity.HumidityInformationFragment"
+        android:label="fragment_humidity_information"
+        tools:layout="@layout/fragment_humidity_information" />
+
+    <!-- Search -->
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.helse.ui.SearchFragment"

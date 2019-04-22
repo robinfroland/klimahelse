@@ -2,6 +2,7 @@ package com.example.helse.utilities
 
 import android.util.Xml
 import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import okhttp3.Response
@@ -131,6 +132,63 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
                         )
                         previousDistance = distance
                     }
+                }
+            }
+        }
+    return parsedResponse
+}
+
+fun Response.parseHumidityResponse(currentLocation: Location): MutableList<HumidityForecast> {
+    val parsedResponse = ArrayList<HumidityForecast>()
+
+    this.body()?.byteStream()
+        .use { inputStream ->
+            val parser: XmlPullParser = Xml.newPullParser()
+                .apply { setInput(inputStream, null) }
+            var previousDistance = Double.MAX_VALUE
+
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                if (parser.eventType != XmlPullParser.START_TAG) {
+                    continue
+                }
+
+                if (parser.name == "location") {
+                    val latitude = parser.getAttributeValue(1).toDouble()
+                    val longitude = parser.getAttributeValue(2).toDouble()
+                    repeat(3) {
+                        parser.next()
+                    }
+
+                    if(parser.name == "temperature" ) {
+                        val temperature = parser.getAttributeValue(2).toDouble()
+                        repeat(9) {
+                            parser.nextTag()
+                        }
+
+                        if(parser.name == "humidity"){
+                            val humidityValue = parser.getAttributeValue(0).toDouble()
+                            val distance = calculateDistanceBetweenCoordinates(
+                                currentLocation.latitude,
+                                currentLocation.longitude,
+                                latitude,
+                                longitude
+                            )
+
+                            if (distance < previousDistance) {
+                                parsedResponse.add(
+                                    0,
+                                    HumidityForecast(
+                                        latitude = latitude,
+                                        longitude = longitude,
+                                        humidityValue = humidityValue,
+                                        temperature = temperature
+                                    )
+                                )
+                                previousDistance = distance
+                            }
+                        }
+                    }
+
                 }
             }
         }
