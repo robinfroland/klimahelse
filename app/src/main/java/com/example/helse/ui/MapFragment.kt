@@ -97,6 +97,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
                 .apply {
                     airqualityRepository = AirqualityRepositoryImpl(
+                        LocalDatabase.getInstance(requireContext()).airqualityDao(),
                         AirqualityResponse(
                             location, this@MapFragment
                         )

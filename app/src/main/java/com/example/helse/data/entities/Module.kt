@@ -7,5 +7,6 @@ data class Module(
     val iconResourceId: Int = R.drawable.ic_launcher_foreground,
     var category: String = "Module",
     val dangerIndicator: String = "Dangerindicator",
-    var pushEnabled: Boolean = true
+    var pushEnabled: Boolean = true,
+    var enabledOnDashboard: Boolean = true
 )
