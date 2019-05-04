@@ -100,7 +100,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         LocalDatabase.getInstance(requireContext()).airqualityDao(),
                         AirqualityResponse(
                             location, this@MapFragment
-                        )
+                        ),
+                        this@MapFragment
                     )
                 }
 
