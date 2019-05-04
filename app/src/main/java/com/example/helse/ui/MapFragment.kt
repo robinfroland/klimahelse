@@ -1,6 +1,7 @@
 package com.example.helse.ui
 
 import android.graphics.Color
+import android.media.session.MediaSession
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.helse.R
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
+import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.data.repositories.LocationRepositoryImpl
@@ -27,7 +29,13 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.suspendCoroutine
 
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
@@ -78,7 +86,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map = p0
 
         viewModel.getLocations().observe(this, Observer { locations ->
-            addAirqualityToMap(map, locations)
+            GlobalScope.launch {
+                addAirqualityToMap(map, locations)
+            }
         })
 
         val alnabru = LatLng(59.932141, 10.846132)
@@ -92,28 +102,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(alnabru, 12.toFloat()))
     }
 
-    private fun addAirqualityToMap(p0: GoogleMap, locations: MutableList<Location>) {
-        for (location in locations) {
-            val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
-                .apply {
-                    airqualityRepository = AirqualityRepositoryImpl(
-                        LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                        AirqualityResponse(
-                            location, this@MapFragment
-                        ),
-                        this@MapFragment
-                    )
-                }
+    private suspend fun addAirqualityToMap(p0: GoogleMap, locations: MutableList<Location>) {
+        for (i in 0..locations.size) {
+            GlobalScope.launch {
+                val location = locations[i]
+                val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
 
-            airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-                val hourOfDay = Calendar.HOUR_OF_DAY
-                var color = when (forecast[hourOfDay].riskValue) {
+                println("location: $location")
+                println("forecast: $forecast")
+
+                var color = when (forecast.riskValue) {
                     LOW_AQI_VALUE -> R.color.greenLowRisk
                     MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
                     HIGH_AQI_VALUE -> R.color.orangeHighRisk
                     VERY_HIGH_AQI_VALUE -> R.color.redVeryHighRisk
                     else -> R.color.colorGreyDark
                 }
+
                 color = ContextCompat.getColor(context!!, color)
 
                 p0.addCircle(
@@ -126,8 +131,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         250.00
                     ).visible(true)
                 )
-            })
+            }
         }
     }
 }
 
+fun getForecastForLocationAsync(location: Location, mapFragment: Fragment): Deferred<AirqualityForecast> {
+    return GlobalScope.async {
+        val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+        val airRepo = AirqualityResponse(location, mapFragment)
+        airRepo.fetchAirquality()[hourOfDay]
+    }
+}
