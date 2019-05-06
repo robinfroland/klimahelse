@@ -85,11 +85,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         map = p0
 
-        viewModel.getLocations().observe(this, Observer { locations ->
-            GlobalScope.launch {
-                addAirqualityToMap(map, locations)
-            }
-        })
+        GlobalScope.launch {
+            val locations = LocationRepositoryImpl(
+                LocalDatabase.getInstance(requireContext()).locationDao(),
+                LocationResponse(this@MapFragment.requireActivity())
+            ).getAllLocations()
+
+            val riskScores = findRiskScoresForAllLocations(locations)
+            addAirqualityToMap(map, riskScores)
+        }
 
         val alnabru = LatLng(59.932141, 10.846132)
 
@@ -102,15 +106,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(alnabru, 12.toFloat()))
     }
 
-    private suspend fun addAirqualityToMap(p0: GoogleMap, locations: MutableList<Location>) {
+    private suspend fun findRiskScoresForAllLocations(
+        locations: MutableList<Location>
+    ): HashMap<Location, Int> {
+        var riskscoreMap = HashMap<Location, Int>()
         for (i in 0 until locations.size) {
+            println("location pre: ${locations[i]}")
             GlobalScope.launch {
                 val location = locations[i]
                 val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
 
                 println("location: $location")
                 println("forecast: $forecast")
-
                 var color = when (forecast.riskValue) {
                     LOW_AQI_VALUE -> R.color.greenLowRisk
                     MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
@@ -118,20 +125,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     VERY_HIGH_AQI_VALUE -> R.color.redVeryHighRisk
                     else -> R.color.colorGreyDark
                 }
-
                 color = ContextCompat.getColor(context!!, color)
-
-                p0.addCircle(
-                    CircleOptions().center(
-                        LatLng(
-                            location.latitude,
-                            location.longitude
-                        )
-                    ).fillColor(color).strokeColor(Color.TRANSPARENT).radius(
-                        250.00
-                    ).visible(true)
-                )
+                riskscoreMap[location] = color
             }
+        }
+        return riskscoreMap
+    }
+
+    private fun addAirqualityToMap(p0: GoogleMap, locations: HashMap<Location, Int>) {
+        for ((location, riskColor) in locations) {
+            p0.addCircle(
+                CircleOptions().center(
+                    LatLng(
+                        location.latitude,
+                        location.longitude
+                    )
+                ).fillColor(riskColor).strokeColor(Color.TRANSPARENT).radius(
+                    250.00
+                ).visible(true)
+            )
         }
     }
 }
@@ -139,8 +151,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 fun getForecastForLocationAsync(location: Location, mapFragment: Fragment): Deferred<AirqualityForecast> {
     return GlobalScope.async {
         val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        println("hour of day: $hourOfDay")
 
         val airRepo = AirqualityResponse(location, mapFragment)
-        airRepo.fetchAirquality()[hourOfDay]
+        val airquality = airRepo.fetchAirquality()
+        println("airquality: $airquality")
+        airquality[hourOfDay]
     }
 }
