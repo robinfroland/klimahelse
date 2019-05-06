@@ -128,6 +128,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     else -> R.color.colorGreyDark
                 }
                 color = ContextCompat.getColor(context!!, color)
+                println("For ${location.stationID} the risk is $color")
                 riskscoreMap[location] = color
             }
             riskscoreMap
