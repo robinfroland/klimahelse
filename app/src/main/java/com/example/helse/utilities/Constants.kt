@@ -46,7 +46,7 @@ enum class AirqualityMetrics {
 
 val airqualityMetricRanges = HashMap<AirqualityMetrics, Array<Int>>()
 
-val o3Values = arrayOf(80, 83, 240)
+val o3Values = arrayOf(100, 180, 240)
 val pm10Values = arrayOf(60, 120, 400)
 val pm25Values = arrayOf(30, 50, 150)
 val no2Values = arrayOf(100, 200, 400)

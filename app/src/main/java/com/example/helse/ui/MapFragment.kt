@@ -7,6 +7,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -41,6 +43,7 @@ import kotlin.coroutines.suspendCoroutine
 class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
+    private lateinit var spinner: ProgressBar
 
     private lateinit var viewModel: MapViewModel
 
@@ -54,6 +57,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        mapSpinner.show()
 
         mapView = requireActivity().findViewById(R.id.map)
         mapView.onCreate(savedInstanceState)
@@ -63,7 +67,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         mapView.onResume()
         try {
-            MapsInitializer.initialize(activity?.applicationContext)
+            MapsInitializer.initialize(requireActivity().applicationContext)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -95,6 +99,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             requireActivity().runOnUiThread {
                 addAirqualityToMap(map, riskScores)
+                mapSpinner.hide()
             }
         }
         val alnabru = LatLng(59.932141, 10.846132)
