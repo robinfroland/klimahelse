@@ -95,12 +95,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 LocalDatabase.getInstance(requireContext()).locationDao(),
                 LocationResponse(this@MapFragment.requireActivity())
             ).getAllLocations()
-            val riskScores = findRiskScoresForAllLocations(locations).await()
-
-            requireActivity().runOnUiThread {
-                addAirqualityToMap(map, riskScores)
-                mapSpinner.hide()
-            }
+            val riskScores = findRiskScoresForAllLocations(p0, locations).await()
+            mapSpinner.hide()
         }
         val alnabru = LatLng(59.932141, 10.846132)
 
@@ -114,6 +110,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private suspend fun findRiskScoresForAllLocations(
+        p0: GoogleMap,
         locations: MutableList<Location>
     ): Deferred<HashMap<Location, Int>> {
         return GlobalScope.async {
@@ -134,25 +131,26 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
                 color = ContextCompat.getColor(context!!, color)
                 println("For ${location.stationID} the risk is $color")
+                requireActivity().runOnUiThread {
+                    addAirqualityToMap(p0, location, color)
+                }
                 riskscoreMap[location] = color
             }
             riskscoreMap
         }
     }
 
-    private fun addAirqualityToMap(p0: GoogleMap, locations: HashMap<Location, Int>) {
-        locations.forEach { (location, riskColor) ->
-            p0.addCircle(
-                CircleOptions().center(
-                    LatLng(
-                        location.latitude,
-                        location.longitude
-                    )
-                ).fillColor(riskColor).strokeColor(Color.TRANSPARENT).radius(
-                    250.00
-                ).visible(true)
-            )
-        }
+    private fun addAirqualityToMap(p0: GoogleMap, location: Location, riskColor: Int) {
+        p0.addCircle(
+            CircleOptions().center(
+                LatLng(
+                    location.latitude,
+                    location.longitude
+                )
+            ).fillColor(riskColor).strokeColor(Color.TRANSPARENT).radius(
+                250.00
+            ).visible(true)
+        )
     }
 }
 
