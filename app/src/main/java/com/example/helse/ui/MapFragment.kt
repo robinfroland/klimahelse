@@ -103,7 +103,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private suspend fun addAirqualityToMap(p0: GoogleMap, locations: MutableList<Location>) {
-        for (i in 0..locations.size) {
+        for (i in 0 until locations.size) {
             GlobalScope.launch {
                 val location = locations[i]
                 val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
