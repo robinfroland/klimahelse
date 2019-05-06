@@ -85,15 +85,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         map = p0
 
+        lateinit var riskScores: HashMap<Location, Int>
+
         GlobalScope.launch {
             val locations = LocationRepositoryImpl(
                 LocalDatabase.getInstance(requireContext()).locationDao(),
                 LocationResponse(this@MapFragment.requireActivity())
             ).getAllLocations()
-
-            val riskScores = findRiskScoresForAllLocations(locations)
+            riskScores = findRiskScoresForAllLocations(locations).await()
             addAirqualityToMap(map, riskScores)
         }
+
 
         val alnabru = LatLng(59.932141, 10.846132)
 
@@ -108,11 +110,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private suspend fun findRiskScoresForAllLocations(
         locations: MutableList<Location>
-    ): HashMap<Location, Int> {
-        var riskscoreMap = HashMap<Location, Int>()
-        for (i in 0 until locations.size) {
-            println("location pre: ${locations[i]}")
-            GlobalScope.launch {
+    ): Deferred<HashMap<Location, Int>> {
+        return GlobalScope.async {
+            var riskscoreMap = HashMap<Location, Int>()
+            for (i in 0 until locations.size) {
+                println("location pre: ${locations[i]}")
                 val location = locations[i]
                 val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
 
@@ -128,12 +130,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 color = ContextCompat.getColor(context!!, color)
                 riskscoreMap[location] = color
             }
+            riskscoreMap
         }
-        return riskscoreMap
     }
 
     private fun addAirqualityToMap(p0: GoogleMap, locations: HashMap<Location, Int>) {
-        for ((location, riskColor) in locations) {
+        locations.forEach { (location, riskColor) ->
             p0.addCircle(
                 CircleOptions().center(
                     LatLng(
