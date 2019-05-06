@@ -97,9 +97,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 addAirqualityToMap(map, riskScores)
             }
         }
-        println("Oh shit, it shouldn`t be here")
-
-
         val alnabru = LatLng(59.932141, 10.846132)
 
         // Set bounds so user can not zoom outside Norway
