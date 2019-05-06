@@ -56,7 +56,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
         mapSpinner.show()
 
         mapView = requireActivity().findViewById(R.id.map)
@@ -74,16 +73,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
-            .apply {
-                locationRepository = LocationRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse(this@MapFragment.activity)
-                )
-            }
-    }
-
     override fun onMapReady(p0: GoogleMap?) {
         if (p0 == null) {
             return
@@ -95,8 +84,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 LocalDatabase.getInstance(requireContext()).locationDao(),
                 LocationResponse(this@MapFragment.requireActivity())
             ).getAllLocations()
-            val riskScores = findRiskScoresForAllLocations(p0, locations).await()
-            mapSpinner.hide()
+
+            addAirqualityToMap(p0, locations)
         }
         val alnabru = LatLng(59.932141, 10.846132)
 
@@ -109,19 +98,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(alnabru, 12.toFloat()))
     }
 
-    private suspend fun findRiskScoresForAllLocations(
+    private suspend fun addAirqualityToMap(
         p0: GoogleMap,
         locations: MutableList<Location>
-    ): Deferred<HashMap<Location, Int>> {
-        return GlobalScope.async {
-            var riskscoreMap = HashMap<Location, Int>()
+    ) {
+        GlobalScope.launch {
             for (i in 0 until locations.size) {
-                println("location pre: ${locations[i]}")
                 val location = locations[i]
                 val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
 
-                println("location: $location")
-                println("forecast: $forecast")
                 var color = when (forecast.riskValue) {
                     LOW_AQI_VALUE -> R.color.greenLowRisk
                     MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
@@ -130,17 +115,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     else -> R.color.colorGreyDark
                 }
                 color = ContextCompat.getColor(context!!, color)
-                println("For ${location.stationID} the risk is $color")
                 requireActivity().runOnUiThread {
-                    addAirqualityToMap(p0, location, color)
+                    addCircleToMap(p0, location, color)
                 }
-                riskscoreMap[location] = color
             }
-            riskscoreMap
         }
     }
 
-    private fun addAirqualityToMap(p0: GoogleMap, location: Location, riskColor: Int) {
+    private fun addCircleToMap(p0: GoogleMap, location: Location, riskColor: Int) {
         p0.addCircle(
             CircleOptions().center(
                 LatLng(
@@ -157,11 +139,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 fun getForecastForLocationAsync(location: Location, mapFragment: Fragment): Deferred<AirqualityForecast> {
     return GlobalScope.async {
         val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        println("hour of day: $hourOfDay")
 
         val airRepo = AirqualityResponse(location, mapFragment)
         val airquality = airRepo.fetchAirquality()
-        println("airquality: $airquality")
         airquality[hourOfDay]
     }
 }
