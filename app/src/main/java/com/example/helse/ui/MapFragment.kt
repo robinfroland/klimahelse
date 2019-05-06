@@ -93,9 +93,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 LocationResponse(this@MapFragment.requireActivity())
             ).getAllLocations()
             riskScores = findRiskScoresForAllLocations(locations).await()
+            throw Error("RISK SCORES: $riskScores")
+            addAirqualityToMap(map, riskScores)
         }
         println("Oh shit, it shouldn`t be here")
-        addAirqualityToMap(map, riskScores)
 
 
         val alnabru = LatLng(59.932141, 10.846132)
