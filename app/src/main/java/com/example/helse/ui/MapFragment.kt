@@ -3,6 +3,7 @@ package com.example.helse.ui
 import android.graphics.Color
 import android.media.session.MediaSession
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,16 +86,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         map = p0
 
-        lateinit var riskScores: HashMap<Location, Int>
+        val mainHandler = Handler(requireContext().mainLooper)
 
         GlobalScope.launch {
             val locations = LocationRepositoryImpl(
                 LocalDatabase.getInstance(requireContext()).locationDao(),
                 LocationResponse(this@MapFragment.requireActivity())
             ).getAllLocations()
-            riskScores = findRiskScoresForAllLocations(locations).await()
-            throw Error("RISK SCORES: $riskScores")
-            addAirqualityToMap(map, riskScores)
+            val riskScores = findRiskScoresForAllLocations(locations).await()
+
+            val myRunnable = kotlinx.coroutines.Runnable {
+                addAirqualityToMap(map, riskScores)
+            }
+            mainHandler.post(myRunnable)
         }
         println("Oh shit, it shouldn`t be here")
 
