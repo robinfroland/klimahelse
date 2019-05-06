@@ -86,8 +86,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
         map = p0
 
-        val mainHandler = Handler(requireContext().mainLooper)
-
         GlobalScope.launch {
             val locations = LocationRepositoryImpl(
                 LocalDatabase.getInstance(requireContext()).locationDao(),
@@ -95,10 +93,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             ).getAllLocations()
             val riskScores = findRiskScoresForAllLocations(locations).await()
 
-            val myRunnable = kotlinx.coroutines.Runnable {
+            requireActivity().runOnUiThread {
                 addAirqualityToMap(map, riskScores)
             }
-            mainHandler.post(myRunnable)
         }
         println("Oh shit, it shouldn`t be here")
 
