@@ -57,6 +57,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapSpinner.show()
+        mapSpinner.visibility = View.VISIBLE
 
         mapView = requireActivity().findViewById(R.id.map)
         mapView.onCreate(savedInstanceState)
@@ -86,6 +87,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             ).getAllLocations()
 
             addAirqualityToMap(p0, locations)
+            mapSpinner.hide()
+            mapSpinner.visibility = View.GONE
         }
         val alnabru = LatLng(59.932141, 10.846132)
 
