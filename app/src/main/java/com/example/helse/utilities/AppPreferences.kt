@@ -13,6 +13,8 @@ interface Preferences {
     fun enableNotifications(module: Module, enable: Boolean)
     fun isNotificationEnabled(module: Module): Boolean
     fun getSharedPreferences(): SharedPreferences
+    fun setLastApiCall(time: Long, module: String)
+    fun getLastApiCall(module: String): Long
 }
 
 class AppPreferences(context: Context) : Preferences {
@@ -36,6 +38,16 @@ class AppPreferences(context: Context) : Preferences {
     override fun setFirstLaunch(isFirst: Boolean) {
         preferenceEditor.putBoolean(IS_FIRST_LAUNCH, isFirst)
         preferenceEditor.apply()
+    }
+
+    override fun setLastApiCall(time: Long, module: String){
+        preferenceEditor.putLong(module, time)
+        preferenceEditor.apply()
+    }
+
+    override fun getLastApiCall(module: String): Long{
+        return preferences.getLong(module, -1)
+
     }
 
     override fun enableNotifications(module: Module, enable: Boolean) {

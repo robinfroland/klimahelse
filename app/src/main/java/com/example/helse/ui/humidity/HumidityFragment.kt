@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.helse.data.api.HumidityResponse
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.repositories.HumidityRepositoryImpl
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
@@ -47,10 +48,12 @@ class HumidityFragment: Fragment() {
         val humidityViewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
                 humidityRepository = HumidityRepositoryImpl(
+                    LocalDatabase.getInstance(requireContext()).humidityDao(),
                     HumidityResponse(
                         defaultLocation,
                         this@HumidityFragment
-                    )
+                    ),
+                    this@HumidityFragment
                 )
             }
 
