@@ -5,13 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.UvForecast
 
-@Database(entities = [Location::class, AirqualityForecast::class], version = 1, exportSchema = false)
+@Database(entities = [  Location::class,
+                        AirqualityForecast::class,
+                        HumidityForecast::class,
+                        UvForecast::class
+                    ], version = 1, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao
     abstract fun airqualityDao(): AirqualityDao
+    abstract fun humidityDao(): HumidityDao
+    abstract fun uvDao(): UVDao
 
     companion object {
         @Volatile

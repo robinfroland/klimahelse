@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.UvResponse
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.UvRepositoryImpl
 import com.example.helse.viewmodels.UvViewModel
@@ -49,10 +50,12 @@ class UvFragment : Fragment() {
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
                 uvRepository = UvRepositoryImpl(
+                    LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
                         defaultLocation,
                         this@UvFragment
-                    )
+                    ),
+                    this@UvFragment
                 )
             }
 

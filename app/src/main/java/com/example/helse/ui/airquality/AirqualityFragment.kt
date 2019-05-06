@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
@@ -74,10 +75,12 @@ class AirqualityFragment : Fragment() {
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airqualityRepository = AirqualityRepositoryImpl(
+                    LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         defaultLocation,
                         this@AirqualityFragment
-                    )
+                    ),
+                    this@AirqualityFragment
                 )
             }
 
