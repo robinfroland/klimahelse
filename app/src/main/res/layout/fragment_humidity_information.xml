@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.humidity.HumidityInformationFragment">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/icon_humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_humidity_2x"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="60dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/icon_humidity"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/text_humidity"
+        android:paddingBottom="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:requiresFadingEdge="vertical"
+        android:fadingEdgeLength="50dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/humidity_fragment_information"
+                android:padding="50dp"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

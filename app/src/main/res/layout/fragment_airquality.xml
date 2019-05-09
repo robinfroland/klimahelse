@@ -231,7 +231,8 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vertical_divider" />
+        app:layout_constraintTop_toBottomOf="@+id/vertical_divider"
+        app:layout_constraintBottom_toTopOf="@id/risk_list"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/risk_list"
@@ -247,6 +248,7 @@
         android:scrollbarThumbHorizontal="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_and_date" />
+        app:layout_constraintTop_toBottomOf="@+id/time_and_date"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
