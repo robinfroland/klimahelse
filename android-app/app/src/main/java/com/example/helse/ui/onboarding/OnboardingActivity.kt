@@ -1,13 +1,22 @@
 package com.example.helse.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
 import androidx.viewpager.widget.ViewPager
+import com.example.helse.MainActivity
 import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
+import com.example.helse.ui.settings.DashboardSettingsFragment
+import com.example.helse.ui.settings.LocationSettingsFragment
+import com.example.helse.ui.settings.PushSettingsFragment
+import com.example.helse.utilities.Injector
 import kotlinx.android.synthetic.main.activity_onboarding.*
+
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -19,15 +28,21 @@ class OnboardingActivity : AppCompatActivity() {
         viewPager.adapter = OnboardingAdapter(supportFragmentManager)
 
         updateDotIndicator(0)
+        setDotClickListener()
+        finishBtn.setOnClickListener {
+            // if location == null, toast: må velge posisjon
+            finishOnboarding()
+        }
         viewPager.setOnPageListener()
 
-        firstDot.setOnClickListener {
-            viewPager.currentItem = 0
-        }
 
-        secondDot.setOnClickListener {
-            viewPager.currentItem = 1
-        }
+    }
+
+    private fun finishOnboarding() {
+        val preference = Injector.getAppPreferences(this)
+        preference.setFirstLaunch(false)
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onBackPressed() {
@@ -39,16 +54,36 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun updateDotIndicator(page: Int) {
+        if (page == 0) {
+            firstDot.setBackgroundResource(R.drawable.dot_on_color)
+            secondDot.setBackgroundResource(R.drawable.dot_on_color)
+            thirdDot.setBackgroundResource(R.drawable.dot_on_color)
+            fourthDot.setBackgroundResource(R.drawable.dot_on_color)
+        } else {
+            firstDot.setBackgroundResource(R.drawable.dot_on_white)
+            secondDot.setBackgroundResource(R.drawable.dot_on_white)
+            thirdDot.setBackgroundResource(R.drawable.dot_on_white)
+            fourthDot.setBackgroundResource(R.drawable.dot_on_white)
+        }
+        // Set all dots to 50% opacity
+        firstDot.background.alpha = 128
+        secondDot.background.alpha = 128
+        thirdDot.background.alpha = 128
+        fourthDot.background.alpha = 128
+
+        // Set current dot fully opaque
         when (page) {
             0 -> {
-                firstDot.setBackgroundResource(R.drawable.dot_on_color)
-                secondDot.setBackgroundResource(R.drawable.dot_on_color)
-                secondDot.background.alpha = 128 // 50% opacity
+                firstDot.background.alpha = 255
             }
             1 -> {
-                firstDot.setBackgroundResource(R.drawable.dot_on_white)
-                secondDot.setBackgroundResource(R.drawable.dot_on_white)
-                firstDot.background.alpha = 128 // 50% opacity
+                secondDot.background.alpha = 255
+            }
+            2 -> {
+                thirdDot.background.alpha = 255
+            }
+            3 -> {
+                fourthDot.background.alpha = 255
             }
         }
     }
@@ -59,10 +94,30 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
     }
 
+    private fun setDotClickListener() {
+        firstDot.setOnClickListener {
+            viewPager.currentItem = 0
+        }
+        secondDot.setOnClickListener {
+            viewPager.currentItem = 1
+        }
+        thirdDot.setOnClickListener {
+            viewPager.currentItem = 2
+        }
+        fourthDot.setOnClickListener {
+            viewPager.currentItem = 3
+        }
+    }
+
     private fun ViewPager.setOnPageListener() {
         this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 updateDotIndicator(position)
+                if (position == 3) {
+                    finishBtn.visibility = View.VISIBLE
+                } else {
+                    finishBtn.visibility = View.GONE
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
