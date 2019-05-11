@@ -1,6 +1,6 @@
 package com.example.helse.ui.airquality
 
-import android.graphics.drawable.Drawable
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +18,7 @@ import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
-import com.example.helse.utilities.DATE_PATTERN
-import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER
-import com.example.helse.utilities.OFFSET_FOR_HORIZONTAL_SLIDER_CENTER
-import com.example.helse.utilities.ORIGINAL_DATE_PATTERN
+import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
@@ -87,9 +84,6 @@ class AirqualityFragment : Fragment() {
         airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
             timeList.clear()
             for (i in 0..23) {
-                val gaugeUri = "@drawable/gauge_${forecasts[i].riskValue.toLowerCase()}"
-                val res: Drawable =
-                    resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
                 timeList.add(
                     RiskCircles(
                         (i + 1),
@@ -98,8 +92,7 @@ class AirqualityFragment : Fragment() {
                         getString(R.string.concentration, forecasts[i].o3_concentration),
                         getString(R.string.concentration, forecasts[i].no2_concentration),
                         getString(R.string.concentration, forecasts[i].pm10_concentration),
-                        getString(R.string.concentration, forecasts[i].pm25_concentration),
-                        res
+                        getString(R.string.concentration, forecasts[i].pm25_concentration)
                     )
                 )
             }
@@ -110,13 +103,32 @@ class AirqualityFragment : Fragment() {
         })
     }
 
+    private fun initGauge(forecast: RiskCircles) {
+        val riskValue = convertRiskToInt(forecast.overallRiskValue)
+        val color : Int
+
+        when {
+            riskValue > 2 -> color = resources.getColor(R.color.colorDangerMedium, null)
+            riskValue > 3 -> color = resources.getColor(R.color.colorDangerHigh, null)
+            riskValue > 4 -> color = resources.getColor(R.color.colorDangerVeryHigh, null)
+            else -> color = resources.getColor(R.color.colorDangerLow, null)
+        }
+        gauge.value = riskValue
+        gauge.pointStartColor = color
+        gauge.pointEndColor = color
+        gauge_text.text =  getString(R.string.gauge_risiko, forecast.overallRiskValue)
+        gauge_text.setTextColor(color)
+        gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+
+    }
+
     fun setScreenToChosenTime(time: Int) {
         viewManager.scrollToPositionWithOffset(time + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         o3_concentration.text = timeList[time].o3_concentration
         no2_concentration.text = timeList[time].no2_concentration
         pm10_concentration.text = timeList[time].pm10_concentration
         pm25_concentration.text = timeList[time].pm25_concentration
-        gauge.setImageDrawable(timeList[time].gaugeImg)
+        initGauge(timeList[time])
         val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(timeList[time].dateAndDay)
         val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)
         time_and_date.text = getString(R.string.time_and_date, formattedDate)

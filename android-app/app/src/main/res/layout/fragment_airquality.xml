@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,54 +29,101 @@
         app:layout_constraintStart_toEndOf="@+id/pm25_concentration"
         app:layout_constraintTop_toBottomOf="@+id/infoButton" />
 
-    <ImageView
-        android:id="@+id/location_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_location_on_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@+id/location_icon"
-        app:layout_constraintStart_toStartOf="@+id/location_icon"
-        app:layout_constraintTop_toBottomOf="@+id/location_icon" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:gravity="center"
+        android:padding="10dp"
         android:text="@string/airquality_fragment_title"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/location"
         app:layout_constraintStart_toStartOf="@+id/location"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ImageView
-        android:id="@+id/gauge"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
+        android:id="@+id/location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_location_on_black_24dp"
+        app:layout_constraintEnd_toStartOf="@id/location"
+        app:layout_constraintHorizontal_bias="0.990"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:fontFamily="helvetica"
+        app:layout_constraintBottom_toBottomOf="@id/location_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/time_and_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/location_icon"
+        app:layout_constraintBottom_toTopOf="@id/gauge"/>
 
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge"
+        app:gaugeStartAngle="135"
+        app:gaugeSweepAngle="270"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="@color/lightBlueGrey"
+        app:gaugeStrokeWidth="11dp"
+        app:gaugeStartValue="1"
+        app:gaugeEndValue="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_and_date"
+        android:contentDescription="@string/app_name"
+        android:padding="17dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="210dp"
+        android:layout_height="205dp"/>
+
+    <ImageView
+        android:id="@+id/gauge_img"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_airquality_2x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gauge" />
+
+    <TextView
+        android:id="@+id/gauge_text"
+        android:layout_width="200dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="48dp"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:text="@string/concentration_placeholder"
+        app:layout_constraintBottom_toBottomOf="@id/gauge"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gauge"
+        />
 
     <ImageView
         android:id="@+id/infoButton"
@@ -83,11 +131,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/app_name"
         android:src="@drawable/ic_info_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gauge" />
+        app:layout_constraintTop_toBottomOf="@+id/gauge_text" />
 
     <View
         android:id="@+id/horizontal_divider"
@@ -223,17 +270,6 @@
         app:layout_constraintTop_toBottomOf="@+id/infoButton"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/time_and_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vertical_divider"
-        app:layout_constraintBottom_toTopOf="@id/risk_list"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/risk_list"
         android:layout_width="match_parent"
@@ -241,14 +277,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:fadingEdgeLength="100dp"
+        android:fadingEdgeLength="50dp"
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:requiresFadingEdge="horizontal"
         android:scrollbarThumbHorizontal="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_and_date"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_divider"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
