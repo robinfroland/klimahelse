@@ -2,7 +2,9 @@ package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
@@ -15,6 +17,9 @@ import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
+import com.example.helse.utilities.toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -47,6 +52,16 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             }
         }
 
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
+            if(!task.isSuccessful) {
+                println("NOT SUCCESSFUL")
+                return@OnCompleteListener
+            }
+
+            val token = task.result?.token
+
+            println("FIREBASETOKEN ${token}")
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -62,6 +77,9 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             "location_search_settings" -> navController.navigate(R.id.locationsettings_to_search)
         }
         return true
+
+
+
     }
 
 
