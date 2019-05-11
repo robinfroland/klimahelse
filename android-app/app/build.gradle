@@ -50,6 +50,8 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
@@ -98,4 +100,6 @@ dependencies {
 
     //Gauge
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
+    
+    apply plugin: 'com.google.gms.google-services'
 }
