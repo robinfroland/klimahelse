@@ -19,7 +19,10 @@ import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.setupErrorHandling
 import com.example.helse.utilities.toast
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -60,8 +63,16 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
             val token = task.result?.token
 
-            println("FIREBASETOKEN ${token}")
+            println("FIREBASETOKEN $token")
         })
+
+        FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener { task ->
+            var msg = "Weather registered successfully"
+            if (!task.isSuccessful) {
+                msg = "Weather not registered successfully"
+            }
+            println(msg)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
