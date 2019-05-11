@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "331181346747",
+    "firebase_url": "https://in2000-5.firebaseio.com",
+    "project_id": "in2000-5",
+    "storage_bucket": "in2000-5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331181346747:android:37d4f2eb74b79327",
+        "android_client_info": {
+          "package_name": "com.example.helse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331181346747-gsnvrtbiub118aojgh62m2aqrhpopnb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKdd7yzsHw0Lfa4Y20ng_VBc75Uy398HI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331181346747-gsnvrtbiub118aojgh62m2aqrhpopnb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
