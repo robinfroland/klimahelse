@@ -56,7 +56,7 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.helse.ui.settings.SettingsFragment"
         android:label="Innstillinger"
-        tools:layout="@layout/fragment_settings">
+        tools:layout="@layout/onboarding_dashboard_desc">
 
         <action
             android:id="@+id/settings_to_dashboardsettings"

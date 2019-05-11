@@ -2,14 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceScreen android:layout="@layout/top_layout_settings" />
+    <PreferenceScreen
+        android:key="PREF_DESCRIPTION"
+        android:layout="@layout/onboarding_push_desc" />
 
     <SwitchPreference
         android:defaultValue="false"
         android:disableDependentsState="false"
         android:key="ENABLE_NOTIFICATIONS"
-        android:summary="Tillat appen å sende deg push-varsler for valgte kategorier"
-        android:title="Slå på push-varsler"
+        android:title="Tillat push-varsler"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
@@ -38,10 +39,4 @@
         android:title="Pollenspredning"
         app:iconSpaceReserved="false" />
 
-    <Preference
-        android:dependency="ENABLE_NOTIFICATIONS"
-        android:key="push_advanced_settings"
-        android:title="Avanserte innstillinger"
-        app:fragment="com.example.helse.ui.settings.PushAdvancedSettingsFragment"
-        app:iconSpaceReserved="false" />
 </PreferenceScreen>

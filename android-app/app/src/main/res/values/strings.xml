@@ -2,14 +2,18 @@
     <string name="app_name">helse</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Første gang du bruker værhelse?</string>
-    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne veiledningen for å lære mer eller tilpasse hva du ønsker å bli varslet om</string>
+    <string name="onboarding_title">Velkommen til værhelse!</string>
+    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne korte veiledningen for skreddersy appen for dine behov!</string>
     <string name="skip">Hopp over</string>
-    <string name="setup_preferences">Start veiledning</string>
-    <string name="userlocation_switch">Bruk min posisjon for varsler</string>
+    <string name="setup_preferences">KOM I GANG</string>
     <string name="done">Ferdig</string>
-    <string name="preferencesDescription">Valgte kategorier vil vises i ditt dashboard.\nDette kan alltids endres i ettertid.</string>
     <string name="logoDescription">Logo</string>
+    <string name="onboardingDashboardTitle">Tilpass for dine behov</string>
+    <string name="onboardingDashboardDesc">Velg hvilke kategorier du er interessert i. Disse vil dukke opp som moduler i ditt dashboard.</string>
+    <string name="onboardingPushTitle">Vær forberedt</string>
+    <string name="onboardingPushDesc">Hver morgen sender vi deg en kort oppsummering for hvordan valgte kategorier kan påvirke dagen din.</string>
+    <string name="onboardingLocationTitle">Område for varsler</string>
+    <string name="onboardingLocationDesc">Vi finner varsler relevant til hvor du befinner deg. Alternativt kan du selv søke etter et område for varsling.</string>
 
     <!-- Search and location -->
     <string name="location_text">%1$s, %2$s</string>

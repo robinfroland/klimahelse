@@ -37,5 +37,35 @@
             android:layout_height="11dp"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1" />
+        <View
+            android:id="@+id/thirdDot"
+            android:layout_width="10dp"
+            android:layout_height="11dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/fourthDot"
+            android:layout_width="10dp"
+            android:layout_height="11dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="1" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/finishBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/done"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

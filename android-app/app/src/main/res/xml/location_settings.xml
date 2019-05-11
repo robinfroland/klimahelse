@@ -2,7 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceScreen android:layout="@layout/top_layout_settings" />
+    <PreferenceScreen
+        android:key="PREF_DESCRIPTION"
+        android:layout="@layout/onboarding_location_desc" />
 
     <SwitchPreference
         android:defaultValue="true"
@@ -14,8 +16,10 @@
 
     <Preference
         android:dependency="USE_DEVICE_LOCATION"
+        android:icon="@drawable/ic_search_black"
+        android:iconSpaceReserved="true"
         android:key="location_search_settings"
-        android:title="Velg egen posisjon"
+        android:title="Søk etter område"
         app:fragment="com.example.helse.ui.SearchFragment"
         app:iconSpaceReserved="false" />
 

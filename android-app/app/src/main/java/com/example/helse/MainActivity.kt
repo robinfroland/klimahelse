@@ -16,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.AppPreferences
+import com.example.helse.utilities.Injector
 import com.example.helse.utilities.setupErrorHandling
 import com.example.helse.utilities.toast
 import com.google.android.gms.tasks.OnCompleteListener
@@ -95,12 +96,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
 
     private fun setFirstLaunch() {
-        PreferenceManager.setDefaultValues(this, R.xml.root_settings, false)
-        val preferences = AppPreferences(this)
-
+        val preferences = Injector.getAppPreferences(this)
+        preferences.setFirstLaunch(true)
         if (preferences.isFirstLaunch()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
-            preferences.setFirstLaunch(false) // set true to test onboarding
             finish()
         }
     }

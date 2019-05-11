@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.helse.R
 import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Preferences
-import kotlinx.android.synthetic.main.fragment_onboarding.view.*
+import kotlinx.android.synthetic.main.onboarding_welcome.view.*
 
 class OnboardingFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class OnboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_onboarding, container, false)
+        val view = inflater.inflate(R.layout.onboarding_welcome, container, false)
         preferences = AppPreferences(requireContext())
 
         onboardingPager = requireActivity().findViewById(R.id.viewPager)
@@ -39,6 +39,5 @@ class OnboardingFragment : Fragment() {
 
     companion object {
         fun newInstance() = OnboardingFragment()
-
     }
 }

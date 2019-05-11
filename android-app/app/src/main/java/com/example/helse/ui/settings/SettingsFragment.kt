@@ -5,7 +5,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.onboarding_dashboard_desc.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -19,7 +19,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //        inflater: LayoutInflater, container: ViewGroup?,
 //        savedInstanceState: Bundle?
 //    ): View? {
-//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+//        val view = inflater.inflate(R.layout.onboarding_dashboard_desc, container, false)
 //        view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
 //        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 //        preferences = Injector.getAppPreferences(requireContext())
@@ -37,7 +37,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //        savedInstanceState: Bundle?
 //    ): View? {
 //
-//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+//        val view = inflater.inflate(R.layout.onboarding_dashboard_desc, container, false)
 //        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 //        preferences = AppPreferences(requireContext())
 //
@@ -96,8 +96,4 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //            // check push-notification permission
 //        }
 //    }
-
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
 }
