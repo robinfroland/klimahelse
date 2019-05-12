@@ -63,9 +63,8 @@ class AirqualityFragment : Fragment() {
                 stationID = "NO0057A"
             )
 
-        location.text =
-
-            getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
+        val preferences = Injector.getAppPreferences(requireContext())
+        location.text = preferences.getLocation()
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {

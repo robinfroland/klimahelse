@@ -87,7 +87,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="48dp"
         android:gravity="center"
         android:textSize="17sp"
@@ -96,19 +95,8 @@
         android:text="@string/precentage_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.01"
         app:layout_constraintTop_toBottomOf="@id/gauge_text"
-        app:layout_constraintBottom_toTopOf="@id/infoButton"/>
-
-    <ImageView
-        android:id="@+id/infoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_info_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risk_value" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

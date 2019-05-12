@@ -15,6 +15,7 @@ import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.UvRepositoryImpl
+import com.example.helse.utilities.Injector
 import com.example.helse.utilities.convertRiskToInt
 import com.example.helse.viewmodels.UvViewModel
 import kotlinx.android.synthetic.main.fragment_uv.*
@@ -33,7 +34,6 @@ class UvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         navController = Navigation.findNavController(view)
 
         // defaultLocation == user location or defined location during setup
@@ -46,8 +46,8 @@ class UvFragment : Fragment() {
                 stationID = "NO0057A"
             )
 
-        location.text =
-            getString(R.string.location_text, defaultLocation.location, defaultLocation.superlocation)
+        val preferences = Injector.getAppPreferences(requireContext())
+        location.text = preferences.getLocation()
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {

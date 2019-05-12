@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="@+id/uviClear"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <View
         android:layout_width="2dp"
@@ -27,7 +27,7 @@
         android:background="@color/colorLightBlueGrey"
         app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
         app:layout_constraintStart_toEndOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <ImageView
         android:id="@+id/location_icon"
@@ -99,17 +99,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gauge_img" />
 
-    <ImageView
-        android:id="@+id/infoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_info_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gauge_text" />
-
     <View
         android:id="@+id/horizontal_divider"
         android:layout_width="match_parent"
@@ -136,7 +125,7 @@
         android:background="@color/colorLightBlueGrey"
         app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
         app:layout_constraintStart_toEndOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <TextView
         android:id="@+id/uviCloudy"
@@ -150,7 +139,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
         app:layout_constraintStart_toEndOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <TextView
         android:id="@+id/uviForecast"
@@ -163,7 +152,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <TextView
         android:id="@+id/uviPartlyCloudy"
@@ -176,7 +165,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/uviClear"
         app:layout_constraintStart_toEndOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <TextView
         android:id="@+id/uviClear"
@@ -190,7 +179,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton" />
+        app:layout_constraintTop_toBottomOf="@id/gauge_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -202,7 +191,7 @@
         app:layout_constraintBottom_toTopOf="@+id/uviClear"
         app:layout_constraintEnd_toEndOf="@+id/uviClear"
         app:layout_constraintStart_toStartOf="@+id/uviClear"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintTop_toBottomOf="@id/gauge_text"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -215,7 +204,7 @@
         app:layout_constraintBottom_toTopOf="@+id/uviCloudy"
         app:layout_constraintEnd_toEndOf="@+id/uviCloudy"
         app:layout_constraintStart_toStartOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintTop_toBottomOf="@id/gauge_text"
         app:layout_constraintVertical_bias="0.966" />
 
     <TextView
@@ -228,7 +217,7 @@
         app:layout_constraintBottom_toTopOf="@+id/uviPartlyCloudy"
         app:layout_constraintEnd_toEndOf="@+id/uviPartlyCloudy"
         app:layout_constraintStart_toStartOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintTop_toBottomOf="@id/gauge_text"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -241,7 +230,7 @@
         app:layout_constraintBottom_toTopOf="@+id/uviForecast"
         app:layout_constraintEnd_toEndOf="@+id/uviForecast"
         app:layout_constraintStart_toStartOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@+id/infoButton"
+        app:layout_constraintTop_toBottomOf="@id/gauge_text"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
