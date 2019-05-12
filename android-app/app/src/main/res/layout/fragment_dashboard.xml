@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".ui.DashboardFragment">
 
     <TextView
@@ -17,7 +18,7 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="8dp"
         android:gravity="center"
-        android:text="Alnabru, Oslo"
+        android:text="test"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.083"

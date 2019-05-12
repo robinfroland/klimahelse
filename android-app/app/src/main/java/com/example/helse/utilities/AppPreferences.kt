@@ -12,7 +12,10 @@ interface Preferences {
     fun locationPermissionGranted(): Boolean
     fun enableNotifications(module: Module, enable: Boolean)
     fun isNotificationEnabled(module: Module): Boolean
+    fun isModuleEnabled(module: Module): Boolean
     fun getSharedPreferences(): SharedPreferences
+    fun setLocation(location: String)
+    fun getLocation(): String
     fun setLastApiCall(time: Long, module: String)
     fun getLastApiCall(module: String): Long
 }
@@ -29,6 +32,16 @@ class AppPreferences(context: Context) : Preferences {
 
     override fun getSharedPreferences(): SharedPreferences {
         return preferences
+    }
+
+    override fun setLocation(location: String) {
+        preferenceEditor.putString("CURRENT_LOCATION", location)
+        preferenceEditor.apply()
+    }
+
+    override fun getLocation(): String {
+        val location = preferences.getString("CURRENT_LOCATION", "Forskningsparken, Oslo")
+        return location
     }
 
     override fun isFirstLaunch(): Boolean {
@@ -58,6 +71,11 @@ class AppPreferences(context: Context) : Preferences {
 
     override fun isNotificationEnabled(module: Module): Boolean {
         val key = module.moduleKey + ENABLE_NOTIFICATIONS
+        return preferences.getBoolean(key, false)
+    }
+
+    override fun isModuleEnabled(module: Module): Boolean {
+        val key = module.moduleKey + ENABLE_MODULE
         return preferences.getBoolean(key, false)
     }
 

@@ -36,10 +36,8 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        submitModules()
 
-        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+
 
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
@@ -51,13 +49,27 @@ class DashboardFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        updateModules()
+    }
+    override fun onResume() {
+        super.onResume()
+        search_dashboard.text = preferences.getLocation()
+        updateModules()
     }
 
-    private fun submitModules() {
-        enabledModules = allModules
-        enabledModules.forEach {
-            it.pushEnabled = preferences.isNotificationEnabled(it)
+
+
+    private fun updateModules() {
+        // IF NONE ENABLED: SHOW TEXT
+        enabledModules.clear()
+        allModules.forEach {
+            if (preferences.isModuleEnabled(it)) {
+                enabledModules.add(it)
+                it.pushEnabled = preferences.isNotificationEnabled(it)
+            }
         }
+        viewAdapter.notifyDataSetChanged()
     }
 
     private fun initModules() {
@@ -79,6 +91,7 @@ class DashboardFragment : Fragment() {
         )
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule, allergyModule)
+        enabledModules = arrayListOf()
     }
 }
 

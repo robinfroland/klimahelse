@@ -12,7 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorWhite"
+        app:titleTextAppearance="@style/ToolbarTheme"
         android:theme="@style/ToolbarTheme">
 
         <TextView
@@ -21,9 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.1"
+            android:letterSpacing="0.05"
             android:textAllCaps="true"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorGreyDark"
+            android:textSize="20sp"
             tools:text="Tittel" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -40,10 +42,10 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/colorBottomNavbar"
+        app:itemBackground="@color/colorGreyDark"
         app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@color/colorWhite"
         app:itemTextColor="@drawable/selector"
+        app:itemRippleColor="@color/colorWhite"
         app:menu="@menu/bottom_navbar" />
 
 </LinearLayout>

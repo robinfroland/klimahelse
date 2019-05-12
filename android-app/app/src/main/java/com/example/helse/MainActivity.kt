@@ -38,21 +38,34 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        setupErrorHandling(intent, this)
+//        setupErrorHandling(intent, this)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         bottom_navbar.setupWithNavController(navController)
-        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
+//        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.label != "Dashboard") {
-                toolbar_title.visibility = View.VISIBLE
-                toolbar_title.text = destination.label
-            } else {
-                toolbar_title.visibility = View.INVISIBLE
+            when {
+                destination.label == "Dashboard" -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    toolbar.visibility = View.GONE
+
+                }
+                destination.label == "Søk.." -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
+                    supportActionBar?.setDisplayShowTitleEnabled(true)
+                    toolbar.visibility = View.VISIBLE
+                    toolbar_title.text = ""
+                }
+                else -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
+                    supportActionBar?.setDisplayShowTitleEnabled(false)
+                    toolbar.visibility = View.VISIBLE
+                    toolbar_title.text = destination.label
+                }
             }
         }
 
@@ -85,7 +98,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             "location_settings" -> navController.navigate(R.id.settings_to_locationsettings)
             "dashboard_settings" -> navController.navigate(R.id.settings_to_dashboardsettings)
             "push_settings" -> navController.navigate(R.id.settings_to_pushsettings)
-            "push_advanced_settings" -> navController.navigate(R.id.pushsettings_to_advanced)
             "location_search_settings" -> navController.navigate(R.id.locationsettings_to_search)
         }
         return true
@@ -97,7 +109,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     private fun setFirstLaunch() {
         val preferences = Injector.getAppPreferences(this)
-        preferences.setFirstLaunch(true)
         if (preferences.isFirstLaunch()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()

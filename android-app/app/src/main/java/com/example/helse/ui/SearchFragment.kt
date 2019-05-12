@@ -14,6 +14,8 @@ import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.LocationRepositoryImpl
+import com.example.helse.utilities.Injector
+import com.example.helse.utilities.Preferences
 import com.example.helse.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -21,12 +23,14 @@ class SearchFragment : Fragment() {
 
     private lateinit var viewModel: SearchViewModel
     private lateinit var viewAdapter: LocationAdapter
+    private lateinit var preferences: Preferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_search, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferences = Injector.getAppPreferences(requireContext())
         initViewModel()
         submitData()
         setHasOptionsMenu(true)
@@ -73,6 +77,7 @@ class SearchFragment : Fragment() {
 
     private fun locationClicked(location: Location) {
         println("LOCATION CLICKED IS $location")
+        preferences.setLocation(location.location + ", " + location.superlocation)
         val view = this.view ?: return
         Navigation.findNavController(view).navigate(R.id.search_to_dashboard)
     }
