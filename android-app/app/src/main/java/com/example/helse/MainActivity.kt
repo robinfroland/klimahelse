@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             "location_settings" -> navController.navigate(R.id.settings_to_locationsettings)
             "dashboard_settings" -> navController.navigate(R.id.settings_to_dashboardsettings)
             "push_settings" -> navController.navigate(R.id.settings_to_pushsettings)
-            "push_advanced_settings" -> navController.navigate(R.id.pushsettings_to_advanced)
             "location_search_settings" -> navController.navigate(R.id.locationsettings_to_search)
         }
         return true

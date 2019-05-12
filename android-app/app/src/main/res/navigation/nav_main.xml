@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.helse.ui.settings.SettingsFragment"
-        android:label="Innstillinger"
+        android:label="Profil"
         tools:layout="@layout/onboarding_dashboard_desc">
 
         <action
@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/airqualityFragment"
         android:name="com.example.helse.ui.airquality.AirqualityFragment"
-        android:label="Airquality"
+        android:label="Luftkvalitet"
         tools:layout="@layout/fragment_airquality">
         <action
             android:id="@+id/airquality_to_information"
@@ -100,14 +100,14 @@
     <fragment
         android:id="@+id/airqualityInformationFragment"
         android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
-        android:label="Luftkvalitet"
+        android:label="Om luftkvalitet"
         tools:layout="@layout/fragment_airquality_information" />
 
     <!-- Allergy- -->
     <fragment
         android:id="@+id/allergyFragment"
         android:name="com.example.helse.ui.allergy.AllergyFragment"
-        android:label="Allergy"
+        android:label="Pollenspredning"
         tools:layout="@layout/fragment_allergy">
         <action
             android:id="@+id/allergy_to_information"
@@ -122,14 +122,14 @@
     <fragment
         android:id="@+id/allergyInformationFragment"
         android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
-        android:label="Allergi"
+        android:label="Om pollenspredning"
         tools:layout="@layout/fragment_allergy_information" />
 
     <!-- UV -->
     <fragment
         android:id="@+id/uvFragment"
         android:name="com.example.helse.ui.uv.UvFragment"
-        android:label="UV"
+        android:label="UV-Stråling"
         tools:layout="@layout/fragment_uv">
         <action
             android:id="@+id/uv_to_information"
@@ -144,14 +144,14 @@
     <fragment
         android:id="@+id/uvInformationFragment"
         android:name="com.example.helse.ui.uv.UvInformationFragment"
-        android:label="UV"
+        android:label="Om UV-stråling"
         tools:layout="@layout/fragment_uv_information" />
 
     <!-- Humidity -->
     <fragment
         android:id="@+id/humidityFragment"
         android:name="com.example.helse.ui.humidity.HumidityFragment"
-        android:label="fragment_humidity"
+        android:label="Luftkvalitet"
         tools:layout="@layout/fragment_humidity">
         <action
             android:id="@+id/humidity_to_information"
@@ -166,14 +166,13 @@
     <fragment
         android:id="@+id/humidityInformationFragment"
         android:name="com.example.helse.ui.humidity.HumidityInformationFragment"
-        android:label="fragment_humidity_information"
+        android:label="Om luftfuktighet"
         tools:layout="@layout/fragment_humidity_information" />
 
     <!-- Search -->
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.helse.ui.SearchFragment"
-        android:label="SearchFragment">
+        android:name="com.example.helse.ui.SearchFragment">
         <action
             android:id="@+id/search_to_dashboard"
             app:destination="@id/dashboardFragment" />
@@ -182,7 +181,7 @@
     <fragment
         android:id="@+id/dashboardSettingsFragment"
         android:name="com.example.helse.ui.settings.DashboardSettingsFragment"
-        android:label="Dashboard" />
+        android:label="Dashbord" />
     <fragment
         android:id="@+id/locationSettingsFragment"
         android:name="com.example.helse.ui.settings.LocationSettingsFragment"
@@ -198,18 +197,6 @@
     <fragment
         android:id="@+id/pushSettingsFragment"
         android:name="com.example.helse.ui.settings.PushSettingsFragment"
-        android:label="Varslinger">
-        <action
-            android:id="@+id/pushsettings_to_advanced"
-            app:destination="@+id/pushAdvancedSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/pushAdvancedSettingsFragment"
-        android:name="com.example.helse.ui.settings.PushAdvancedSettingsFragment"
-        android:label="Varslinger" />
+        android:label="Varslinger"/>
 
 </navigation>
