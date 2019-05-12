@@ -12,13 +12,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/logoDescription"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/ic_app"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/onboardingTitle"
