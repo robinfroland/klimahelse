@@ -3,7 +3,9 @@
 
     <item android:drawable="@color/colorPrimary" />
     <item
-        android:drawable="@drawable/ic_launcher_foreground"
+        android:height="128dp"
+        android:width="128dp"
+        android:drawable="@drawable/ic_app_3x"
         android:gravity="center" />
 
 </layer-list>

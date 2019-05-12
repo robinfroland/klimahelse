@@ -3,8 +3,8 @@
     <string name="gauge_risiko">%s RISIKO</string>
 
     <!-- Onboarding -->
-    <string name="onboarding_title">Velkommen til værhelse!</string>
-    <string name="onboarding_description">Værhelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne korte veiledningen for skreddersy appen for dine behov!</string>
+    <string name="onboarding_title">Velkommen til klimahelse!</string>
+    <string name="onboarding_description">Klimahelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne korte veiledningen for skreddersy appen for dine behov!</string>
     <string name="skip">Hopp over</string>
     <string name="setup_preferences">KOM I GANG</string>
     <string name="done">Ferdig</string>
