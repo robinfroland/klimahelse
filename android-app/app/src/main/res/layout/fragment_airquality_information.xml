@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:paddingTop="60dp"
         android:paddingBottom="20dp"
+        android:tint="@color/colorPrimaryLight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

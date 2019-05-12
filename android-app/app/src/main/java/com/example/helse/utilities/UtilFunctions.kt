@@ -70,6 +70,14 @@ fun calculateUvRiskValue(uvi_val: Double): String {
     }
 }
 
+fun calculateHumidityRiskValue(humidity_val: Double): String {
+    return when {
+        humidity_val <= 30 -> LOW_HUMIDITY_VALUE
+        humidity_val <= 60 -> MEDIUM_HUMIDITY_VALUE
+        else -> HIGH_HUMIDITY_VALUE
+    }
+}
+
 
 fun calculateDistanceBetweenCoordinates(fromLat: Double, fromLong: Double, toLat: Double, toLong: Double): Double {
     val R = 6371e3

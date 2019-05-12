@@ -71,8 +71,8 @@
 
     <!-- Humidity -->
     <string name="humidity_fragment_title">LUFTFUKTIGHET</string>
-    <string name="precentage_placeholder">0%</string>
-    <string name="precentage">%.0f%%</string>
+    <string name="precentage_placeholder">0.00%</string>
+    <string name="precentage">%.0f<b>%%</b> </string>
     <string name="humidity_fragment_information">
         Luftfuktighet er et mål på hvor mye vanndamp det er i luften. Høy luftfuktighet innendørs gir en gunstig grobunn for vekst av mikrobiologiske organismer som bakterier, sopp og midd, og kan gi helseplager som luftveisinfeksjoner, astma, hodepine og mer.
     </string>

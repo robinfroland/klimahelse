@@ -21,13 +21,14 @@ class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private 
 
     override fun onBindViewHolder(holder: CardViewHolder, index: Int) {
         val hourOfDay = timeList[index].hourOfDay.toString()
-        holder.view.risk_circle.risk_text.text = ("00$hourOfDay").substring(hourOfDay.length)
         val riskValue = timeList[index].overallRiskValue
+        holder.view.horizontal_item.risk_text.text = ("$hourOfDay:00")
+
         when (riskValue) {
-            "LAV" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
-            "MODERAT" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
-            "BETYDELIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
-            "ALVORLIG" -> holder.view.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
+            "LAV" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
+            "MODERAT" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
+            "BETYDELIG" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
+            "ALVORLIG" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
         }
 
         holder.view.risk_circle.setOnClickListener {

@@ -167,6 +167,7 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
 
                         if(parser.name == "humidity"){
                             val humidityValue = parser.getAttributeValue(0).toDouble()
+                            val riskValue = calculateHumidityRiskValue(humidityValue)
                             val distance = calculateDistanceBetweenCoordinates(
                                 currentLocation.latitude,
                                 currentLocation.longitude,
@@ -178,6 +179,7 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                                 parsedResponse.add(
                                     0,
                                     HumidityForecast(
+                                        riskValue = riskValue,
                                         latitude = latitude,
                                         longitude = longitude,
                                         humidityValue = humidityValue,

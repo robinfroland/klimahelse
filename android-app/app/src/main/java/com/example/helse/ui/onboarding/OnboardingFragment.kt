@@ -1,6 +1,5 @@
 package com.example.helse.ui.onboarding
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

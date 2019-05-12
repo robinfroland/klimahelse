@@ -1,5 +1,6 @@
 package com.example.helse.ui.uv
 
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
@@ -12,7 +13,9 @@ import com.example.helse.R
 import com.example.helse.data.api.UvResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.UvRepositoryImpl
+import com.example.helse.utilities.convertRiskToInt
 import com.example.helse.viewmodels.UvViewModel
 import kotlinx.android.synthetic.main.fragment_uv.*
 
@@ -64,10 +67,7 @@ class UvFragment : Fragment() {
             uviPartlyCloudy.text = uvForecast.uvPartlyCloudy.toString()
             uviForecast.text = uvForecast.uvForecast.toString()
             uviCloudy.text = uvForecast.uvCloudy.toString()
-            val gaugeUri = "@drawable/gauge_${uvForecast.riskValue.toLowerCase()}"
-            val res: Drawable =
-                resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
-            gauge.setImageDrawable(res)
+            initGauge(uvForecast)
         })
     }
 
@@ -82,5 +82,23 @@ class UvFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
         return true
+    }
+    
+    private fun initGauge(forecast: UvForecast) {
+        val riskValue = convertRiskToInt(forecast.riskValue)
+        val color : Int
+
+        color = when {
+            riskValue > 2 -> resources.getColor(R.color.colorDangerMedium, null)
+            riskValue > 3 -> resources.getColor(R.color.colorDangerHigh, null)
+            riskValue > 4 -> resources.getColor(R.color.colorDangerVeryHigh, null)
+            else -> resources.getColor(R.color.colorDangerLow, null)
+        }
+        gauge.value = riskValue
+        gauge.pointStartColor = color
+        gauge.pointEndColor = color
+        gauge_text.text =  getString(R.string.gauge_risiko, forecast.riskValue)
+        gauge_text.setTextColor(color)
+        gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 }
