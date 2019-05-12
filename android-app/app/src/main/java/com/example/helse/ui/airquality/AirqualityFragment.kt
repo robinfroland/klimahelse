@@ -2,13 +2,13 @@ package com.example.helse.ui.airquality
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
@@ -20,14 +20,17 @@ import com.example.helse.data.entities.RiskCircles
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 import java.text.SimpleDateFormat
+
 
 class AirqualityFragment : Fragment() {
 
     private lateinit var viewAdapter: HorisontalAdapter
     private lateinit var viewManager: LinearLayoutManager
+    private lateinit var navController: NavController
     private var timeList = ArrayList<RiskCircles>()
     private var hourOfDay = 0
 
@@ -35,13 +38,13 @@ class AirqualityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_airquality, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        navController = Navigation.findNavController(view)
         viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = HorisontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)
@@ -50,15 +53,10 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        infoButton.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.airquality_to_information)
-        }
-
-
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
             ?: Location(
-                location="Alnabru",
+                location = "Alnabru",
                 superlocation = "Oslo",
                 latitude = 59.92767,
                 longitude = 10.84655,
@@ -103,9 +101,23 @@ class AirqualityFragment : Fragment() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.info_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_info) {
+            navController.navigate(R.id.airquality_to_information)
+        } else {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        return true
+    }
+
+
     private fun initGauge(forecast: RiskCircles) {
         val riskValue = convertRiskToInt(forecast.overallRiskValue)
-        val color : Int
+        val color: Int
 
         when {
             riskValue > 2 -> color = resources.getColor(R.color.colorDangerMedium, null)
@@ -116,7 +128,7 @@ class AirqualityFragment : Fragment() {
         gauge.value = riskValue
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.text =  getString(R.string.gauge_risiko, forecast.overallRiskValue)
+        gauge_text.text = getString(R.string.gauge_risiko, forecast.overallRiskValue)
         gauge_text.setTextColor(color)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 

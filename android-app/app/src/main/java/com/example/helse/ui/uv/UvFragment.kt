@@ -2,12 +2,11 @@ package com.example.helse.ui.uv
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.UvResponse
@@ -19,20 +18,20 @@ import kotlinx.android.synthetic.main.fragment_uv.*
 
 class UvFragment : Fragment() {
 
+    private lateinit var navController: NavController
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_uv, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        infoButton.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.uv_to_information)
-        }
+        navController = Navigation.findNavController(view)
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
@@ -70,5 +69,18 @@ class UvFragment : Fragment() {
                 resources.getDrawable(resources.getIdentifier(gaugeUri, null, activity?.packageName), null)
             gauge.setImageDrawable(res)
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.info_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_info) {
+            navController.navigate(R.id.uv_to_information)
+        } else {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        return true
     }
 }
