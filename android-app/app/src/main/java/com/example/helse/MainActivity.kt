@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         bottom_navbar.setupWithNavController(navController)
-        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
+//        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 

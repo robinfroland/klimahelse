@@ -46,8 +46,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView = requireActivity().findViewById(R.id.map)
         mapView.onCreate(savedInstanceState)
 
-        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
 
         mapView.onResume()
         try {

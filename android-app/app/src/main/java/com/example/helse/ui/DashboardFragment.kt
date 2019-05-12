@@ -38,8 +38,6 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         submitModules()
 
-        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
 
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
