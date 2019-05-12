@@ -40,10 +40,10 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/colorBottomNavbar"
+        app:itemBackground="@color/colorGreyDark"
         app:itemIconTint="@drawable/selector"
-        app:itemRippleColor="@color/colorWhite"
         app:itemTextColor="@drawable/selector"
+        app:itemRippleColor="@color/colorWhite"
         app:menu="@menu/bottom_navbar" />
 
 </LinearLayout>
