@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        setupErrorHandling(intent, this)
+//        setupErrorHandling(intent, this)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
@@ -48,11 +48,24 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.label != "Dashboard") {
-                toolbar_title.visibility = View.VISIBLE
-                toolbar_title.text = destination.label
-            } else {
-                toolbar_title.visibility = View.INVISIBLE
+            when {
+                destination.label == "Dashboard" -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    toolbar.visibility = View.GONE
+
+                }
+                destination.label == "Søk.." -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
+                    supportActionBar?.setDisplayShowTitleEnabled(true)
+                    toolbar.visibility = View.VISIBLE
+                    toolbar_title.text = ""
+                }
+                else -> {
+                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
+                    supportActionBar?.setDisplayShowTitleEnabled(false)
+                    toolbar.visibility = View.VISIBLE
+                    toolbar_title.text = destination.label
+                }
             }
         }
 

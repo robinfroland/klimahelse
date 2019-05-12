@@ -2,11 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <Preference
-        android:icon="@drawable/ic_location"
-        android:key="location_settings"
-        android:title="Posisjon"
-        app:fragment="com.example.helse.ui.settings.LocationSettingsFragment" />
+        android:icon="@drawable/ic_dashboard_black"
+        android:key="dashboard_settings"
+        android:title="Dashboard"
+        app:fragment="com.example.helse.ui.settings.DashboardSettingsFragment" />
 
     <Preference
         android:icon="@drawable/ic_notifications"
@@ -15,9 +16,9 @@
         app:fragment="com.example.helse.ui.settings.PushSettingsFragment" />
 
     <Preference
-        android:icon="@drawable/ic_home_black"
-        android:key="dashboard_settings"
-        android:title="Dashboard"
-        app:fragment="com.example.helse.ui.settings.DashboardSettingsFragment" />
+        android:icon="@drawable/ic_location"
+        android:key="location_settings"
+        android:title="Posisjon"
+        app:fragment="com.example.helse.ui.settings.LocationSettingsFragment" />
 </PreferenceScreen>
 

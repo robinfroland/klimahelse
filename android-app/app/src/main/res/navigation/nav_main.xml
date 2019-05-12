@@ -172,7 +172,8 @@
     <!-- Search -->
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.helse.ui.SearchFragment">
+        android:name="com.example.helse.ui.SearchFragment"
+        android:label="Søk..">
         <action
             android:id="@+id/search_to_dashboard"
             app:destination="@id/dashboardFragment" />
