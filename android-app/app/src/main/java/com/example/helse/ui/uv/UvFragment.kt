@@ -48,7 +48,8 @@ class UvFragment : Fragment() {
                         selectedLocation,
                         this@UvFragment
                     ),
-                    this@UvFragment
+                    this@UvFragment,
+                    selectedLocation
                 )
             }
 

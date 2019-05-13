@@ -41,7 +41,7 @@ class AirqualityRepositoryImpl(
                 fetchNew(timeNow)
             }
         }
-        val airquality = airqualityDao.getAll()[location.stationID]
+        val airquality = airqualityDao.get(location.stationID)
         if (airquality.isNullOrEmpty()) {
             fetchNew(timeNow)
             return mutableListOf(emptyAirqualityForecast)
@@ -50,10 +50,8 @@ class AirqualityRepositoryImpl(
     }
 
     private fun fetchNew(timeNow: Long) {
-        val hashmap = HashMap<String, MutableList<AirqualityForecast>>()
-        hashmap[location.stationID] = airqualityApi.fetchAirquality()
-        airqualityDao.insertAll(
-            hashmap
+        airqualityDao.insert(
+            airqualityApi.fetchAirquality()
         )
         preferences.setLastApiCall(
             location, LAST_API_CALL_AIRQUALITY, timeNow

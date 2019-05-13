@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
-    val stationID: String,
     @PrimaryKey(autoGenerate = false)
+    val stationID: String,
     val from: String,
     val to: String,
     val riskValue: String,

@@ -45,7 +45,8 @@ class HumidityFragment : Fragment() {
                         selectedLocation,
                         this@HumidityFragment
                     ),
-                    this@HumidityFragment
+                    this@HumidityFragment,
+                    selectedLocation
                 )
             }
 
