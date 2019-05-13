@@ -17,7 +17,7 @@
             android:dependency="USE_DEVICE_LOCATION"
             android:icon="@drawable/ic_search_black"
             android:iconSpaceReserved="true"
-            android:key="location_search_settings"
+            android:key="search_settings"
             android:title="Søk etter område"
             app:fragment="com.example.helse.ui.SearchFragment"
             app:iconSpaceReserved="false" />
