@@ -75,11 +75,11 @@ class DashboardFragment : Fragment() {
     private fun initModules() {
         airqualityModule = Module(
             AIRQUALITY_MODULE, R.drawable.ic_airquality_2x,
-            "Luftkvalitet", "HIGH", false
+            "Luftkvalitet", "LOW", false
         )
         uvModule = Module(
             UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling",
-            "LOW", false
+            "MEDIUM", false
         )
         allergyModule = Module(
             ALLERGY_MODULE, R.drawable.ic_launcher_foreground,

@@ -63,14 +63,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map = p0
 
         GlobalScope.launch {
-            val locations = LocationRepositoryImpl(
-                LocalDatabase.getInstance(requireContext()).locationDao(),
-                LocationResponse(this@MapFragment.requireActivity())
-            ).getAllLocations()
+            runCatching {
+                val locations = LocationRepositoryImpl(
+                    LocalDatabase.getInstance(requireContext()).locationDao(),
+                    LocationResponse(this@MapFragment.requireActivity())
+                ).getAllLocations()
 
-            addAirqualityToMap(p0, locations)
+                addAirqualityToMap(p0, locations)
+            }
         }
-        val alnabru = LatLng(59.932141, 10.846132)
+
+        val forskningsparken = LatLng(59.943445, 10.718364)
 
         // Set bounds so user can not zoom outside Norway
         val southmostPointInNorway = LatLng(57.711257, 4.810990)
@@ -78,7 +81,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.setLatLngBoundsForCameraTarget(LatLngBounds(southmostPointInNorway, northmostPointNorway))
 
         //Zoom camera to "alnabru", this should later be the users current position
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(alnabru, 12.toFloat()))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(forskningsparken, 12.toFloat()))
     }
 
     private suspend fun addAirqualityToMap(
@@ -86,20 +89,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         locations: MutableList<Location>
     ) {
         GlobalScope.launch {
-            for (i in 0 until locations.size) {
-                val location = locations[i]
-                val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
+            runCatching {
+                for (i in 0 until locations.size) {
+                    val location = locations[i]
+                    val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
 
-                var color = when (forecast.riskValue) {
-                    LOW_AQI_VALUE -> R.color.greenLowRisk
-                    MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
-                    HIGH_AQI_VALUE -> R.color.orangeHighRisk
-                    VERY_HIGH_AQI_VALUE -> R.color.redVeryHighRisk
-                    else -> R.color.colorGreyDark
-                }
-                color = ContextCompat.getColor(context!!, color)
-                requireActivity().runOnUiThread {
-                    addCircleToMap(p0, location, color)
+                    var color = when (forecast.riskValue) {
+                        LOW_AQI_VALUE -> R.color.greenLowRisk
+                        MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
+                        HIGH_AQI_VALUE -> R.color.orangeHighRisk
+                        VERY_HIGH_AQI_VALUE -> R.color.redVeryHighRisk
+                        else -> R.color.colorGreyDark
+                    }
+                    color = ContextCompat.getColor(context!!, color)
+                    requireActivity().runOnUiThread {
+                        addCircleToMap(p0, location, color)
+                    }
                 }
             }
         }
