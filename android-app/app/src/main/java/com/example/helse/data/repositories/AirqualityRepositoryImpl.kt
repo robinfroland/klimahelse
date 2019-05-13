@@ -6,10 +6,12 @@ import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.utilities.Injector
 import com.example.helse.utilities.LAST_API_CALL_AIRQUALITY
 import com.example.helse.utilities.THIRTY_MINUTES
 import com.example.helse.utilities.Preferences
+import java.util.HashMap
 
 interface AirqualityRepository {
     suspend fun fetchAirquality(): MutableList<AirqualityForecast>
@@ -19,7 +21,7 @@ class AirqualityRepositoryImpl(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityApi,
     fragment: Fragment,
-    location: Location
+    val location: Location
 ) : AirqualityRepository {
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
 
@@ -28,24 +30,33 @@ class AirqualityRepositoryImpl(
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
 
         val timeNow = System.currentTimeMillis()
-        val timePrev = preferences.getLastApiCall(LAST_API_CALL_AIRQUALITY)
+        val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
 
         //if -1 there is no previous fetch call
-        if(timePrev < 0){
+        if (timePrev < 0) {
             fetchNew(timeNow)
         } else {
             //check if 30 min has passed since last fetch call
-            if((timeNow - timePrev) >= THIRTY_MINUTES){
+            if ((timeNow - timePrev) >= THIRTY_MINUTES) {
                 fetchNew(timeNow)
             }
         }
-        return airqualityDao.getAll()
+        val airquality = airqualityDao.getAll()[location.stationID]
+        if (airquality.isNullOrEmpty()) {
+            fetchNew(timeNow)
+            return mutableListOf(emptyAirqualityForecast)
+        }
+        return airquality
     }
 
     private fun fetchNew(timeNow: Long) {
+        val hashmap = HashMap<String, MutableList<AirqualityForecast>>()
+        hashmap[location.stationID] = airqualityApi.fetchAirquality()
         airqualityDao.insertAll(
-            airqualityApi.fetchAirquality()
+            hashmap
         )
-        preferences.setLastApiCall(timeNow, LAST_API_CALL_AIRQUALITY)
+        preferences.setLastApiCall(
+            location, LAST_API_CALL_AIRQUALITY, timeNow
+        )
     }
 }

@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import com.example.helse.data.api.UvApi
 import com.example.helse.data.database.UVDao
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.utilities.Injector
 import com.example.helse.utilities.LAST_API_CALL_UV
@@ -18,15 +19,15 @@ interface UvRepository {
 class UvRepositoryImpl(
     private val uvDao: UVDao,
     private val uvApi: UvApi,
-    fragment: Fragment
+    fragment: Fragment,
+    private val location: Location
 ) : UvRepository {
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
 
     @WorkerThread
     override suspend fun fetchUv(): MutableList<UvForecast> {
-
         val timeNow = System.currentTimeMillis()
-        val timePrev = preferences.getLastApiCall(LAST_API_CALL_UV)
+        val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_UV)
 
         //if -1 there is no previous fetch call
         if (timePrev < 0) {
@@ -46,6 +47,6 @@ class UvRepositoryImpl(
         uvDao.insertAll(
             uvApi.fetchUv()
         )
-        preferences.setLastApiCall(timeNow, LAST_API_CALL_UV)
+        preferences.setLastApiCall(location, LAST_API_CALL_UV, timeNow)
     }
 }

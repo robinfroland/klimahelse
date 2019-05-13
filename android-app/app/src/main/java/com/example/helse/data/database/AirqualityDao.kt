@@ -10,11 +10,11 @@ import com.example.helse.data.entities.AirqualityForecast
 interface AirqualityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(airquality: MutableList<AirqualityForecast>)
+    fun insertAll(airquality: HashMap<String, MutableList<AirqualityForecast>>)
 
     @Query("DELETE FROM airqualityForecast")
     fun deleteAll()
 
     @Query("SELECT * FROM airqualityForecast")
-    fun getAll(): MutableList<AirqualityForecast>
+    fun getAll(): HashMap<String, MutableList<AirqualityForecast>>
 }

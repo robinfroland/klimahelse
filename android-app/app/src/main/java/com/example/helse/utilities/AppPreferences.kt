@@ -17,8 +17,8 @@ interface Preferences {
     fun getSharedPreferences(): SharedPreferences
     fun setLocation(location: String, superlocation: String, lat: Double, lon: Double, stationID: String)
     fun getLocation(): Location
-    fun setLastApiCall(time: Long, module: String)
-    fun getLastApiCall(module: String): Long
+    fun setLastApiCall(location: Location, module: String, time: Long)
+    fun getLastApiCall(location: Location, module: String): Long
 }
 
 class AppPreferences(context: Context) : Preferences {
@@ -31,6 +31,10 @@ class AppPreferences(context: Context) : Preferences {
 
     override fun getSharedPreferences(): SharedPreferences {
         return preferences
+    }
+
+    private fun createKeyFor(location: Location, module: String): String {
+        return "${location.latitude};${location.longitude};$module"
     }
 
     // The structure is meant to copy the structure of data class Location
@@ -63,13 +67,14 @@ class AppPreferences(context: Context) : Preferences {
         preferenceEditor.apply()
     }
 
-    override fun setLastApiCall(time: Long, module: String) {
-        preferenceEditor.putLong(module, time)
+
+    override fun setLastApiCall(location: Location, module: String, time: Long) {
+        preferenceEditor.putLong(createKeyFor(location, module), time)
         preferenceEditor.apply()
     }
 
-    override fun getLastApiCall(module: String): Long {
-        return preferences.getLong(module, -1)
+    override fun getLastApiCall(location: Location, module: String): Long {
+        return preferences.getLong(createKeyFor(location, module), -1)
 
     }
 

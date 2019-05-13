@@ -137,4 +137,3 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 }
 
-
