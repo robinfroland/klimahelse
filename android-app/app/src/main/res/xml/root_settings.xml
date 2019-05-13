@@ -26,8 +26,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:iconSpaceReserved="false"
-        android:title="@string/preference_title_dashboard">
+        android:title="@string/preference_title_dashboard"
+        app:iconSpaceReserved="false">
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -54,8 +54,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:iconSpaceReserved="false"
-        android:title="@string/preference_title_push">
+        android:title="@string/preference_title_push"
+        app:iconSpaceReserved="false">
 
         <CheckBoxPreference
             android:defaultValue="false"
