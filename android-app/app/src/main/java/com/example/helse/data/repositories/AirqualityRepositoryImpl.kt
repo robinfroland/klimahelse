@@ -41,12 +41,7 @@ class AirqualityRepositoryImpl(
                 fetchNew(timeNow)
             }
         }
-        val airquality = airqualityDao.get(location.stationID)
-        if (airquality.isNullOrEmpty()) {
-            fetchNew(timeNow)
-            return mutableListOf(emptyAirqualityForecast)
-        }
-        return airquality
+        return airqualityDao.get(location.stationID)
     }
 
     private fun fetchNew(timeNow: Long) {

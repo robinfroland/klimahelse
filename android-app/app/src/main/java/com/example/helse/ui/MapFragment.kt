@@ -132,6 +132,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             )
 
             val airquality = airqualityRepo.fetchAirquality()
+            throw Error("airquality: $airquality")
             airquality[hourOfDay]
         }
     }
