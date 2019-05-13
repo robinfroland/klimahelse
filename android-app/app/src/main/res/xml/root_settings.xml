@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:iconSpaceReserved="false"
+    app:iconSpaceReserved="false">
 
     <PreferenceCategory
-        android:title="@string/preference_title_location">
+        android:iconSpaceReserved="false"
+        android:title="@string/preference_title_location"
+        app:iconSpaceReserved="false">
 
         <SwitchPreference
-            android:defaultValue="true"
-            android:disableDependentsState="true"
+            android:defaultValue="false"
             android:key="USE_DEVICE_LOCATION"
-            android:summary="La appen bruke din nåværende posisjon for varsler"
+            android:summary="Tillat appen å bruke din nåværende posisjon"
             android:title="Posisjonsbasert varsel"
             app:iconSpaceReserved="false" />
 
         <Preference
-            android:dependency="USE_DEVICE_LOCATION"
             android:icon="@drawable/ic_search_black"
             android:iconSpaceReserved="true"
-            android:key="search_settings"
+            android:key="LOCATION_SETTINGS"
             android:title="Søk etter område"
             app:fragment="com.example.helse.ui.SearchFragment"
             app:iconSpaceReserved="false" />
@@ -39,7 +41,7 @@
             android:disableDependentsState="false"
             android:key="UV_MODULE_ENABLE_MODULE"
             android:title="UV-stråling"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false" />
         <CheckBoxPreference
             android:key="HUMIDITY_MODULE_ENABLE_MODULE"
             android:title="Luftfuktighet"
@@ -77,10 +79,10 @@
 
         <CheckBoxPreference
             android:dependency="ALLERGY_MODULE_ENABLE_MODULE"
+            android:enabled="false"
             android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
             android:title="Varsel for Pollenspredning"
-            app:iconSpaceReserved="false"
-            android:enabled="false"/>
+            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
 

@@ -15,10 +15,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
-import com.example.helse.utilities.AppPreferences
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.setupErrorHandling
-import com.example.helse.utilities.toast
+import com.example.helse.utilities.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
@@ -95,11 +92,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat?, pref: Preference?): Boolean {
         when(pref?.key) {
-            "location_settings" -> navController.navigate(R.id.settings_to_locationsettings)
-            "dashboard_settings" -> navController.navigate(R.id.settings_to_dashboardsettings)
-            "push_settings" -> navController.navigate(R.id.settings_to_pushsettings)
-            "location_search_settings" -> navController.navigate(R.id.settings_to_search)
-            "search_settings" -> navController.navigate(R.id.settings_to_search)
+            LOCATION_SETTINGS -> navController.navigate(R.id.settings_to_search)
         }
         return true
 
