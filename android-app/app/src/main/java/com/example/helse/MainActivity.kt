@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         }
 
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
-            if(!task.isSuccessful) {
+            if (!task.isSuccessful) {
                 println("NOT SUCCESSFUL")
                 return@OnCompleteListener
             }
@@ -95,17 +95,14 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             LOCATION_SETTINGS -> navController.navigate(R.id.settings_to_search)
         }
         return true
-
-
-
     }
 
 
     private fun setFirstLaunch() {
         val preferences = Injector.getAppPreferences(this)
-        if (preferences.isFirstLaunch()) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
-        }
+        // if (preferences.isFirstLaunch()) {
+        //     startActivity(Intent(this, OnboardingActivity::class.java))
+        //     finish()
+        // }
     }
 }

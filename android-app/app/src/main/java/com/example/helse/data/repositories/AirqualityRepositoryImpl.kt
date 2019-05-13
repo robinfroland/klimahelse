@@ -25,7 +25,6 @@ class AirqualityRepositoryImpl(
 ) : AirqualityRepository {
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
 
-
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
 
@@ -41,10 +40,13 @@ class AirqualityRepositoryImpl(
                 fetchNew(timeNow)
             }
         }
-        return airqualityDao.get(location.stationID)
+        val dao = airqualityDao.get(location.stationID)
+        println("Returning $dao")
+        return dao
     }
 
     private fun fetchNew(timeNow: Long) {
+        println("Fetching new")
         airqualityDao.insert(
             airqualityApi.fetchAirquality()
         )
