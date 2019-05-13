@@ -38,7 +38,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
     val aqiForecastTimeArray = ArrayList<AirqualityForecast>()
 
-    for (i in 0..(data.length() - 1)) {
+    for (i in 0 until data.length() - 1) {
         val jsonObj = data.getJSONObject(i)
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")

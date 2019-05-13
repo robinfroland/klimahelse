@@ -36,25 +36,16 @@ class UvFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        // defaultLocation == user location or defined location during setup
-        val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location(
-                location="Alnabru",
-                superlocation = "Oslo",
-                latitude = 59.92767,
-                longitude = 10.84655,
-                stationID = "NO0057A"
-            )
-
         val preferences = Injector.getAppPreferences(requireContext())
-        location.text = preferences.getLocation()
+        val selectedLocation = preferences.getLocation()
+        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
                 uvRepository = UvRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
-                        defaultLocation,
+                        selectedLocation,
                         this@UvFragment
                     ),
                     this@UvFragment
@@ -83,10 +74,10 @@ class UvFragment : Fragment() {
         }
         return true
     }
-    
+
     private fun initGauge(forecast: UvForecast) {
         val riskValue = convertRiskToInt(forecast.riskValue)
-        val color : Int
+        val color: Int
 
         color = when {
             riskValue > 2 -> resources.getColor(R.color.colorDangerMedium, null)
@@ -97,7 +88,7 @@ class UvFragment : Fragment() {
         gauge.value = riskValue
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.text =  getString(R.string.gauge_risiko, forecast.riskValue)
+        gauge_text.text = getString(R.string.gauge_risiko, forecast.riskValue)
         gauge_text.setTextColor(color)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }

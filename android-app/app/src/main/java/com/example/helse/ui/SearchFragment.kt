@@ -77,7 +77,13 @@ class SearchFragment : Fragment() {
 
     private fun locationClicked(location: Location) {
         println("LOCATION CLICKED IS $location")
-        preferences.setLocation(location.location + ", " + location.superlocation)
+        preferences.setLocation(
+            location.location,
+            location.superlocation,
+            location.latitude,
+            location.longitude,
+            location.stationID
+        )
         val view = this.view ?: return
         Navigation.findNavController(view).navigate(R.id.search_to_dashboard)
     }

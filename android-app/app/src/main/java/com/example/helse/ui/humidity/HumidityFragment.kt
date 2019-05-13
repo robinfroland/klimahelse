@@ -12,11 +12,12 @@ import androidx.navigation.Navigation
 import com.example.helse.data.api.HumidityResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.repositories.HumidityRepositoryImpl
+import com.example.helse.utilities.AppPreferences
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
 
-class HumidityFragment: Fragment() {
+class HumidityFragment : Fragment() {
 
     private lateinit var navController: NavController
 
@@ -30,28 +31,18 @@ class HumidityFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         navController = Navigation.findNavController(view)
 
-        // defaultLocation == user location or defined location during setup
-        val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location(
-                location="Alnabru",
-                superlocation = "Oslo",
-                latitude = 59.92767,
-                longitude = 10.84655,
-                stationID = "NO0057A"
-            )
-
         val preferences = Injector.getAppPreferences(requireContext())
-        location.text = preferences.getLocation()
+        val selectedLocation = preferences.getLocation()
+        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
         val humidityViewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
                 humidityRepository = HumidityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).humidityDao(),
                     HumidityResponse(
-                        defaultLocation,
+                        selectedLocation,
                         this@HumidityFragment
                     ),
                     this@HumidityFragment
