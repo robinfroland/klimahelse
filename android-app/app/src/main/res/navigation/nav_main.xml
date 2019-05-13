@@ -55,30 +55,8 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.helse.ui.settings.SettingsFragment"
-        android:label="Profil"
+        android:label="Innstillinger"
         tools:layout="@layout/onboarding_dashboard_desc">
-
-        <action
-            android:id="@+id/settings_to_dashboardsettings"
-            app:destination="@+id/dashboardSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/settings_to_locationsettings"
-            app:destination="@+id/locationSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/settings_to_pushsettings"
-            app:destination="@+id/pushSettingsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/settings_to_search"
@@ -188,10 +166,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/dashboardSettingsFragment"
-        android:name="com.example.helse.ui.settings.DashboardSettingsFragment"
-        android:label="Dashbord" />
-    <fragment
         android:id="@+id/locationSettingsFragment"
         android:name="com.example.helse.ui.settings.LocationSettingsFragment"
         android:label="Posisjon">
@@ -203,10 +177,5 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/pushSettingsFragment"
-        android:name="com.example.helse.ui.settings.PushSettingsFragment"
-        android:label="Varslinger" />
 
 </navigation>
