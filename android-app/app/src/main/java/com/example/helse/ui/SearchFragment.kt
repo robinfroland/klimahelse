@@ -13,10 +13,12 @@ import com.example.helse.adapters.LocationAdapter
 import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.alnabruLocation
 import com.example.helse.data.repositories.LocationRepositoryImpl
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.Preferences
+import com.example.helse.utilities.*
 import com.example.helse.viewmodels.SearchViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment() {
@@ -24,6 +26,7 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var viewAdapter: LocationAdapter
     private lateinit var preferences: Preferences
+    private lateinit var locationClient: FusedLocationProviderClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_search, container, false)
@@ -34,6 +37,8 @@ class SearchFragment : Fragment() {
         initViewModel()
         submitData()
         setHasOptionsMenu(true)
+        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        preferences = Injector.getAppPreferences(requireContext())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -54,6 +59,49 @@ class SearchFragment : Fragment() {
                 return false
             }
         })
+
+        search_your_position.setOnClickListener {
+            getDeviceLocation()
+            val userposition = preferences.getLocation()
+            locationClicked(userposition)
+        }
+    }
+
+    private fun getDeviceLocation() {
+        if (preferences.locationPermissionGranted()) {
+            try {
+                val location = locationClient.lastLocation
+                location.addOnSuccessListener {
+                    val currentLocation = location.result
+
+                    // Look up elvis operator kotlin if you are confused what this does
+                    val latitude = currentLocation?.latitude ?: alnabruLocation.latitude
+                    val longtitude = currentLocation?.longitude ?: alnabruLocation.longitude
+
+                    preferences.setLocation("Din posisjon", "", latitude, longtitude, "USERPOSITION")
+                }
+            } catch (e: SecurityException) {
+                println(e)
+            }
+        } else {
+            requestPermissions(
+                arrayOf(LOCATION_PERMISSION),
+                LOCATION_PERMISSION_CODE
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
+                    getDeviceLocation()
+                } else {
+                    "Velg område manuelt!".toast(context)
+                }
+            }
+        }
     }
 
     private fun submitData() {
