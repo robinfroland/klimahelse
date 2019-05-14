@@ -159,13 +159,13 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                         parser.next()
                     }
 
-                    if(parser.name == "temperature" ) {
+                    if (parser.name == "temperature") {
                         val temperature = parser.getAttributeValue(2).toDouble()
                         repeat(9) {
                             parser.nextTag()
                         }
 
-                        if(parser.name == "humidity"){
+                        if (parser.name == "humidity") {
                             val humidityValue = parser.getAttributeValue(0).toDouble()
                             val riskValue = calculateHumidityRiskValue(humidityValue)
                             val distance = calculateDistanceBetweenCoordinates(

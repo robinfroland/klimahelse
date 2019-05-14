@@ -5,7 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "airqualityForecast")
 data class AirqualityForecast(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+
     val stationID: String,
     val from: String,
     val to: String,
@@ -21,16 +23,16 @@ data class AirqualityForecast(
 )
 
 val emptyAirqualityForecast = AirqualityForecast(
-    "",
-    "",
-    "",
-    "",
-    0.00,
-    "",
-    0.00,
-    "",
-    0.00,
-    "",
-    0.00,
-    ""
+    stationID = "",
+    from = "",
+    to = "",
+    riskValue = "",
+    o3_concentration = 0.00,
+    o3_riskValue = "",
+    pm10_concentration = 0.00,
+    pm10_riskValue = "",
+    pm25_concentration = 0.00,
+    pm25_riskValue = "",
+    no2_concentration = 0.00,
+    no2_riskValue = ""
 )
