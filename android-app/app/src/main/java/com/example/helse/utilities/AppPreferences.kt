@@ -47,8 +47,9 @@ class AppPreferences(context: Context) : Preferences {
         // Could return location directly, the following code is intended for ease of reading
         // What I want to highlight is what is returned at what position in the array
         val savedLocation =
-            (preferences.getString("CURRENT_LOCATION", "Forskningsparken;Oslo;50.75;9.75;NO0057A")
-                ?: "Forskningsparken;Oslo;50.75;9.75;NO0057A").split(";")
+            (preferences.getString("CURRENT_LOCATION", "Alnabru;Oslo;59.92767;10.84655;NO0057A")
+                ?: "Alnabru;Oslo;59.92767;10.84655;NO0057A").split(";")
+        println("savedLocation: ${savedLocation}")
         val location = savedLocation[0]
         val superlocation = savedLocation[1]
         val lat = savedLocation[2]
