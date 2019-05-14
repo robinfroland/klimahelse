@@ -29,39 +29,28 @@ class AirqualityRepositoryImpl(
     val location: Location
 ) : AirqualityRepository {
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
-
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
+        lateinit var airquality: MutableList<AirqualityForecast>
+
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
 
-        return getAirqualityAsync(airqualityApi, timeNow, timePrev).await()
-    }
 
-    private fun getAirqualityAsync(
-        airqualityApi: AirqualityApi,
-        timeNow: Long,
-        timePrev: Long
-    ): Deferred<MutableList<AirqualityForecast>> {
-
-        return GlobalScope.async {
-            lateinit var airquality: MutableList<AirqualityForecast>
-
-            //if -1 there is no previous fetch call
-            if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
-                println("Fetching new")
-                airquality = airqualityApi.fetchAirquality()
-                airqualityDao.insert(
-                    airquality
-                )
-            } else {
-                println("Getting from database")
-                airquality = airqualityDao.get(location.stationID)
-            }
+        //if -1 there is no previous fetch call
+        if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
+            println("Fetching new")
+            airquality = airqualityApi.fetchAirquality()
+            airqualityDao.insert(
+                airquality
+            )
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, timeNow
             )
-            airquality
+        } else {
+            println("Getting from database")
+            airquality = airqualityDao.get(location.stationID)
         }
+        return airquality
     }
 }
