@@ -15,6 +15,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.lang.Error
 import java.util.HashMap
 
 interface AirqualityRepository {
@@ -42,18 +43,19 @@ class AirqualityRepositoryImpl(
         timeNow: Long,
         timePrev: Long
     ): Deferred<MutableList<AirqualityForecast>> {
-        println("Fetching new")
 
         return GlobalScope.async {
             lateinit var airquality: MutableList<AirqualityForecast>
 
             //if -1 there is no previous fetch call
             if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
+                println("Fetching new")
                 airquality = airqualityApi.fetchAirquality()
                 airqualityDao.insert(
                     airquality
                 )
             } else {
+                println("Getting from database")
                 airquality = airqualityDao.get(location.stationID)
             }
             preferences.setLastApiCall(
