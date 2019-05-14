@@ -2,25 +2,18 @@ package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.*
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.FirebaseApp
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -29,24 +22,46 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
         setFirstLaunch()
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        subscribePushNotification()
+        setupNavbars()
+//        setupErrorHandling(intent, this)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()
+    }
+
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat?, pref: Preference?): Boolean {
+        when (pref?.key) {
+            LOCATION_SETTINGS -> navController.navigate(R.id.settings_to_search)
+        }
+        return true
+    }
+
+    private fun setupNavbars() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-//        setupErrorHandling(intent, this)
-
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-
+        navController = findNavController(R.id.nav_host_fragment)
         bottom_navbar.setupWithNavController(navController)
-//        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
+        toolbar.setupWithNavController(navController)
+    }
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
-        
+    private fun setFirstLaunch() {
+        val preferences = Injector.getAppPreferences(this)
 
+        if (preferences.isFirstLaunch()) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun subscribePushNotification() {
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
-            if(!task.isSuccessful) {
+            if (!task.isSuccessful) {
                 println("NOT SUCCESSFUL")
                 return@OnCompleteListener
             }
@@ -65,26 +80,4 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, null)
-    }
-
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat?, pref: Preference?): Boolean {
-        when(pref?.key) {
-            LOCATION_SETTINGS -> navController.navigate(R.id.settings_to_search)
-        }
-        return true
-
-
-
-    }
-
-
-    private fun setFirstLaunch() {
-        val preferences = Injector.getAppPreferences(this)
-        if (preferences.isFirstLaunch()) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
-        }
-    }
 }
