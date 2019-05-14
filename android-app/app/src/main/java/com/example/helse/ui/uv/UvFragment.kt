@@ -35,11 +35,12 @@ class UvFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        toolbar_title.text = navController.currentDestination?.label
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
             ?: Location(
-                location="Alnabru",
+                location = "Alnabru",
                 superlocation = "Oslo",
                 latitude = 59.92767,
                 longitude = 10.84655,
@@ -76,17 +77,18 @@ class UvFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_info) {
-            navController.navigate(R.id.uv_to_information)
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        return when (item.itemId) {
+            R.id.action_info -> {
+                navController.navigate(R.id.uv_to_information)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
-    
+
     private fun initGauge(forecast: UvForecast) {
         val riskValue = convertRiskToInt(forecast.riskValue)
-        val color : Int
+        val color: Int
 
         color = when {
             riskValue > 2 -> resources.getColor(R.color.colorDangerMedium, null)
@@ -97,7 +99,7 @@ class UvFragment : Fragment() {
         gauge.value = riskValue
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.text =  getString(R.string.gauge_risiko, forecast.riskValue)
+        gauge_text.text = getString(R.string.gauge_risiko, forecast.riskValue)
         gauge_text.setTextColor(color)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }

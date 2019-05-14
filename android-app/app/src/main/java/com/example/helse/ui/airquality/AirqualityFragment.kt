@@ -46,6 +46,7 @@ class AirqualityFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
+
         viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = HorisontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)

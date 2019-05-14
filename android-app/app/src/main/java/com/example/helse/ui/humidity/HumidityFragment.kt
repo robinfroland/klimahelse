@@ -16,7 +16,7 @@ import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
 
-class HumidityFragment: Fragment() {
+class HumidityFragment : Fragment() {
 
     private lateinit var navController: NavController
 
@@ -30,13 +30,13 @@ class HumidityFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         navController = Navigation.findNavController(view)
+        toolbar_title.text = navController.currentDestination?.label
 
         // defaultLocation == user location or defined location during setup
         val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
             ?: Location(
-                location="Alnabru",
+                location = "Alnabru",
                 superlocation = "Oslo",
                 latitude = 59.92767,
                 longitude = 10.84655,
@@ -71,11 +71,13 @@ class HumidityFragment: Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_info) {
-            navController.navigate(R.id.humidity_to_information)
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        return when (item.itemId) {
+            R.id.action_info -> {
+                navController.navigate(R.id.humidity_to_information)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
+
 }
