@@ -1,15 +1,40 @@
 package com.example.helse.ui.settings
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.onboarding_dashboard_desc.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private var toolbar: Toolbar? = null
+    private var toolbarTitle: TextView? = null
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.root_settings)
+        toolbar = activity?.findViewById(R.id.toolbar)
+        toolbarTitle = activity?.findViewById(R.id.toolbar_title)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorDangerHigh))
+        toolbarTitle?.text = findNavController().currentDestination?.label
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransparent))
+        toolbarTitle?.text = ""
     }
 
 //    private lateinit var locationClient: FusedLocationProviderClient
