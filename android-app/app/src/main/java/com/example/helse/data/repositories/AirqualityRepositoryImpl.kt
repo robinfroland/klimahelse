@@ -11,6 +11,10 @@ import com.example.helse.utilities.Injector
 import com.example.helse.utilities.LAST_API_CALL_AIRQUALITY
 import com.example.helse.utilities.THIRTY_MINUTES
 import com.example.helse.utilities.Preferences
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.util.HashMap
 
 interface AirqualityRepository {
@@ -27,31 +31,36 @@ class AirqualityRepositoryImpl(
 
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
-
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
 
-        //if -1 there is no previous fetch call
-        if (timePrev < 0) {
-            fetchNew(timeNow)
-        } else {
-            //check if 30 min has passed since last fetch call
-            if ((timeNow - timePrev) >= THIRTY_MINUTES) {
-                fetchNew(timeNow)
-            }
-        }
-        val dao = airqualityDao.get(location.stationID)
-        println("Returning $dao")
-        return dao
+        val airquality = getAirquality(airqualityApi, timeNow, timePrev).await()
+        return airquality
     }
 
-    private fun fetchNew(timeNow: Long) {
+    private fun getAirquality(
+        airqualityApi: AirqualityApi,
+        timeNow: Long,
+        timePrev: Long
+    ): Deferred<MutableList<AirqualityForecast>> {
         println("Fetching new")
-        airqualityDao.insert(
-            airqualityApi.fetchAirquality()
-        )
-        preferences.setLastApiCall(
-            location, LAST_API_CALL_AIRQUALITY, timeNow
-        )
+
+        return GlobalScope.async {
+            lateinit var airquality: MutableList<AirqualityForecast>
+
+            //if -1 there is no previous fetch call
+            if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
+                airquality = airqualityApi.fetchAirquality()
+                airqualityDao.insert(
+                    airquality
+                )
+            } else {
+                airquality = airqualityDao.get(location.stationID)
+            }
+            preferences.setLastApiCall(
+                location, LAST_API_CALL_AIRQUALITY, timeNow
+            )
+            airquality
+        }
     }
 }
