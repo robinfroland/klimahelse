@@ -7,18 +7,16 @@
         android:layout="@layout/onboarding_location_desc" />
 
     <SwitchPreference
-        android:defaultValue="true"
-        android:disableDependentsState="true"
+        android:defaultValue="false"
         android:key="USE_DEVICE_LOCATION"
-        android:summary="La appen bruke din nåværende posisjon for varsler"
-        android:title="Bruk min posisjon"
+        android:summary="Tillat appen å bruke din nåværende posisjon"
+        android:title="Posisjonsbasert varsel"
         app:iconSpaceReserved="false" />
 
     <Preference
-        android:dependency="USE_DEVICE_LOCATION"
         android:icon="@drawable/ic_search_black"
         android:iconSpaceReserved="true"
-        android:key="location_search_settings"
+        android:key="LOCATION_SETTINGS"
         android:title="Søk etter område"
         app:fragment="com.example.helse.ui.SearchFragment"
         app:iconSpaceReserved="false" />

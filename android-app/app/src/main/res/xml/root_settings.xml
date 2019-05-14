@@ -1,24 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:iconSpaceReserved="false"
+    app:iconSpaceReserved="false">
+
+    <PreferenceCategory
+        android:iconSpaceReserved="false"
+        android:title="@string/preference_title_location"
+        app:iconSpaceReserved="false">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="USE_DEVICE_LOCATION"
+            android:summary="Tillat appen å bruke din nåværende posisjon"
+            android:title="Posisjonsbasert varsel"
+            app:iconSpaceReserved="false" />
+
+        <Preference
+            android:icon="@drawable/ic_search_black"
+            android:iconSpaceReserved="true"
+            android:key="LOCATION_SETTINGS"
+            android:title="Søk etter område"
+            app:fragment="com.example.helse.ui.SearchFragment"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preference_title_dashboard"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:disableDependentsState="false"
+            android:key="AIRQUALITY_MODULE_ENABLE_MODULE"
+            android:title="Luftkvalitet"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:disableDependentsState="false"
+            android:key="UV_MODULE_ENABLE_MODULE"
+            android:title="UV-stråling"
+            app:iconSpaceReserved="false" />
+        <CheckBoxPreference
+            android:key="HUMIDITY_MODULE_ENABLE_MODULE"
+            android:title="Luftfuktighet"
+            app:iconSpaceReserved="false" />
+        <CheckBoxPreference
+            android:enabled="false"
+            android:key="ALLERGY_MODULE_ENABLE_MODULE"
+            android:title="Pollenspredning"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preference_title_push"
+        app:iconSpaceReserved="false">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="AIRQUALITY_MODULE_ENABLE_MODULE"
+            android:key="AIRQUALITY_MODULE_ENABLE_NOTIFICATIONS"
+            android:title="Varsel for luftkvalitet"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="UV_MODULE_ENABLE_MODULE"
+            android:key="UV_MODULE_ENABLE_NOTIFICATIONS"
+            android:title="Varsel for UV-stråling"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:dependency="HUMIDITY_MODULE_ENABLE_MODULE"
+            android:key="HUMIDITY_MODULE_ENABLE_NOTIFICATIONS"
+            android:title="Varsel for Luftfuktighet"
+            app:iconSpaceReserved="false" />
+
+        <CheckBoxPreference
+            android:dependency="ALLERGY_MODULE_ENABLE_MODULE"
+            android:enabled="false"
+            android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
+            android:title="Varsel for Pollenspredning"
+            app:iconSpaceReserved="false" />
+    </PreferenceCategory>
 
 
-    <Preference
-        android:icon="@drawable/ic_dashboard_black"
-        android:key="dashboard_settings"
-        android:title="Dashboard"
-        app:fragment="com.example.helse.ui.settings.DashboardSettingsFragment" />
-
-    <Preference
-        android:icon="@drawable/ic_notifications"
-        android:key="push_settings"
-        android:title="Varslinger"
-        app:fragment="com.example.helse.ui.settings.PushSettingsFragment" />
-
-    <Preference
-        android:icon="@drawable/ic_location"
-        android:key="location_settings"
-        android:title="Posisjon"
-        app:fragment="com.example.helse.ui.settings.LocationSettingsFragment" />
 </PreferenceScreen>
 
