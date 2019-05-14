@@ -15,27 +15,14 @@ import kotlinx.android.synthetic.main.onboarding_dashboard_desc.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private var toolbar: Toolbar? = null
-    private var toolbarTitle: TextView? = null
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.root_settings)
-        toolbar = activity?.findViewById(R.id.toolbar)
-        toolbarTitle = activity?.findViewById(R.id.toolbar_title)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorDangerHigh))
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbar_title)
+        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
         toolbarTitle?.text = findNavController().currentDestination?.label
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTransparent))
-        toolbarTitle?.text = ""
-    }
 
 //    private lateinit var locationClient: FusedLocationProviderClient
 //    private lateinit var preferences: Preferences
@@ -50,8 +37,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //        preferences = Injector.getAppPreferences(requireContext())
 //
 //        return view
-    private lateinit var locationClient: FusedLocationProviderClient
-    private lateinit var preferences: Preferences
+//    private lateinit var locationClient: FusedLocationProviderClient
+//    private lateinit var preferences: Preferences
 //
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        super.onActivityCreated(savedInstanceState)

@@ -3,6 +3,7 @@ package com.example.helse
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -27,8 +28,9 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
-        setupNavbars()
+        setupNavigation()
 //        setupErrorHandling(intent, this)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -42,12 +44,19 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         return true
     }
 
-    private fun setupNavbars() {
+    private fun setupNavigation() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottom_navbar.setupWithNavController(navController)
         setupActionBarWithNavController(navController, null)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.label != "Innstillinger") {
+                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
+                toolbar_title.text = ""
+            }
+        }
     }
 
     private fun setFirstLaunch() {
