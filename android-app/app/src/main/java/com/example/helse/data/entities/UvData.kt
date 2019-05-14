@@ -5,7 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "uvForecast")
 data class UvForecast(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+
     val latitude: Double,
     val longitude: Double,
     val uvClear: Double,
@@ -16,11 +18,11 @@ data class UvForecast(
 )
 
 val emptyUvForecast = UvForecast(
-    0.00,
-    0.00,
-    0.00,
-    0.00,
-    0.00,
-    0.00,
-    ""
+    latitude =  0.00,
+    longitude = 0.00,
+    uvClear = 0.00,
+    uvPartlyCloudy = 0.00,
+    uvCloudy = 0.00,
+    uvForecast = 0.00,
+    riskValue = ""
 )

@@ -71,7 +71,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
         )
         aqiForecastTimeArray.add(tempAqi)
     }
-    
+
     return aqiForecastTimeArray
 }
 

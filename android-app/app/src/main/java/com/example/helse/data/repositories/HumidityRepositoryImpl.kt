@@ -26,25 +26,20 @@ class HumidityRepositoryImpl(
 
     @WorkerThread
     override suspend fun fetchHumidity(): MutableList<HumidityForecast> {
+        lateinit var humidity: MutableList<HumidityForecast>
+
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_HUMIDTY)
 
-        //if -1 there is no previous fetch call
-        if (timePrev < 0) {
-            fetchNew(timeNow)
+        // Data is either never fetched, or old, fetch new from API
+        if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
+            humidity = humidityApi.fetchHumidity()
+            humidityDao.insertAll(humidity)
+            preferences.setLastApiCall(location, LAST_API_CALL_HUMIDTY, timeNow)
         } else {
-            //check if 30 min has passed since last fetch call
-            if ((timeNow - timePrev) >= THIRTY_MINUTES) {
-                fetchNew(timeNow)
-            }
+            // Data exists in database, retrieve it
+            humidity = humidityDao.getAll()
         }
-        return humidityDao.getAll()
-    }
-
-    private fun fetchNew(timeNow: Long) {
-        humidityDao.insertAll(
-            humidityApi.fetchHumidity()
-        )
-        preferences.setLastApiCall(location, LAST_API_CALL_HUMIDTY, timeNow)
+        return humidity
     }
 }
