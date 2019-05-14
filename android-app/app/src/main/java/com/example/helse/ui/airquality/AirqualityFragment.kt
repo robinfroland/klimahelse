@@ -45,6 +45,7 @@ class AirqualityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        toolbar_title.text = navController.currentDestination?.label
         viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = HorisontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)
@@ -105,12 +106,13 @@ class AirqualityFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_info) {
-            navController.navigate(R.id.airquality_to_information)
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        return when (item.itemId) {
+            R.id.action_info -> {
+                navController.navigate(R.id.airquality_to_information)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
 

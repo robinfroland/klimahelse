@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setFirstLaunch()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
         setupNavbars()
 //        setupErrorHandling(intent, this)
@@ -45,9 +46,8 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        navController = findNavController(R.id.nav_host_fragment)
         bottom_navbar.setupWithNavController(navController)
-        toolbar.setupWithNavController(navController)
+        setupActionBarWithNavController(navController, null)
     }
 
     private fun setFirstLaunch() {
