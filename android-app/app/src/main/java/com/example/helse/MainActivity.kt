@@ -43,28 +43,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 //        bottom_navbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when {
-                destination.label == "Dashboard" -> {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    toolbar.visibility = View.GONE
-
-                }
-                destination.label == "Søk.." -> {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
-                    supportActionBar?.setDisplayShowTitleEnabled(true)
-                    toolbar.visibility = View.VISIBLE
-                    toolbar_title.text = ""
-                }
-                else -> {
-                    toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
-                    supportActionBar?.setDisplayShowTitleEnabled(false)
-                    toolbar.visibility = View.VISIBLE
-                    toolbar_title.text = destination.label
-                }
-            }
-        }
+        
 
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener { task ->
             if(!task.isSuccessful) {

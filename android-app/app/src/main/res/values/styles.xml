@@ -9,10 +9,14 @@
     </style>
 
     <!-- Toolbar theme -->
-    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="android:textColorPrimary">@color/colorGreyDark</item>
-        <item name="android:textColorSecondary">@color/colorGreyDark</item>
-        <item name="android:textSize">14sp</item>
+    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="android:textColor">@color/colorGreyDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/colorTransparent</item>
     </style>
 
     <!-- Splash theme-->
