@@ -34,11 +34,10 @@ class AirqualityRepositoryImpl(
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
 
-        val airquality = getAirquality(airqualityApi, timeNow, timePrev).await()
-        return airquality
+        return getAirqualityAsync(airqualityApi, timeNow, timePrev).await()
     }
 
-    private fun getAirquality(
+    private fun getAirqualityAsync(
         airqualityApi: AirqualityApi,
         timeNow: Long,
         timePrev: Long
