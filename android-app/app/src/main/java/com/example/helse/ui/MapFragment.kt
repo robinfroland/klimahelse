@@ -128,8 +128,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             val airqualityRepo = AirqualityRepositoryImpl(
                 LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                AirqualityResponse(location),
-                location
+                AirqualityResponse(location)
             )
 
             val airquality = airqualityRepo.fetchAirquality()

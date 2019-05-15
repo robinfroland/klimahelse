@@ -44,8 +44,7 @@ class HumidityFragment : Fragment() {
                     LocalDatabase.getInstance(requireContext()).humidityDao(),
                     HumidityResponse(
                         selectedLocation
-                    ),
-                    selectedLocation
+                    )
                 )
             }
 
