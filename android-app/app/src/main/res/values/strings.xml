@@ -76,5 +76,7 @@
     <string name="preference_title_location">Posisjon</string>
     <string name="preference_title_dashboard">Dashbord</string>
     <string name="preference_title_push">Push-varsler</string>
+    <string name="empty_dashboard">Dashbordet er tomt</string>
+    <string name="empty_dashboard_desc">Gå til innstillinger for å aktivere kategorier</string>
 
 </resources>

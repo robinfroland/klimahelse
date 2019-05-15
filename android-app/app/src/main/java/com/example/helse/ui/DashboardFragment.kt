@@ -30,34 +30,31 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        preferences = Injector.getAppPreferences(requireContext())
+        enabledModules = arrayListOf()
+        viewAdapter = ModuleAdapter(enabledModules)
+
+        initModules()
+        initViewModel()
 
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences = Injector.getAppPreferences(requireContext())
-
-        initModules()
-        initViewModel()
-
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
 
-        val viewManager = LinearLayoutManager(context)
-        viewAdapter = ModuleAdapter(enabledModules)
         module_list.apply {
-            layoutManager = viewManager
+            layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
         }
     }
 
     override fun onResume() {
         super.onResume()
-        val selectedLocation = preferences.getLocation()
-        search_dashboard.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
-        updateModules()
+        updateUi()
     }
 
     private fun initViewModel() {
@@ -69,9 +66,10 @@ class DashboardFragment : Fragment() {
             }
     }
 
+    private fun updateUi() {
+        val selectedLocation = preferences.getLocation()
+        search_dashboard.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
-    private fun updateModules() {
-        // IF NONE ENABLED: SHOW TEXT
         enabledModules.clear()
         allModules.forEach {
             if (preferences.isModuleEnabled(it)) {
@@ -79,6 +77,13 @@ class DashboardFragment : Fragment() {
                 it.pushEnabled = preferences.isNotificationEnabled(it)
             }
         }
+
+        if (enabledModules.isEmpty()) {
+            empty_dashboard_text.visibility = View.VISIBLE
+        } else {
+            empty_dashboard_text.visibility = View.GONE
+        }
+
         viewAdapter.notifyDataSetChanged()
     }
 
@@ -97,8 +102,6 @@ class DashboardFragment : Fragment() {
         )
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule)
-        enabledModules = arrayListOf()
-        updateModules()
     }
 }
 
