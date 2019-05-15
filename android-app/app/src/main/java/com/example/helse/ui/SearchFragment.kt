@@ -116,10 +116,7 @@ class SearchFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
             .apply {
-                locationRepository = LocationRepository(
-                    LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationApi()
-                )
+                locationRepository = Injector.getLocationRepository(requireContext())
             }
     }
 
