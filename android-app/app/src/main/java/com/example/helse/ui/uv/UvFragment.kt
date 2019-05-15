@@ -47,8 +47,7 @@ class UvFragment : Fragment() {
                     LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
                         selectedLocation
-                    ),
-                    selectedLocation
+                    )
                 )
             }
 

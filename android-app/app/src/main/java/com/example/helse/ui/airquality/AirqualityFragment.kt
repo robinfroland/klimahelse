@@ -68,8 +68,7 @@ class AirqualityFragment : Fragment() {
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         savedLocation
-                    ),
-                    savedLocation
+                    )
                 )
             }
 

@@ -9,6 +9,7 @@ import com.example.helse.ui.settings.LocationSettingsFragment
 import com.example.helse.ui.settings.PushSettingsFragment
 import com.example.helse.ui.settings.SettingsFragment
 
+@Suppress("DEPRECATION")
 class OnboardingAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(fragmentNumber: Int): Fragment {

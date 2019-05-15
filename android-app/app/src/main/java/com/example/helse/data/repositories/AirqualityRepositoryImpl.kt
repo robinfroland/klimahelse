@@ -1,6 +1,5 @@
 package com.example.helse.data.repositories
 
-import androidx.fragment.app.Fragment
 import androidx.annotation.WorkerThread
 import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
@@ -14,31 +13,35 @@ interface AirqualityRepository {
 
 class AirqualityRepositoryImpl(
     private val airqualityDao: AirqualityDao,
-    private val airqualityApi: AirqualityApi,
-    val location: Location
+    private val airqualityApi: AirqualityApi
 ) : AirqualityRepository {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
+    private val location: Location = preferences.getLocation()
 
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
-        lateinit var airquality: MutableList<AirqualityForecast>
+        lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
-        val timeNow = System.currentTimeMillis()
-        val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
-
-        //if -1 there is no previous fetch call
-        if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
-            airquality = airqualityApi.fetchAirquality()
-            airqualityDao.insert(
-                airquality
-            )
+        if (dataIsStale()) {
+            // If data is stale and api fetch is needed
+            airqualityForecast = airqualityApi.fetchAirquality()
+            airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
-                location, LAST_API_CALL_AIRQUALITY, timeNow
+                location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
             )
         } else {
-            airquality = airqualityDao.get(location.stationID)
+            // Retrieve data from database
+            airqualityForecast = airqualityDao.get(location.stationID)
         }
-        return airquality
+        return airqualityForecast
+    }
+
+    private fun dataIsStale(): Boolean {
+        val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
+        val currentTime = System.currentTimeMillis()
+
+        // If -1 there is no previous fetch call, thus fetch is needed
+        return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
 }

@@ -1,7 +1,6 @@
 package com.example.helse.data.repositories
 
 import androidx.annotation.WorkerThread
-import androidx.fragment.app.Fragment
 import com.example.helse.data.api.HumidityApi
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
@@ -14,28 +13,36 @@ interface HumidityRepository {
 
 class HumidityRepositoryImpl(
     private val humidityDao: HumidityDao,
-    private val humidityApi: HumidityApi,
-    val location: Location
+    private val humidityApi: HumidityApi
 ) : HumidityRepository {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
+    private val location: Location = preferences.getLocation()
 
     @WorkerThread
     override suspend fun fetchHumidity(): MutableList<HumidityForecast> {
-        lateinit var humidity: MutableList<HumidityForecast>
+        lateinit var humidityForecast: MutableList<HumidityForecast>
 
-        val timeNow = System.currentTimeMillis()
-        val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_HUMIDTY)
 
-        // Data is either never fetched, or old, fetch new from API
-        if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
-            humidity = humidityApi.fetchHumidity()
-            humidityDao.insertAll(humidity)
-            preferences.setLastApiCall(location, LAST_API_CALL_HUMIDTY, timeNow)
+        if (dataIsStale()) {
+            // If data is stale and api fetch is needed
+            humidityForecast = humidityApi.fetchHumidity()
+            humidityDao.insertAll(humidityForecast)
+            preferences.setLastApiCall(
+                location, LAST_API_CALL_HUMIDTY, System.currentTimeMillis()
+            )
         } else {
-            // Data exists in database, retrieve it
-            humidity = humidityDao.getAll()
+            // Retrieve data from database
+            humidityForecast = humidityDao.getAll()
         }
-        return humidity
+        return humidityForecast
+    }
+
+    private fun dataIsStale(): Boolean {
+        val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
+        val currentTime = System.currentTimeMillis()
+
+        // If -1 there is no previous fetch call, thus fetch is needed
+        return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
 }
