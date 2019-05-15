@@ -1,6 +1,5 @@
 package com.example.helse.data.repositories
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import com.example.helse.data.api.UvApi
@@ -20,7 +19,8 @@ class UvRepositoryImpl(
     fragment: Fragment,
     private val location: Location
 ) : UvRepository {
-    private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
+
+    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     @WorkerThread
     override suspend fun fetchUv(): MutableList<UvForecast> {
