@@ -16,7 +16,6 @@ interface UvRepository {
 class UvRepositoryImpl(
     private val uvDao: UVDao,
     private val uvApi: UvApi,
-    fragment: Fragment,
     private val location: Location
 ) : UvRepository {
 

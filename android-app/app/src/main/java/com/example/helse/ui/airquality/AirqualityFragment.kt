@@ -69,7 +69,6 @@ class AirqualityFragment : Fragment() {
                     AirqualityResponse(
                         savedLocation
                     ),
-                    this@AirqualityFragment,
                     savedLocation
                 )
             }

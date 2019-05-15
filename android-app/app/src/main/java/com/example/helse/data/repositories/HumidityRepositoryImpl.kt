@@ -15,7 +15,6 @@ interface HumidityRepository {
 class HumidityRepositoryImpl(
     private val humidityDao: HumidityDao,
     private val humidityApi: HumidityApi,
-    fragment: Fragment,
     val location: Location
 ) : HumidityRepository {
 
