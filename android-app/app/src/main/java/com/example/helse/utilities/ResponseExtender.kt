@@ -38,7 +38,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
     val aqiForecastTimeArray = ArrayList<AirqualityForecast>()
 
-    for (i in 0..(data.length() - 1)) {
+    for (i in 0 until data.length() - 1) {
         val jsonObj = data.getJSONObject(i)
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")
@@ -71,7 +71,6 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
         )
         aqiForecastTimeArray.add(tempAqi)
     }
-
 
     return aqiForecastTimeArray
 }
@@ -159,13 +158,13 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                         parser.next()
                     }
 
-                    if(parser.name == "temperature" ) {
+                    if (parser.name == "temperature") {
                         val temperature = parser.getAttributeValue(2).toDouble()
                         repeat(9) {
                             parser.nextTag()
                         }
 
-                        if(parser.name == "humidity"){
+                        if (parser.name == "humidity") {
                             val humidityValue = parser.getAttributeValue(0).toDouble()
                             val riskValue = calculateHumidityRiskValue(humidityValue)
                             val distance = calculateDistanceBetweenCoordinates(

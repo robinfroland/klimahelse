@@ -56,4 +56,5 @@ val pm10Values = arrayOf(60, 120, 400)
 val pm25Values = arrayOf(30, 50, 150)
 val no2Values = arrayOf(100, 200, 400)
 
-const val THIRTY_MINUTES: Long  = 30 *  60 * 1000
+const val THIRTY_MINUTES = 30 * 60 * 1000
+const val ONE_DAY = 1000 /*ms in second*/ * 60 /*Seconds in minute*/ * 60 /*Minutes in hour*/ * 24 /*Hours in day*/

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.core.content.ContextCompat
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.Module
 
 interface Preferences {
@@ -14,15 +15,13 @@ interface Preferences {
     fun isNotificationEnabled(module: Module): Boolean
     fun isModuleEnabled(module: Module): Boolean
     fun getSharedPreferences(): SharedPreferences
-    fun setLocation(location: String)
-    fun getLocation(): String
-    fun setLastApiCall(time: Long, module: String)
-    fun getLastApiCall(module: String): Long
+    fun setLocation(location: String, superlocation: String, lat: Double, lon: Double, stationID: String)
+    fun getLocation(): Location
+    fun setLastApiCall(location: Location, module: String, time: Long)
+    fun getLastApiCall(location: Location, module: String): Long
 }
 
 class AppPreferences(context: Context) : Preferences {
-
-
     private val applicationContext = context.applicationContext
 
     private val preferences: SharedPreferences
@@ -34,14 +33,30 @@ class AppPreferences(context: Context) : Preferences {
         return preferences
     }
 
-    override fun setLocation(location: String) {
-        preferenceEditor.putString("CURRENT_LOCATION", location)
+    private fun createKeyFor(location: Location, module: String): String {
+        return "${location.latitude};${location.longitude};$module"
+    }
+
+    // The structure is meant to copy the structure of data class Location
+    override fun setLocation(location: String, superlocation: String, lat: Double, lon: Double, stationID: String) {
+        preferenceEditor.putString("CURRENT_LOCATION", "$location;$superlocation;$lat;$lon;$stationID")
         preferenceEditor.apply()
     }
 
-    override fun getLocation(): String {
-        val location = preferences.getString("CURRENT_LOCATION", "Forskningsparken, Oslo")
-        return location
+    override fun getLocation(): Location {
+        // Could return location directly, the following code is intended for ease of reading
+        // What I want to highlight is what is returned at what position in the array
+        val savedLocation =
+            (preferences.getString("CURRENT_LOCATION", "Alnabru;Oslo;59.92767;10.84655;NO0057A")
+                ?: "Alnabru;Oslo;59.92767;10.84655;NO0057A").split(";")
+        println("savedLocation: ${savedLocation}")
+        val location = savedLocation[0]
+        val superlocation = savedLocation[1]
+        val lat = savedLocation[2]
+        val lon = savedLocation[3]
+        val stationID = savedLocation[4]
+
+        return Location(location, superlocation, lat.toDouble(), lon.toDouble(), stationID)
     }
 
     override fun isFirstLaunch(): Boolean {
@@ -53,13 +68,14 @@ class AppPreferences(context: Context) : Preferences {
         preferenceEditor.apply()
     }
 
-    override fun setLastApiCall(time: Long, module: String){
-        preferenceEditor.putLong(module, time)
+
+    override fun setLastApiCall(location: Location, module: String, time: Long) {
+        preferenceEditor.putLong(createKeyFor(location, module), time)
         preferenceEditor.apply()
     }
 
-    override fun getLastApiCall(module: String): Long{
-        return preferences.getLong(module, -1)
+    override fun getLastApiCall(location: Location, module: String): Long {
+        return preferences.getLong(createKeyFor(location, module), -1)
 
     }
 

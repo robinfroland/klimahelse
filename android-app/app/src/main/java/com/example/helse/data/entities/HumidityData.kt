@@ -5,7 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "humidityForecast")
 data class HumidityForecast(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+
     val riskValue: String,
     val latitude: Double,
     val longitude: Double,
@@ -14,9 +16,9 @@ data class HumidityForecast(
 )
 
 val emptyHumidityForecast = HumidityForecast(
-    "",
-    0.00,
-    0.00,
-    0.00,
-    0.00
+    riskValue = "",
+    latitude = 0.00,
+    longitude = 0.00,
+    humidityValue = 0.00,
+    temperature = 0.00
 )

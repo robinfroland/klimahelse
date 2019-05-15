@@ -18,3 +18,11 @@ data class Location(
 ) : Parcelable
 
 val emptyLocation = Location("", "", 0.00, 0.00, "")
+
+val alnabruLocation = Location(
+    "Alnabru",
+    "Oslo",
+    59.92767,
+    10.84655,
+    "NO0057A"
+)

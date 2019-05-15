@@ -14,6 +14,7 @@ import com.example.helse.adapters.ModuleAdapter
 import com.example.helse.data.entities.Module
 import com.example.helse.utilities.*
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.list_item_location.*
 
 class DashboardFragment : Fragment() {
 
@@ -38,7 +39,6 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
@@ -52,12 +52,13 @@ class DashboardFragment : Fragment() {
 
         updateModules()
     }
+
     override fun onResume() {
         super.onResume()
-        search_dashboard.text = preferences.getLocation()
+        val location = preferences.getLocation()
+        search_dashboard.text = "%s, %s".format(location.location, location.superlocation)
         updateModules()
     }
-
 
 
     private fun updateModules() {
@@ -75,11 +76,11 @@ class DashboardFragment : Fragment() {
     private fun initModules() {
         airqualityModule = Module(
             AIRQUALITY_MODULE, R.drawable.ic_airquality_2x,
-            "Luftkvalitet", "HIGH", false
+            "Luftkvalitet", "LOW", false
         )
         uvModule = Module(
             UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling",
-            "LOW", false
+            "MEDIUM", false
         )
         allergyModule = Module(
             ALLERGY_MODULE, R.drawable.ic_launcher_foreground,

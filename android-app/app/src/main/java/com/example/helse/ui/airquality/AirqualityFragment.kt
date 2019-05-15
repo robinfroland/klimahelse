@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat
 
 class AirqualityFragment : Fragment() {
 
+    lateinit var preferences: AppPreferences
     private lateinit var viewAdapter: HorisontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
@@ -55,28 +56,22 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        // defaultLocation == user location or defined location during setup
-        val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location(
-                location = "Alnabru",
-                superlocation = "Oslo",
-                latitude = 59.92767,
-                longitude = 10.84655,
-                stationID = "NO0057A"
-            )
+        preferences = Injector.getAppPreferences(requireContext())
 
-        val preferences = Injector.getAppPreferences(requireContext())
-        location.text = preferences.getLocation()
+        val savedLocation = preferences.getLocation()
+
+        location.text = "%s, %s".format(savedLocation.location, savedLocation.superlocation)
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airqualityRepository = AirqualityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
-                        defaultLocation,
+                        savedLocation,
                         this@AirqualityFragment
                     ),
-                    this@AirqualityFragment
+                    this@AirqualityFragment,
+                    savedLocation
                 )
             }
 
@@ -121,11 +116,11 @@ class AirqualityFragment : Fragment() {
         val riskValue = convertRiskToInt(forecast.overallRiskValue)
         val color: Int
 
-        when {
-            riskValue > 2 -> color = resources.getColor(R.color.colorDangerMedium, null)
-            riskValue > 3 -> color = resources.getColor(R.color.colorDangerHigh, null)
-            riskValue > 4 -> color = resources.getColor(R.color.colorDangerVeryHigh, null)
-            else -> color = resources.getColor(R.color.colorDangerLow, null)
+        color = when {
+            riskValue > 2 -> resources.getColor(R.color.colorDangerMedium, null)
+            riskValue > 3 -> resources.getColor(R.color.colorDangerHigh, null)
+            riskValue > 4 -> resources.getColor(R.color.colorDangerVeryHigh, null)
+            else -> resources.getColor(R.color.colorDangerLow, null)
         }
         gauge.value = riskValue
         gauge.pointStartColor = color

@@ -37,28 +37,20 @@ class UvFragment : Fragment() {
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
-        // defaultLocation == user location or defined location during setup
-        val defaultLocation = requireActivity().intent.getParcelableExtra("LOCATION")
-            ?: Location(
-                location = "Alnabru",
-                superlocation = "Oslo",
-                latitude = 59.92767,
-                longitude = 10.84655,
-                stationID = "NO0057A"
-            )
-
         val preferences = Injector.getAppPreferences(requireContext())
-        location.text = preferences.getLocation()
+        val selectedLocation = preferences.getLocation()
+        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
                 uvRepository = UvRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
-                        defaultLocation,
+                        selectedLocation,
                         this@UvFragment
                     ),
-                    this@UvFragment
+                    this@UvFragment,
+                    selectedLocation
                 )
             }
 

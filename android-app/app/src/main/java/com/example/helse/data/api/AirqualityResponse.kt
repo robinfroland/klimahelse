@@ -17,10 +17,9 @@ interface AirqualityApi {
 }
 
 class AirqualityResponse(
-    private val location: Location,
+    val location: Location,
     private val fragment: Fragment
 ) : AirqualityApi {
-
     private val client = OkHttpClient()
 
     override fun fetchAirquality(url: String): MutableList<AirqualityForecast> {
