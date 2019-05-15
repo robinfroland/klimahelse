@@ -8,6 +8,8 @@
     <string name="skip">Hopp over</string>
     <string name="setup_preferences">KOM I GANG</string>
     <string name="done">Ferdig</string>
+    <string name="next">Neste</string>
+    <string name="back">Tilbake</string>
     <string name="logoDescription">Logo</string>
     <string name="onboardingDashboardTitle">Tilpass for dine behov</string>
     <string name="onboardingDashboardDesc">Velg hvilke kategorier du er interessert i. Disse vil dukke opp som moduler i ditt dashboard.</string>
