@@ -9,20 +9,24 @@
 
     <CheckBoxPreference
         android:defaultValue="false"
+        android:disableDependentsState="false"
         android:key="AIRQUALITY_MODULE_ENABLE_MODULE"
         android:title="Luftkvalitet"
         app:iconSpaceReserved="false" />
+
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="UV_MODULE_ENABLE_MODULE"
         android:title="UV-stråling"
         app:iconSpaceReserved="false" />
     <CheckBoxPreference
+        android:defaultValue="false"
         android:key="HUMIDITY_MODULE_ENABLE_MODULE"
         android:title="Luftfuktighet"
         app:iconSpaceReserved="false" />
     <CheckBoxPreference
         android:enabled="false"
+        android:key="ALLERGY_MODULE_ENABLE_MODULE"
         android:title="Pollenspredning"
         app:iconSpaceReserved="false" />
 
