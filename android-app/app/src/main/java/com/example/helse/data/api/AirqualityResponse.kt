@@ -17,8 +17,7 @@ interface AirqualityApi {
 }
 
 class AirqualityResponse(
-    val location: Location,
-    private val fragment: Fragment
+    val location: Location
 ) : AirqualityApi {
     private val client = OkHttpClient()
 
@@ -33,7 +32,6 @@ class AirqualityResponse(
 
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
-            showNetworkError(fragment.requireActivity(), response.code(), e)
             mutableListOf(emptyAirqualityForecast)
         }
     }

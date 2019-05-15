@@ -46,8 +46,7 @@ class UvFragment : Fragment() {
                 uvRepository = UvRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
-                        selectedLocation,
-                        this@UvFragment
+                        selectedLocation
                     ),
                     this@UvFragment,
                     selectedLocation

@@ -43,8 +43,7 @@ class HumidityFragment : Fragment() {
                 humidityRepository = HumidityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).humidityDao(),
                     HumidityResponse(
-                        selectedLocation,
-                        this@HumidityFragment
+                        selectedLocation
                     ),
                     this@HumidityFragment,
                     selectedLocation

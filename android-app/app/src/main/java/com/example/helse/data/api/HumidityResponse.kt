@@ -15,8 +15,7 @@ interface HumidityApi {
 }
 
 class HumidityResponse(
-    private val location: Location,
-    private val humidityFragment: HumidityFragment
+    private val location: Location
 ) : HumidityApi {
 
     private val client = OkHttpClient()
@@ -33,7 +32,6 @@ class HumidityResponse(
 
             response.parseHumidityResponse(location)
         } catch (e: Exception) {
-            showNetworkError(humidityFragment.requireActivity(), response.code(), e)
             mutableListOf(emptyHumidityForecast)
         }
     }

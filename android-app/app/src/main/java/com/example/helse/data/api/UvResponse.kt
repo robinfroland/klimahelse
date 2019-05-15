@@ -17,8 +17,7 @@ interface UvApi {
 }
 
 class UvResponse(
-    private val location: Location,
-    private val uvFragment: UvFragment
+    private val location: Location
 ) : UvApi {
 
     private val client = OkHttpClient()
@@ -36,7 +35,6 @@ class UvResponse(
 
             response.parseUvResponse(location)
         } catch (e: Exception) {
-            showNetworkError(uvFragment.requireActivity(), response.code(), e)
             mutableListOf(emptyUvForecast)
         }
     }

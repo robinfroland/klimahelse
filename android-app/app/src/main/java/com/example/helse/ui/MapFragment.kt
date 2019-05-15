@@ -65,7 +65,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             runCatching {
                 val locations = LocationRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse(this@MapFragment.requireActivity())
+                    LocationResponse()
                 ).getAllLocations()
 
                 addAirqualityToMap(p0, locations)
@@ -91,7 +91,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             runCatching {
                 for (i in 0 until locations.size) {
                     val location = locations[i]
-                    val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
+                    val forecast = getForecastForLocationAsync(location).await()
 
                     var color = when (forecast.riskValue) {
                         LOW_AQI_VALUE -> R.color.greenLowRisk
@@ -122,13 +122,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    private fun getForecastForLocationAsync(location: Location, mapFragment: Fragment): Deferred<AirqualityForecast> {
+    private fun getForecastForLocationAsync(location: Location): Deferred<AirqualityForecast> {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
             val airqualityRepo = AirqualityRepositoryImpl(
                 LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                AirqualityResponse(location, mapFragment),
+                AirqualityResponse(location),
                 this@MapFragment,
                 location
             )
