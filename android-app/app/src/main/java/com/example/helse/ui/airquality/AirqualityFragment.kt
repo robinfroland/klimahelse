@@ -8,19 +8,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.HorisontalAdapter
 import com.example.helse.data.api.AirqualityResponse
 import com.example.helse.data.database.LocalDatabase
-import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.RiskCircles
-import com.example.helse.data.repositories.AirqualityRepositoryImpl
+import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
-import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 import java.text.SimpleDateFormat
@@ -64,7 +61,7 @@ class AirqualityFragment : Fragment() {
 
         val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airqualityRepository = AirqualityRepositoryImpl(
+                airqualityRepository = AirqualityForecastRepository(
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
                         savedLocation

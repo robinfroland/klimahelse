@@ -1,26 +1,20 @@
 package com.example.helse.data.repositories
 
-import androidx.annotation.WorkerThread
 import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.utilities.*
 
-interface AirqualityRepository {
-    suspend fun fetchAirquality(): MutableList<AirqualityForecast>
-}
-
-class AirqualityRepositoryImpl(
+class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityApi
-) : AirqualityRepository {
+) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
     private val location: Location = preferences.getLocation()
 
-    @WorkerThread
-    override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
+    fun fetchAirquality(): MutableList<AirqualityForecast> {
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
         if (dataIsStale()) {
@@ -43,5 +37,15 @@ class AirqualityRepositoryImpl(
 
         // If -1 there is no previous fetch call, thus fetch is needed
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
+    }
+
+    // Singleton instantiation
+    companion object {
+        @Volatile private var instance: AirqualityForecastRepository? = null
+
+        fun getInstance(airqualityDao: AirqualityDao, airqualityApi: AirqualityApi) =
+            instance ?: synchronized(this) {
+                instance ?: AirqualityForecastRepository(airqualityDao, airqualityApi).also { instance = it }
+            }
     }
 }

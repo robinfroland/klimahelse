@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.helse.R
@@ -14,8 +13,8 @@ import com.example.helse.data.api.LocationResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.AirqualityRepositoryImpl
-import com.example.helse.data.repositories.LocationRepositoryImpl
+import com.example.helse.data.repositories.AirqualityForecastRepository
+import com.example.helse.data.repositories.LocationRepository
 import com.example.helse.utilities.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
@@ -63,7 +62,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         GlobalScope.launch {
             runCatching {
-                val locations = LocationRepositoryImpl(
+                val locations = LocationRepository(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
                     LocationResponse()
                 ).getAllLocations()
@@ -126,7 +125,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-            val airqualityRepo = AirqualityRepositoryImpl(
+            val airqualityRepo = AirqualityForecastRepository(
                 LocalDatabase.getInstance(requireContext()).airqualityDao(),
                 AirqualityResponse(location)
             )

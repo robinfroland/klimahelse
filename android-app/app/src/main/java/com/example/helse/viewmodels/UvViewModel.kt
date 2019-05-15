@@ -4,13 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.UvRepository
+import com.example.helse.data.repositories.UvForecastRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class UvViewModel : ViewModel() {
-    lateinit var uvRepository: UvRepository
+
+    lateinit var uvRepository: UvForecastRepository
 
     private val forecasts: MutableLiveData<MutableList<UvForecast>> by lazy {
         MutableLiveData<MutableList<UvForecast>>().also {

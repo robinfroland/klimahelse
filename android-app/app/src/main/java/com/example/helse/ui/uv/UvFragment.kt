@@ -1,7 +1,6 @@
 package com.example.helse.ui.uv
 
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -12,9 +11,8 @@ import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.UvResponse
 import com.example.helse.data.database.LocalDatabase
-import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.UvRepositoryImpl
+import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.Injector
 import com.example.helse.utilities.convertRiskToInt
 import com.example.helse.viewmodels.UvViewModel
@@ -43,7 +41,7 @@ class UvFragment : Fragment() {
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
-                uvRepository = UvRepositoryImpl(
+                uvRepository = UvForecastRepository(
                     LocalDatabase.getInstance(requireContext()).uvDao(),
                     UvResponse(
                         selectedLocation

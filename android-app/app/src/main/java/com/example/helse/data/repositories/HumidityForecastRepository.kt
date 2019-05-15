@@ -1,26 +1,20 @@
 package com.example.helse.data.repositories
 
-import androidx.annotation.WorkerThread
 import com.example.helse.data.api.HumidityApi
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.utilities.*
 
-interface HumidityRepository {
-    suspend fun fetchHumidity(): MutableList<HumidityForecast>
-}
-
-class HumidityRepositoryImpl(
+class HumidityForecastRepository(
     private val humidityDao: HumidityDao,
     private val humidityApi: HumidityApi
-) : HumidityRepository {
+) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
     private val location: Location = preferences.getLocation()
 
-    @WorkerThread
-    override suspend fun fetchHumidity(): MutableList<HumidityForecast> {
+    fun fetchHumidity(): MutableList<HumidityForecast> {
         lateinit var humidityForecast: MutableList<HumidityForecast>
 
 
@@ -44,5 +38,15 @@ class HumidityRepositoryImpl(
 
         // If -1 there is no previous fetch call, thus fetch is needed
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
+    }
+
+    // Singleton instantiation
+    companion object {
+        @Volatile private var instance: HumidityForecastRepository? = null
+
+        fun getInstance(humidityDao: HumidityDao, humidityApi: HumidityApi) =
+            instance ?: synchronized(this) {
+                instance ?: HumidityForecastRepository(humidityDao, humidityApi).also { instance = it }
+            }
     }
 }
