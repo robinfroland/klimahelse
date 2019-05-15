@@ -132,7 +132,6 @@ class OnboardingActivity : AppCompatActivity() {
                     nextBtn.visibility = View.GONE
                     backBtn.visibility = View.GONE
                 }
-                println(position)
             }
 
 
