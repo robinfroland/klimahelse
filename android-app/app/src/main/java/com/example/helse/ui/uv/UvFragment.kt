@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.helse.R
-import com.example.helse.data.api.UvResponse
+import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.UvForecastRepository
@@ -43,7 +43,7 @@ class UvFragment : Fragment() {
             .apply {
                 uvRepository = UvForecastRepository(
                     LocalDatabase.getInstance(requireContext()).uvDao(),
-                    UvResponse(
+                    UvForecastApi(
                         selectedLocation
                     )
                 )

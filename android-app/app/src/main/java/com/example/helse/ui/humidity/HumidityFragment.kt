@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.helse.data.api.HumidityResponse
+import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.utilities.Injector
@@ -40,7 +40,7 @@ class HumidityFragment : Fragment() {
             .apply {
                 humidityRepository = HumidityForecastRepository(
                     LocalDatabase.getInstance(requireContext()).humidityDao(),
-                    HumidityResponse(
+                    HumidityForecastApi(
                         selectedLocation
                     )
                 )

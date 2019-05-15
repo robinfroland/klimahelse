@@ -1,6 +1,7 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.AirqualityApi
+//import com.example.helse.data.api.AirqualityApi
+import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
@@ -8,7 +9,7 @@ import com.example.helse.utilities.*
 
 class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
-    private val airqualityApi: AirqualityApi
+    private val airqualityApi: AirqualityForecastApi
 ) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
@@ -43,7 +44,7 @@ class AirqualityForecastRepository(
     companion object {
         @Volatile private var instance: AirqualityForecastRepository? = null
 
-        fun getInstance(airqualityDao: AirqualityDao, airqualityApi: AirqualityApi) =
+        fun getInstance(airqualityDao: AirqualityDao, airqualityApi: AirqualityForecastApi) =
             instance ?: synchronized(this) {
                 instance ?: AirqualityForecastRepository(airqualityDao, airqualityApi).also { instance = it }
             }

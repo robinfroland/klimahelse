@@ -1,7 +1,7 @@
 package com.example.helse
 
-import com.example.helse.data.api.AirqualityResponse
-import com.example.helse.data.api.LocationResponse
+import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.api.LocationApi
 import com.example.helse.ui.airquality.AirqualityFragment
 import io.kotlintest.shouldThrow
 import okhttp3.mockwebserver.MockResponse
@@ -27,7 +27,7 @@ class UnitTest {
         val serverUrl = server.url("/")
         server.enqueue(MockResponse().setBody(goodLocationResponse))
 
-        val parsedResponse = LocationResponse(null).fetchAllLocations(serverUrl.toString())
+        val parsedResponse = LocationApi(null).fetchAllLocations(serverUrl.toString())
 
         assertEquals(parsedLocationResponse, parsedResponse)
 
@@ -40,7 +40,7 @@ class UnitTest {
         val serverUrl = server.url("/")
         server.enqueue(MockResponse().setBody(badLocationResponse))
 
-        val parsedResponse = LocationResponse(null).fetchAllLocations(serverUrl.toString())
+        val parsedResponse = LocationApi(null).fetchAllLocations(serverUrl.toString())
 
         assertNotEquals(
             parsedLocationResponse,
@@ -57,7 +57,7 @@ class UnitTest {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
         shouldThrow<Error> {
-            LocationResponse(null).fetchAllLocations(serverUrl.toString())
+            LocationApi(null).fetchAllLocations(serverUrl.toString())
         }
 
         server.shutdown()
@@ -72,7 +72,7 @@ class UnitTest {
 
         assertEquals(
             parsedAirqualityResponse,
-            AirqualityResponse(
+            AirqualityForecastApi(
                 alnabruLocation,
                 AirqualityFragment()
             ).fetchAirquality(
@@ -89,7 +89,7 @@ class UnitTest {
 
         assertNotEquals(
             parsedAirqualityResponse,
-            AirqualityResponse(alnabruLocation, AirqualityFragment()).fetchAirquality(serverUrl.toString())
+            AirqualityForecastApi(alnabruLocation, AirqualityFragment()).fetchAirquality(serverUrl.toString())
         )
     }
 
@@ -100,7 +100,7 @@ class UnitTest {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
         shouldThrow<Exception> {
-            AirqualityResponse(alnabruLocation, AirqualityFragment()).fetchAirquality(serverUrl.toString())
+            AirqualityForecastApi(alnabruLocation, AirqualityFragment()).fetchAirquality(serverUrl.toString())
         }
     }
 }

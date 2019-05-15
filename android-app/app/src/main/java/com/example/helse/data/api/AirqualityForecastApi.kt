@@ -4,24 +4,19 @@ import androidx.fragment.app.Fragment
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.emptyAirqualityForecast
-import com.example.helse.utilities.parseAirqualityResponse
-import com.example.helse.utilities.showNetworkError
+import com.example.helse.utilities.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
 private const val BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
 
-interface AirqualityApi {
-    fun fetchAirquality(url: String = BASE_URL): MutableList<AirqualityForecast>
-}
-
-class AirqualityResponse(
-    val location: Location
-) : AirqualityApi {
+object AirqualityForecastApi {
     private val client = OkHttpClient()
+    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
+    private val location: Location = preferences.getLocation()
 
-    override fun fetchAirquality(url: String): MutableList<AirqualityForecast> {
+    fun fetchAirquality(): MutableList<AirqualityForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()
@@ -36,9 +31,7 @@ class AirqualityResponse(
         }
     }
 
-    companion object {
-        fun buildCoordinateURI(lat: Double, lon: Double): String {
-            return "${BASE_URL}lat=$lat&lon=$lon&areaclass=grunnkrets"
-        }
+    private fun buildCoordinateURI(lat: Double, lon: Double): String {
+        return "${BASE_URL}lat=$lat&lon=$lon&areaclass=grunnkrets"
     }
 }
