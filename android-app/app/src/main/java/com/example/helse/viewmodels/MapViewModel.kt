@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.LocationRepositoryImpl
+import com.example.helse.data.repositories.LocationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MapViewModel : ViewModel() {
 
-    lateinit var locationRepository: LocationRepositoryImpl
+    private lateinit var locationRepository: LocationRepository
 
     private val getLocations: MutableLiveData<MutableList<Location>> by lazy {
         MutableLiveData<MutableList<Location>>().also {
