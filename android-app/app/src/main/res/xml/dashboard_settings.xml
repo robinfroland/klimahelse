@@ -22,7 +22,6 @@
         android:title="Luftfuktighet"
         app:iconSpaceReserved="false" />
     <CheckBoxPreference
-        android:key="ALLERGY_MODULE_ENABLE_MODULE"
         android:enabled="false"
         android:title="Pollenspredning"
         app:iconSpaceReserved="false" />

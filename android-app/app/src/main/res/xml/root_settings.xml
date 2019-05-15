@@ -79,7 +79,6 @@
             app:iconSpaceReserved="false" />
 
         <CheckBoxPreference
-            android:dependency="ALLERGY_MODULE_ENABLE_MODULE"
             android:enabled="false"
             android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
             android:title="Varsel for Pollenspredning"

@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 // MODULE KEYS
 const val AIRQUALITY_MODULE = "AIRQUALITY_MODULE"
 const val UV_MODULE = "UV_MODULE"
-const val ALLERGY_MODULE = "ALLERGY_MODULE"
 const val HUMIDITY_MODULE = "HUMIDITY_MODULE"
 
 // SHARED PREFERENCE KEYS
