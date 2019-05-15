@@ -1,16 +1,12 @@
 package com.example.helse.data.repositories
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import com.example.helse.data.api.HumidityApi
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.LAST_API_CALL_HUMIDTY
-import com.example.helse.utilities.THIRTY_MINUTES
-import com.example.helse.utilities.Preferences
+import com.example.helse.utilities.*
 
 interface HumidityRepository {
     suspend fun fetchHumidity(): MutableList<HumidityForecast>
@@ -22,7 +18,8 @@ class HumidityRepositoryImpl(
     fragment: Fragment,
     val location: Location
 ) : HumidityRepository {
-    private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
+
+    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     @WorkerThread
     override suspend fun fetchHumidity(): MutableList<HumidityForecast> {

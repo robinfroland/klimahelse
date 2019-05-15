@@ -6,17 +6,7 @@ import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.entities.emptyAirqualityForecast
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.LAST_API_CALL_AIRQUALITY
-import com.example.helse.utilities.THIRTY_MINUTES
-import com.example.helse.utilities.Preferences
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.lang.Error
-import java.util.HashMap
+import com.example.helse.utilities.*
 
 interface AirqualityRepository {
     suspend fun fetchAirquality(): MutableList<AirqualityForecast>
@@ -28,7 +18,9 @@ class AirqualityRepositoryImpl(
     fragment: Fragment,
     val location: Location
 ) : AirqualityRepository {
-    private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
+
+    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
+
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
         lateinit var airquality: MutableList<AirqualityForecast>
@@ -36,10 +28,8 @@ class AirqualityRepositoryImpl(
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
 
-
         //if -1 there is no previous fetch call
         if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
-            println("Fetching new")
             airquality = airqualityApi.fetchAirquality()
             airqualityDao.insert(
                 airquality
@@ -48,7 +38,6 @@ class AirqualityRepositoryImpl(
                 location, LAST_API_CALL_AIRQUALITY, timeNow
             )
         } else {
-            println("Getting from database")
             airquality = airqualityDao.get(location.stationID)
         }
         return airquality
