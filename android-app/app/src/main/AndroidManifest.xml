@@ -24,7 +24,7 @@
             android:value="AIzaSyA3CE0fF3MUIW6ermI8ZFgriz8tA4Y9S7U" />
 
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".OnboardingActivity"
             android:theme="@style/SplashTheme" />
 
         <activity
