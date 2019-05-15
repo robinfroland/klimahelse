@@ -32,6 +32,7 @@ class HumidityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        toolbar_title.text = navController.currentDestination?.label
 
         val preferences = Injector.getAppPreferences(requireContext())
         val selectedLocation = preferences.getLocation()
@@ -63,11 +64,13 @@ class HumidityFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_info) {
-            navController.navigate(R.id.humidity_to_information)
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
+        return when (item.itemId) {
+            R.id.action_info -> {
+                navController.navigate(R.id.humidity_to_information)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
+
 }

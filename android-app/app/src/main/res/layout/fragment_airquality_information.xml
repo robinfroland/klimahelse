@@ -6,12 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.airquality.AirqualityInformationFragment">
 
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:theme="@style/ToolbarTitleTheme"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/icon_airquality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_airquality_2x"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_title"
         android:paddingTop="60dp"
         android:paddingBottom="20dp"
         android:tint="@color/colorPrimaryLight"

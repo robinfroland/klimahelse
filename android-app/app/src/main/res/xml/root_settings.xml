@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:iconSpaceReserved="false"
-    app:iconSpaceReserved="false">
+    android:visibility="invisible">
+
+    <PreferenceScreen />
 
     <PreferenceCategory
         android:iconSpaceReserved="false"
@@ -84,6 +85,8 @@
             android:title="Varsel for Pollenspredning"
             app:iconSpaceReserved="false" />
     </PreferenceCategory>
+
+    <PreferenceScreen />
 
 
 </PreferenceScreen>

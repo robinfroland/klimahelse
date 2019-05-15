@@ -7,12 +7,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.uv.UvInformationFragment">
 
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ToolbarTitleTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="tste" />
+
     <ImageView
         android:id="@+id/icon_uv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_uv_2x"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_title"
         android:paddingTop="60dp"
         android:paddingBottom="20dp"
         android:tint="@color/colorPrimaryLight"
