@@ -6,37 +6,27 @@
         android:key="PREF_DESCRIPTION"
         android:layout="@layout/onboarding_push_desc" />
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:disableDependentsState="false"
-        android:key="ENABLE_NOTIFICATIONS"
-        android:title="Tillat push-varsler"
-        app:iconSpaceReserved="false" />
-
     <CheckBoxPreference
         android:defaultValue="false"
-        android:dependency="ENABLE_NOTIFICATIONS"
         android:key="AIRQUALITY_MODULE_ENABLE_NOTIFICATIONS"
-        android:title="Luftkvalitet"
+        android:title="Varsel for luftkvalitet"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:dependency="ENABLE_NOTIFICATIONS"
         android:key="UV_MODULE_ENABLE_NOTIFICATIONS"
-        android:title="UV-stråling"
+        android:title="Varsel for UV-stråling"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
-        android:dependency="ENABLE_NOTIFICATIONS"
         android:key="HUMIDITY_MODULE_ENABLE_NOTIFICATIONS"
-        android:title="Luftfuktighet"
+        android:title="Varsel for Luftfuktighet"
         app:iconSpaceReserved="false" />
 
     <CheckBoxPreference
-        android:dependency="ENABLE_NOTIFICATIONS"
+        android:enabled="false"
         android:key="ALLERGY_MODULE_ENABLE_NOTIFICATIONS"
-        android:title="Pollenspredning"
+        android:title="Varsel for Pollenspredning"
         app:iconSpaceReserved="false" />
 
 </PreferenceScreen>
