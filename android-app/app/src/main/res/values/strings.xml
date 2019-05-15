@@ -5,7 +5,6 @@
     <!-- Onboarding -->
     <string name="onboarding_title">Velkommen til klimahelse!</string>
     <string name="onboarding_description">Klimahelse gir deg informasjon om hvordan været negativt kan påvirke din helse. Følg denne korte veiledningen for skreddersy appen for dine behov!</string>
-    <string name="skip">Hopp over</string>
     <string name="setup_preferences">KOM I GANG</string>
     <string name="done">Ferdig</string>
     <string name="next">Neste</string>
@@ -19,11 +18,9 @@
     <string name="onboardingLocationDesc">Vi finner varsler relevant til hvor du befinner deg. Alternativt kan du selv søke etter et område for varsling.</string>
 
     <!-- Search and location -->
-    <string name="location_text">%1$s, %2$s</string>
     <string name="location">%1$s</string>
     <string name="superlocation">%1$s</string>
     <string name="your_location">Din posisjon</string>
-    <string name="your_superlocation">Forskningsparken, Oslo</string>
 
     <!--Time and date -->
     <string name="time_and_date">Viser verdier for: %s  </string>
@@ -46,7 +43,6 @@
     <!-- Airquality -->
     <string name="concentration">%.0f μm</string>
     <string name="concentration_placeholder">44 µm</string>
-    <string name="airquality_fragment_title">LUFTKVALITET</string>
     <string name="my_location_icon_desc">Min posisjon ikon</string>
     <string name="pm1_0">PM1.0</string>
     <string name="o3">O3</string>
@@ -64,7 +60,6 @@
     <string name="cloudy">CLOUDY</string>
     <string name="partlyCloudy">PARTLY CLOUDY</string>
     <string name="uviForecast">FORECAST</string>
-    <string name="uv_fragment_title">UV-STRÅLING</string>
     <string name="uv_fragment_information">
         UV-stråling er en type stråle som lages av solen og noen kunstige kilder som solarium.\n UV-stråling utgjør hovedgrunnen for hudkreft, og forårsaker også solbrenning og øyeskader. Det finnes to typer UV-stråling hvor bølgelengden varierer.
         \n\n<b>UVA</b>\n UVA Skader de elastiske fibrene i huden og arvestoffet, gir rask brunfarge, og slipper uhindret gjennom ozonlaget.
@@ -72,7 +67,6 @@
     </string>
 
     <!-- Humidity -->
-    <string name="humidity_fragment_title">LUFTFUKTIGHET</string>
     <string name="precentage_placeholder">0.00%</string>
     <string name="precentage">%.0f<b>%%</b> </string>
     <string name="humidity_fragment_information">
