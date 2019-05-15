@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     private fun setFirstLaunch() {
         val preferences = Injector.getAppPreferences(this)
-
         if (preferences.isFirstLaunch()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
