@@ -22,6 +22,7 @@ interface Preferences {
 }
 
 class AppPreferences(context: Context) : Preferences {
+
     private val applicationContext = context.applicationContext
 
     private val preferences: SharedPreferences
