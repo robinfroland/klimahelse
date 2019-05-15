@@ -40,13 +40,19 @@ class AirqualityForecastRepository(
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
 
-    // Singleton instantiation
     companion object {
-        @Volatile private var instance: AirqualityForecastRepository? = null
 
-        fun getInstance(airqualityDao: AirqualityDao, airqualityApi: AirqualityForecastApi) =
-            instance ?: synchronized(this) {
-                instance ?: AirqualityForecastRepository(airqualityDao, airqualityApi).also { instance = it }
+        private var INSTANCE: AirqualityForecastRepository? = null
+
+        // Singleton instantiation of repository
+
+        fun getInstance(
+            airqualityDao: AirqualityDao,
+            airqualityForecastApi: AirqualityForecastApi
+        ) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AirqualityForecastRepository(airqualityDao, airqualityForecastApi)
+                    .also { INSTANCE = it }
             }
     }
 }

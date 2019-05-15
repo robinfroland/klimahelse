@@ -39,13 +39,19 @@ class UvForecastRepository(
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
 
-    // Singleton instantiation
     companion object {
-        @Volatile private var instance: UvForecastRepository? = null
 
-        fun getInstance(uvDao: UVDao, uvApi: UvForecastApi) =
-            instance ?: synchronized(this) {
-                instance ?: UvForecastRepository(uvDao, uvApi).also { instance = it }
+        private var INSTANCE: UvForecastRepository? = null
+
+        // Singleton instantiation of repository
+
+        fun getInstance(
+            uvDao: UVDao,
+            uvForecastApi: UvForecastApi
+        ) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: UvForecastRepository(uvDao, uvForecastApi)
+                    .also { INSTANCE = it }
             }
     }
 }
