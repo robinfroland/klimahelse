@@ -45,7 +45,6 @@ class HumidityFragment : Fragment() {
                     HumidityResponse(
                         selectedLocation
                     ),
-                    this@HumidityFragment,
                     selectedLocation
                 )
             }

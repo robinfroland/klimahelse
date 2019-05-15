@@ -48,7 +48,6 @@ class UvFragment : Fragment() {
                     UvResponse(
                         selectedLocation
                     ),
-                    this@UvFragment,
                     selectedLocation
                 )
             }

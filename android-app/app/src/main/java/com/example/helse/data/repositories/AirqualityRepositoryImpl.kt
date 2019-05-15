@@ -15,7 +15,6 @@ interface AirqualityRepository {
 class AirqualityRepositoryImpl(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityApi,
-    fragment: Fragment,
     val location: Location
 ) : AirqualityRepository {
 
