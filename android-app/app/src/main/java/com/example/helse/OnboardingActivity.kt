@@ -1,4 +1,4 @@
-package com.example.helse.ui.onboarding
+package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,14 +6,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.viewpager.widget.ViewPager
-import com.example.helse.MainActivity
-import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.ui.settings.DashboardSettingsFragment
-import com.example.helse.ui.settings.LocationSettingsFragment
-import com.example.helse.ui.settings.PushSettingsFragment
 import com.example.helse.utilities.Injector
 import kotlinx.android.synthetic.main.activity_onboarding.*
 

@@ -1,11 +1,8 @@
-package com.example.helse.ui.settings
+package com.example.helse.ui.onboarding
 
 import android.os.Bundle
-import android.view.View
 import androidx.preference.PreferenceFragmentCompat
 import com.example.helse.R
-import com.example.helse.utilities.AppPreferences
-import com.example.helse.utilities.Injector
 
 class DashboardSettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
