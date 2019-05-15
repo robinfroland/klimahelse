@@ -22,13 +22,11 @@ import java.text.SimpleDateFormat
 
 class AirqualityFragment : Fragment() {
 
-    lateinit var preferences: AppPreferences
-    lateinit var viewModel: AirqualityViewModel
+    private lateinit var viewModel: AirqualityViewModel
     private lateinit var viewAdapter: HorisontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
     private var timeList = ArrayList<RiskCircles>()
-    private var hourOfDay = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +52,8 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        preferences = Injector.getAppPreferences(requireContext())
-
-        val savedLocation = preferences.getLocation()
-        location.text = "%s, %s".format(savedLocation.location, savedLocation.superlocation)
+        val selectedLocation = Injector.getLocation(requireContext())
+        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
     }
 
@@ -99,9 +95,11 @@ class AirqualityFragment : Fragment() {
                 )
             }
 
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER)
+
+            setScreenToChosenTime(
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + OFFSET_FOR_HORIZONTAL_SLIDER
+            )
         })
     }
 

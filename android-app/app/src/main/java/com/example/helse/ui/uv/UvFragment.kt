@@ -14,6 +14,11 @@ import com.example.helse.utilities.Injector
 import com.example.helse.utilities.convertRiskToInt
 import com.example.helse.viewmodels.UvViewModel
 import kotlinx.android.synthetic.main.fragment_uv.*
+import kotlinx.android.synthetic.main.fragment_uv.gauge
+import kotlinx.android.synthetic.main.fragment_uv.gauge_img
+import kotlinx.android.synthetic.main.fragment_uv.gauge_text
+import kotlinx.android.synthetic.main.fragment_uv.location
+import kotlinx.android.synthetic.main.fragment_uv.toolbar_title
 
 class UvFragment : Fragment() {
 
@@ -36,8 +41,7 @@ class UvFragment : Fragment() {
         initViewModel()
         observeDataStream()
 
-        val preferences = Injector.getAppPreferences(requireContext())
-        val selectedLocation = preferences.getLocation()
+        val selectedLocation = Injector.getLocation(requireContext())
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
     }
 

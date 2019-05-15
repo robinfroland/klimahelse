@@ -11,9 +11,9 @@ import okhttp3.Response
 import org.xmlpull.v1.XmlPullParser
 
 object UvForecastApi {
+
+    private val selectedLocation = Injector.getLocation(AppContext.getAppContext())
     private val client = OkHttpClient()
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val location: Location = preferences.getLocation()
 
     fun fetchUv(): MutableList<UvForecast> {
         lateinit var response: Response
@@ -26,7 +26,7 @@ object UvForecastApi {
 
             response = client.newCall(request).execute()
 
-            response.parseUvResponse(location)
+            response.parseUvResponse(selectedLocation)
         } catch (e: Exception) {
             mutableListOf(emptyUvForecast)
         }
@@ -39,7 +39,7 @@ object UvForecastApi {
         val client = OkHttpClient()
         // Get URI's for today, tomorrow, and overtomorrow
         val request = Request.Builder()
-            .url("https://api.met.no/weatherapi/uvforecast/1.0/available")
+            .url(UV_BASE_URL)
             .build()
         val response = client.newCall(request).execute()
         response.body()?.byteStream()

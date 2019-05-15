@@ -8,12 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.helse.data.api.HumidityForecastApi
-import com.example.helse.data.database.LocalDatabase
-import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
+import kotlinx.android.synthetic.main.fragment_humidity.gauge
+import kotlinx.android.synthetic.main.fragment_humidity.gauge_text
+import kotlinx.android.synthetic.main.fragment_humidity.location
+import kotlinx.android.synthetic.main.fragment_humidity.toolbar_title
 
 class HumidityFragment : Fragment() {
 
@@ -37,8 +38,7 @@ class HumidityFragment : Fragment() {
         initViewModel()
         observeDataStream()
 
-        val preferences = Injector.getAppPreferences(requireContext())
-        val selectedLocation = preferences.getLocation()
+        val selectedLocation = Injector.getLocation(requireContext())
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
     }
 
