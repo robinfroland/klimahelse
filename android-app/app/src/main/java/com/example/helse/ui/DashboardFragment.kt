@@ -36,12 +36,11 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
+
         val viewManager = LinearLayoutManager(context)
         viewAdapter = ModuleAdapter(enabledModules)
         module_list.apply {

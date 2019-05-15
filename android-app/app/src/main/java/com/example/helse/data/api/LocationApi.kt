@@ -2,21 +2,21 @@ package com.example.helse.data.api
 
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.emptyLocation
+import com.example.helse.utilities.STATIONS_BASE_URL
 import com.example.helse.utilities.parseLocationResponse
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-private const val LOCATION_URL = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
-
 object LocationApi {
+
     fun fetchAllLocations(): MutableList<Location> {
         val client = OkHttpClient()
 
         lateinit var response: Response
         return try {
             val request = Request.Builder()
-                .url(LOCATION_URL)
+                .url(STATIONS_BASE_URL)
                 .get()
                 .build()
 
