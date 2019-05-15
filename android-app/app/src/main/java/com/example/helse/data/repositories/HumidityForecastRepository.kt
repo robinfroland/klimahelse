@@ -1,6 +1,6 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.HumidityApi
+import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
@@ -8,7 +8,7 @@ import com.example.helse.utilities.*
 
 class HumidityForecastRepository(
     private val humidityDao: HumidityDao,
-    private val humidityApi: HumidityApi
+    private val humidityApi: HumidityForecastApi
 ) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
@@ -44,7 +44,7 @@ class HumidityForecastRepository(
     companion object {
         @Volatile private var instance: HumidityForecastRepository? = null
 
-        fun getInstance(humidityDao: HumidityDao, humidityApi: HumidityApi) =
+        fun getInstance(humidityDao: HumidityDao, humidityApi: HumidityForecastApi) =
             instance ?: synchronized(this) {
                 instance ?: HumidityForecastRepository(humidityDao, humidityApi).also { instance = it }
             }

@@ -1,6 +1,6 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.UvApi
+import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.UVDao
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
@@ -8,7 +8,7 @@ import com.example.helse.utilities.*
 
 class UvForecastRepository(
     private val uvDao: UVDao,
-    private val uvApi: UvApi
+    private val uvApi: UvForecastApi
 ) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
@@ -43,7 +43,7 @@ class UvForecastRepository(
     companion object {
         @Volatile private var instance: UvForecastRepository? = null
 
-        fun getInstance(uvDao: UVDao, uvApi: UvApi) =
+        fun getInstance(uvDao: UVDao, uvApi: UvForecastApi) =
             instance ?: synchronized(this) {
                 instance ?: UvForecastRepository(uvDao, uvApi).also { instance = it }
             }
