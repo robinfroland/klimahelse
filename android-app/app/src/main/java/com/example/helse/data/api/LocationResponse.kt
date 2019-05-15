@@ -15,7 +15,7 @@ interface LocationApi {
     fun fetchAllLocations(url: String = LOCATION_URL): MutableList<Location>
 }
 
-class LocationResponse(private val activity: Activity?) : LocationApi {
+class LocationResponse() : LocationApi {
     override fun fetchAllLocations(url: String): MutableList<Location> {
         val client = OkHttpClient()
 
@@ -30,7 +30,6 @@ class LocationResponse(private val activity: Activity?) : LocationApi {
 
             response.parseLocationResponse()
         } catch (e: Exception) {
-            showNetworkError(activity, response.code(), e)
             mutableListOf(emptyLocation)
         }
     }

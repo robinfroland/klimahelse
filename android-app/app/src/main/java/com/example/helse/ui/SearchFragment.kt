@@ -118,7 +118,7 @@ class SearchFragment : Fragment() {
             .apply {
                 locationRepository = LocationRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse(this@SearchFragment.activity)
+                    LocationResponse()
                 )
             }
     }

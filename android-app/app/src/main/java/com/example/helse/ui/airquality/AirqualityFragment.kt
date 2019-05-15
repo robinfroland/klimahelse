@@ -67,8 +67,7 @@ class AirqualityFragment : Fragment() {
                 airqualityRepository = AirqualityRepositoryImpl(
                     LocalDatabase.getInstance(requireContext()).airqualityDao(),
                     AirqualityResponse(
-                        savedLocation,
-                        this@AirqualityFragment
+                        savedLocation
                     ),
                     this@AirqualityFragment,
                     savedLocation
