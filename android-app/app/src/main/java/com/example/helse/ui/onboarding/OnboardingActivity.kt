@@ -24,17 +24,24 @@ class OnboardingActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setFullscreen()
         super.onCreate(savedInstanceState)
-
         viewPager.adapter = OnboardingAdapter(supportFragmentManager)
+        viewPager.setOnPageListener()
 
         updateDotIndicator(0)
         setDotClickListener()
+
         finishBtn.setOnClickListener {
             // if location == null, toast: må velge posisjon
             finishOnboarding()
         }
-        viewPager.setOnPageListener()
 
+        nextBtn.setOnClickListener {
+            viewPager.currentItem = viewPager.currentItem + 1
+        }
+
+        backBtn.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
@@ -113,12 +120,21 @@ class OnboardingActivity : AppCompatActivity() {
         this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 updateDotIndicator(position)
-                if (position == 3) {
+                if (position == 1 || position == 2) {
+                    nextBtn.visibility = View.VISIBLE
+                    backBtn.visibility = View.VISIBLE
+                    finishBtn.visibility = View.GONE
+                } else if (position == 3) {
+                    nextBtn.visibility = View.GONE
                     finishBtn.visibility = View.VISIBLE
                 } else {
                     finishBtn.visibility = View.GONE
+                    nextBtn.visibility = View.GONE
+                    backBtn.visibility = View.GONE
                 }
+                println(position)
             }
+
 
             override fun onPageScrollStateChanged(state: Int) {
             }
