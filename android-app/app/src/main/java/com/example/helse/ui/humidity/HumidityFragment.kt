@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_humidity.*
 class HumidityFragment : Fragment() {
 
     private lateinit var navController: NavController
+    private lateinit var viewModel: HumidityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,24 +30,16 @@ class HumidityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
+
+        initViewModel()
+        observeDataStream()
 
         val preferences = Injector.getAppPreferences(requireContext())
         val selectedLocation = preferences.getLocation()
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
-
-        val humidityViewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
-            .apply {
-                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
-            }
-
-        humidityViewModel.getHumdityForecast().observe(this, Observer { forecast ->
-            val humidityForecast = forecast[0]
-            gauge.value = humidityForecast.humidityValue.toInt()
-            risk_value.text = humidityForecast.riskValue
-            gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -61,6 +54,22 @@ class HumidityFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
+            .apply {
+                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
+            }
+    }
+
+    private fun observeDataStream() {
+        viewModel.getHumdityForecast().observe(this, Observer { forecast ->
+            val humidityForecast = forecast[0]
+            gauge.value = humidityForecast.humidityValue.toInt()
+            risk_value.text = humidityForecast.riskValue
+            gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
+        })
     }
 
 }
