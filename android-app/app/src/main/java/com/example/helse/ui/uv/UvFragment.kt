@@ -9,10 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.helse.R
-import com.example.helse.data.api.UvForecastApi
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.Injector
 import com.example.helse.utilities.convertRiskToInt
 import com.example.helse.viewmodels.UvViewModel
@@ -21,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_uv.*
 class UvFragment : Fragment() {
 
     private lateinit var navController: NavController
+    private lateinit var viewModel: UvViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,23 +33,12 @@ class UvFragment : Fragment() {
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
+        initViewModel()
+        observeDataStream()
+
         val preferences = Injector.getAppPreferences(requireContext())
         val selectedLocation = preferences.getLocation()
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
-
-        val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
-            .apply {
-                uvRepository = Injector.getUvForecastRepository(requireContext())
-            }
-
-        uvViewModel.getUvForecast().observe(this, Observer { forecast ->
-            val uvForecast = forecast[0]
-            uviClear.text = uvForecast.uvClear.toString()
-            uviPartlyCloudy.text = uvForecast.uvPartlyCloudy.toString()
-            uviForecast.text = uvForecast.uvForecast.toString()
-            uviCloudy.text = uvForecast.uvCloudy.toString()
-            initGauge(uvForecast)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -66,6 +53,24 @@ class UvFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
+            .apply {
+                uvRepository = Injector.getUvForecastRepository(requireContext())
+            }
+    }
+
+    private fun observeDataStream() {
+        viewModel.getUvForecast().observe(this, Observer { forecast ->
+            val uvForecast = forecast[0]
+            uviClear.text = uvForecast.uvClear.toString()
+            uviPartlyCloudy.text = uvForecast.uvPartlyCloudy.toString()
+            uviForecast.text = uvForecast.uvForecast.toString()
+            uviCloudy.text = uvForecast.uvCloudy.toString()
+            initGauge(uvForecast)
+        })
     }
 
     private fun initGauge(forecast: UvForecast) {

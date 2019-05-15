@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">helse</string>
+    <string name="app_name">Klimahelse</string>
     <string name="gauge_risiko">%s RISIKO</string>
 
     <!-- Onboarding -->

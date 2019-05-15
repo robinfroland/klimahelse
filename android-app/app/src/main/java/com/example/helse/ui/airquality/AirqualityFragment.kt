@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat
 class AirqualityFragment : Fragment() {
 
     lateinit var preferences: AppPreferences
+    lateinit var viewModel: AirqualityViewModel
     private lateinit var viewAdapter: HorisontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
@@ -42,6 +43,9 @@ class AirqualityFragment : Fragment() {
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
+        initViewModel()
+        observeDataStream()
+
         viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = HorisontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)
@@ -53,15 +57,33 @@ class AirqualityFragment : Fragment() {
         preferences = Injector.getAppPreferences(requireContext())
 
         val savedLocation = preferences.getLocation()
-
         location.text = "%s, %s".format(savedLocation.location, savedLocation.superlocation)
 
-        val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.info_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_info -> {
+                navController.navigate(R.id.airquality_to_information)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airqualityRepository = Injector.getAirqualityForecastRepository(requireContext())
             }
+    }
 
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
+    private fun observeDataStream() {
+        viewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
             timeList.clear()
             for (i in 0..23) {
                 timeList.add(
@@ -82,21 +104,6 @@ class AirqualityFragment : Fragment() {
             setScreenToChosenTime(hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER)
         })
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.info_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_info -> {
-                navController.navigate(R.id.airquality_to_information)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
 
     private fun initGauge(forecast: RiskCircles) {
         val riskValue = convertRiskToInt(forecast.overallRiskValue)
