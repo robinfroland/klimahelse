@@ -40,13 +40,19 @@ class HumidityForecastRepository(
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
 
-    // Singleton instantiation
     companion object {
-        @Volatile private var instance: HumidityForecastRepository? = null
 
-        fun getInstance(humidityDao: HumidityDao, humidityApi: HumidityForecastApi) =
-            instance ?: synchronized(this) {
-                instance ?: HumidityForecastRepository(humidityDao, humidityApi).also { instance = it }
+        private var INSTANCE: HumidityForecastRepository? = null
+
+        // Singleton instantiation of repository
+
+        fun getInstance(
+            humidityDao: HumidityDao,
+            humidityForecastApi: HumidityForecastApi
+        ) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: HumidityForecastRepository(humidityDao, humidityForecastApi)
+                    .also { INSTANCE = it }
             }
     }
 }

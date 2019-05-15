@@ -26,13 +26,20 @@ class LocationRepository(
         return true
     }
 
-    // Singleton instantiation
-    companion object {
-        @Volatile private var instance: LocationRepository? = null
 
-        fun getInstance(locationDao: LocationDao, locationApi: LocationApi) =
-            instance ?: synchronized(this) {
-                instance ?: LocationRepository(locationDao, locationApi).also { instance = it }
+    companion object {
+
+        private var INSTANCE: LocationRepository? = null
+
+        // Singleton instantiation of repository
+
+        fun getInstance(
+            locationDao: LocationDao,
+            locationApi: LocationApi
+        ) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: LocationRepository(locationDao, locationApi)
+                    .also { INSTANCE = it }
             }
     }
 }
