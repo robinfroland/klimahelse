@@ -5,19 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
 import com.example.helse.data.entities.Module
 import com.example.helse.utilities.*
+import com.example.helse.viewmodels.DashboardViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.list_item_location.*
 
 class DashboardFragment : Fragment() {
 
+    private lateinit var viewModel: DashboardViewModel
     private lateinit var allModules: ArrayList<Module>
     private lateinit var enabledModules: ArrayList<Module>
     private lateinit var viewAdapter: ModuleAdapter
@@ -30,13 +30,17 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        preferences = Injector.getAppPreferences(requireContext())
-        initModules()
+
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferences = Injector.getAppPreferences(requireContext())
+
+        initModules()
+        initViewModel()
+
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
@@ -47,15 +51,22 @@ class DashboardFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
-        updateModules()
     }
 
     override fun onResume() {
         super.onResume()
-        val location = preferences.getLocation()
-        search_dashboard.text = "%s, %s".format(location.location, location.superlocation)
+        val selectedLocation = preferences.getLocation()
+        search_dashboard.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
         updateModules()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+            .apply {
+                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext())
+                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext())
+                uvForecastRepository = Injector.getUvForecastRepository(requireContext())
+            }
     }
 
 
@@ -87,6 +98,7 @@ class DashboardFragment : Fragment() {
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule)
         enabledModules = arrayListOf()
+        updateModules()
     }
 }
 
