@@ -1,6 +1,5 @@
 package com.example.helse.data.repositories
 
-//import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast

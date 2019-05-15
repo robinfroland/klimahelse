@@ -41,12 +41,7 @@ class UvFragment : Fragment() {
 
         val uvViewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
-                uvRepository = UvForecastRepository(
-                    LocalDatabase.getInstance(requireContext()).uvDao(),
-                    UvForecastApi(
-                        selectedLocation
-                    )
-                )
+                uvRepository = Injector.getUvForecastRepository(requireContext())
             }
 
         uvViewModel.getUvForecast().observe(this, Observer { forecast ->

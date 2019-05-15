@@ -38,12 +38,7 @@ class HumidityFragment : Fragment() {
 
         val humidityViewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
-                humidityRepository = HumidityForecastRepository(
-                    LocalDatabase.getInstance(requireContext()).humidityDao(),
-                    HumidityForecastApi(
-                        selectedLocation
-                    )
-                )
+                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
             }
 
         humidityViewModel.getHumdityForecast().observe(this, Observer { forecast ->
