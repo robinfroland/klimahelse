@@ -2,7 +2,6 @@ package com.example.helse.ui.humidity
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.helse.R
@@ -14,16 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
 
-import com.example.helse.data.api.HumidityResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
-import com.example.helse.data.entities.RiskCircles
-import com.example.helse.data.repositories.HumidityRepositoryImpl
 
 import com.example.helse.utilities.*
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
-import kotlinx.android.synthetic.main.fragment_humidity.*
 import kotlinx.android.synthetic.main.fragment_humidity.gauge
 import kotlinx.android.synthetic.main.fragment_humidity.gauge_img
 import kotlinx.android.synthetic.main.fragment_humidity.gauge_text
@@ -127,7 +122,8 @@ class HumidityFragment : Fragment() {
 
     }
 
-    fun setScreenToChosenTime(forecast: HumidityForecast) {
+    fun setScreenToChosenTime(forecast: HumidityForecast, index : Int) {
+        viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         initGauge(forecast)
         val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(forecast.from)
         val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)

@@ -107,7 +107,9 @@ class AirqualityFragment : Fragment() {
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setScreenToChosenTime(forecast: AirqualityForecast) {
+    fun setScreenToChosenTime(forecast: AirqualityForecast, index: Int) {
+        viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
+
         o3_concentration.text = getString(R.string.concentration, forecast.o3_concentration)
         no2_concentration.text = getString(R.string.concentration, forecast.no2_concentration)
         pm10_concentration.text = getString(R.string.concentration, forecast.pm10_concentration)
