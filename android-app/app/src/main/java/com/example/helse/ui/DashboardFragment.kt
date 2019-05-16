@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,8 @@ import com.example.helse.data.entities.Module
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.DashboardViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DashboardFragment : Fragment() {
 
@@ -36,8 +39,19 @@ class DashboardFragment : Fragment() {
 
         initModules()
         initViewModel()
+        observeRiskLabels()
 
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
+    }
+
+    private fun observeRiskLabels() {
+        viewModel.getAirqualityForecast().observe(this, Observer { forecast ->
+            println(forecast[5].riskValue)
+        })
+
+        viewModel.getHumidityForecast().observe(this, Observer { forecast ->
+            println(forecast[0].riskValue)
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
