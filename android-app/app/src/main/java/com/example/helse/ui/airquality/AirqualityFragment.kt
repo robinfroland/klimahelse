@@ -27,7 +27,6 @@ class AirqualityFragment : Fragment() {
     private lateinit var viewModel: AirqualityViewModel
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
-    private var hourOfDay = 0
     private  var timeList = mutableListOf<AirqualityForecast>()
 
     override fun onCreateView(
@@ -85,9 +84,9 @@ class AirqualityFragment : Fragment() {
             for (i in 0 until forecasts.size){
                 timeList.add(forecasts[i])
             }
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER])
+            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
 

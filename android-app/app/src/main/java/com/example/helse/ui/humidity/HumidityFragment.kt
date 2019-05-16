@@ -19,13 +19,7 @@ import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.utilities.*
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
-import kotlinx.android.synthetic.main.fragment_humidity.gauge
-import kotlinx.android.synthetic.main.fragment_humidity.gauge_img
-import kotlinx.android.synthetic.main.fragment_humidity.gauge_text
-import kotlinx.android.synthetic.main.fragment_humidity.location
-import kotlinx.android.synthetic.main.fragment_humidity.risk_list
-import kotlinx.android.synthetic.main.fragment_humidity.time_and_date
-import kotlinx.android.synthetic.main.fragment_humidity.toolbar_title
+import kotlinx.android.synthetic.main.fragment_humidity.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,9 +28,8 @@ class HumidityFragment : Fragment() {
     private lateinit var viewAdapter: HumidityHorizontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
-    private var timeList = mutableListOf<HumidityForecast>()
-    private var hourOfDay = 0
     private lateinit var viewModel: HumidityViewModel
+    private var timeList = mutableListOf<HumidityForecast>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,13 +86,13 @@ class HumidityFragment : Fragment() {
     private fun observeDataStream() {
         viewModel.getHumdityForecast().observe(this, Observer { forecasts ->
             timeList.clear()
-            for (i in 0 until 25){
+            for (i in 0 until 24){
                 timeList.add(forecasts[i])
 
             }
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER])
+            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
 
