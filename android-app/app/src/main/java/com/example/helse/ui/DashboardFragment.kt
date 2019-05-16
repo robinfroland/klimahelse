@@ -44,16 +44,6 @@ class DashboardFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
-    private fun observeRiskLabels() {
-        viewModel.getAirqualityForecast().observe(this, Observer { forecast ->
-            println(forecast[5].riskValue)
-        })
-
-        viewModel.getHumidityForecast().observe(this, Observer { forecast ->
-            println(forecast[0].riskValue)
-        })
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
@@ -88,7 +78,6 @@ class DashboardFragment : Fragment() {
         allModules.forEach {
             if (preferences.isModuleEnabled(it)) {
                 enabledModules.add(it)
-                it.pushEnabled = preferences.isNotificationEnabled(it)
             }
         }
 
@@ -101,18 +90,40 @@ class DashboardFragment : Fragment() {
         viewAdapter.notifyDataSetChanged()
     }
 
+    private fun observeRiskLabels() {
+        val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+        viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            airqualityModule.dangerIndicator =
+                forecast[currentTime].riskValue
+            viewAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            humidityModule.dangerIndicator =
+                forecast[0].riskValue
+            viewAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            uvModule.dangerIndicator =
+                forecast[0].riskValue
+            viewAdapter.notifyDataSetChanged()
+        })
+    }
+
     private fun initModules() {
         airqualityModule = Module(
             AIRQUALITY_MODULE, R.drawable.ic_airquality_2x,
-            "Luftkvalitet", "LOW", false
+            "Luftkvalitet", ""
         )
         uvModule = Module(
             UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling",
-            "MEDIUM", false
+            "MEDIUM"
         )
         humidityModule = Module(
             HUMIDITY_MODULE, R.drawable.ic_humidity_2x,
-            "Luftfuktighet", "MEDIUM", false
+            "Luftfuktighet", "MEDIUM"
         )
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule)

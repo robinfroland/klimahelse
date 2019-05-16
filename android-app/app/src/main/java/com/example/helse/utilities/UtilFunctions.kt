@@ -22,10 +22,10 @@ fun calculateRiskFor(metric: AirqualityMetrics, value: Double): String {
     val high = values[2]
 
     return when {
-        value <= low -> LOW_AQI_VALUE
-        value <= medium -> MEDIUM_AQI_VALUE
-        value <= high -> HIGH_AQI_VALUE
-        else -> VERY_HIGH_AQI_VALUE
+        value <= low -> LOW_VALUE
+        value <= medium -> MEDIUM_VALUE
+        value <= high -> HIGH_VALUE
+        else -> VERY_HIGH_VALUE
     }
 }
 
@@ -42,19 +42,19 @@ fun calculateOverallRiskValue(
     }
 
     return when {
-        highestRisk <= 2 -> LOW_AQI_VALUE
-        highestRisk <= 3 -> MEDIUM_AQI_VALUE
-        highestRisk <= 4 -> HIGH_AQI_VALUE
-        else -> VERY_HIGH_AQI_VALUE
+        highestRisk <= 2 -> LOW_VALUE
+        highestRisk <= 3 -> MEDIUM_VALUE
+        highestRisk <= 4 -> HIGH_VALUE
+        else -> VERY_HIGH_VALUE
     }
 }
 
 fun convertRiskToInt(riskString: String): Int {
     return when (riskString) {
-        LOW_AQI_VALUE -> 2
-        MEDIUM_AQI_VALUE -> 3
-        HIGH_AQI_VALUE -> 4
-        VERY_HIGH_AQI_VALUE -> 5
+        LOW_VALUE -> 2
+        MEDIUM_VALUE -> 3
+        HIGH_VALUE -> 4
+        VERY_HIGH_VALUE -> 5
         // Something went wrong, don't count it
         else -> 0
         // Divide by 4 to get average
@@ -63,17 +63,17 @@ fun convertRiskToInt(riskString: String): Int {
 
 fun calculateUvRiskValue(uvi_val: Double): String {
     return when {
-        uvi_val <= 2.9 -> LOW_AQI_VALUE
-        uvi_val <= 5.9 -> MEDIUM_AQI_VALUE
-        uvi_val <= 7.9 -> HIGH_AQI_VALUE
-        else -> VERY_HIGH_AQI_VALUE
+        uvi_val <= 2.9 -> LOW_VALUE
+        uvi_val <= 5.9 -> MEDIUM_VALUE
+        uvi_val <= 7.9 -> HIGH_VALUE
+        else -> VERY_HIGH_VALUE
     }
 }
 
 fun calculateHumidityRiskValue(humidity_val: Double): String {
     return when {
         humidity_val <= 30 -> LOW_HUMIDITY_VALUE
-        humidity_val <= 60 -> MEDIUM_HUMIDITY_VALUE
+        humidity_val <= 60 -> GOOD_HUMIDITY_VALUE
         else -> HIGH_HUMIDITY_VALUE
     }
 }

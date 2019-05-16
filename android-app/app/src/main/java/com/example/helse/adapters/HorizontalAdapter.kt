@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.RiskCircles
 import com.example.helse.ui.airquality.AirqualityFragment
+import com.example.helse.utilities.HIGH_VALUE
+import com.example.helse.utilities.LOW_VALUE
+import com.example.helse.utilities.MEDIUM_VALUE
+import com.example.helse.utilities.VERY_HIGH_VALUE
 import kotlinx.android.synthetic.main.list_item_risk.view.*
 
 class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private val fragment: AirqualityFragment) :
@@ -25,10 +29,10 @@ class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private 
         holder.view.horizontal_item.risk_text.text = ("$hourOfDay:00")
 
         when (riskValue) {
-            "LAV" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
-            "MODERAT" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
-            "BETYDELIG" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
-            "ALVORLIG" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
+            LOW_VALUE -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
+            MEDIUM_VALUE -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
+            HIGH_VALUE -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
+            VERY_HIGH_VALUE -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_very_high)
         }
 
         holder.view.risk_circle.setOnClickListener {

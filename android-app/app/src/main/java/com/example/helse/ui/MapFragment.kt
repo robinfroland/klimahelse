@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.helse.R
-import com.example.helse.data.api.LocationApi
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.LocationRepository
 import com.example.helse.utilities.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
@@ -88,10 +85,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     val forecast = getForecastForLocationAsync(location).await()
 
                     var color = when (forecast.riskValue) {
-                        LOW_AQI_VALUE -> R.color.greenLowRisk
-                        MEDIUM_AQI_VALUE -> R.color.yellowMediumRisk
-                        HIGH_AQI_VALUE -> R.color.orangeHighRisk
-                        VERY_HIGH_AQI_VALUE -> R.color.redVeryHighRisk
+                        LOW_VALUE -> R.color.greenLowRisk
+                        MEDIUM_VALUE -> R.color.yellowMediumRisk
+                        HIGH_VALUE -> R.color.orangeHighRisk
+                        VERY_HIGH_VALUE -> R.color.redVeryHighRisk
                         else -> R.color.colorGreyDark
                     }
                     color = ContextCompat.getColor(context!!, color)

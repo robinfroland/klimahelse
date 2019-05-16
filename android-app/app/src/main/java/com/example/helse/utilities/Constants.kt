@@ -34,14 +34,13 @@ const val PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED
 
 // HUMIDITY THRESHOLD VALUES
 const val LOW_HUMIDITY_VALUE = "LAV"
-const val MEDIUM_HUMIDITY_VALUE = "PASSE"
+const val GOOD_HUMIDITY_VALUE = "PASSE"
 const val HIGH_HUMIDITY_VALUE = "HØY"
 
-// AIRQUALITY THRESHOLD VALUES
-const val LOW_AQI_VALUE = "LAV"            //low       = <1.0-2.0>
-const val MEDIUM_AQI_VALUE = "MODERAT"     //medium    = <2.1-3.0>
-const val HIGH_AQI_VALUE = "BETYDELIG"     //high      = <3.1-4.0>
-const val VERY_HIGH_AQI_VALUE = "ALVORLIG" //very high = <4.1-5.0>
+const val LOW_VALUE = "LAV RISIKO"            //low       = <1.0-2.0>
+const val MEDIUM_VALUE = "MODERAT RISIKO"     //medium    = <2.1-3.0>
+const val HIGH_VALUE = "BETYDELIG RISIKO"     //high      = <3.1-4.0>
+const val VERY_HIGH_VALUE = "ALVORLIG RISIKO" //very high = <4.1-5.0>
 
 const val OFFSET_FOR_HORIZONTAL_SLIDER = -1
 const val OFFSET_FOR_HORIZONTAL_SLIDER_CENTER = -2

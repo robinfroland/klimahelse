@@ -90,7 +90,7 @@ class UvFragment : Fragment() {
         gauge.value = riskValue
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.text = getString(R.string.gauge_risiko, forecast.riskValue)
+        gauge_text.text = getString(R.string.risiko, forecast.riskValue)
         gauge_text.setTextColor(color)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }

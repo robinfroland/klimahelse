@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.HumidityForecast
+import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
@@ -15,37 +16,52 @@ class DashboardViewModel : ViewModel() {
     lateinit var humidityForecastRepository: HumidityForecastRepository
     lateinit var uvForecastRepository: UvForecastRepository
 
+    fun getAirqualityForecast() = airqualityData
 
+    fun getHumidityForecast() = humidityData
 
-    private val airquality: MutableLiveData<MutableList<AirqualityForecast>> by lazy {
+    fun getUvForecast() = uvData
+
+    private val airqualityData: MutableLiveData<MutableList<AirqualityForecast>> by lazy {
         MutableLiveData<MutableList<AirqualityForecast>>().also {
-            loadAirquality()
+            loadAirqualityForecast()
         }
     }
 
-    private fun loadAirquality() {
-
-        viewModelScope.launch {
-            val deferred = async(Dispatchers.IO) { airqualityForecastRepository.fetchAirquality() }
-            airquality.value = deferred.await()
-        }
-    }
-
-    fun getAirqualityForecast() = airquality
-
-    private val humidity: MutableLiveData<MutableList<HumidityForecast>> by lazy {
+    private val humidityData: MutableLiveData<MutableList<HumidityForecast>> by lazy {
         MutableLiveData<MutableList<HumidityForecast>>().also {
-            loadHumidity()
+            loadHumidityForecast()
         }
     }
 
-    private fun loadHumidity() {
+    private val uvData: MutableLiveData<MutableList<UvForecast>> by lazy {
+        MutableLiveData<MutableList<UvForecast>>().also {
+            loadUvData()
+        }
+    }
 
+    private fun loadAirqualityForecast() {
         viewModelScope.launch {
-            val deferred = async(Dispatchers.IO) { humidityForecastRepository.fetchHumidity() }
-            humidity.value = deferred.await()
+            airqualityData.value = withContext(Dispatchers.IO) {
+                airqualityForecastRepository.fetchAirquality()
+            }
         }
     }
 
-    fun getHumidityForecast() = humidity
+    private fun loadHumidityForecast() {
+        viewModelScope.launch {
+            humidityData.value = withContext(Dispatchers.IO) {
+                humidityForecastRepository.fetchHumidity()
+            }
+        }
+    }
+
+    private fun loadUvData() {
+        viewModelScope.launch {
+            uvData.value = withContext(Dispatchers.IO) {
+                uvForecastRepository.fetchUv()
+            }
+        }
+    }
+
 }

@@ -67,7 +67,7 @@ class HumidityFragment : Fragment() {
         viewModel.getHumdityForecast().observe(this, Observer { forecast ->
             val humidityForecast = forecast[0]
             gauge.value = humidityForecast.humidityValue.toInt()
-            risk_value.text = humidityForecast.riskValue
+            value_label.text = humidityForecast.riskValue
             gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
         })
     }
