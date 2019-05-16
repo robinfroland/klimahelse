@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class HumidityForecast(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-
+    val from: String,
     val riskValue: String,
     val latitude: Double,
     val longitude: Double,
@@ -16,6 +16,7 @@ data class HumidityForecast(
 )
 
 val emptyHumidityForecast = HumidityForecast(
+    from = "",
     riskValue = "",
     latitude = 0.00,
     longitude = 0.00,

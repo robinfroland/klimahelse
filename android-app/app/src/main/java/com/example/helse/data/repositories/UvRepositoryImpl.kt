@@ -1,6 +1,5 @@
 package com.example.helse.data.repositories
 
-import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.fragment.app.Fragment
 import com.example.helse.data.api.UvApi

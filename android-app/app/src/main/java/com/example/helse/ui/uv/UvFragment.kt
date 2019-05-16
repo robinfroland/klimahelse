@@ -1,7 +1,6 @@
 package com.example.helse.ui.uv
 
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.UvResponse
 import com.example.helse.data.database.LocalDatabase
-import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.UvRepositoryImpl
 import com.example.helse.utilities.Injector

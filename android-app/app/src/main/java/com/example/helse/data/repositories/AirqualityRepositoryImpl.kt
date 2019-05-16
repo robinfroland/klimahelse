@@ -6,17 +6,10 @@ import com.example.helse.data.api.AirqualityApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.utilities.Injector
 import com.example.helse.utilities.LAST_API_CALL_AIRQUALITY
 import com.example.helse.utilities.THIRTY_MINUTES
 import com.example.helse.utilities.Preferences
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.lang.Error
-import java.util.HashMap
 
 interface AirqualityRepository {
     suspend fun fetchAirquality(): MutableList<AirqualityForecast>
@@ -29,6 +22,7 @@ class AirqualityRepositoryImpl(
     val location: Location
 ) : AirqualityRepository {
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
+
     @WorkerThread
     override suspend fun fetchAirquality(): MutableList<AirqualityForecast> {
         lateinit var airquality: MutableList<AirqualityForecast>

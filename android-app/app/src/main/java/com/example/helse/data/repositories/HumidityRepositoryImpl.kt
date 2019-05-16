@@ -34,7 +34,7 @@ class HumidityRepositoryImpl(
         // Data is either never fetched, or old, fetch new from API
         if (timePrev < 0 || (timeNow - timePrev) >= THIRTY_MINUTES) {
             humidity = humidityApi.fetchHumidity()
-            humidityDao.insertAll(humidity)
+            humidityDao.insert(humidity)
             preferences.setLastApiCall(location, LAST_API_CALL_HUMIDTY, timeNow)
         } else {
             // Data exists in database, retrieve it
