@@ -10,7 +10,7 @@ import com.example.helse.data.entities.HumidityForecast
 interface HumidityDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(humdity: MutableList<HumidityForecast>)
+    fun insert(humdity: MutableList<HumidityForecast>)
 
     @Query("DELETE FROM humidityForecast")
     fun deleteAll()
