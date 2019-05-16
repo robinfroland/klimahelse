@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
-
+import com.example.helse.utilities.Injector
 import com.example.helse.data.api.HumidityResponse
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
@@ -21,13 +21,6 @@ import com.example.helse.data.repositories.HumidityRepositoryImpl
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
-import kotlinx.android.synthetic.main.fragment_humidity.gauge
-import kotlinx.android.synthetic.main.fragment_humidity.gauge_img
-import kotlinx.android.synthetic.main.fragment_humidity.gauge_text
-import kotlinx.android.synthetic.main.fragment_humidity.location
-import kotlinx.android.synthetic.main.fragment_humidity.risk_list
-import kotlinx.android.synthetic.main.fragment_humidity.time_and_date
-import kotlinx.android.synthetic.main.fragment_humidity.toolbar_title
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +29,7 @@ class HumidityFragment : Fragment() {
     private lateinit var viewAdapter: HumidityHorizontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
+    private lateinit var viewModel: HumidityViewModel
     private var timeList = mutableListOf<HumidityForecast>()
     private var hourOfDay = 0
 
@@ -49,6 +43,7 @@ class HumidityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
@@ -60,7 +55,9 @@ class HumidityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        val preferences = Injector.getAppPreferences(requireContext())
+        initViewModel()
+        observeDataStream()
+
         val selectedLocation = preferences.getLocation()
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
@@ -129,5 +126,21 @@ class HumidityFragment : Fragment() {
         val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)
         time_and_date.text = getString(R.string.time_and_date, formattedDate)
         viewAdapter.notifyDataSetChanged()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
+            .apply {
+                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
+            }
+    }
+
+    private fun observeDataStream() {
+        viewModel.getHumdityForecast().observe(this, Observer { forecast ->
+            val humidityForecast = forecast[0]
+            gauge.value = humidityForecast.humidityValue.toInt()
+            risk_value.text = humidityForecast.riskValue
+            gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
+        })
     }
 }

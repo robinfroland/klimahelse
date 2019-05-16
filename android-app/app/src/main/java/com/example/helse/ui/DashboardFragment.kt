@@ -23,7 +23,6 @@ class DashboardFragment : Fragment() {
     private lateinit var viewAdapter: ModuleAdapter
     private lateinit var airqualityModule: Module
     private lateinit var uvModule: Module
-    private lateinit var allergyModule: Module
     private lateinit var humidityModule: Module
     private lateinit var preferences: Preferences
 
@@ -37,12 +36,11 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         super.onViewCreated(view, savedInstanceState)
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
+
         val viewManager = LinearLayoutManager(context)
         viewAdapter = ModuleAdapter(enabledModules)
         module_list.apply {
@@ -82,16 +80,12 @@ class DashboardFragment : Fragment() {
             UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling",
             "MEDIUM", false
         )
-        allergyModule = Module(
-            ALLERGY_MODULE, R.drawable.ic_launcher_foreground,
-            "Pollenspredning", "MEDIUM", false
-        )
         humidityModule = Module(
             HUMIDITY_MODULE, R.drawable.ic_humidity_2x,
             "Luftfuktighet", "MEDIUM", false
         )
 
-        allModules = arrayListOf(airqualityModule, uvModule, humidityModule, allergyModule)
+        allModules = arrayListOf(airqualityModule, uvModule, humidityModule)
         enabledModules = arrayListOf()
     }
 }

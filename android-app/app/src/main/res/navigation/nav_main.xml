@@ -33,13 +33,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/dashboard_to_allergy"
-            app:destination="@+id/allergyFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
             android:id="@+id/dashboard_to_search"
             app:destination="@id/searchFragment" />
     </fragment>
@@ -88,28 +81,6 @@
         android:name="com.example.helse.ui.airquality.AirqualityInformationFragment"
         android:label="Om luftkvalitet"
         tools:layout="@layout/fragment_airquality_information" />
-
-    <!-- Allergy- -->
-    <fragment
-        android:id="@+id/allergyFragment"
-        android:name="com.example.helse.ui.allergy.AllergyFragment"
-        android:label="Pollenspredning"
-        tools:layout="@layout/fragment_allergy">
-        <action
-            android:id="@+id/allergy_to_information"
-            app:destination="@+id/allergyInformationFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <!-- Allergy Information -->
-    <fragment
-        android:id="@+id/allergyInformationFragment"
-        android:name="com.example.helse.ui.allergy.AllergyInformationFragment"
-        android:label="Om pollenspredning"
-        tools:layout="@layout/fragment_allergy_information" />
 
     <!-- UV -->
     <fragment
@@ -167,7 +138,7 @@
 
     <fragment
         android:id="@+id/locationSettingsFragment"
-        android:name="com.example.helse.ui.settings.LocationSettingsFragment"
+        android:name="com.example.helse.ui.onboarding.LocationSettingsFragment"
         android:label="Posisjon">
         <action
             android:id="@+id/locationsettings_to_search"

@@ -3,10 +3,16 @@ package com.example.helse.utilities
 import android.Manifest
 import android.content.pm.PackageManager
 
+
+// BASE URL
+const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
+const val HUMIDITY_BASE_URL = "https://api.met.no/weatherapi/locationforecast/1.9/?"
+const val UV_BASE_URL = "https://api.met.no/weatherapi/uvforecast/1.0/available"
+const val STATIONS_BASE_URL = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
+
 // MODULE KEYS
 const val AIRQUALITY_MODULE = "AIRQUALITY_MODULE"
 const val UV_MODULE = "UV_MODULE"
-const val ALLERGY_MODULE = "ALLERGY_MODULE"
 const val HUMIDITY_MODULE = "HUMIDITY_MODULE"
 
 // SHARED PREFERENCE KEYS

@@ -1,4 +1,4 @@
-package com.example.helse.ui.onboarding
+package com.example.helse
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,14 +6,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.viewpager.widget.ViewPager
-import com.example.helse.MainActivity
-import com.example.helse.R
 import com.example.helse.adapters.OnboardingAdapter
-import com.example.helse.ui.settings.DashboardSettingsFragment
-import com.example.helse.ui.settings.LocationSettingsFragment
-import com.example.helse.ui.settings.PushSettingsFragment
 import com.example.helse.utilities.Injector
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
@@ -24,17 +18,24 @@ class OnboardingActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setFullscreen()
         super.onCreate(savedInstanceState)
-
         viewPager.adapter = OnboardingAdapter(supportFragmentManager)
+        viewPager.setOnPageListener()
 
         updateDotIndicator(0)
         setDotClickListener()
+
         finishBtn.setOnClickListener {
             // if location == null, toast: må velge posisjon
             finishOnboarding()
         }
-        viewPager.setOnPageListener()
 
+        nextBtn.setOnClickListener {
+            viewPager.currentItem = viewPager.currentItem + 1
+        }
+
+        backBtn.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
@@ -113,12 +114,20 @@ class OnboardingActivity : AppCompatActivity() {
         this.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 updateDotIndicator(position)
-                if (position == 3) {
+                if (position == 1 || position == 2) {
+                    nextBtn.visibility = View.VISIBLE
+                    backBtn.visibility = View.VISIBLE
+                    finishBtn.visibility = View.GONE
+                } else if (position == 3) {
+                    nextBtn.visibility = View.GONE
                     finishBtn.visibility = View.VISIBLE
                 } else {
                     finishBtn.visibility = View.GONE
+                    nextBtn.visibility = View.GONE
+                    backBtn.visibility = View.GONE
                 }
             }
+
 
             override fun onPageScrollStateChanged(state: Int) {
             }

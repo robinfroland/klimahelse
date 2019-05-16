@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.example.helse.ui.onboarding.OnboardingActivity
 import com.example.helse.utilities.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
@@ -61,7 +60,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     private fun setFirstLaunch() {
         val preferences = Injector.getAppPreferences(this)
-
         if (preferences.isFirstLaunch()) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()

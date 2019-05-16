@@ -9,11 +9,13 @@ import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 
-@Database(entities = [  Location::class,
-                        AirqualityForecast::class,
-                        HumidityForecast::class,
-                        UvForecast::class
-                    ], version = 1, exportSchema = false)
+@Database(
+    entities = [Location::class,
+        AirqualityForecast::class,
+        HumidityForecast::class,
+        UvForecast::class
+    ], version = 1, exportSchema = false
+)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun locationDao(): LocationDao

@@ -6,11 +6,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <permission android:name="com.name.name.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="com.name.name.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.name.name.permission.C2D_MESSAGE" />
 
     <application
+        android:name="com.example.helse.utilities.AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,20 +26,19 @@
             android:value="AIzaSyA3CE0fF3MUIW6ermI8ZFgriz8tA4Y9S7U" />
 
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name=".OnboardingActivity"
             android:theme="@style/SplashTheme" />
 
         <activity
             android:name=".MainActivity"
-            android:label="Klimahelse"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/SplashTheme">
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="adjustPan">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
 </manifest>

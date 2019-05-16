@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
@@ -18,6 +19,7 @@ import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 import java.text.SimpleDateFormat
@@ -25,7 +27,7 @@ import java.text.SimpleDateFormat
 
 class AirqualityFragment : Fragment() {
 
-    lateinit var preferences: AppPreferences
+    private lateinit var viewModel: AirqualityViewModel
     private lateinit var viewAdapter: AirqualityHorizontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
@@ -45,6 +47,9 @@ class AirqualityFragment : Fragment() {
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
+        initViewModel()
+        observeDataStream()
+
         viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = AirqualityHorizontalAdapter(timeList, this)
         LinearSnapHelper().attachToRecyclerView(risk_list)
@@ -53,31 +58,9 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        preferences = Injector.getAppPreferences(requireContext())
-        val savedLocation = preferences.getLocation()
-        location.text = "%s, %s".format(savedLocation.location, savedLocation.superlocation)
+        val selectedLocation = Injector.getLocation(requireContext())
+        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
-        val airqualityViewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
-            .apply {
-                airqualityRepository = AirqualityRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                    AirqualityResponse(
-                        savedLocation,
-                        this@AirqualityFragment
-                    ),
-                    this@AirqualityFragment,
-                    savedLocation
-                )
-            }
-
-        airqualityViewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
-            for (i in 0 until forecasts.size){
-                timeList.add(forecasts[i])
-            }
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-            viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,6 +76,29 @@ class AirqualityFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
+            .apply {
+                airqualityRepository = Injector.getAirqualityForecastRepository(requireContext())
+            }
+    }
+
+    private fun observeDataStream() {
+        viewModel.getAirqualityForecast().observe(this, Observer { forecasts ->
+            for (i in 0 until forecasts.size){
+                timeList.add(forecasts[i])
+            }
+            viewAdapter.notifyDataSetChanged()
+            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.info_menu, menu)
+    }
+
 
     private fun initGauge(forecast: AirqualityForecast) {
         val riskValue = convertRiskToInt(forecast.riskValue)

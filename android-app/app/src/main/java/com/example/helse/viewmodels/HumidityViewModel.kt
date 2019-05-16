@@ -4,14 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.HumidityForecast
-import com.example.helse.data.repositories.HumidityRepository
+import com.example.helse.data.repositories.HumidityForecastRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class HumidityViewModel : ViewModel() {
 
-    lateinit var humidityRepository: HumidityRepository
+    lateinit var humidityRepository: HumidityForecastRepository
 
     private val forecasts: MutableLiveData<MutableList<HumidityForecast>> by lazy {
         MutableLiveData<MutableList<HumidityForecast>>().also {

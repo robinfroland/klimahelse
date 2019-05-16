@@ -10,11 +10,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.LocationAdapter
-import com.example.helse.data.api.LocationResponse
+import com.example.helse.data.api.LocationApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.alnabruLocation
-import com.example.helse.data.repositories.LocationRepositoryImpl
+import com.example.helse.data.repositories.LocationRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.SearchViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -116,10 +116,7 @@ class SearchFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
             .apply {
-                locationRepository = LocationRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse(this@SearchFragment.activity)
-                )
+                locationRepository = Injector.getLocationRepository(requireContext())
             }
     }
 

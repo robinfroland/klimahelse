@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.helse.R
-import com.example.helse.data.api.AirqualityResponse
-import com.example.helse.data.api.LocationResponse
+import com.example.helse.data.api.LocationApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
-import com.example.helse.data.repositories.AirqualityRepositoryImpl
-import com.example.helse.data.repositories.LocationRepositoryImpl
+import com.example.helse.data.repositories.LocationRepository
 import com.example.helse.utilities.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
@@ -63,10 +60,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         GlobalScope.launch {
             runCatching {
-                val locations = LocationRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).locationDao(),
-                    LocationResponse(this@MapFragment.requireActivity())
-                ).getAllLocations()
+                val locations = Injector.getLocationRepository(requireContext()).getAllLocations()
 
                 addAirqualityToMap(p0, locations)
             }
@@ -91,7 +85,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             runCatching {
                 for (i in 0 until locations.size) {
                     val location = locations[i]
-                    val forecast = getForecastForLocationAsync(location, this@MapFragment).await()
+                    val forecast = getForecastForLocationAsync(location).await()
 
                     var color = when (forecast.riskValue) {
                         LOW_AQI_VALUE -> R.color.greenLowRisk
@@ -122,16 +116,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    private fun getForecastForLocationAsync(location: Location, mapFragment: Fragment): Deferred<AirqualityForecast> {
+    private fun getForecastForLocationAsync(location: Location): Deferred<AirqualityForecast> {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-            val airqualityRepo = AirqualityRepositoryImpl(
-                LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                AirqualityResponse(location, mapFragment),
-                this@MapFragment,
-                location
-            )
+            val airqualityRepo = Injector.getAirqualityForecastRepository(requireContext())
 
             val airquality = airqualityRepo.fetchAirquality()
             airquality[hourOfDay]
