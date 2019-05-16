@@ -82,8 +82,8 @@ class HumidityFragment : Fragment() {
             timeList.clear()
             for (i in 0 until 24){
                 timeList.add(forecasts[i])
-
             }
+
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
             setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
@@ -106,7 +106,6 @@ class HumidityFragment : Fragment() {
         risk_value.text = getString(R.string.gauge_humidity, forecast.riskValue)
         gauge_text.text = getString(R.string.precentage, forecast.humidityValue)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-
     }
 
     fun setScreenToChosenTime(forecast: HumidityForecast, index : Int) {

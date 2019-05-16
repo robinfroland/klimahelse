@@ -149,7 +149,7 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                 .apply { setInput(inputStream, null) }
 
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                if (parser.eventType != XmlPullParser.START_TAG ) {
+                if (parser.eventType != XmlPullParser.START_TAG) {
                     continue
                 }
 
@@ -159,14 +159,12 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
 
                 if(parser.name == "time"){
                     val from = parser.getAttributeValue(1).toString()
-
                     repeat(2) {
                         parser.nextTag()
                     }
 
                     if (parser.name == "temperature") {
                         val temperature = parser.getAttributeValue(2).toDouble()
-
                         repeat(10) {
                             parser.nextTag()
                         }
@@ -189,7 +187,6 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                     }
                 }
             }
-            Log.i("ARAN", parsedResponse.size.toString())
         }
     return parsedResponse
 }
