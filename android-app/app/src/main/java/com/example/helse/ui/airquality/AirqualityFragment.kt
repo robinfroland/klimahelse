@@ -8,18 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.AirqualityHorizontalAdapter
-import com.example.helse.data.api.AirqualityResponse
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.repositories.AirqualityRepositoryImpl
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
-import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 import java.text.SimpleDateFormat
@@ -31,7 +26,6 @@ class AirqualityFragment : Fragment() {
     private lateinit var viewAdapter: AirqualityHorizontalAdapter
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
-    private var hourOfDay = 0
     private  var timeList = mutableListOf<AirqualityForecast>()
 
     override fun onCreateView(
@@ -90,15 +84,10 @@ class AirqualityFragment : Fragment() {
                 timeList.add(forecasts[i])
             }
             viewAdapter.notifyDataSetChanged()
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.info_menu, menu)
-    }
-
 
     private fun initGauge(forecast: AirqualityForecast) {
         val riskValue = convertRiskToInt(forecast.riskValue)

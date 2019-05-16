@@ -12,12 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
-import com.example.helse.utilities.Injector
-import com.example.helse.data.api.HumidityResponse
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
-import com.example.helse.data.repositories.HumidityRepositoryImpl
-
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
@@ -31,7 +26,6 @@ class HumidityFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var viewModel: HumidityViewModel
     private var timeList = mutableListOf<HumidityForecast>()
-    private var hourOfDay = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,32 +52,8 @@ class HumidityFragment : Fragment() {
         initViewModel()
         observeDataStream()
 
-        val selectedLocation = preferences.getLocation()
+        val selectedLocation = Injector.getLocation(requireContext())
         location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
-
-        val humidityViewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
-            .apply {
-                humidityRepository = HumidityRepositoryImpl(
-                    LocalDatabase.getInstance(requireContext()).humidityDao(),
-                    HumidityResponse(
-                        selectedLocation,
-                        this@HumidityFragment
-                    ),
-                    this@HumidityFragment,
-                    selectedLocation
-                )
-            }
-
-        humidityViewModel.getHumdityForecast().observe(this, Observer { forecasts ->
-            timeList.clear()
-            for (i in 0 until 24){
-                timeList.add(forecasts[i])
-
-            }
-            hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-            viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -98,6 +68,26 @@ class HumidityFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
+            .apply {
+                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
+            }
+    }
+
+    private fun observeDataStream() {
+        viewModel.getHumdityForecast().observe(this, Observer { forecasts ->
+            timeList.clear()
+            for (i in 0 until 24){
+                timeList.add(forecasts[i])
+
+            }
+            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            viewAdapter.notifyDataSetChanged()
+            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
+        })
     }
 
     private fun initGauge(forecast: HumidityForecast) {
@@ -126,21 +116,5 @@ class HumidityFragment : Fragment() {
         val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)
         time_and_date.text = getString(R.string.time_and_date, formattedDate)
         viewAdapter.notifyDataSetChanged()
-    }
-
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
-            .apply {
-                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
-            }
-    }
-
-    private fun observeDataStream() {
-        viewModel.getHumdityForecast().observe(this, Observer { forecast ->
-            val humidityForecast = forecast[0]
-            gauge.value = humidityForecast.humidityValue.toInt()
-            risk_value.text = humidityForecast.riskValue
-            gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
-        })
     }
 }
