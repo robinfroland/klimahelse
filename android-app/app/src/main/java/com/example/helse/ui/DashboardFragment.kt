@@ -82,8 +82,10 @@ class DashboardFragment : Fragment() {
         }
 
         if (enabledModules.isEmpty()) {
+            dashboard_top.visibility = View.INVISIBLE
             empty_dashboard_text.visibility = View.VISIBLE
         } else {
+            dashboard_top.visibility = View.VISIBLE
             empty_dashboard_text.visibility = View.GONE
         }
 
