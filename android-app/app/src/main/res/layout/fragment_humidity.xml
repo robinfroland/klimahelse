@@ -51,6 +51,7 @@
         android:layout_width="210dp"
         android:layout_height="205dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:padding="17dp"
         app:gaugePointStartColor="@color/colorPrimaryDark"
         app:gaugePointEndColor="@color/colorPrimaryLight"

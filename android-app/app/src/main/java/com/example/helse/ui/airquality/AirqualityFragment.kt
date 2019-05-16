@@ -76,7 +76,7 @@ class AirqualityFragment : Fragment() {
             }
             hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER])
+            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
 
@@ -111,7 +111,9 @@ class AirqualityFragment : Fragment() {
 
     }
 
-    fun setScreenToChosenTime(forecast: AirqualityForecast) {
+    fun setScreenToChosenTime(forecast: AirqualityForecast, index: Int) {
+        viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
+
         o3_concentration.text = getString(R.string.concentration, forecast.o3_concentration)
         no2_concentration.text = getString(R.string.concentration, forecast.no2_concentration)
         pm10_concentration.text = getString(R.string.concentration, forecast.pm10_concentration)
