@@ -12,12 +12,13 @@ class AirqualityForecastRepository(
 ) {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val location: Location = preferences.getLocation()
+    private val selectedLocation: Location = preferences.getLocation()
 
-    fun fetchAirquality(): MutableList<AirqualityForecast> {
+    // Default location is the location selected by the user
+    fun fetchAirquality(location: Location = selectedLocation): MutableList<AirqualityForecast> {
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
-        if (dataIsStale()) {
+        if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
             airqualityForecast = airqualityApi.fetchAirquality()
             airqualityDao.insert(airqualityForecast)
@@ -31,7 +32,7 @@ class AirqualityForecastRepository(
         return airqualityForecast
     }
 
-    private fun dataIsStale(): Boolean {
+    private fun dataIsStale(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
 

@@ -119,7 +119,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             val airqualityRepo = Injector.getAirqualityForecastRepository(requireContext())
 
-            val airquality = airqualityRepo.fetchAirquality()
+            val airquality = airqualityRepo.fetchAirquality(location)
             airquality[hourOfDay]
         }
     }

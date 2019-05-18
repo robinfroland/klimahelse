@@ -102,7 +102,7 @@
         app:layout_constraintTop_toTopOf="@+id/gauge" />
 
     <TextView
-        android:id="@+id/value_label"
+        android:id="@+id/risk_value"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
