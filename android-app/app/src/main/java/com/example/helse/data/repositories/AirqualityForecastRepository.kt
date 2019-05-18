@@ -28,6 +28,7 @@ class AirqualityForecastRepository(
         } else {
             // Retrieve data from database
             airqualityForecast = airqualityDao.get(location.stationID)
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality()
         }
         return airqualityForecast
     }

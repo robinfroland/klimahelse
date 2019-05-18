@@ -38,7 +38,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
         when(value) {
             LOW_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)
             MEDIUM_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
-            HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_very_high)
+            HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_high)
             VERY_HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_very_high)
             LOW_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
             GOOD_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)

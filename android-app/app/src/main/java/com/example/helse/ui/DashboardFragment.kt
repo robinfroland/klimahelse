@@ -116,16 +116,15 @@ class DashboardFragment : Fragment() {
 
     private fun initModules() {
         airqualityModule = Module(
-            AIRQUALITY_MODULE, R.drawable.ic_airquality_2x,
-            "Luftkvalitet", ""
+            AIRQUALITY_MODULE, R.drawable.ic_airquality_2x, "Luftkvalitet"
         )
+
         uvModule = Module(
-            UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling",
-            "MEDIUM"
+            UV_MODULE, R.drawable.ic_uv_2x, "UV-stråling"
         )
+
         humidityModule = Module(
-            HUMIDITY_MODULE, R.drawable.ic_humidity_2x,
-            "Luftfuktighet", "MEDIUM"
+            HUMIDITY_MODULE, R.drawable.ic_humidity_2x, "Luftfuktighet"
         )
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule)
