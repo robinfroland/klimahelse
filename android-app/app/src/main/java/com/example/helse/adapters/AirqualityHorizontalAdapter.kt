@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
-import com.example.helse.data.entities.RiskCircles
+import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.ui.airquality.AirqualityFragment
 import kotlinx.android.synthetic.main.list_item_risk.view.*
 
-class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private val fragment: AirqualityFragment) :
+class AirqualityHorizontalAdapter(private val timeList: MutableList<AirqualityForecast>, private val airqualityFragment: AirqualityFragment) :
     RecyclerView.Adapter<CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -20,11 +20,10 @@ class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private 
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, index: Int) {
-        val hourOfDay = timeList[index].hourOfDay.toString()
-        val riskValue = timeList[index].overallRiskValue
-        holder.view.horizontal_item.risk_text.text = ("$hourOfDay:00")
 
-        when (riskValue) {
+        holder.view.horizontal_item.risk_text.text = timeList[index].from.subSequence(11, 16)
+
+        when (timeList[index].riskValue) {
             "LAV" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_low)
             "MODERAT" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_medium)
             "BETYDELIG" -> holder.view.horizontal_item.risk_circle.setBackgroundResource(R.drawable.circle_danger_high)
@@ -32,7 +31,7 @@ class HorisontalAdapter(private val timeList: MutableList<RiskCircles>, private 
         }
 
         holder.view.risk_circle.setOnClickListener {
-            fragment.setScreenToChosenTime(index)
+            airqualityFragment.setScreenToChosenTime(timeList[index], index)
         }
     }
 

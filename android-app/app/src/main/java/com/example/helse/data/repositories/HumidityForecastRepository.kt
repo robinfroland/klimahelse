@@ -21,7 +21,7 @@ class HumidityForecastRepository(
         if (dataIsStale()) {
             // If data is stale and api fetch is needed
             humidityForecast = humidityApi.fetchHumidity()
-            humidityDao.insertAll(humidityForecast)
+            humidityDao.insert(humidityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_HUMIDTY, System.currentTimeMillis()
             )

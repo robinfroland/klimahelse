@@ -1,5 +1,6 @@
 package com.example.helse.utilities
 
+import android.util.Log
 import android.util.Xml
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.HumidityForecast
@@ -38,7 +39,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
     val aqiForecastTimeArray = ArrayList<AirqualityForecast>()
 
-    for (i in 0 until data.length() - 1) {
+    for (i in 0 until 24) {
         val jsonObj = data.getJSONObject(i)
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")
@@ -139,57 +140,51 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
 
 fun Response.parseHumidityResponse(currentLocation: Location): MutableList<HumidityForecast> {
     val parsedResponse = ArrayList<HumidityForecast>()
+    val latitude = currentLocation.latitude
+    val longitude = currentLocation.longitude
 
     this.body()?.byteStream()
         .use { inputStream ->
             val parser: XmlPullParser = Xml.newPullParser()
                 .apply { setInput(inputStream, null) }
-            var previousDistance = Double.MAX_VALUE
 
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
                 if (parser.eventType != XmlPullParser.START_TAG) {
                     continue
                 }
 
-                if (parser.name == "location") {
-                    val latitude = parser.getAttributeValue(1).toDouble()
-                    val longitude = parser.getAttributeValue(2).toDouble()
-                    repeat(3) {
-                        parser.next()
+                if(parsedResponse.size == 24){
+                    break
+                }
+
+                if(parser.name == "time"){
+                    val from = parser.getAttributeValue(1).toString()
+                    repeat(2) {
+                        parser.nextTag()
                     }
 
                     if (parser.name == "temperature") {
                         val temperature = parser.getAttributeValue(2).toDouble()
-                        repeat(9) {
+                        repeat(10) {
                             parser.nextTag()
                         }
 
                         if (parser.name == "humidity") {
                             val humidityValue = parser.getAttributeValue(0).toDouble()
                             val riskValue = calculateHumidityRiskValue(humidityValue)
-                            val distance = calculateDistanceBetweenCoordinates(
-                                currentLocation.latitude,
-                                currentLocation.longitude,
-                                latitude,
-                                longitude
-                            )
 
-                            if (distance < previousDistance) {
-                                parsedResponse.add(
-                                    0,
-                                    HumidityForecast(
-                                        riskValue = riskValue,
-                                        latitude = latitude,
-                                        longitude = longitude,
-                                        humidityValue = humidityValue,
-                                        temperature = temperature
-                                    )
+                            parsedResponse.add(
+                                HumidityForecast(
+                                    from = from,
+                                    riskValue = riskValue,
+                                    latitude = latitude,
+                                    longitude = longitude,
+                                    humidityValue = humidityValue,
+                                    temperature = temperature
                                 )
-                                previousDistance = distance
-                            }
+                            )
                         }
                     }
-
                 }
             }
         }

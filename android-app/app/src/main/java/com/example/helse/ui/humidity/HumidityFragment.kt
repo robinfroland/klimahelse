@@ -1,5 +1,6 @@
 package com.example.helse.ui.humidity
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -8,18 +9,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.helse.utilities.Injector
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.example.helse.adapters.HumidityHorizontalAdapter
+import com.example.helse.data.entities.HumidityForecast
+import com.example.helse.utilities.*
 import com.example.helse.viewmodels.HumidityViewModel
 import kotlinx.android.synthetic.main.fragment_humidity.*
-import kotlinx.android.synthetic.main.fragment_humidity.gauge
-import kotlinx.android.synthetic.main.fragment_humidity.gauge_text
-import kotlinx.android.synthetic.main.fragment_humidity.location
-import kotlinx.android.synthetic.main.fragment_humidity.toolbar_title
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HumidityFragment : Fragment() {
 
+    private lateinit var viewAdapter: HumidityHorizontalAdapter
+    private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
     private lateinit var viewModel: HumidityViewModel
+    private var timeList = mutableListOf<HumidityForecast>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +40,14 @@ class HumidityFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
+
+        viewManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        viewAdapter = HumidityHorizontalAdapter(timeList, this)
+        LinearSnapHelper().attachToRecyclerView(risk_list)
+        risk_list.apply {
+            adapter = viewAdapter
+            layoutManager = viewManager
+        }
 
         initViewModel()
         observeDataStream()
@@ -64,12 +78,42 @@ class HumidityFragment : Fragment() {
     }
 
     private fun observeDataStream() {
-        viewModel.getHumdityForecast().observe(this, Observer { forecast ->
-            val humidityForecast = forecast[0]
-            gauge.value = humidityForecast.humidityValue.toInt()
-            risk_value.text = humidityForecast.riskValue
-            gauge_text.text = getString(R.string.precentage, humidityForecast.humidityValue)
+        viewModel.getHumdityForecast().observe(this, Observer { forecasts ->
+            timeList.clear()
+            for (i in 0 until 24){
+                timeList.add(forecasts[i])
+            }
+
+            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+            viewAdapter.notifyDataSetChanged()
+            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
 
+    private fun initGauge(forecast: HumidityForecast) {
+
+        val color = when(forecast.riskValue) {
+            "LAV"  ->  resources.getColor(R.color.colorSaharaYellow, null)
+            "PASSE"-> resources.getColor(R.color.colorPrimary, null)
+            else   -> resources.getColor(R.color.colorPrimaryDark, null)
+        }
+
+        gauge.pointStartColor = color
+        gauge.pointEndColor = color
+        gauge_text.setTextColor(color)
+        risk_value.setTextColor(color)
+        gauge.value = forecast.humidityValue.toInt()
+        risk_value.text = getString(R.string.gauge_humidity, forecast.riskValue)
+        gauge_text.text = getString(R.string.precentage, forecast.humidityValue)
+        gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+    }
+
+    fun setScreenToChosenTime(forecast: HumidityForecast, index : Int) {
+        viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
+        initGauge(forecast)
+        val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(forecast.from)
+        val formattedDate = SimpleDateFormat(DATE_PATTERN, Locale(("NO"))).format(date)
+        time_and_date.text = getString(R.string.time_and_date, formattedDate)
+        viewAdapter.notifyDataSetChanged()
+    }
 }
