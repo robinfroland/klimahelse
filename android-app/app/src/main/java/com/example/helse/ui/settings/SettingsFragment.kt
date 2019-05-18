@@ -17,12 +17,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.root_settings)
-        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
-        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbar_title)
-        toolbar?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
-        toolbarTitle?.text = findNavController().currentDestination?.label
-    }
 
+    }
 
 //    private lateinit var locationClient: FusedLocationProviderClient
 //    private lateinit var preferences: Preferences
@@ -33,7 +29,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //    ): View? {
 //        val view = inflater.inflate(R.layout.onboarding_dashboard_desc, container, false)
 //        view.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorWhite))
-//        locationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+//        locationClient = LocationServices.getFusedLoc ationProviderClient(requireActivity())
 //        preferences = Injector.getAppPreferences(requireContext())
 //
 //        return view
