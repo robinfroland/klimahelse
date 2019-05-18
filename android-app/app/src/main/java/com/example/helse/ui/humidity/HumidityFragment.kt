@@ -12,10 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
-
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
-
 import com.example.helse.utilities.*
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
