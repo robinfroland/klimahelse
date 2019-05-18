@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -85,7 +86,7 @@
         android:tint="@color/colorPrimary"/>
 
     <TextView
-        android:id="@+id/gauge_text"
+        android:id="@+id/humidity_percentage"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -102,21 +103,21 @@
         app:layout_constraintTop_toTopOf="@+id/gauge" />
 
     <TextView
-        android:id="@+id/risk_value"
+        android:id="@+id/risk_label"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="17sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:text="@string/precentage_placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/humidity_percentage"
         app:layout_constraintVertical_bias="0.01"
-        app:layout_constraintTop_toBottomOf="@id/gauge_text"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        tools:text="RISK LABEL" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/risk_list"
@@ -127,7 +128,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/risk_value"
+        app:layout_constraintTop_toBottomOf="@+id/risk_label"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

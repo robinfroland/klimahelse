@@ -83,7 +83,7 @@ class HumidityFragment : Fragment() {
     private fun observeDataStream() {
         viewModel.getHumdityForecast().observe(this, Observer { forecasts ->
             timeList.clear()
-            for (i in 0 until 24){
+            for (i in 0 until 24) {
                 timeList.add(forecasts[i])
             }
 
@@ -94,24 +94,23 @@ class HumidityFragment : Fragment() {
     }
 
     private fun initGauge(forecast: HumidityForecast) {
-
-        val color = when(forecast.riskValue) {
-            "LAV"  ->  resources.getColor(R.color.colorSaharaYellow, null)
-            "PASSE"-> resources.getColor(R.color.colorPrimary, null)
-            else   -> resources.getColor(R.color.colorPrimaryDark, null)
+        val color = when (forecast.riskValue) {
+            LOW_HUMIDITY_VALUE -> resources.getColor(R.color.colorSaharaYellow, null)
+            GOOD_HUMIDITY_VALUE -> resources.getColor(R.color.colorPrimary, null)
+            else -> resources.getColor(R.color.colorPrimaryDark, null)
         }
 
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.setTextColor(color)
-        risk_value.setTextColor(color)
         gauge.value = forecast.humidityValue.toInt()
-        risk_value.text = getString(R.string.gauge_humidity, forecast.riskValue)
-        gauge_text.text = getString(R.string.precentage, forecast.humidityValue)
+        risk_label.setTextColor(color)
+        risk_label.text = forecast.riskValue
+        humidity_percentage.setTextColor(color)
+        humidity_percentage.text = getString(R.string.precentage, forecast.humidityValue)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setScreenToChosenTime(forecast: HumidityForecast, index : Int) {
+    fun setScreenToChosenTime(forecast: HumidityForecast, index: Int) {
         viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         initGauge(forecast)
         val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(forecast.from)

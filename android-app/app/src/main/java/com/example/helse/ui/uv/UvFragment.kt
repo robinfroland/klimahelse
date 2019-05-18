@@ -10,13 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.convertRiskToInt
+import com.example.helse.utilities.*
 import com.example.helse.viewmodels.UvViewModel
 import kotlinx.android.synthetic.main.fragment_uv.*
 import kotlinx.android.synthetic.main.fragment_uv.gauge
 import kotlinx.android.synthetic.main.fragment_uv.gauge_img
-import kotlinx.android.synthetic.main.fragment_uv.gauge_text
+import kotlinx.android.synthetic.main.fragment_uv.risk_label
 import kotlinx.android.synthetic.main.fragment_uv.location
 import kotlinx.android.synthetic.main.fragment_uv.toolbar_title
 
@@ -78,20 +77,18 @@ class UvFragment : Fragment() {
     }
 
     private fun initGauge(forecast: UvForecast) {
-        val riskValue = convertRiskToInt(forecast.riskValue)
-        val color: Int
-
-        color = when {
-            riskValue > 2 -> resources.getColor(R.color.colorDangerMedium, null)
-            riskValue > 3 -> resources.getColor(R.color.colorDangerHigh, null)
-            riskValue > 4 -> resources.getColor(R.color.colorDangerVeryHigh, null)
-            else -> resources.getColor(R.color.colorDangerLow, null)
+        val color = when (forecast.riskValue) {
+            LOW_VALUE -> resources.getColor(R.color.colorDangerLow, null)
+            MEDIUM_VALUE -> resources.getColor(R.color.colorDangerMedium, null)
+            HIGH_VALUE -> resources.getColor(R.color.colorDangerHigh, null)
+            else -> resources.getColor(R.color.colorDangerVeryHigh, null)
         }
-        gauge.value = riskValue
+
+        gauge.value = convertRiskToInt(forecast.riskValue)
         gauge.pointStartColor = color
         gauge.pointEndColor = color
-        gauge_text.text = getString(R.string.gauge_risiko, forecast.riskValue)
-        gauge_text.setTextColor(color)
+        risk_label.text = forecast.riskValue
+        risk_label.setTextColor(color)
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 }
