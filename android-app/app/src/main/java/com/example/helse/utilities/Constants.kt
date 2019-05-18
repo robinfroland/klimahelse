@@ -43,6 +43,7 @@ const val VERY_HIGH_VALUE = "ALVORLIG RISIKO" //very high = <4.1-5.0>
 
 // MISC
 const val SETTINGS_LABEL = "Innstillinger"
+const val MAP_LABEL = "Kart"
 
 const val OFFSET_FOR_HORIZONTAL_SLIDER = -1
 const val OFFSET_FOR_HORIZONTAL_SLIDER_CENTER = -2

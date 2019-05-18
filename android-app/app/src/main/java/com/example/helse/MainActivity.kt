@@ -1,6 +1,7 @@
 package com.example.helse
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -50,13 +51,20 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         bottom_navbar.setupWithNavController(navController)
         setupActionBarWithNavController(navController, null)
 
+        // Change toolbar according to fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.label == SETTINGS_LABEL) {
-                toolbar?.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
-                toolbar_title.text = navController.currentDestination?.label
-            } else {
-                toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
-                toolbar_title.text = ""
+            toolbar.setBackgroundColor(Color.TRANSPARENT)
+            toolbar_title.text = ""
+
+            when (destination.label) {
+                SETTINGS_LABEL -> {
+                    toolbar.setBackgroundColor(Color.WHITE)
+                    toolbar_title.text = SETTINGS_LABEL
+                }
+                MAP_LABEL -> {
+                    toolbar.setBackgroundResource(R.drawable.toolbar_map_gradient)
+                    toolbar_title.setTextColor(Color.WHITE)
+                }
             }
         }
     }
