@@ -11,7 +11,7 @@ import com.example.helse.data.entities.emptyLocation
 import com.example.helse.utilities.*
 
 interface UvRepository {
-    suspend fun fetchUv(): UvForecast
+    suspend fun fetchUv(): MutableList<UvForecast>
 }
 
 class UvRepositoryImpl(
@@ -23,8 +23,8 @@ class UvRepositoryImpl(
     private val preferences: Preferences = Injector.getAppPreferences(fragment.requireContext())
 
     @WorkerThread
-    override suspend fun fetchUv(): UvForecast {
-        lateinit var uvForecast: UvForecast
+    override suspend fun fetchUv(): MutableList<UvForecast> {
+        lateinit var uvForecast: MutableList<UvForecast>
 
         val timeNow = System.currentTimeMillis()
         val timePrev = preferences.getLastApiCall(location, LAST_API_CALL_UV)

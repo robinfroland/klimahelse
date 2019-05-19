@@ -13,8 +13,8 @@ class UvViewModel : ViewModel() {
 
     lateinit var uvRepository: UvForecastRepository
 
-    private val forecasts: MutableLiveData<UvForecast> by lazy {
-        MutableLiveData<UvForecast>().also {
+    private val forecasts: MutableLiveData<MutableList<UvForecast>> by lazy {
+        MutableLiveData<MutableList<UvForecast>>().also {
             loadForecast()
         }
     }

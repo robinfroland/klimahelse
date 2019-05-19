@@ -13,7 +13,7 @@ import okhttp3.Response
 import org.xmlpull.v1.XmlPullParser
 
 interface UvApi {
-    fun fetchUv(): UvForecast
+    fun fetchUv(): MutableList<UvForecast>
 }
 
 class UvResponse(
@@ -23,7 +23,7 @@ class UvResponse(
 
     private val client = OkHttpClient()
 
-    override fun fetchUv(): UvForecast {
+    override fun fetchUv(): MutableList<UvForecast> {
         lateinit var response: Response
         return try {
             val uri = fetchUvURI()
@@ -34,12 +34,10 @@ class UvResponse(
 
             response = client.newCall(request).execute()
 
-            println("what $uri")
-
             response.parseUvResponse(location)
         } catch (e: Exception) {
             showNetworkError(uvFragment.requireActivity(), response.code(), e)
-            emptyUvForecast
+            mutableListOf(emptyUvForecast)
         }
     }
 

@@ -40,11 +40,9 @@ class UvForecastRepository(
     }
 
     companion object {
-
         private var INSTANCE: UvForecastRepository? = null
 
         // Singleton instantiation of repository
-
         fun getInstance(
             uvDao: UVDao,
             uvForecastApi: UvForecastApi

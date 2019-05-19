@@ -32,8 +32,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
         setupNavBars()
-//        setupErrorHandling(intent, this)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -73,20 +71,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                 println("NOT SUCCESSFUL")
                 return@OnCompleteListener
             }
-
-            val token = task.result?.token
-
-            println("FIREBASETOKEN $token")
         })
-
-        FirebaseMessaging.getInstance().subscribeToTopic("weather").addOnCompleteListener { task ->
-            var msg = "Weather registered successfully"
-            if (!task.isSuccessful) {
-                msg = "Weather not registered successfully"
-            }
-            println(msg)
-        }
+        FirebaseMessaging.getInstance().subscribeToTopic("weather")
     }
+}
 
     private fun setupDynamicToolbarUi() {
 

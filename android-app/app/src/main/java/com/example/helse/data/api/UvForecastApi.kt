@@ -32,7 +32,6 @@ object UvForecastApi {
         }
     }
 
-
     // Fetch URI's from endpoint. Return URI for today.
     // Tomorrow and day after tomorrow available later if wanted(just return the list instead of index 0
     private fun fetchUvURI(): String {

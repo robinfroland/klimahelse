@@ -73,8 +73,12 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     return aqiForecastTimeArray
 }
 
-fun Response.parseUvResponse(currentLocation: Location): UvForecast {
-    var uvForecast: UvForecast = emptyUvForecast
+fun findClosesCoordinate(currentLatitude: Double, currentLongitude: Double, latitude: Double, longitude: Double) {
+
+}
+
+fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast> {
+    var uvForecast: MutableList<UvForecast> = ArrayList()
 
     try {
         this.body()?.byteStream()
@@ -83,87 +87,62 @@ fun Response.parseUvResponse(currentLocation: Location): UvForecast {
                     .apply { setInput(inputStream, null) }
                 var previousDistance = Double.MAX_VALUE
 
-                println("inputStream: $inputStream")
 
                 while (parser.next() != XmlPullParser.END_DOCUMENT) {
                     if (parser.eventType != XmlPullParser.START_TAG) {
                         continue
                     }
 
-                    println("parser: $parser")
-
                     if (parser.name == "location") {
-                        println("Is location")
                         val latitude = parser.getAttributeValue(0).toDouble()
                         val longitude = parser.getAttributeValue(1).toDouble()
-                        println("latitude $latitude")
-                        println("longitude $longitude")
                         repeat(4) {
-                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
-                                return uvForecast
-                            }
+                            parser.next()
                         }
-                        println("Is location2")
                         val uviClear = parser.getAttributeValue(1).toDouble()
-                        println("uviClear $uviClear")
                         repeat(3) {
-                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
-                                return uvForecast
-                            }
+                            parser.next()
                         }
-                        println("Is location3")
                         val uviPartlyCloudy = parser.getAttributeValue(1).toDouble()
-                        println("uviPartlyCloudy $uviPartlyCloudy")
                         repeat(3) {
-                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
-                                return uvForecast
-                            }
+                            parser.next()
                         }
-                        println("Is location4")
                         val uviCloudy = parser.getAttributeValue(1).toDouble()
-                        println("uviCloudy $uviCloudy")
                         repeat(3) {
-                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
-                                return uvForecast
-                            }
+                            parser.next()
                         }
-                        println("Is location5")
                         val uviForecast = parser.getAttributeValue(1).toDouble()
-                        println("uviForecast $uviForecast")
                         val distance = calculateDistanceBetweenCoordinates(
                             currentLocation.latitude,
                             currentLocation.longitude,
                             latitude,
                             longitude
                         )
-                        println("distance $distance")
-                        println("Is location6")
 
                         if (distance < previousDistance) {
-                            println("Less than previous")
-                            uvForecast = UvForecast(
-                                latitude = latitude,
-                                longitude = longitude,
-                                uvClear = uviClear,
-                                uvPartlyCloudy = uviPartlyCloudy,
-                                uvCloudy = uviCloudy,
-                                uvForecast = uviForecast,
-                                riskValue = calculateUvRiskValue(uviClear)
+                            uvForecast.add(
+                                0,
+                                UvForecast(
+                                    latitude = latitude,
+                                    longitude = longitude,
+                                    uvClear = uviClear,
+                                    uvPartlyCloudy = uviPartlyCloudy,
+                                    uvCloudy = uviCloudy,
+                                    uvForecast = uviForecast,
+                                    riskValue = calculateUvRiskValue(uviClear)
+                                )
                             )
 
                             previousDistance = distance
                         }
-                        println("Is location7")
                     }
                 }
             }
     } catch (error: NumberFormatException) {
-        println("App failed with error $error")
-        println("error: ${error.localizedMessage}")
+        println("parseUvResponse failed with error: $error")
+    } finally {
         return uvForecast
     }
-    println("uvResponse: $uvForecast")
-    return uvForecast
 }
 
 fun Response.parseHumidityResponse(currentLocation: Location): MutableList<HumidityForecast> {
@@ -181,11 +160,11 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                     continue
                 }
 
-                if(parsedResponse.size == 24){
+                if (parsedResponse.size == 24) {
                     break
                 }
 
-                if(parser.name == "time"){
+                if (parser.name == "time") {
                     val from = parser.getAttributeValue(1).toString()
                     repeat(2) {
                         parser.nextTag()
