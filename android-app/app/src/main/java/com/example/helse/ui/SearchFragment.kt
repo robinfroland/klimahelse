@@ -2,11 +2,13 @@ package com.example.helse.ui
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.LocationAdapter
@@ -62,26 +64,25 @@ class SearchFragment : Fragment() {
 
         search_your_position.setOnClickListener {
             getDeviceLocation()
-            val userposition = preferences.getLocation()
-            locationClicked(userposition)
+            findNavController().navigateUp()
         }
     }
 
     private fun getDeviceLocation() {
+        val deviceLocationClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+
         if (preferences.locationPermissionGranted()) {
             try {
-                val location = locationClient.lastLocation
-                location.addOnSuccessListener {
-                    val currentLocation = location.result
-
-                    // Look up elvis operator kotlin if you are confused what this does
-                    val latitude = currentLocation?.latitude ?: alnabruLocation.latitude
-                    val longtitude = currentLocation?.longitude ?: alnabruLocation.longitude
-
-                    preferences.setLocation("Din posisjon", "", latitude, longtitude, "USERPOSITION")
+                deviceLocationClient.lastLocation.addOnSuccessListener {
+                    if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
+                        preferences.setDeviceLocation(it.latitude, it.longitude)
+                    } else {
+                        Toast.makeText(requireContext(),
+                            getString(R.string.failed_location_query), Toast.LENGTH_LONG).show()
+                    }
                 }
             } catch (e: SecurityException) {
-                println(e)
             }
         } else {
             requestPermissions(
@@ -98,7 +99,8 @@ class SearchFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                     getDeviceLocation()
                 } else {
-                    "Velg område manuelt!".toast(context)
+                    Toast.makeText(requireContext(),
+                        getString(R.string.permission_denied_toast), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -129,7 +131,6 @@ class SearchFragment : Fragment() {
             location.longitude,
             location.stationID
         )
-        val view = this.view ?: return
-        Navigation.findNavController(view).navigate(R.id.search_to_dashboard)
+        findNavController().navigateUp()
     }
 }

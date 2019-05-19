@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
-        setupNavigation()
+        setupNavBars()
 //        setupErrorHandling(intent, this)
 
     }
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         return true
     }
 
-    private fun setupNavigation() {
+    private fun setupNavBars() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -51,7 +51,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setupActionBarWithNavController(navController, null)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.label != "Innstillinger") {
+            if (destination.label == SETTINGS_LABEL) {
+                toolbar?.setBackgroundColor(ContextCompat.getColor(this, R.color.colorWhite))
+                toolbar_title.text = navController.currentDestination?.label
+            } else {
                 toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorTransparent))
                 toolbar_title.text = ""
             }

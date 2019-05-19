@@ -7,8 +7,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.Module
-import com.example.helse.utilities.Injector
-import com.example.helse.utilities.Preferences
+import com.example.helse.utilities.*
 import kotlinx.android.synthetic.main.list_item_module.view.*
 
 class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerView.Adapter<ModuleViewHolder>() {
@@ -26,51 +25,47 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: ModuleViewHolder, position: Int) {
-        val iconResourceId = enabledModules[position].iconResourceId
+        val moduleKey = enabledModules[position].moduleKey
+        val moduleIcon = enabledModules[position].iconResourceId
         val category = enabledModules[position].category
-        val dangerIndicator = enabledModules[position].dangerIndicator
-        var pushEnabled = enabledModules[position].pushEnabled
-        holder.module.module_icon.setImageResource(iconResourceId)
-        holder.module.module_title.text = category
-        holder.module.module_dangerindicator.text = dangerIndicator
+        val value = enabledModules[position].dangerIndicator
 
-        when (dangerIndicator) {
-            "HIGH" -> {
-                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_high)
-                holder.module.module_dangerindicator.text = "HØY RISIKO"
-            }
-            "MEDIUM" -> {
-                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_medium)
-                holder.module.module_dangerindicator.text = "MIDDELS RISIKO"
-            }
-            "LOW" -> {
-                holder.module.module_dangerindicator.setBackgroundResource(R.drawable.indicator_danger_low)
-                holder.module.module_dangerindicator.text = "LAV RISIKO"
-            }
+        holder.module.module_icon.setImageResource(moduleIcon)
+        holder.module.module_title.text = category
+        holder.module.value_label.text = value
+
+        // Set correct risk label
+        when(value) {
+            LOW_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)
+            MEDIUM_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
+            HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_high)
+            VERY_HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_very_high)
+            LOW_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
+            GOOD_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)
+            HIGH_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
         }
 
-        if (pushEnabled) {
+        if (preferences.isNotificationEnabled(enabledModules[position])) {
             holder.module.push_btn.setImageResource(R.drawable.ic_notifications_enabled)
         } else {
             holder.module.push_btn.setImageResource(R.drawable.ic_notifications_disabled)
         }
 
         holder.module.card_module.setOnClickListener {
-            when (category.toLowerCase()) {
-                "luftkvalitet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_airquality)
-                "uv-stråling" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_uv)
-                "luftfuktighet" -> Navigation.findNavController(it).navigate(R.id.dashboard_to_humidity)
+            when (moduleKey) {
+                AIRQUALITY_MODULE -> Navigation.findNavController(it).navigate(R.id.dashboard_to_airquality)
+                UV_MODULE -> Navigation.findNavController(it).navigate(R.id.dashboard_to_uv)
+                HUMIDITY_MODULE -> Navigation.findNavController(it).navigate(R.id.dashboard_to_humidity)
             }
         }
+
         holder.module.push_btn.setOnClickListener {
-            when (pushEnabled) {
+            when (preferences.isNotificationEnabled(enabledModules[position])) {
                 true -> {
-                    pushEnabled = false
                     preferences.enableNotifications(enabledModules[position], false)
                     holder.module.push_btn.setImageResource(R.drawable.ic_notifications_disabled)
                 }
                 false -> {
-                    pushEnabled = true
                     holder.module.push_btn.setImageResource(R.drawable.ic_notifications_enabled)
                     preferences.enableNotifications(enabledModules[position], true)
                 }
