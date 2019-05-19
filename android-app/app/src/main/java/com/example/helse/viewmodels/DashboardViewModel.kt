@@ -9,6 +9,7 @@ import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
+import com.example.helse.utilities.Injector
 import kotlinx.coroutines.*
 
 class DashboardViewModel : ViewModel() {

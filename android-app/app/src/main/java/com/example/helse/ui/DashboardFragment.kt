@@ -59,10 +59,17 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        println("On resume")
         updateUi()
     }
 
+    override fun onPause() {
+        super.onPause()
+        println("On pause")
+    }
+
     private fun initViewModel() {
+        println("Init view model")
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
                 airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext())
@@ -72,6 +79,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun updateUi() {
+        println("updateUI")
         val selectedLocation = preferences.getLocation()
         search_dashboard.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
