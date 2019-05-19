@@ -4,6 +4,7 @@
     android:visibility="invisible">
 
     <PreferenceScreen />
+    <PreferenceScreen />
 
     <PreferenceCategory
         android:iconSpaceReserved="false"

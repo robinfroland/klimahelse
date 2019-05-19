@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.helse.R
@@ -30,6 +31,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (preferences.useDeviceLocation()) { getDeviceLocation()}
             true
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setDivider(null)
     }
 
     private fun getDeviceLocation() {

@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/toolbar_title"
-        android:theme="@style/ToolbarTitleTheme"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="20dp"
+        android:theme="@style/ToolbarTitleTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View

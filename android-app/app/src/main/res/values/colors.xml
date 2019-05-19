@@ -16,7 +16,7 @@
 
 
     <!-- Gradient colors -->
-    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorTransparent">#00FFFFFF</color>
     <color name="colorGradientStart">#D9FF43</color>
     <color name="colorGradientCenter">#F67831</color>
     <color name="colorGradientEnd">#FF1493</color>
@@ -42,7 +42,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteUnselected">#80FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
-    <color name="colorGreyLight">#333333</color>
+    <color name="colorGreyLight">#3D3D3D</color>
     <color name="colorWhite_transparent">#31FFFFFF</color>
     <color name="moduleCardBackground">#26FFFFFF</color>
     <color name="colorBottomNavbar">#3391CA</color>
