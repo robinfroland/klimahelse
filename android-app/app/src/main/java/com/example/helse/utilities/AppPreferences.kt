@@ -2,10 +2,13 @@ package com.example.helse.utilities
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Geocoder
 import android.preference.PreferenceManager
 import androidx.core.content.ContextCompat
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.Module
+import java.text.DecimalFormat
+import java.util.*
 
 interface Preferences {
     fun setFirstLaunch(isFirst: Boolean)
@@ -19,6 +22,8 @@ interface Preferences {
     fun getLocation(): Location
     fun setLastApiCall(location: Location, module: String, time: Long)
     fun getLastApiCall(location: Location, module: String): Long
+    fun useDeviceLocation(): Boolean
+    fun setDeviceLocation(lat: Double, lon: Double)
 }
 
 class AppPreferences(context: Context) : Preferences {
@@ -101,6 +106,42 @@ class AppPreferences(context: Context) : Preferences {
             applicationContext,
             LOCATION_PERMISSION
         ) == PERMISSION_GRANTED
+    }
+
+    private fun getDeviceLocationObj(lat: Double, lon: Double): Location {
+        val deviceLocation = Geocoder(applicationContext, Locale.getDefault())
+        val geoLocation = deviceLocation.getFromLocation(lat, lon, 1)
+
+        val superlocation = geoLocation[0].adminArea // e.g: Oslo
+        val location = when {
+            geoLocation[0].subLocality != null -> // e.g: Blindern
+                geoLocation[0].subLocality
+            geoLocation[0].premises != null -> // e.g: Kristen Nygaards hus
+                geoLocation[0].premises
+            else ->
+                geoLocation[0].subAdminArea // e.g: Oslo kommune
+        }
+
+        // Trunctate to 3 decimals to avoid unnecessary accuracy when fetching data later
+        val coordinateTrunctation = DecimalFormat("#.###")
+        val latitude = coordinateTrunctation.format(lat).toDouble()
+        val longtitude = coordinateTrunctation.format(lon).toDouble()
+
+        return Location(location, superlocation, latitude, longtitude, USE_DEVICE_LOCATION)
+    }
+
+    override fun setDeviceLocation(lat: Double, lon: Double) {
+        val deviceLocation = getDeviceLocationObj(lat, lon)
+        setLocation(
+            deviceLocation.location,
+            deviceLocation.superlocation,
+            deviceLocation.latitude,
+            deviceLocation.longitude,
+            deviceLocation.stationID)
+    }
+
+    override fun useDeviceLocation(): Boolean {
+        return preferences.getBoolean(USE_DEVICE_LOCATION, false)
     }
 
     companion object {
