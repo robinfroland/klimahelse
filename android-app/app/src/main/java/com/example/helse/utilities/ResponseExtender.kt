@@ -2,10 +2,7 @@ package com.example.helse.utilities
 
 import android.util.Log
 import android.util.Xml
-import com.example.helse.data.entities.AirqualityForecast
-import com.example.helse.data.entities.HumidityForecast
-import com.example.helse.data.entities.Location
-import com.example.helse.data.entities.UvForecast
+import com.example.helse.data.entities.*
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
@@ -76,51 +73,75 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     return aqiForecastTimeArray
 }
 
-fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast> {
-    val parsedResponse = ArrayList<UvForecast>()
+fun Response.parseUvResponse(currentLocation: Location): UvForecast {
+    var uvForecast: UvForecast = emptyUvForecast
 
-    this.body()?.byteStream()
-        .use { inputStream ->
-            val parser: XmlPullParser = Xml.newPullParser()
-                .apply { setInput(inputStream, null) }
-            var previousDistance = Double.MAX_VALUE
+    try {
+        this.body()?.byteStream()
+            .use { inputStream ->
+                val parser: XmlPullParser = Xml.newPullParser()
+                    .apply { setInput(inputStream, null) }
+                var previousDistance = Double.MAX_VALUE
 
-            while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                if (parser.eventType != XmlPullParser.START_TAG) {
-                    continue
-                }
+                println("inputStream: $inputStream")
 
-                if (parser.name == "location") {
-                    val latitude = parser.getAttributeValue(0).toDouble()
-                    val longitude = parser.getAttributeValue(1).toDouble()
-                    repeat(4) {
-                        parser.next()
+                while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                    if (parser.eventType != XmlPullParser.START_TAG) {
+                        continue
                     }
-                    val uviClear = parser.getAttributeValue(1).toDouble()
-                    repeat(3) {
-                        parser.next()
-                    }
-                    val uviPartlyCloudy = parser.getAttributeValue(1).toDouble()
-                    repeat(3) {
-                        parser.next()
-                    }
-                    val uviCloudy = parser.getAttributeValue(1).toDouble()
-                    repeat(3) {
-                        parser.next()
-                    }
-                    val uviForecast = parser.getAttributeValue(1).toDouble()
 
-                    val distance = calculateDistanceBetweenCoordinates(
-                        currentLocation.latitude,
-                        currentLocation.longitude,
-                        latitude,
-                        longitude
-                    )
+                    println("parser: $parser")
 
-                    if (distance < previousDistance) {
-                        parsedResponse.add(
-                            0,
-                            UvForecast(
+                    if (parser.name == "location") {
+                        println("Is location")
+                        val latitude = parser.getAttributeValue(0).toDouble()
+                        val longitude = parser.getAttributeValue(1).toDouble()
+                        println("latitude $latitude")
+                        println("longitude $longitude")
+                        repeat(4) {
+                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
+                                return uvForecast
+                            }
+                        }
+                        println("Is location2")
+                        val uviClear = parser.getAttributeValue(1).toDouble()
+                        println("uviClear $uviClear")
+                        repeat(3) {
+                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
+                                return uvForecast
+                            }
+                        }
+                        println("Is location3")
+                        val uviPartlyCloudy = parser.getAttributeValue(1).toDouble()
+                        println("uviPartlyCloudy $uviPartlyCloudy")
+                        repeat(3) {
+                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
+                                return uvForecast
+                            }
+                        }
+                        println("Is location4")
+                        val uviCloudy = parser.getAttributeValue(1).toDouble()
+                        println("uviCloudy $uviCloudy")
+                        repeat(3) {
+                            if (parser.next() == XmlPullParser.END_DOCUMENT) {
+                                return uvForecast
+                            }
+                        }
+                        println("Is location5")
+                        val uviForecast = parser.getAttributeValue(1).toDouble()
+                        println("uviForecast $uviForecast")
+                        val distance = calculateDistanceBetweenCoordinates(
+                            currentLocation.latitude,
+                            currentLocation.longitude,
+                            latitude,
+                            longitude
+                        )
+                        println("distance $distance")
+                        println("Is location6")
+
+                        if (distance < previousDistance) {
+                            println("Less than previous")
+                            uvForecast = UvForecast(
                                 latitude = latitude,
                                 longitude = longitude,
                                 uvClear = uviClear,
@@ -129,13 +150,20 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
                                 uvForecast = uviForecast,
                                 riskValue = calculateUvRiskValue(uviClear)
                             )
-                        )
-                        previousDistance = distance
+
+                            previousDistance = distance
+                        }
+                        println("Is location7")
                     }
                 }
             }
-        }
-    return parsedResponse
+    } catch (error: NumberFormatException) {
+        println("App failed with error $error")
+        println("error: ${error.localizedMessage}")
+        return uvForecast
+    }
+    println("uvResponse: $uvForecast")
+    return uvForecast
 }
 
 fun Response.parseHumidityResponse(currentLocation: Location): MutableList<HumidityForecast> {
