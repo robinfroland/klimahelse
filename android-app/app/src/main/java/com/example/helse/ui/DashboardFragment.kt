@@ -97,7 +97,7 @@ class DashboardFragment : Fragment() {
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             airqualityModule.dangerIndicator =
-                forecast[currentTime].riskValue
+                forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 

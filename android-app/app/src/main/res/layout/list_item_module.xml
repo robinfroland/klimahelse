@@ -10,11 +10,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_module"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="0dp"
-        app:cardBackgroundColor="@color/moduleCardBackground"
+        app:cardBackgroundColor="#26FFFFFF"
         app:cardCornerRadius="4dp"
         app:cardElevation="0dp">
 
@@ -26,9 +26,9 @@
                 android:id="@+id/module_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/category_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,14 +40,13 @@
                 android:id="@+id/module_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="22dp"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.05"
+                android:letterSpacing="0.04"
                 android:text="@string/category_title"
                 android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/module_icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,28 +55,26 @@
                 android:id="@+id/value_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/indicator_danger_low"
                 android:fontFamily="sans-serif"
                 android:letterSpacing="0.05"
                 android:paddingStart="12dp"
                 android:paddingTop="3dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="3dp"
-                android:text="@string/dangerindicator"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/module_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintTop_toBottomOf="@+id/module_title"
-                app:strokeWidth="0dp" />
+                app:strokeWidth="0dp"
+                tools:text="@string/dangerindicator" />
 
             <ImageView
                 android:id="@+id/push_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="@string/push_notification_icon"
@@ -85,6 +82,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_notifications_enabled" />
+
+            <ImageView
+                android:id="@+id/push_btn3"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/push_notification_icon"
+                android:padding="6dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/push_btn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_error_black_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
