@@ -71,11 +71,16 @@ class AppPreferences(context: Context) : Preferences {
         println("savedLocation: $savedLocation")
         val location = savedLocation[0]
         val superlocation = savedLocation[1]
-        val lat = savedLocation[2]
-        val lon = savedLocation[3]
+        val lat = savedLocation[2].toDouble()
+        val lon = savedLocation[3].toDouble()
         val stationID = savedLocation[4]
 
-        return Location(location, superlocation, lat.toDouble(), lon.toDouble(), stationID)
+        // Trunctate to 3 decimals to avoid unnecessary accuracy when fetching data later
+        val coordinateTrunctation = DecimalFormat("#.###")
+        val latitude = coordinateTrunctation.format(lat).toDouble()
+        val longtitude = coordinateTrunctation.format(lon).toDouble()
+
+        return Location(location, superlocation, latitude, longtitude, stationID)
     }
 
     override fun isFirstLaunch(): Boolean {
@@ -134,11 +139,7 @@ class AppPreferences(context: Context) : Preferences {
             else ->
                 geoLocation[0].subAdminArea // e.g: Oslo kommune
         }
-
-        // Trunctate to 3 decimals to avoid unnecessary accuracy when fetching data later
-        val coordinateTrunctation = DecimalFormat("#.###")
-        val latitude = coordinateTrunctation.format(lat).toDouble()
-        val longtitude = coordinateTrunctation.format(lon).toDouble()
+        
 
         return Location(location, superlocation, latitude, longtitude, USE_DEVICE_LOCATION)
     }
