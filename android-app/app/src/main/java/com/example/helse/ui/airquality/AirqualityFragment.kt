@@ -54,7 +54,7 @@ class AirqualityFragment : Fragment() {
         }
 
         val selectedLocation = Injector.getLocation(requireContext())
-        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
+        location.text = selectedLocation.location
 
     }
 
