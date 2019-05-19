@@ -4,6 +4,7 @@ import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyHumidityForecast
 import com.example.helse.utilities.*
 
 class HumidityForecastRepository(
@@ -20,6 +21,7 @@ class HumidityForecastRepository(
 
         if (dataIsStale()) {
             // If data is stale and api fetch is needed
+            println("Data is stale")
             humidityForecast = humidityApi.fetchHumidity()
             humidityDao.insert(humidityForecast)
             preferences.setLastApiCall(
@@ -27,7 +29,12 @@ class HumidityForecastRepository(
             )
         } else {
             // Retrieve data from database
+            println("Getting from db")
             humidityForecast = humidityDao.getAll()
+        }
+        println("humidityForecast $humidityForecast")
+        if (humidityForecast.size == 0) {
+            return mutableListOf(emptyHumidityForecast)
         }
         return humidityForecast
     }
