@@ -158,50 +158,56 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
     val latitude = currentLocation.latitude
     val longitude = currentLocation.longitude
 
-    this.body()?.byteStream()
-        .use { inputStream ->
-            val parser: XmlPullParser = Xml.newPullParser()
-                .apply { setInput(inputStream, null) }
+    try {
+        this.body()?.byteStream()
+            .use { inputStream ->
+                val parser: XmlPullParser = Xml.newPullParser()
+                    .apply { setInput(inputStream, null) }
 
-            while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                if (parser.eventType != XmlPullParser.START_TAG) {
-                    continue
-                }
-
-                if (parsedResponse.size == 24) {
-                    break
-                }
-
-                if (parser.name == "time") {
-                    val from = parser.getAttributeValue(1).toString()
-                    repeat(2) {
-                        parser.nextTag()
+                while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                    if (parser.eventType != XmlPullParser.START_TAG) {
+                        continue
                     }
 
-                    if (parser.name == "temperature") {
-                        val temperature = parser.getAttributeValue(2).toDouble()
-                        repeat(10) {
+                    if (parsedResponse.size == 24) {
+                        break
+                    }
+
+                    if (parser.name == "time") {
+                        val from = parser.getAttributeValue(1).toString()
+                        repeat(2) {
                             parser.nextTag()
                         }
 
-                        if (parser.name == "humidity") {
-                            val humidityValue = parser.getAttributeValue(0).toDouble()
-                            val riskValue = calculateHumidityRiskValue(humidityValue)
+                        if (parser.name == "temperature") {
+                            val temperature = parser.getAttributeValue(2).toDouble()
+                            repeat(10) {
+                                parser.nextTag()
+                            }
 
-                            parsedResponse.add(
-                                HumidityForecast(
-                                    from = from,
-                                    riskValue = riskValue,
-                                    latitude = latitude,
-                                    longitude = longitude,
-                                    humidityValue = humidityValue,
-                                    temperature = temperature
+                            if (parser.name == "humidity") {
+                                val humidityValue = parser.getAttributeValue(0).toDouble()
+                                val riskValue = calculateHumidityRiskValue(humidityValue)
+
+                                parsedResponse.add(
+                                    HumidityForecast(
+                                        from = from,
+                                        riskValue = riskValue,
+                                        latitude = latitude,
+                                        longitude = longitude,
+                                        humidityValue = humidityValue,
+                                        temperature = temperature
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }
+
             }
-        }
-    return parsedResponse
+    } catch (error: NumberFormatException) {
+        println("parseHumidityResponse crashed with error: $error")
+    } finally {
+        return parsedResponse
+    }
 }
