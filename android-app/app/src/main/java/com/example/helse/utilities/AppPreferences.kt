@@ -43,9 +43,22 @@ class AppPreferences(context: Context) : Preferences {
         return "${location.latitude};${location.longitude};$module"
     }
 
+    private val defaultPreferenceLocation = "Alnabru;Oslo;59.92767;10.84655;NO0057A"
     // The structure is meant to copy the structure of data class Location
     override fun setLocation(location: String, superlocation: String, lat: Double, lon: Double, stationID: String) {
-        preferenceEditor.putString("CURRENT_LOCATION", "$location;$superlocation;$lat;$lon;$stationID")
+        val southernMostLatNorway = 57.711267
+        val southernMostLonNorway = 4.810990
+        val northernMostLatNorway = 70.996689
+        val northernMostLonNorway = 33.48198
+        if (lat < southernMostLatNorway ||
+            lat > northernMostLatNorway ||
+            lon < southernMostLonNorway ||
+            lon > northernMostLonNorway
+        ) {
+            preferenceEditor.putString("CURRENT_LOCATION", defaultPreferenceLocation)
+        } else {
+            preferenceEditor.putString("CURRENT_LOCATION", "$location;$superlocation;$lat;$lon;$stationID")
+        }
         preferenceEditor.apply()
     }
 
@@ -53,9 +66,9 @@ class AppPreferences(context: Context) : Preferences {
         // Could return location directly, the following code is intended for ease of reading
         // What I want to highlight is what is returned at what position in the array
         val savedLocation =
-            (preferences.getString("CURRENT_LOCATION", "Alnabru;Oslo;59.92767;10.84655;NO0057A")
-                ?: "Alnabru;Oslo;59.92767;10.84655;NO0057A").split(";")
-        println("savedLocation: ${savedLocation}")
+            (preferences.getString("CURRENT_LOCATION", defaultPreferenceLocation)
+                ?: defaultPreferenceLocation).split(";")
+        println("savedLocation: $savedLocation")
         val location = savedLocation[0]
         val superlocation = savedLocation[1]
         val lat = savedLocation[2]
@@ -137,7 +150,8 @@ class AppPreferences(context: Context) : Preferences {
             deviceLocation.superlocation,
             deviceLocation.latitude,
             deviceLocation.longitude,
-            deviceLocation.stationID)
+            deviceLocation.stationID
+        )
     }
 
     override fun useDeviceLocation(): Boolean {
