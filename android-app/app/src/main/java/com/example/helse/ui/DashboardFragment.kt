@@ -10,9 +10,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Database
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
+import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.api.HumidityForecastApi
+import com.example.helse.data.api.UvApi
+import com.example.helse.data.api.UvForecastApi
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Module
+import com.example.helse.data.repositories.AirqualityForecastRepository
+import com.example.helse.data.repositories.HumidityForecastRepository
+import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.DashboardViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -47,6 +56,8 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewModel()
+        observeRiskLabels()
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
@@ -59,23 +70,23 @@ class DashboardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        println("On resume")
+        initModules()
+        initViewModel()
+        observeRiskLabels()
         updateUi()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("On pause")
     }
 
     private fun initViewModel() {
         val location = preferences.getLocation()
+        val database = LocalDatabase.getInstance(requireContext())
         println("Init view model")
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
-                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext(), location)
-                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext(), location)
-                uvForecastRepository = Injector.getUvForecastRepository(requireContext())
+                airqualityForecastRepository =
+                    AirqualityForecastRepository(database.airqualityDao(), AirqualityForecastApi(location))
+                humidityForecastRepository =
+                    HumidityForecastRepository(database.humidityDao(), HumidityForecastApi(location))
+                uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi)
             }
     }
 
