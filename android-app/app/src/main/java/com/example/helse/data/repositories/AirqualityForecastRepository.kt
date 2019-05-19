@@ -21,6 +21,8 @@ class AirqualityForecastRepository(
 
         if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
+            println("Fetching")
+            airqualityDao.delete(location.stationID)
             airqualityForecast = airqualityApi.fetchAirquality()
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
@@ -28,17 +30,20 @@ class AirqualityForecastRepository(
             )
         } else {
             // Retrieve data from database
+            println("Getting from database")
             airqualityForecast = airqualityDao.get(location.stationID)
             if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality()
         }
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
+        println("airqualityForecast ${airqualityForecast}")
         return airqualityForecast
     }
 
     private fun dataIsStale(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
+        println("previousFetch time for ${location.stationID} was $previousFetchTime")
         val currentTime = System.currentTimeMillis()
 
         // If -1 there is no previous fetch call, thus fetch is needed

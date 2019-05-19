@@ -12,6 +12,9 @@ interface AirqualityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(airquality: MutableList<AirqualityForecast>)
 
+    @Query("DELETE FROM airqualityForecast where stationID == :stationID")
+    fun delete(stationID: String)
+
     @Query("DELETE FROM airqualityForecast")
     fun deleteAll()
 
