@@ -23,7 +23,7 @@ class AirqualityForecastRepository(
             // If data is stale and api fetch is needed
             println("Fetching")
             airqualityDao.delete(location.stationID)
-            airqualityForecast = airqualityApi.fetchAirquality()
+            airqualityForecast = airqualityApi.fetchAirquality(location)
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
@@ -32,12 +32,12 @@ class AirqualityForecastRepository(
             // Retrieve data from database
             println("Getting from database")
             airqualityForecast = airqualityDao.get(location.stationID)
-            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality()
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality(location)
         }
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
-        println("airqualityForecast ${airqualityForecast}")
+        println("airqualityForecast $airqualityForecast")
         return airqualityForecast
     }
 
