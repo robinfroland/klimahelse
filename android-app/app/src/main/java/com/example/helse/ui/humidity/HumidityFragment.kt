@@ -74,9 +74,10 @@ class HumidityFragment : Fragment() {
     }
 
     private fun initViewModel() {
+        val location = Injector.getLocation(requireContext())
         viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
-                humidityRepository = Injector.getHumidityForecastRepository(requireContext())
+                humidityRepository = Injector.getHumidityForecastRepository(requireContext(), location)
             }
     }
 

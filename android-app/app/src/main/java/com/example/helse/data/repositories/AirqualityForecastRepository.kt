@@ -11,19 +11,19 @@ class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityForecastApi
 ) {
-
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val selectedLocation: Location = preferences.getLocation()
 
     // Default location is the location selected by the user
-    fun fetchAirquality(location: Location = selectedLocation): MutableList<AirqualityForecast> {
+    fun fetchAirquality(): MutableList<AirqualityForecast> {
+        val location = airqualityApi.location
+
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
         if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
             println("Fetching")
             airqualityDao.delete(location.stationID)
-            airqualityForecast = airqualityApi.fetchAirquality(location)
+            airqualityForecast = airqualityApi.fetchAirqualityFromURL()
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
@@ -32,7 +32,7 @@ class AirqualityForecastRepository(
             // Retrieve data from database
             println("Getting from database")
             airqualityForecast = airqualityDao.get(location.stationID)
-            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality(location)
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL()
         }
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
@@ -51,11 +51,9 @@ class AirqualityForecastRepository(
     }
 
     companion object {
-
         private var INSTANCE: AirqualityForecastRepository? = null
 
         // Singleton instantiation of repository
-
         fun getInstance(
             airqualityDao: AirqualityDao,
             airqualityForecastApi: AirqualityForecastApi

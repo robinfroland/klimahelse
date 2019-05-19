@@ -7,22 +7,20 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-object HumidityForecastApi {
-
-    private val selectedLocation = Injector.getLocation(AppContext.getAppContext())
+class HumidityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
     fun fetchHumidity(): MutableList<HumidityForecast> {
         lateinit var response: Response
         return try {
-            val uri = fetchHumidityURI(selectedLocation.latitude, selectedLocation.longitude)
+            val uri = fetchHumidityURI(location.latitude, location.longitude)
             val request = Request.Builder()
                 .url(uri)
                 .build()
 
             response = client.newCall(request).execute()
 
-            response.parseHumidityResponse(selectedLocation)
+            response.parseHumidityResponse(location)
         } catch (e: Exception) {
             mutableListOf(emptyHumidityForecast)
         }

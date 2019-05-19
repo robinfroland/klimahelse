@@ -121,9 +121,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-            val airqualityRepo = Injector.getAirqualityForecastRepository(requireContext())
+            val airqualityRepo = Injector.getAirqualityForecastRepository(requireContext(), location)
 
-            val airquality = airqualityRepo.fetchAirquality(location)
+            val airquality = airqualityRepo.fetchAirquality()
             airquality[hourOfDay]
         }
     }

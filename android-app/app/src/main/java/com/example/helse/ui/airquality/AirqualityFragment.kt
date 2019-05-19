@@ -27,7 +27,7 @@ class AirqualityFragment : Fragment() {
     private lateinit var viewModel: AirqualityViewModel
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
-    private  var timeList = mutableListOf<AirqualityForecast>()
+    private var timeList = mutableListOf<AirqualityForecast>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,15 +73,17 @@ class AirqualityFragment : Fragment() {
     }
 
     private fun initViewModel() {
+
         viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airqualityRepository = Injector.getAirqualityForecastRepository(requireContext())
+                airqualityRepository =
+                    Injector.getAirqualityForecastRepository(requireContext(), preferences.getLocation())
             }
     }
 
     private fun observeDataStream() {
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecasts ->
-            for (i in 0 until forecasts.size){
+            for (i in 0 until forecasts.size) {
                 timeList.add(forecasts[i])
             }
             viewAdapter.notifyDataSetChanged()

@@ -30,18 +30,17 @@ object Injector {
     /**
      * Singleton repositories into classes to ensure correct behaviour.
      */
-
-    fun getAirqualityForecastRepository(context: Context): AirqualityForecastRepository {
+    fun getAirqualityForecastRepository(context: Context, location: Location): AirqualityForecastRepository {
         return AirqualityForecastRepository.getInstance(
             LocalDatabase.getInstance(context).airqualityDao(),
-            AirqualityForecastApi
+            AirqualityForecastApi(location)
         )
     }
 
-    fun getHumidityForecastRepository(context: Context): HumidityForecastRepository {
+    fun getHumidityForecastRepository(context: Context, location: Location): HumidityForecastRepository {
         return HumidityForecastRepository.getInstance(
             LocalDatabase.getInstance(context).humidityDao(),
-            HumidityForecastApi
+            HumidityForecastApi(location)
         )
     }
 

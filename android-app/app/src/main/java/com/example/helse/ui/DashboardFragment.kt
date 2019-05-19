@@ -61,7 +61,6 @@ class DashboardFragment : Fragment() {
         super.onResume()
         println("On resume")
         updateUi()
-        initViewModel()
     }
 
     override fun onPause() {
@@ -70,11 +69,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViewModel() {
+        val location = preferences.getLocation()
         println("Init view model")
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
-                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext())
-                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext())
+                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext(), location)
+                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext(), location)
                 uvForecastRepository = Injector.getUvForecastRepository(requireContext())
             }
     }
