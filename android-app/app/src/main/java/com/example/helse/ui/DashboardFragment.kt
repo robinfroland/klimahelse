@@ -68,18 +68,22 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         initModules()
         initViewModel()
         observeRiskLabels()
+    }
+
+    override fun onResume() {
+        super.onResume()
         updateUi()
     }
 
     private fun initViewModel() {
+        println("Init view model")
         val location = preferences.getLocation()
         val database = LocalDatabase.getInstance(requireContext())
-        println("Init view model")
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
                 airqualityForecastRepository =
