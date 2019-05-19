@@ -34,6 +34,7 @@ class AirqualityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
+        preferences = Injector.getAppPreferences(requireContext())
         return inflater.inflate(R.layout.fragment_airquality, container, false)
     }
 
