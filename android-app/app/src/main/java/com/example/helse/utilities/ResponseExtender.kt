@@ -73,12 +73,8 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     return aqiForecastTimeArray
 }
 
-fun findClosesCoordinate(currentLatitude: Double, currentLongitude: Double, latitude: Double, longitude: Double) {
-
-}
-
 fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast> {
-    var uvForecast: MutableList<UvForecast> = ArrayList()
+    val uvForecast: MutableList<UvForecast> = ArrayList()
 
     try {
         this.body()?.byteStream()
@@ -134,6 +130,18 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
                             )
 
                             previousDistance = distance
+                        } else {
+                            uvForecast.add(
+                                UvForecast(
+                                    latitude = latitude,
+                                    longitude = longitude,
+                                    uvClear = uviClear,
+                                    uvPartlyCloudy = uviPartlyCloudy,
+                                    uvCloudy = uviCloudy,
+                                    uvForecast = uviForecast,
+                                    riskValue = calculateUvRiskValue(uviClear)
+                                )
+                            )
                         }
                     }
                 }
