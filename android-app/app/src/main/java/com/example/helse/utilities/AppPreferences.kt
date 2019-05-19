@@ -141,7 +141,7 @@ class AppPreferences(context: Context) : Preferences {
         }
         
 
-        return Location(location, superlocation, latitude, longtitude, USE_DEVICE_LOCATION)
+        return Location(location, superlocation, lat, lon, USE_DEVICE_LOCATION)
     }
 
     override fun setDeviceLocation(lat: Double, lon: Double) {
