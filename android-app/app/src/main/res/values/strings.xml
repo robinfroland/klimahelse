@@ -48,10 +48,9 @@
     <string name="no2">NO2</string>
     <string name="pm2_5">PM2.5</string>
     <string name="gauge_risiko">%s RISIKO</string>
-    <string name="airquality_fragment_information">
-        Luftkvalitet refererer til hvor forurenset luften rundt oss er, og kan bli verre av både naturlige årsaker som vulkanutbrudd, eller av menneskelige årsaker som kjøretøysforurensning, gasser fra industri og kraftverk og mer.\n\n Tre faktorer står sentralt: mengden forurensede partikler, hvor raskt de slippes ut i atmosfæren, og hvor lenge de befinner seg i et område. Det er viktig å ha god luftkvalitet for å opprettholde livsbalansen på jorden.
-        I denne appen får man informasjon om tre forskjellige metrikker for luftkvalitet:\n\n<b>NO2</b>\n NO2 eller nitrogendioksid, er en reaktiv gass som dannes ved høy temperatur i forbrenningsprosesser og kan ha helseskadelige effekter slik som svekket lungefunksjon eller forverring av astma og bronkitt.
-        \n\n<b>PM10 og PM2.5</b>\n PM (particulate matter) er partikler i lufta. De kan bestå av alle slags partikler som for eksempel sot, kull, sulfat, metaller og salter, eksempelvis havsalt. Det fremkommer som regel som et tilfeldig biprodukt i ulike kjemiske og fysiske prosesser som sement, kalk, jern og stål produksjon, men kan også forekomme ved naturfenomener. Store doser kan skade luftveiene.
+    <string name="airquality_fragment_information">Luftkvalitet refererer til hvor forurenset luften rundt oss er, og kan bli verre av både naturlige årsaker som vulkanutbrudd, eller av menneskelige årsaker som kjøretøysforurensning, gasser fra industri og kraftverk og mer.\n\nTre faktorer står sentralt: mengden forurensede partikler, hvor raskt de slippes ut i atmosfæren, og hvor lenge de befinner seg i et område. Det er viktig å ha god luftkvalitet for å opprettholde livsbalansen på jorden.
+        I denne appen får man informasjon om tre forskjellige metrikker for luftkvalitet:\n\n<b>NO2</b>\nNO2 eller nitrogendioksid, er en reaktiv gass som dannes ved høy temperatur i forbrenningsprosesser og kan ha helseskadelige effekter slik som svekket lungefunksjon eller forverring av astma og bronkitt.
+        \n\n<b>PM10 og PM2.5</b>\nPM (particulate matter) er partikler i lufta. De kan bestå av alle slags partikler som for eksempel sot, kull, sulfat, metaller og salter, eksempelvis havsalt. Det fremkommer som regel som et tilfeldig biprodukt i ulike kjemiske og fysiske prosesser som sement, kalk, jern og stål produksjon, men kan også forekomme ved naturfenomener. Store doser kan skade luftveiene.
         \n\n<b>O3</b>\nO3, også kjent som ozon, er en reaktiv gass som finnes bla. nær bakken. Dette skyldes hovedsakelig langtransport i Norge og vil ha høyere konsentrasjon utenfor byene sammenlignet med lufta i byene.Ozon kan gi betennelse og føre til skader i luftveiene, samt svekke luftveis-funksjon og øke luftveisplager.
     </string>
 
@@ -61,9 +60,9 @@
     <string name="partlyCloudy">PARTLY CLOUDY</string>
     <string name="uviForecast">FORECAST</string>
     <string name="uv_fragment_information">
-        UV-stråling er en type stråle som lages av solen og noen kunstige kilder som solarium.\n UV-stråling utgjør hovedgrunnen for hudkreft, og forårsaker også solbrenning og øyeskader. Det finnes to typer UV-stråling hvor bølgelengden varierer.
-        \n\n<b>UVA</b>\n UVA Skader de elastiske fibrene i huden og arvestoffet, gir rask brunfarge, og slipper uhindret gjennom ozonlaget.
-        \n\n<b>UVB</b>\n Hornhinnen er følsom for UVB, kan forårsake ofte rød og irritert hud, slipper delvis gjennom ozonlaget.
+        UV-stråling er en type stråle som lages av solen og noen kunstige kilder som solarium.\nUV-stråling utgjør hovedgrunnen for hudkreft, og forårsaker også solbrenning og øyeskader. Det finnes to typer UV-stråling hvor bølgelengden varierer.
+        \n\n<b>UVA</b>\nUVA Skader de elastiske fibrene i huden og arvestoffet, gir rask brunfarge, og slipper uhindret gjennom ozonlaget.
+        \n\n<b>UVB</b>\nHornhinnen er følsom for UVB, kan forårsake ofte rød og irritert hud, slipper delvis gjennom ozonlaget.
     </string>
 
     <!-- Humidity -->

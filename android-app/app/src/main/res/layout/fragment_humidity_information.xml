@@ -16,40 +16,42 @@
 
     <ImageView
         android:id="@+id/icon_humidity"
-        android:layout_width="wrap_content"
+        android:layout_width="84dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_humidity_2x"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp"
+        android:src="@drawable/ic_humidity_3x"
         android:tint="@color/colorPrimaryLight"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_title"
-        android:paddingTop="60dp"
-        android:paddingBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar_title" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/icon_humidity"
-        app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/text_humidity"
-        android:paddingBottom="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fadingEdgeLength="25dp"
         android:requiresFadingEdge="vertical"
-        android:fadingEdgeLength="50dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon_humidity">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:paddingStart="36dp"
+                android:paddingEnd="36dp"
+                android:paddingBottom="25dp"
                 android:text="@string/humidity_fragment_information"
-                android:padding="50dp"
-                android:textSize="16sp"
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:lineSpacingExtra="5dp"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
