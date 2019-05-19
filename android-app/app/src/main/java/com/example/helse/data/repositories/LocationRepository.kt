@@ -3,6 +3,7 @@ package com.example.helse.data.repositories
 import com.example.helse.data.api.LocationApi
 import com.example.helse.data.database.LocationDao
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyLocation
 
 class LocationRepository(
     private val locationDao: LocationDao,
@@ -15,7 +16,11 @@ class LocationRepository(
                 locationApi.fetchAllLocations()
             )
         }
-        return locationDao.getAllLocations()
+        val locations = locationDao.getAllLocations()
+        if (locations.size == 0) {
+            return mutableListOf(emptyLocation)
+        }
+        return locations
     }
 
     private fun locationsExist(): Boolean {

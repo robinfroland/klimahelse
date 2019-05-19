@@ -4,6 +4,7 @@ import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.utilities.*
 
 class AirqualityForecastRepository(
@@ -29,6 +30,9 @@ class AirqualityForecastRepository(
             // Retrieve data from database
             airqualityForecast = airqualityDao.get(location.stationID)
             if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirquality()
+        }
+        if (airqualityForecast.size == 0) {
+            return mutableListOf(emptyAirqualityForecast)
         }
         return airqualityForecast
     }
