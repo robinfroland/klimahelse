@@ -43,66 +43,37 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("1")
         preferences = Injector.getAppPreferences(requireContext())
-        println("2")
         enabledModules = arrayListOf()
-        println("3")
         viewAdapter = ModuleAdapter(enabledModules)
-        println("4")
 
         initModules()
-        println("5")
         initViewModel()
-        println("6")
         observeRiskLabels()
-        println("7")
 
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("8")
         super.onViewCreated(view, savedInstanceState)
-        println("9")
         initViewModel()
-        println("10")
         observeRiskLabels()
-        println("11")
         search_dashboard.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.dashboard_to_search)
         }
-        println("12")
 
         module_list.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
         }
-        println("13")
-    }
-
-    override fun onStart() {
-        println("14")
-        super.onStart()
-        println("15")
-        initModules()
-        println("16")
-        initViewModel()
-        println("17")
-        observeRiskLabels()
-        println("18")
     }
 
     override fun onResume() {
-        println("19")
         super.onResume()
-        println("20")
         updateUi()
-        println("21")
     }
 
     private fun initViewModel() {
-        println("Init view model")
         val location = preferences.getLocation()
         val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
@@ -113,11 +84,9 @@ class DashboardFragment : Fragment() {
                     HumidityForecastRepository(database.humidityDao(), HumidityForecastApi(location))
                 uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi)
             }
-        println("End init view model")
     }
 
     private fun updateUi() {
-        println("updateUI")
         val selectedLocation = preferences.getLocation()
         search_dashboard.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
 
@@ -137,38 +106,31 @@ class DashboardFragment : Fragment() {
         }
 
         viewAdapter.notifyDataSetChanged()
-        println("end updateUI")
     }
 
     private fun observeRiskLabels() {
-        println("observeRiskLabels")
         val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            println("airForecast $forecast")
             airqualityModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            println("humiForecast $forecast")
             humidityModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            println("uvForecast $forecast")
             uvModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
-        println("end observeRiskLabels")
     }
 
     private fun initModules() {
-        println("initModules")
         airqualityModule = Module(
             AIRQUALITY_MODULE, R.drawable.ic_airquality_2x, "Luftkvalitet"
         )
@@ -182,7 +144,6 @@ class DashboardFragment : Fragment() {
         )
 
         allModules = arrayListOf(airqualityModule, uvModule, humidityModule)
-        println("end initModules")
     }
 }
 
