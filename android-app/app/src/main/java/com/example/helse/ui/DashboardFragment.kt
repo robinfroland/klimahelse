@@ -61,6 +61,7 @@ class DashboardFragment : Fragment() {
         super.onResume()
         println("On resume")
         updateUi()
+        initViewModel()
     }
 
     override fun onPause() {
@@ -105,18 +106,21 @@ class DashboardFragment : Fragment() {
         val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            println("airForecast $forecast")
             airqualityModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            println("humiForecast $forecast")
             humidityModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
+            println("uvForecast $forecast")
             uvModule.dangerIndicator =
                 forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
