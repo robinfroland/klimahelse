@@ -70,7 +70,7 @@ class SearchFragment : Fragment() {
         search_your_position.setOnClickListener {
             getDeviceLocation()
             closeKeyboard()
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.search_to_dashboard)
         }
     }
 
@@ -143,7 +143,7 @@ class SearchFragment : Fragment() {
             location.longitude,
             location.stationID
         )
-        findNavController().navigateUp()
+        findNavController().navigate(R.id.search_to_dashboard)
     }
 
     private fun closeKeyboard() {
