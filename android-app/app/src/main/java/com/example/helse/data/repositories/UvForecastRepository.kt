@@ -33,7 +33,7 @@ class UvForecastRepository(
             println("Getting UV from DB")
             uvForecast = uvDao.getAll()
             println("All uvForecast $uvForecast")
-            val previousDistance = Double.MAX_VALUE
+            var previousDistance = Double.MAX_VALUE
             var closestForecast = emptyUvForecast
             for (i in 0 until uvForecast.size) {
                 val forecast = uvForecast[i]
@@ -48,6 +48,7 @@ class UvForecastRepository(
                     println("Distance $distance is less than $previousDistance")
                     println("Saving new forecast $forecast")
                     closestForecast = forecast
+                    previousDistance = distance
                 }
             }
             uvForecast = mutableListOf(closestForecast)
