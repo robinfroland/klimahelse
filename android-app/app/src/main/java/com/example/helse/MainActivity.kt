@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.helse.utilities.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
@@ -32,6 +34,27 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
         setupNavBars()
+        setDeviceLocation()
+    }
+
+    private fun setDeviceLocation() {
+        val preferences = Injector.getAppPreferences(applicationContext)
+        val deviceLocationClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(this)
+
+        if (preferences.locationPermissionGranted()) {
+            try {
+                deviceLocationClient.lastLocation.addOnSuccessListener {
+                    if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
+                        preferences.setDeviceLocation(it.latitude, it.longitude)
+                    } else {
+                        getString(R.string.failed_location_query).toast(applicationContext)
+                    }
+                }
+            } catch (e: SecurityException) {
+                println("setDeviceLocation() failed with exception $e")
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -73,31 +73,8 @@ class DashboardFragment : Fragment() {
         updateUi()
     }
 
-    private fun setDeviceLocation() {
-        val deviceLocationClient: FusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-
-        if (preferences.locationPermissionGranted()) {
-            try {
-                deviceLocationClient.lastLocation.addOnSuccessListener {
-                    if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
-                        preferences.setDeviceLocation(it.latitude, it.longitude)
-                    } else {
-                        getString(R.string.failed_location_query).toast(requireContext())
-                    }
-                }
-            } catch (e: SecurityException) {
-                println("setDeviceLocation() failed with exception $e")
-            }
-        }
-    }
-
     private fun initViewModel() {
-        var location = preferences.getLocation()
-        if (location.stationID == USE_DEVICE_LOCATION) {
-            setDeviceLocation()
-        }
-        location = preferences.getLocation()
+        val location = preferences.getLocation()
         val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
@@ -146,7 +123,7 @@ class DashboardFragment : Fragment() {
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             humidityModule.dangerIndicator =
-                forecast[0].riskValue
+                forecast[1].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
