@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,38 +14,16 @@
         android:theme="@style/ToolbarTitleTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorLightBlueGrey"
-        app:layout_constraintEnd_toStartOf="@+id/uviClear"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <View
-        android:layout_width="2dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorLightBlueGrey"
-        app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
-        app:layout_constraintStart_toEndOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
     <ImageView
         android:id="@+id/location_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/app_name"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/your_location"
         android:src="@drawable/ic_location_on_black_24dp"
-        app:layout_constraintEnd_toStartOf="@id/location"
-        app:layout_constraintHorizontal_bias="0.990"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
 
@@ -53,202 +31,211 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:fontFamily="helvetica"
-        app:layout_constraintBottom_toBottomOf="@id/location_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <pl.pawelkleczkowski.customgauge.CustomGauge
-        android:id="@+id/gauge"
-        app:gaugeStartAngle="135"
-        app:gaugeSweepAngle="270"
-        app:gaugeStrokeCap="ROUND"
-        app:gaugeStrokeColor="@color/colorLightBlueGrey"
-        app:gaugeStrokeWidth="11dp"
-        app:gaugeStartValue="1"
-        app:gaugeEndValue="5"
+        android:layout_marginTop="2dp"
+        android:contentDescription="@string/your_location"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/colorGreyLight"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_icon"
-        android:contentDescription="@string/app_name"
-        android:padding="17dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="210dp"
-        android:layout_height="205dp"/>
-
-    <ImageView
-        android:id="@+id/gauge_img"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="50dp"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_uv_2x"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gauge" />
-
-    <TextView
-        android:id="@+id/risk_label"
-        android:layout_width="200dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="48dp"
-        android:gravity="center"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:text="@string/concentration_placeholder"
-        app:layout_constraintTop_toBottomOf="@id/gauge"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gauge_img" />
-
-    <View
-        android:id="@+id/horizontal_divider2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorLightBlueGrey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uviPartlyCloudy"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <View
-        android:id="@+id/middle_vertical_divider"
-        android:layout_width="2dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorLightBlueGrey"
-        app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
-        app:layout_constraintStart_toEndOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <TextView
-        android:id="@+id/uviCloudy"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="47dp"
-        android:gravity="center"
-        android:text="@string/concentration_placeholder"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/uviPartlyCloudy"
-        app:layout_constraintStart_toEndOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <TextView
-        android:id="@+id/uviForecast"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="@string/concentration_placeholder"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/uviCloudy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <TextView
-        android:id="@+id/uviPartlyCloudy"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="47dp"
-        android:gravity="center"
-        android:text="@string/concentration_placeholder"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/uviClear"
-        app:layout_constraintStart_toEndOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <TextView
-        android:id="@+id/uviClear"
-        android:layout_width="50dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center"
-        android:text="@string/concentration_placeholder"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/clear"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/uviClear"
-        app:layout_constraintEnd_toEndOf="@+id/uviClear"
-        app:layout_constraintStart_toStartOf="@+id/uviClear"
-        app:layout_constraintTop_toBottomOf="@id/risk_label"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/cloudy"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/uviCloudy"
-        app:layout_constraintEnd_toEndOf="@+id/uviCloudy"
-        app:layout_constraintStart_toStartOf="@+id/uviCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label"
-        app:layout_constraintVertical_bias="0.966" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/partlyCloudy"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/uviPartlyCloudy"
-        app:layout_constraintEnd_toEndOf="@+id/uviPartlyCloudy"
-        app:layout_constraintStart_toStartOf="@+id/uviPartlyCloudy"
-        app:layout_constraintTop_toBottomOf="@id/risk_label"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/uviForecast"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/uviForecast"
-        app:layout_constraintEnd_toEndOf="@+id/uviForecast"
-        app:layout_constraintStart_toStartOf="@+id/uviForecast"
-        app:layout_constraintTop_toBottomOf="@id/risk_label"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:text="Location" />
 
     <TextView
         android:id="@+id/time_and_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/middle_vertical_divider" />
+        app:layout_constraintTop_toBottomOf="@+id/location"
+        android:text="@string/uv_value_time"
+        tools:text="Displaying values for time" />
+
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge"
+        android:layout_width="190dp"
+        android:layout_height="185dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:contentDescription="@string/app_name"
+        android:padding="17dp"
+        app:gaugeEndValue="5"
+        app:gaugeStartAngle="135"
+        app:gaugeStartValue="1"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="@color/colorLightBlueGrey"
+        app:gaugeStrokeWidth="11dp"
+        app:gaugeSweepAngle="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_and_date" />
+
+    <ImageView
+        android:id="@+id/gauge_img"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_uv_2x"
+        app:layout_constraintBottom_toBottomOf="@+id/gauge"
+        app:layout_constraintEnd_toEndOf="@+id/gauge"
+        app:layout_constraintStart_toStartOf="@+id/gauge"
+        app:layout_constraintTop_toTopOf="@+id/gauge" />
+
+    <TextView
+        android:id="@+id/risk_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gauge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="RISK LABEL" />
+
+    <View
+        android:id="@+id/horizontal_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightBlueGrey"
+        app:layout_constraintBottom_toTopOf="@+id/middle_vertical_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/horizontal_divider1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightBlueGrey"
+        app:layout_constraintBottom_toTopOf="@+id/right_vertical_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/right_vertical_divider"
+        android:layout_width="1dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightBlueGrey"
+        app:layout_constraintBottom_toTopOf="@+id/middle_vertical_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/middle_vertical_divider"
+        android:layout_width="1dp"
+        android:layout_height="100dp"
+        android:background="@color/colorLightBlueGrey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/forecast_uv"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_divider2"
+        app:layout_constraintEnd_toStartOf="@+id/right_vertical_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="0.00" />
+
+    <TextView
+        android:id="@+id/forecast_uv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Slik været er varslet"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/forecast_uv"
+        app:layout_constraintEnd_toEndOf="@+id/forecast_uv"
+        app:layout_constraintStart_toStartOf="@+id/forecast_uv" />
+
+    <TextView
+        android:id="@+id/cloudy_uv"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/right_vertical_divider"
+        tools:text="0.00" />
+
+    <TextView
+        android:id="@+id/cloudy_uv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Overskyet"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/cloudy_uv"
+        app:layout_constraintEnd_toEndOf="@+id/cloudy_uv"
+        app:layout_constraintStart_toStartOf="@+id/cloudy_uv" />
+
+    <TextView
+        android:id="@+id/partly_cloudy_uv"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="@string/time_and_date"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/middle_vertical_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="0.00" />
+
+    <TextView
+        android:id="@+id/partly_cloudy_uv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Lett overskyet"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/partly_cloudy_uv"
+        app:layout_constraintEnd_toEndOf="@+id/partly_cloudy_uv"
+        app:layout_constraintStart_toStartOf="@+id/partly_cloudy_uv" />
+
+    <TextView
+        android:id="@+id/clear_uv"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/middle_vertical_divider"
+        tools:text="0.00" />
+
+    <TextView
+        android:id="@+id/clear_uv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Klar himmel"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/clear_uv"
+        app:layout_constraintEnd_toEndOf="@+id/clear_uv"
+        app:layout_constraintStart_toStartOf="@+id/clear_uv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

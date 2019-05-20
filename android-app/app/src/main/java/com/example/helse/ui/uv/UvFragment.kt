@@ -68,10 +68,10 @@ class UvFragment : Fragment() {
     private fun observeDataStream() {
         viewModel.getUvForecast().observe(this, Observer { forecast ->
             val uvForecast = forecast[0]
-            uviClear.text = uvForecast.uvClear.toString()
-            uviPartlyCloudy.text = uvForecast.uvPartlyCloudy.toString()
-            uviForecast.text = uvForecast.uvForecast.toString()
-            uviCloudy.text = uvForecast.uvCloudy.toString()
+            clear_uv.text = uvForecast.uvClear.toString()
+            partly_cloudy_uv.text = uvForecast.uvPartlyCloudy.toString()
+            forecast_uv.text = uvForecast.uvForecast.toString()
+            cloudy_uv.text = uvForecast.uvCloudy.toString()
             initGauge(uvForecast)
         })
     }
