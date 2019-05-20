@@ -30,7 +30,7 @@ class HumidityForecastApi(val location: Location) {
         }
     }
 
-    private val HUMIDITY_BASE_URL = "https://api.met.no/weatherapi/locationforecast/1.9/?"
+    private val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/1.9/?"
     private fun createHumidityURI(lat: Double, lon: Double): String {
         return "${HUMIDITY_BASE_URL}lat=$lat&lon=$lon"
     }

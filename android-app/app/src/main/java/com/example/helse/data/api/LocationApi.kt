@@ -8,7 +8,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 object LocationApi {
-    const val STATIONS_BASE_URL = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
+    const val STATIONS_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/stations"
 
     fun fetchAllLocations(): MutableList<Location> {
         val client = OkHttpClient()

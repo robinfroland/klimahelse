@@ -36,7 +36,7 @@ object UvForecastApi {
         }
     }
 
-    private val UV_BASE_URL = "https://api.met.no/weatherapi/uvforecast/1.0/available"
+    private val UV_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/uvforecast/1.0/available"
     // Fetch URI's from endpoint. Return URI for today.
     // Tomorrow and day after tomorrow available later if wanted(just return the list instead of index 0
     private fun fetchUvURI(): String {
