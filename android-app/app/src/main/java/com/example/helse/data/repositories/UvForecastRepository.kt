@@ -21,7 +21,6 @@ class UvForecastRepository(
 
         if (dataIsStale()) {
             // If data is stale and api fetch is needed
-            println("Fetching UV")
             uvDao.deleteAll()
             uvForecast = uvApi.fetchUv()
             uvDao.insertAll(uvForecast)
@@ -30,9 +29,7 @@ class UvForecastRepository(
             )
         } else {
             // Retrieve data from database
-            println("Getting UV from DB")
             uvForecast = uvDao.getAll()
-            println("All uvForecast $uvForecast")
             var previousDistance = Double.MAX_VALUE
             var closestForecast = emptyUvForecast
             for (i in 0 until uvForecast.size) {
@@ -45,24 +42,19 @@ class UvForecastRepository(
                 )
 
                 if (distance < previousDistance) {
-                    println("Distance $distance is less than $previousDistance")
-                    println("Saving new forecast $forecast")
                     closestForecast = forecast
                     previousDistance = distance
                 }
             }
             uvForecast = mutableListOf(closestForecast)
         }
-        println("uvForecast $uvForecast")
         return uvForecast
     }
 
     private fun dataIsStale(): Boolean {
         val previousFetchTime = preferences.getLastApiCall(emptyLocation, LAST_API_CALL_UV)
         val currentTime = System.currentTimeMillis()
-        val uvdaoo = uvDao.getAll()
-        if (uvdaoo.size < 10) {
-            println("Size of UVdao is ${uvdaoo.size}")
+        if (uvDao.getAll().size < 10) {
             return true
         }
         // If -1 there is no previous fetch call, thus fetch is needed

@@ -68,7 +68,6 @@ class AppPreferences(context: Context) : Preferences {
         val savedLocation =
             (preferences.getString("CURRENT_LOCATION", defaultPreferenceLocation)
                 ?: defaultPreferenceLocation).split(";")
-        println("savedLocation: $savedLocation")
         val location = savedLocation[0]
         val superlocation = savedLocation[1]
         val lat = savedLocation[2].toDouble()

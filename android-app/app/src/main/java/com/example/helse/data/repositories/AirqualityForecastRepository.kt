@@ -19,11 +19,8 @@ class AirqualityForecastRepository(
 
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
-        println("location is $location")
-
         if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
-            println("Fetching")
             airqualityDao.delete(location.stationID)
             airqualityForecast = airqualityApi.fetchAirqualityFromURL()
             airqualityDao.insert(airqualityForecast)
@@ -32,20 +29,17 @@ class AirqualityForecastRepository(
             )
         } else {
             // Retrieve data from database
-            println("Getting from database")
             airqualityForecast = airqualityDao.get(location.stationID)
             if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL()
         }
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
-        println("airqualityForecastRepo $airqualityForecast")
         return airqualityForecast
     }
 
     private fun dataIsStale(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
-        println("previousFetch time for ${location.stationID} was $previousFetchTime")
         val currentTime = System.currentTimeMillis()
         if (airqualityDao.get(location.stationID).size < 20) {
             return true

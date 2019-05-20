@@ -21,7 +21,6 @@ class HumidityForecastRepository(
 
         if (dataIsStale()) {
             // If data is stale and api fetch is needed
-            println("Fetching HUMID")
             humidityDao.deleteAll()
             humidityForecast = humidityApi.fetchHumidity()
             humidityDao.insert(humidityForecast)
@@ -30,10 +29,8 @@ class HumidityForecastRepository(
             )
         } else {
             // Retrieve data from database
-            println("Getting HUMID from DB")
             humidityForecast = humidityDao.getAll()
         }
-        println("humidityForecast $humidityForecast")
         if (humidityForecast.size == 0) {
             return mutableListOf(emptyHumidityForecast)
         }
@@ -44,7 +41,6 @@ class HumidityForecastRepository(
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
         if (humidityDao.getAll().size < 1) {
-            println("Humidity size is less than 1")
             return true
         }
 
