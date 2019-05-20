@@ -131,8 +131,7 @@ async function sendNotif() {
   var hour = new Date().getHours();
   var minutes = new Date().getMinutes();
   console.log(`Hour is ${hour} and minutes is ${minutes}`)
-  if (hour === 17 || hour === 06 || hour === 15 || hour === 14) {
-    console.log(`Hour is ${hour} and minutes is ${minutes}`)
+  if (hour === 17 || hour === 06 || hour === 15) {
     if (minutes === 0 || (minutes === 45 && hour == 15)) {
       console.log("Oh no, its sending a notif lol")
       var airquality = await getAirquality();
