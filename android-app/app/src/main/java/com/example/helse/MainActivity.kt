@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                     window.statusBarColor = Color.WHITE
                     toolbar_title.text = SETTINGS_LABEL
                     toolbar_title.setTextColor(resources.getColor(R.color.colorGreyDark, null))
-                    println(destination.label)
                 }
                 MAP_LABEL -> {
                     toolbar.navigationIcon?.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)

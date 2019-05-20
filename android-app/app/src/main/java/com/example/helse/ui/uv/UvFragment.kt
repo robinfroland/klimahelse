@@ -41,7 +41,7 @@ class UvFragment : Fragment() {
         observeDataStream()
 
         val selectedLocation = Injector.getLocation(requireContext())
-        location.text = "%s, %s".format(selectedLocation.location, selectedLocation.superlocation)
+        location.text = selectedLocation.location
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

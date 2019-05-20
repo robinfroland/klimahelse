@@ -74,7 +74,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val northmostPointNorway = LatLng(70.996689, 33.489198)
         map.setLatLngBoundsForCameraTarget(LatLngBounds(southmostPointInNorway, northmostPointNorway))
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(zoomToCoordinate, 12.toFloat()))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(zoomToCoordinate, 13.toFloat()))
     }
 
     private suspend fun addAirqualityToMap(
@@ -87,20 +87,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     val location = locations[i]
                     val forecast = getForecastForLocationAsync(location).await()
 
-                    val colorRes = when (forecast.riskValue) {
+                    var color = when (forecast.riskValue) {
                         LOW_VALUE -> R.color.colorDangerLowAlpha
                         MEDIUM_VALUE -> R.color.colorDangerMediumAlpha
                         HIGH_VALUE -> R.color.colorDangerHighAlpha
                         VERY_HIGH_VALUE -> R.color.colorDangerVeryHigh
                         else -> R.color.colorGreyDark
                     }
-
+                    color = ContextCompat.getColor(context!!, color)
                     requireActivity().runOnUiThread {
-                        addCircleToMap(p0, location,
-                            resources.getColor(colorRes, null)
-                        )
+                        addCircleToMap(p0, location, color)
                     }
-                    if (i == locations.size-1) progress_spinner.visibility = View.GONE
+                    if (i == locations.size-1) progress_spinner.visibility = View.INVISIBLE
                 }
             }
         }

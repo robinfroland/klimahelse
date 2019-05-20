@@ -69,14 +69,14 @@ class SearchFragment : Fragment() {
 
         search_your_position.setOnClickListener {
             getDeviceLocation()
+            closeKeyboard()
             findNavController().navigateUp()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Hide keyboard on navigate up
-        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        closeKeyboard()
         return super.onOptionsItemSelected(item)
     }
 
@@ -135,7 +135,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun locationClicked(location: Location) {
-        println("LOCATION CLICKED IS $location")
+        closeKeyboard()
         preferences.setLocation(
             location.location,
             location.superlocation,
@@ -144,5 +144,10 @@ class SearchFragment : Fragment() {
             location.stationID
         )
         findNavController().navigateUp()
+    }
+
+    private fun closeKeyboard() {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
