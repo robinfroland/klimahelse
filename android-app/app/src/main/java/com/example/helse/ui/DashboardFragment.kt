@@ -22,6 +22,8 @@ import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.DashboardViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -71,8 +73,31 @@ class DashboardFragment : Fragment() {
         updateUi()
     }
 
+    private fun setDeviceLocation() {
+        val deviceLocationClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        if (preferences.locationPermissionGranted()) {
+            try {
+                deviceLocationClient.lastLocation.addOnSuccessListener {
+                    if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
+                        preferences.setDeviceLocation(it.latitude, it.longitude)
+                    } else {
+                        getString(R.string.failed_location_query).toast(requireContext())
+                    }
+                }
+            } catch (e: SecurityException) {
+                println("setDeviceLocation() failed with exception $e")
+            }
+        }
+    }
+
     private fun initViewModel() {
-        val location = preferences.getLocation()
+        var location = preferences.getLocation()
+        if (location.stationID == USE_DEVICE_LOCATION) {
+            setDeviceLocation()
+        }
+        location = preferences.getLocation()
         val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {

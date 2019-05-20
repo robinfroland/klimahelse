@@ -1,7 +1,6 @@
 package com.example.helse.ui.onboarding
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.helse.R
@@ -35,8 +34,7 @@ class LocationSettingsFragment : PreferenceFragmentCompat() {
                     if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
                         preferences.setDeviceLocation(it.latitude, it.longitude)
                     } else {
-                        Toast.makeText(requireContext(),
-                            getString(R.string.failed_location_query), Toast.LENGTH_LONG).show()
+                            getString(R.string.failed_location_query).toast(requireContext())
                     }
                 }
             } catch (e: SecurityException) {
@@ -56,8 +54,7 @@ class LocationSettingsFragment : PreferenceFragmentCompat() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                     getDeviceLocation()
                 } else {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.permission_denied_toast), Toast.LENGTH_LONG).show()
+                        getString(R.string.permission_denied_toast).toast(requireContext())
                 }
             }
         }

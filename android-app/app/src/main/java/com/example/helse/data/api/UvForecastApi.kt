@@ -1,7 +1,6 @@
 package com.example.helse.data.api
 
 import android.util.Xml
-import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.entities.emptyUvForecast
 import com.example.helse.utilities.*

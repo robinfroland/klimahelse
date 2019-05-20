@@ -14,8 +14,6 @@ import com.example.helse.R
 import com.example.helse.utilities.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.onboarding_dashboard_desc.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -28,7 +26,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val locationSwitch = findPreference<SwitchPreference>(USE_DEVICE_LOCATION)
 
         locationSwitch?.setOnPreferenceClickListener {
-            if (preferences.useDeviceLocation()) { getDeviceLocation()}
+            if (preferences.useDeviceLocation()) {
+                getDeviceLocation()
+            }
             true
         }
     }
@@ -48,8 +48,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
                         preferences.setDeviceLocation(it.latitude, it.longitude)
                     } else {
-                        Toast.makeText(requireContext(),
-                            getString(R.string.failed_location_query), Toast.LENGTH_LONG).show()
+                        getString(R.string.failed_location_query).toast(requireContext())
                     }
                 }
             } catch (e: SecurityException) {
@@ -69,8 +68,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                     getDeviceLocation()
                 } else {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.permission_denied_toast), Toast.LENGTH_LONG).show()
+                    getString(R.string.permission_denied_toast).toast(requireContext())
                 }
             }
         }

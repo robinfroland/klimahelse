@@ -3,22 +3,20 @@ package com.example.helse.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+<<<<<<< HEAD
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+=======
+>>>>>>> If user selected his/her location, change location each time dashboard is loaded
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helse.R
 import com.example.helse.adapters.LocationAdapter
-import com.example.helse.data.api.LocationApi
-import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Location
-import com.example.helse.data.entities.alnabruLocation
-import com.example.helse.data.repositories.LocationRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.SearchViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -90,8 +88,7 @@ class SearchFragment : Fragment() {
                     if (it != null && it.latitude != 0.0 && it.longitude != 0.0) {
                         preferences.setDeviceLocation(it.latitude, it.longitude)
                     } else {
-                        Toast.makeText(requireContext(),
-                            getString(R.string.failed_location_query), Toast.LENGTH_LONG).show()
+                            getString(R.string.failed_location_query).toast(requireContext())
                     }
                 }
             } catch (e: SecurityException) {
@@ -111,8 +108,7 @@ class SearchFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PERMISSION_GRANTED) {
                     getDeviceLocation()
                 } else {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.permission_denied_toast), Toast.LENGTH_LONG).show()
+                        getString(R.string.permission_denied_toast).toast(requireContext())
                 }
             }
         }
