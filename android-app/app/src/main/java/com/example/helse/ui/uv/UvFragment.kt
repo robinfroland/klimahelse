@@ -9,7 +9,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.helse.R
+import com.example.helse.data.api.UvForecastApi
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.UvForecast
+import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.UvViewModel
 import kotlinx.android.synthetic.main.fragment_uv.*
@@ -61,7 +64,7 @@ class UvFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
-                uvRepository = Injector.getUvForecastRepository(requireContext())
+                uvRepository = UvForecastRepository(LocalDatabase.getInstance(requireContext()).uvDao(), UvForecastApi)
             }
     }
 

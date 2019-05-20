@@ -32,6 +32,7 @@ class UvForecastRepository(
             // Retrieve data from database
             println("Getting UV from DB")
             uvForecast = uvDao.getAll()
+            println("All uvForecast $uvForecast")
             val previousDistance = Double.MAX_VALUE
             var closestForecast = emptyUvForecast
             for (i in 0 until uvForecast.size) {
@@ -44,6 +45,8 @@ class UvForecastRepository(
                 )
 
                 if (distance < previousDistance) {
+                    println("Distance $distance is less than $previousDistance")
+                    println("Saving new forecast $forecast")
                     closestForecast = forecast
                 }
             }
