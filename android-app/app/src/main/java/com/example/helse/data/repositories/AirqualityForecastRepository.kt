@@ -35,7 +35,6 @@ class AirqualityForecastRepository(
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
-        println("For ${location.stationID} airquality is $airqualityForecast")
         return airqualityForecast
     }
 

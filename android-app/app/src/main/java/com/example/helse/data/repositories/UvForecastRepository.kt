@@ -23,6 +23,7 @@ class UvForecastRepository(
             // If data is stale and api fetch is needed
             uvDao.deleteAll()
             uvForecast = uvApi.fetchUv()
+            println("Inserting $uvForecast")
             uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
                 emptyLocation, LAST_API_CALL_UV, System.currentTimeMillis()
