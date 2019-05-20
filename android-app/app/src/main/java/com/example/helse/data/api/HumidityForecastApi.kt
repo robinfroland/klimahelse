@@ -20,7 +20,9 @@ class HumidityForecastApi(val location: Location) {
 
             response = client.newCall(request).execute()
 
-            response.parseHumidityResponse(location)
+            val res = response.parseHumidityResponse(location)
+            println("Res from parseHumidity = $res")
+            return res
         } catch (e: Exception) {
             println("Failed with exception $e")
             mutableListOf(emptyHumidityForecast)
