@@ -74,7 +74,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val northmostPointNorway = LatLng(70.996689, 33.489198)
         map.setLatLngBoundsForCameraTarget(LatLngBounds(southmostPointInNorway, northmostPointNorway))
 
-        //Zoom camera to "alnabru", this should later be the users current position
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(zoomToCoordinate, 12.toFloat()))
     }
 
@@ -88,17 +87,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     val location = locations[i]
                     val forecast = getForecastForLocationAsync(location).await()
 
-                    var color = when (forecast.riskValue) {
-                        LOW_VALUE -> R.color.greenLowRisk
-                        MEDIUM_VALUE -> R.color.yellowMediumRisk
-                        HIGH_VALUE -> R.color.orangeHighRisk
-                        VERY_HIGH_VALUE -> R.color.redVeryHighRisk
+                    val colorRes = when (forecast.riskValue) {
+                        LOW_VALUE -> R.color.colorDangerLowAlpha
+                        MEDIUM_VALUE -> R.color.colorDangerMediumAlpha
+                        HIGH_VALUE -> R.color.colorDangerHighAlpha
+                        VERY_HIGH_VALUE -> R.color.colorDangerVeryHigh
                         else -> R.color.colorGreyDark
                     }
-                    color = ContextCompat.getColor(context!!, color)
+
                     requireActivity().runOnUiThread {
-                        addCircleToMap(p0, location, color)
+                        addCircleToMap(p0, location,
+                            resources.getColor(colorRes, null)
+                        )
                     }
+                    if (i == locations.size-1) progress_spinner.visibility = View.GONE
                 }
             }
         }
@@ -112,7 +114,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     location.longitude
                 )
             ).fillColor(riskColor).strokeColor(Color.TRANSPARENT).radius(
-                250.00
+                500.00
             ).visible(true)
         )
     }

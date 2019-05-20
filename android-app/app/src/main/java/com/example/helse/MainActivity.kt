@@ -108,7 +108,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                 }
                 MAP_LABEL -> {
                     toolbar.navigationIcon?.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-                    toolbar_title.setTextColor(Color.WHITE)
                 }
             }
         }

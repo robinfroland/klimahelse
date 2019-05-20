@@ -32,4 +32,15 @@
         android:textColor="#FFFFFF"
         android:theme="@style/ToolbarTitleTheme" />
 
+    <ProgressBar
+        android:id="@+id/progress_spinner"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="25dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorWhite"
+        android:indeterminateTintMode="src_atop" />
+
 </FrameLayout>

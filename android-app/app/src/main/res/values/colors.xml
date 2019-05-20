@@ -30,10 +30,10 @@
     <color name="colorPushIconEnabled">#CCFFFFFF</color>
 
     <!-- Dots on map -->
-    <color name="greenLowRisk">#804caf50</color>
-    <color name="yellowMediumRisk">#80ffff8b</color>
-    <color name="orangeHighRisk">#80f9a825</color>
-    <color name="redVeryHighRisk">#80d50000</color>
+    <color name="colorDangerVeryHighAlpha">#BFD7402E</color>
+    <color name="colorDangerHighAlpha">#BFE07E00</color>
+    <color name="colorDangerMediumAlpha">#BFE6C52F</color>
+    <color name="colorDangerLowAlpha">#BF33AD3A</color>
 
     <!-- Map toolbar gradient -->
     <color name="fade_start_color">#D9070707</color>
