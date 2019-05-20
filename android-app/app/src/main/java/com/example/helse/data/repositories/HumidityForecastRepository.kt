@@ -18,10 +18,8 @@ class HumidityForecastRepository(
     fun fetchHumidity(): MutableList<HumidityForecast> {
         lateinit var humidityForecast: MutableList<HumidityForecast>
 
-
         if (dataIsStale()) {
             // If data is stale an api fetch is needed
-            println("Fetching humidity")
             humidityDao.deleteAll()
             humidityForecast = humidityApi.fetchHumidity()
             humidityDao.insert(humidityForecast)
@@ -33,10 +31,8 @@ class HumidityForecastRepository(
             humidityForecast = humidityDao.getAll()
         }
         if (humidityForecast.size == 0) {
-            println("Size of forecast is 0")
             return mutableListOf(emptyHumidityForecast)
         }
-        println("humidForecast is $humidityForecast")
         return humidityForecast
     }
 

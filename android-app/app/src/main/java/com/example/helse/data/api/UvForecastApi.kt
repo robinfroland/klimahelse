@@ -24,19 +24,16 @@ object UvForecastApi {
                 .url(uri)
                 .build()
 
-            println("Uri is $uri")
-
             response = client.newCall(request).execute()
-            println("Response is $response")
 
             response.parseUvResponse(selectedLocation)
         } catch (e: Exception) {
-            println("Failed with exception $e")
+            println("fetchUv() failed with exception $e")
             mutableListOf(emptyUvForecast)
         }
     }
 
-    private val UV_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/uvforecast/1.0/available"
+    private const val UV_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/uvforecast/1.0/available"
     // Fetch URI's from endpoint. Return URI for today.
     // Tomorrow and day after tomorrow available later if wanted(just return the list instead of index 0
     private fun fetchUvURI(): String {

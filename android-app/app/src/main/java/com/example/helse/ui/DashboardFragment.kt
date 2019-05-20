@@ -73,7 +73,6 @@ class DashboardFragment : Fragment() {
 
     private fun initViewModel() {
         val location = preferences.getLocation()
-        println("LOCATION SET IS $location")
         val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {

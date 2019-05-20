@@ -6,6 +6,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
+private const val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/1.9/?"
+
 class HumidityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
@@ -18,19 +20,15 @@ class HumidityForecastApi(val location: Location) {
                 .build()
 
             response = client.newCall(request).execute()
-            println("response $response")
-
 
             val res = response.parseHumidityResponse(location)
-            println("Res from parseHumidity = $res")
             res
         } catch (e: Exception) {
-            println("Failed with exception $e")
+            println("fetchHumidity() failed with exception $e")
             mutableListOf(emptyHumidityForecast)
         }
     }
 
-    private val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/1.9/?"
     private fun createHumidityURI(lat: Double, lon: Double): String {
         return "${HUMIDITY_BASE_URL}lat=$lat&lon=$lon"
     }

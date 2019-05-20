@@ -8,6 +8,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
+private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
+
 class AirqualityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
@@ -22,12 +24,11 @@ class AirqualityForecastApi(val location: Location) {
 
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
-            println("Failed with exception $e")
+            println("fetchAirqualityFromURL() failed with exception $e")
             mutableListOf(emptyAirqualityForecast)
         }
     }
 
-    private val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
     private fun buildCoordinateURI(lat: Double, lon: Double): String {
         return "${AIRQUALITY_BASE_URL}lat=$lat&lon=$lon&areaclass=grunnkrets"
     }
