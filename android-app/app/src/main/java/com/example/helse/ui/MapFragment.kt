@@ -77,6 +77,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val northmostPointNorway = LatLng(70.996689, 33.489198)
         map.setLatLngBoundsForCameraTarget(LatLngBounds(southmostPointInNorway, northmostPointNorway))
 
+        //Zoom camera to users selected location
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(zoomToCoordinate, 13.toFloat()))
     }
 
