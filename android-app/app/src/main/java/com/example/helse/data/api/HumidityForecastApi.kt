@@ -12,12 +12,14 @@ class HumidityForecastApi(val location: Location) {
     fun fetchHumidity(): MutableList<HumidityForecast> {
         lateinit var response: Response
         return try {
-            val uri = fetchHumidityURI(location.latitude, location.longitude)
+            val uri = createHumidityURI(location.latitude, location.longitude)
             val request = Request.Builder()
                 .url(uri)
                 .build()
 
             response = client.newCall(request).execute()
+            println("response $response")
+
 
             val res = response.parseHumidityResponse(location)
             println("Res from parseHumidity = $res")
@@ -28,7 +30,8 @@ class HumidityForecastApi(val location: Location) {
         }
     }
 
-    private fun fetchHumidityURI(lat: Double, lon: Double): String {
+    private val HUMIDITY_BASE_URL = "https://api.met.no/weatherapi/locationforecast/1.9/?"
+    private fun createHumidityURI(lat: Double, lon: Double): String {
         return "${HUMIDITY_BASE_URL}lat=$lat&lon=$lon"
     }
 }

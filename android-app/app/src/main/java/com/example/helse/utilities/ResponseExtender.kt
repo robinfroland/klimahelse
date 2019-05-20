@@ -164,9 +164,11 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                     .apply { setInput(inputStream, null) }
 
                 println("Initial")
+                println("inputStream $inputStream")
 
                 while (parser.next() != XmlPullParser.END_DOCUMENT) {
                     if (parser.eventType != XmlPullParser.START_TAG) {
+                        println("Start tag")
                         continue
                     }
 

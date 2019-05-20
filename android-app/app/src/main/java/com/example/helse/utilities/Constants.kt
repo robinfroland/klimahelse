@@ -4,12 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 
 
-// BASE URL
-const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
-const val HUMIDITY_BASE_URL = "https://api.met.no/weatherapi/locationforecast/1.9/?"
-const val UV_BASE_URL = "https://api.met.no/weatherapi/uvforecast/1.0/available"
-const val STATIONS_BASE_URL = "https://api.met.no/weatherapi/airqualityforecast/0.1/stations"
-
 // PERMISSIONS
 const val LOCATION_PERMISSION_CODE = 1
 const val LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION

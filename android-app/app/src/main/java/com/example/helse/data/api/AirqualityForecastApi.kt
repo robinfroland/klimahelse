@@ -27,6 +27,7 @@ class AirqualityForecastApi(val location: Location) {
         }
     }
 
+    private val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
     private fun buildCoordinateURI(lat: Double, lon: Double): String {
         return "${AIRQUALITY_BASE_URL}lat=$lat&lon=$lon&areaclass=grunnkrets"
     }
