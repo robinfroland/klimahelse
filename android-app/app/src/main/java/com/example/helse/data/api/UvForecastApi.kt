@@ -28,6 +28,7 @@ object UvForecastApi {
 
             response.parseUvResponse(selectedLocation)
         } catch (e: Exception) {
+            println("Failed with exception $e")
             mutableListOf(emptyUvForecast)
         }
     }

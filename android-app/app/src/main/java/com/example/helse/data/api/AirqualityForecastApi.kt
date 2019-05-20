@@ -22,6 +22,7 @@ class AirqualityForecastApi(val location: Location) {
 
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
+            println("Failed with exception $e")
             mutableListOf(emptyAirqualityForecast)
         }
     }

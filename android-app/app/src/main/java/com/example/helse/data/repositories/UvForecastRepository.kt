@@ -49,6 +49,7 @@ class UvForecastRepository(
             }
             uvForecast = mutableListOf(closestForecast)
         }
+        println("uvForecast is $uvForecast")
         return uvForecast
     }
 
