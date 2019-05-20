@@ -35,10 +35,14 @@
     <color name="orangeHighRisk">#80f9a825</color>
     <color name="redVeryHighRisk">#80d50000</color>
 
+    <!-- Map toolbar gradient -->
+    <color name="fade_start_color">#D9070707</color>
+    <color name="fade_center_color">#0D000000</color>
+    <color name="fade_end_color">#00FFFFFF</color>
+
     <!-- Miscellaneous -->
     <color name="colorAccent">#C2185B</color>
     <color name="colorError">#CC0000</color>
-
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteUnselected">#80FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>

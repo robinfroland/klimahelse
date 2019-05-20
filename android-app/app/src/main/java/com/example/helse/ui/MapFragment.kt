@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.helse.R
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -39,6 +41,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView = requireActivity().findViewById(R.id.map)
         mapView.onCreate(savedInstanceState)
         preferences = Injector.getAppPreferences(requireContext())
+
+        toolbar_title.text = findNavController().currentDestination?.label
 
         mapView.onResume()
         try {

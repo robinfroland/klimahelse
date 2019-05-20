@@ -1,7 +1,9 @@
 package com.example.helse
 
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -46,10 +48,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     private fun setupNavBars() {
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -57,24 +56,7 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         bottom_navbar.setupWithNavController(navController)
         setupActionBarWithNavController(navController, null)
 
-        // Change toolbar according to fragment
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            toolbar.setBackgroundColor(Color.TRANSPARENT)
-            window.statusBarColor = Color.TRANSPARENT
-            toolbar_title.text = ""
-
-            when (destination.label) {
-                SETTINGS_LABEL -> {
-                    toolbar.setBackgroundColor(Color.WHITE)
-                    window.statusBarColor = Color.WHITE
-                    toolbar_title.text = SETTINGS_LABEL
-                }
-                MAP_LABEL -> {
-                    toolbar.setBackgroundResource(R.drawable.toolbar_map_gradient)
-                    toolbar_title.setTextColor(Color.WHITE)
-                }
-            }
-        }
+        setupDynamicToolbarUi()
     }
 
     private fun setFirstLaunch() {
@@ -103,6 +85,32 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
                 msg = "Weather not registered successfully"
             }
             println(msg)
+        }
+    }
+
+    private fun setupDynamicToolbarUi() {
+
+        // Change toolbar and colors according to fragment
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            toolbar.setBackgroundColor(Color.TRANSPARENT)
+            toolbar.navigationIcon?.setColorFilter(
+                resources.getColor(R.color.colorGreyDark, null), PorterDuff.Mode.SRC_ATOP)
+            window.statusBarColor = Color.TRANSPARENT
+            toolbar_title.text = ""
+
+            when (destination.label) {
+                SETTINGS_LABEL -> {
+                    toolbar.setBackgroundColor(Color.WHITE)
+                    window.statusBarColor = Color.WHITE
+                    toolbar_title.text = SETTINGS_LABEL
+                    toolbar_title.setTextColor(resources.getColor(R.color.colorGreyDark, null))
+                    println(destination.label)
+                }
+                MAP_LABEL -> {
+                    toolbar.navigationIcon?.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+                    toolbar_title.setTextColor(Color.WHITE)
+                }
+            }
         }
     }
 

@@ -17,4 +17,19 @@
         android:layout_gravity="center"
         />
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/toolbar_map_gradient"
+        android:src="@drawable/toolbar_map_gradient" />
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
+        android:theme="@style/ToolbarTitleTheme" />
+
 </FrameLayout>
