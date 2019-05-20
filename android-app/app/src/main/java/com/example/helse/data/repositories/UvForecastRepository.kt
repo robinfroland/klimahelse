@@ -23,13 +23,8 @@ class UvForecastRepository(
             // If data is stale and api fetch is needed
             println("Fetching UV")
             uvDao.deleteAll()
-            val allUvForecast = uvApi.fetchUv()
-            uvForecast = if (uvForecast.size < 1) {
-                mutableListOf(emptyUvForecast)
-            } else {
-                uvDao.insertAll(uvForecast)
-                mutableListOf(allUvForecast[0])
-            }
+            uvForecast = uvApi.fetchUv()
+            uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_UV, System.currentTimeMillis()
             )
