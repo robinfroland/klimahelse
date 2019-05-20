@@ -128,7 +128,6 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
                                     riskValue = calculateUvRiskValue(uviClear)
                                 )
                             )
-
                             previousDistance = distance
                         } else {
                             uvForecast.add(
