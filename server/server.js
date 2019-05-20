@@ -138,9 +138,9 @@ async function sendNotif() {
       var uvForecast = await getUVForecast();
   
       const topic = 'weather';
-      const message = `Hei, i dag er luftkvaliteten ${airquality} og uv-strålingen ${uvForecast}`;
+      const message = `Luftkvalitet: ${airquality}\nUV-stråling: ${uvForecast}`
   
-      console.log(`Sending message to all users: ${message.data.data}`);
+      console.log(`Sending message to all users: ${message}`);
   
       const url = 'https://fcm.googleapis.com/fcm/send';
       await fetch(url, {
@@ -152,7 +152,7 @@ async function sendNotif() {
         },
         body: JSON.stringify({
           notification: {
-            title: 'Daglig rapport',
+            title: 'Status i dag',
             body: message
           },
           to: '/topics/weather'
@@ -163,6 +163,8 @@ async function sendNotif() {
     }
   }
 }
+
+sendNotif()
 
 setInterval(sendNotif, 1000 * 60);
 
