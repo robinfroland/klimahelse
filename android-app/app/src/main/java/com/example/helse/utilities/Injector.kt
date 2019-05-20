@@ -55,5 +55,4 @@ object Injector {
             LocalDatabase.getInstance(context).locationDao(), LocationApi
         )
     }
-
 }

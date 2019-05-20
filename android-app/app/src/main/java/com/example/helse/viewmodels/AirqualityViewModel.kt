@@ -19,7 +19,6 @@ class AirqualityViewModel : ViewModel() {
     }
 
     private fun loadForecast() {
-
         viewModelScope.launch {
             val deferred = async(Dispatchers.IO) { airqualityRepository.fetchAirquality() }
             forecasts.value = deferred.await()
