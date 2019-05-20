@@ -24,7 +24,10 @@ object UvForecastApi {
                 .url(uri)
                 .build()
 
+            println("Uri is $uri")
+
             response = client.newCall(request).execute()
+            println("Response is $response")
 
             response.parseUvResponse(selectedLocation)
         } catch (e: Exception) {
