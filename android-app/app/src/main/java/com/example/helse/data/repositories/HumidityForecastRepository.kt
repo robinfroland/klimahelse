@@ -30,7 +30,7 @@ class HumidityForecastRepository(
             // Retrieve data from database
             humidityForecast = humidityDao.getAll()
         }
-        if (humidityForecast.size == 0) {
+        if (humidityForecast.size <= 2) {
             return mutableListOf(emptyHumidityForecast, emptyHumidityForecast)
         }
         return humidityForecast

@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         navController = findNavController(R.id.nav_host_fragment)
         subscribePushNotification()
         setupNavBars()
-        setDeviceLocation()
+        updateDeviceLocation()
     }
 
-    private fun setDeviceLocation() {
+    private fun updateDeviceLocation() {
         val preferences = Injector.getAppPreferences(applicationContext)
         val deviceLocationClient: FusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(this)
