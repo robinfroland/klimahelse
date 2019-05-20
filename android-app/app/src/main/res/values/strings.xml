@@ -14,7 +14,7 @@
     <string name="onboardingPushTitle">Vær forberedt</string>
     <string name="onboardingPushDesc">Hver morgen sender vi deg en kort oppsummering for hvordan valgte kategorier kan påvirke dagen din.</string>
     <string name="onboardingLocationTitle">Område for varsler</string>
-    <string name="onboardingLocationDesc">Vi finner varsler relevant til hvor du befinner deg. Alternativt kan du selv søke etter et område for varsling.</string>
+    <string name="onboardingLocationDesc">Vi finner varsler relevant til hvor du befinner deg.\n Dette kan du velge å slå av senere eller alternativt selv søke etter et område for varsling.</string>
 
     <!-- Search and location -->
     <string name="location">%1$s</string>
@@ -80,5 +80,6 @@
     <string name="empty_dashboard_desc">Gå til innstillinger for å aktivere kategorier</string>
     <string name="permission_denied_toast">For å bruke nåværende posisjon må du tillate forespørselen!</string>
     <string name="failed_location_query">Kunne ikke finne din posisjon. Velg manuelt eller prøv senere.</string>
+    <string name="search_title">Søk etter område</string>
 
 </resources>

@@ -13,12 +13,4 @@
         android:title="Posisjonsbasert varsel"
         app:iconSpaceReserved="false" />
 
-    <Preference
-        android:icon="@drawable/ic_search_black"
-        android:iconSpaceReserved="true"
-        android:key="LOCATION_SETTINGS"
-        android:title="Søk etter område"
-        app:fragment="com.example.helse.ui.SearchFragment"
-        app:iconSpaceReserved="false" />
-
 </PreferenceScreen>

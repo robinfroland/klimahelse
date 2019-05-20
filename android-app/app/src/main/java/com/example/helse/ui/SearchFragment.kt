@@ -1,7 +1,9 @@
 package com.example.helse.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -48,6 +50,9 @@ class SearchFragment : Fragment() {
 
         val searchIcon = menu.findItem(R.id.search_icon)
         val searchView = searchIcon.actionView as SearchView
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.queryHint = "Søk..."
+        searchView.isIconified = false
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -66,6 +71,13 @@ class SearchFragment : Fragment() {
             getDeviceLocation()
             findNavController().navigateUp()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Hide keyboard on navigate up
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getDeviceLocation() {
