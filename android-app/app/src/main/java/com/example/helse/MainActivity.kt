@@ -74,15 +74,14 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         })
         FirebaseMessaging.getInstance().subscribeToTopic("weather")
     }
-}
 
     private fun setupDynamicToolbarUi() {
-
         // Change toolbar and colors according to fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             toolbar.setBackgroundColor(Color.TRANSPARENT)
             toolbar.navigationIcon?.setColorFilter(
-                resources.getColor(R.color.colorGreyDark, null), PorterDuff.Mode.SRC_ATOP)
+                resources.getColor(R.color.colorGreyDark, null), PorterDuff.Mode.SRC_ATOP
+            )
             window.statusBarColor = Color.TRANSPARENT
             toolbar_title.text = ""
 
@@ -99,5 +98,4 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
             }
         }
     }
-
 }

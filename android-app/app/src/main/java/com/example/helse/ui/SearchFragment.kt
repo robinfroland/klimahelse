@@ -3,11 +3,8 @@ package com.example.helse.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-<<<<<<< HEAD
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-=======
->>>>>>> If user selected his/her location, change location each time dashboard is loaded
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
