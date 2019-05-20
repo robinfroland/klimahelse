@@ -163,28 +163,34 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                 val parser: XmlPullParser = Xml.newPullParser()
                     .apply { setInput(inputStream, null) }
 
+                println("Initial")
+
                 while (parser.next() != XmlPullParser.END_DOCUMENT) {
                     if (parser.eventType != XmlPullParser.START_TAG) {
                         continue
                     }
 
                     if (parsedResponse.size == 24) {
+                        println("Size is big")
                         break
                     }
 
                     if (parser.name == "time") {
+                        println("Time")
                         val from = parser.getAttributeValue(1).toString()
                         repeat(2) {
                             parser.nextTag()
                         }
 
                         if (parser.name == "temperature") {
+                            println("Temperature")
                             val temperature = parser.getAttributeValue(2).toDouble()
                             repeat(10) {
                                 parser.nextTag()
                             }
 
                             if (parser.name == "humidity") {
+                                println("Humidity")
                                 val humidityValue = parser.getAttributeValue(0).toDouble()
                                 val riskValue = calculateHumidityRiskValue(humidityValue)
 
@@ -201,7 +207,9 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                             }
                         }
                     }
+                    println("Next Loop")
                 }
+                println("End")
 
             }
     } catch (error: NumberFormatException) {
