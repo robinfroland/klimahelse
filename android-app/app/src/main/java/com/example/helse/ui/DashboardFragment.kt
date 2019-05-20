@@ -10,12 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Database
 import com.example.helse.R
 import com.example.helse.adapters.ModuleAdapter
 import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.api.HumidityForecastApi
-import com.example.helse.data.api.UvApi
 import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.Module
@@ -112,20 +110,32 @@ class DashboardFragment : Fragment() {
         val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            airqualityModule.dangerIndicator =
-                forecast[0].riskValue
+            if (forecast.size < 24) {
+                airqualityModule.dangerIndicator = RISK_NOT_AVAILABLE
+            } else {
+                airqualityModule.dangerIndicator =
+                    forecast[currentTime].riskValue
+            }
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            humidityModule.dangerIndicator =
-                forecast[0].riskValue
+            if (forecast.size < 1) {
+                humidityModule.dangerIndicator = RISK_NOT_AVAILABLE
+            } else {
+                humidityModule.dangerIndicator =
+                    forecast[0].riskValue
+            }
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            uvModule.dangerIndicator =
-                forecast[0].riskValue
+            if (forecast.size < 1) {
+                uvModule.dangerIndicator = RISK_NOT_AVAILABLE
+            } else {
+                uvModule.dangerIndicator =
+                    forecast[0].riskValue
+            }
             viewAdapter.notifyDataSetChanged()
         })
     }

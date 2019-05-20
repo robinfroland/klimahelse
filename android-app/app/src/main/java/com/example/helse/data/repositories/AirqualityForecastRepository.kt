@@ -37,7 +37,7 @@ class AirqualityForecastRepository(
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
-        println("airqualityForecast $airqualityForecast")
+        println("airqualityForecastRepo $airqualityForecast")
         return airqualityForecast
     }
 
@@ -45,6 +45,9 @@ class AirqualityForecastRepository(
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         println("previousFetch time for ${location.stationID} was $previousFetchTime")
         val currentTime = System.currentTimeMillis()
+        if (airqualityDao.get(location.stationID).size < 20) {
+            return true
+        }
 
         // If -1 there is no previous fetch call, thus fetch is needed
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES

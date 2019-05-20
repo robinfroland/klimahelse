@@ -36,6 +36,7 @@ const val USE_DEVICE_LOCATION = "USE_DEVICE_LOCATION"
 const val LOW_HUMIDITY_VALUE = "LAV FUKTIGHET"
 const val GOOD_HUMIDITY_VALUE = "PASSE FUKTIGHET"
 const val HIGH_HUMIDITY_VALUE = "HØY FUKTIGHET"
+const val RISK_NOT_AVAILABLE = "RISIKO IKKE TILGJENGELIG"
 const val LOW_VALUE = "LAV RISIKO"            //low       = <1.0-2.0>
 const val MEDIUM_VALUE = "MODERAT RISIKO"     //medium    = <2.1-3.0>
 const val HIGH_VALUE = "BETYDELIG RISIKO"     //high      = <3.1-4.0>

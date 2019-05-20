@@ -2,6 +2,7 @@ package com.example.helse.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.helse.utilities.RISK_NOT_AVAILABLE
 
 @Entity(tableName = "uvForecast")
 data class UvForecast(
@@ -18,11 +19,11 @@ data class UvForecast(
 )
 
 val emptyUvForecast = UvForecast(
-    latitude =  0.00,
+    latitude = 0.00,
     longitude = 0.00,
     uvClear = 0.00,
     uvPartlyCloudy = 0.00,
     uvCloudy = 0.00,
     uvForecast = 0.00,
-    riskValue = ""
+    riskValue = RISK_NOT_AVAILABLE
 )

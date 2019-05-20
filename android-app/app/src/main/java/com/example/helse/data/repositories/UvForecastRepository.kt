@@ -19,6 +19,8 @@ class UvForecastRepository(
 
         if (dataIsStale()) {
             // If data is stale and api fetch is needed
+            println("Fetching UV")
+            uvDao.deleteAll()
             uvForecast = uvApi.fetchUv()
             uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
@@ -26,6 +28,7 @@ class UvForecastRepository(
             )
         } else {
             // Retrieve data from database
+            println("Getting UV from DB")
             uvForecast = uvDao.getAll()
         }
         return uvForecast
@@ -34,6 +37,9 @@ class UvForecastRepository(
     private fun dataIsStale(): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
+        if (uvDao.getAll().size < 10) {
+            return true
+        }
 
         // If -1 there is no previous fetch call, thus fetch is needed
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES

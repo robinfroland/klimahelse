@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-class AirqualityForecastApi(val location: Location){
+class AirqualityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
     fun fetchAirqualityFromURL(): MutableList<AirqualityForecast> {
