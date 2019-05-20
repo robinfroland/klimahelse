@@ -138,9 +138,14 @@ class AppPreferences(context: Context) : Preferences {
             else ->
                 geoLocation[0].subAdminArea // e.g: Oslo kommune
         }
-        
 
-        return Location(location, superlocation, lat, lon, USE_DEVICE_LOCATION)
+        return Location(
+            location = location,
+            superlocation = superlocation,
+            latitude = lat,
+            longitude = lon,
+            stationID = USE_DEVICE_LOCATION
+        )
     }
 
     override fun setDeviceLocation(lat: Double, lon: Double) {
