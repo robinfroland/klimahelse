@@ -19,6 +19,8 @@ class AirqualityForecastRepository(
 
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
+        println("location is $location")
+
         if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
             println("Fetching")
