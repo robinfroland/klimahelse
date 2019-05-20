@@ -120,22 +120,14 @@ class DashboardFragment : Fragment() {
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            if (forecast.size < 1) {
-                humidityModule.dangerIndicator = RISK_NOT_AVAILABLE
-            } else {
-                humidityModule.dangerIndicator =
-                    forecast[0].riskValue
-            }
+            humidityModule.dangerIndicator =
+                forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
-            if (forecast.size < 1) {
-                uvModule.dangerIndicator = RISK_NOT_AVAILABLE
-            } else {
-                uvModule.dangerIndicator =
-                    forecast[0].riskValue
-            }
+            uvModule.dangerIndicator =
+                forecast[0].riskValue
             viewAdapter.notifyDataSetChanged()
         })
     }

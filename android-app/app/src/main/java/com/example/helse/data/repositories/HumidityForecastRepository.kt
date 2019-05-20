@@ -32,8 +32,10 @@ class HumidityForecastRepository(
             humidityForecast = humidityDao.getAll()
         }
         if (humidityForecast.size == 0) {
+            println("Size of forecast is 0")
             return mutableListOf(emptyHumidityForecast)
         }
+        println("humidForecast is $humidityForecast")
         return humidityForecast
     }
 
