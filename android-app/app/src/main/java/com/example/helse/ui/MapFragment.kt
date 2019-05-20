@@ -9,8 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.helse.R
+import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
+import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.utilities.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
@@ -121,9 +124,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-            val airqualityRepo = Injector.getAirqualityForecastRepository(requireContext(), location)
+            val airqualityRepo = AirqualityForecastRepository(
+                LocalDatabase.getInstance(requireContext()).airqualityDao(),
+                AirqualityForecastApi(location)
+            )
 
-            val airquality = airqualityRepo.fetchAirquality(location)
+            val airquality = airqualityRepo.fetchAirquality()
             airquality[hourOfDay]
         }
     }

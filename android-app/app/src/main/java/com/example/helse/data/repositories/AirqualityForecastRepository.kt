@@ -12,10 +12,10 @@ class AirqualityForecastRepository(
     private val airqualityApi: AirqualityForecastApi
 ) {
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val savedLocation = preferences.getLocation()
 
     // Default location is the location selected by the user
-    fun fetchAirquality(location: Location = savedLocation): MutableList<AirqualityForecast> {
+    fun fetchAirquality(): MutableList<AirqualityForecast> {
+        val location = airqualityApi.location
 
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
 
@@ -35,6 +35,7 @@ class AirqualityForecastRepository(
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)
         }
+        println("For ${location.stationID} airquality is $airqualityForecast")
         return airqualityForecast
     }
 
