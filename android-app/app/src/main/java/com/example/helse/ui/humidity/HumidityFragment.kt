@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
+import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.repositories.HumidityForecastRepository
@@ -80,7 +81,10 @@ class HumidityFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
                 humidityRepository =
-                    HumidityForecastRepository(LocalDatabase.getInstance(requireContext()).humidityDao(), location)
+                    HumidityForecastRepository(
+                        LocalDatabase.getInstance(requireContext()).humidityDao(),
+                        HumidityForecastApi(location)
+                    )
             }
     }
 

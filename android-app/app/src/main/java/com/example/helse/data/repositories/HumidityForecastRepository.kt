@@ -20,7 +20,7 @@ class HumidityForecastRepository(
 
 
         if (dataIsStale()) {
-            // If data is stale and api fetch is needed
+            // If data is stale an api fetch is needed
             humidityDao.deleteAll()
             humidityForecast = humidityApi.fetchHumidity()
             humidityDao.insert(humidityForecast)
