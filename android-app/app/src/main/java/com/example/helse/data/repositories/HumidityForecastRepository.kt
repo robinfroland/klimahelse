@@ -43,7 +43,8 @@ class HumidityForecastRepository(
     private fun dataIsStale(): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
-        if (humidityDao.getAll().size < 20) {
+        if (humidityDao.getAll().size < 1) {
+            println("Humidity size is less than 1")
             return true
         }
 
@@ -52,11 +53,9 @@ class HumidityForecastRepository(
     }
 
     companion object {
-
         private var INSTANCE: HumidityForecastRepository? = null
 
         // Singleton instantiation of repository
-
         fun getInstance(
             humidityDao: HumidityDao,
             humidityForecastApi: HumidityForecastApi

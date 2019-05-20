@@ -26,7 +26,7 @@ class UvForecastRepository(
             uvForecast = uvApi.fetchUv()
             uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
-                location, LAST_API_CALL_UV, System.currentTimeMillis()
+                emptyLocation, LAST_API_CALL_UV, System.currentTimeMillis()
             )
         } else {
             // Retrieve data from database
@@ -55,10 +55,11 @@ class UvForecastRepository(
     private fun dataIsStale(): Boolean {
         val previousFetchTime = preferences.getLastApiCall(emptyLocation, LAST_API_CALL_UV)
         val currentTime = System.currentTimeMillis()
-        if (uvDao.getAll().size < 10) {
+        val uvdaoo = uvDao.getAll()
+        if (uvdaoo.size < 10) {
+            println("Size of UVdao is ${uvdaoo.size}")
             return true
         }
-
         // If -1 there is no previous fetch call, thus fetch is needed
         return previousFetchTime < 0 || (currentTime - previousFetchTime) >= THIRTY_MINUTES
     }
