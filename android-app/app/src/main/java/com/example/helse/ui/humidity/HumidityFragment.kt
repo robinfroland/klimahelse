@@ -12,7 +12,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.adapters.HumidityHorizontalAdapter
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
+import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.utilities.Injector
 import com.example.helse.viewmodels.HumidityViewModel
@@ -77,7 +79,8 @@ class HumidityFragment : Fragment() {
         val location = Injector.getLocation(requireContext())
         viewModel = ViewModelProviders.of(this).get(HumidityViewModel::class.java)
             .apply {
-                humidityRepository = Injector.getHumidityForecastRepository(requireContext(), location)
+                humidityRepository =
+                    HumidityForecastRepository(LocalDatabase.getInstance(requireContext()).humidityDao(), location)
             }
     }
 
