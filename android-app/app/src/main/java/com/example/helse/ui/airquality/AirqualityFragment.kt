@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.helse.R
 import com.example.helse.adapters.AirqualityHorizontalAdapter
+import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
@@ -74,22 +77,26 @@ class AirqualityFragment : Fragment() {
     }
 
     private fun initViewModel() {
-
         viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
                 airqualityRepository =
-                    Injector.getAirqualityForecastRepository(requireContext(), preferences.getLocation())
+                    AirqualityForecastRepository(
+                        LocalDatabase.getInstance(requireContext()).airqualityDao(),
+                        AirqualityForecastApi(preferences.getLocation())
+                    )
             }
     }
 
     private fun observeDataStream() {
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecasts ->
-            for (i in 0 until forecasts.size) {
-                timeList.add(forecasts[i])
+            if (forecasts.size != 0) {
+                for (i in 0 until forecasts.size) {
+                    timeList.add(forecasts[i])
+                }
+                viewAdapter.notifyDataSetChanged()
+                val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
             }
-            viewAdapter.notifyDataSetChanged()
-            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-            setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
         })
     }
 
