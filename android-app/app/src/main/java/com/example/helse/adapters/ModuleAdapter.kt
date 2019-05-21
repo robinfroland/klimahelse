@@ -8,10 +8,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.helse.R
 import com.example.helse.data.entities.Module
+import com.example.helse.ui.DashboardFragment
 import com.example.helse.utilities.*
 import kotlinx.android.synthetic.main.list_item_module.view.*
 
-class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerView.Adapter<ModuleViewHolder>() {
+class ModuleAdapter(private var enabledModules: ArrayList<Module>, private val dashboard: DashboardFragment) : RecyclerView.Adapter<ModuleViewHolder>() {
     private lateinit var preferences: Preferences
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
@@ -32,7 +33,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
         val value = enabledModules[position].dangerIndicator
         val isLoading = enabledModules[position].isLoading
 
-        holder.module.network_error.visibility = View.INVISIBLE
+        holder.module.network_error.visibility = View.GONE
         holder.module.module_icon.setImageResource(moduleIcon)
         holder.module.module_title.text = category
         holder.module.value_label.text = value
@@ -54,7 +55,7 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
             HIGH_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
             RISK_NOT_AVAILABLE -> {
                 holder.module.network_error.visibility = View.VISIBLE
-                holder.module.value_label.text = "Feil oppstått"
+                holder.module.value_label.text = ""
             }
         }
 
@@ -83,6 +84,10 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
                     preferences.enableNotifications(enabledModules[position], true)
                 }
             }
+        }
+
+        holder.module.network_error.setOnClickListener {
+            dashboard.retryDatafetch(moduleKey)
         }
     }
 }

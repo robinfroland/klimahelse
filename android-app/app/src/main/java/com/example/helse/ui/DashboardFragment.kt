@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -38,6 +39,7 @@ class DashboardFragment : Fragment() {
     private lateinit var uvModule: Module
     private lateinit var humidityModule: Module
     private lateinit var preferences: Preferences
+    private var timer = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +47,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         preferences = Injector.getAppPreferences(requireContext())
         enabledModules = arrayListOf()
-        viewAdapter = ModuleAdapter(enabledModules)
+        viewAdapter = ModuleAdapter(enabledModules, this)
 
         initModules()
         initViewModel()
@@ -135,6 +137,11 @@ class DashboardFragment : Fragment() {
             uvModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
+    }
+
+    fun retryDatafetch(moduleKey: String) {
+        "Prøver på nytt..".toast(context, Toast.LENGTH_SHORT)
+        viewModel.retryDatafetch(moduleKey)
     }
 
     private fun initModules() {

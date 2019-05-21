@@ -9,13 +9,24 @@ import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
+import com.example.helse.utilities.AIRQUALITY_MODULE
+import com.example.helse.utilities.HUMIDITY_MODULE
 import com.example.helse.utilities.Injector
+import com.example.helse.utilities.UV_MODULE
 import kotlinx.coroutines.*
 
 class DashboardViewModel : ViewModel() {
     lateinit var airqualityForecastRepository: AirqualityForecastRepository
     lateinit var humidityForecastRepository: HumidityForecastRepository
     lateinit var uvForecastRepository: UvForecastRepository
+
+    fun retryDatafetch(moduleKey: String) {
+        when(moduleKey) {
+            AIRQUALITY_MODULE -> loadAirqualityForecast()
+            HUMIDITY_MODULE -> loadHumidityForecast()
+            UV_MODULE -> loadUvData()
+        }
+    }
 
     fun getAirqualityForecast() = airqualityData
 

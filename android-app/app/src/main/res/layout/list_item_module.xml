@@ -55,7 +55,7 @@
                 android:id="@+id/value_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif"
                 android:letterSpacing="0.05"
@@ -86,14 +86,12 @@
                 android:id="@+id/network_error"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="15dp"
                 android:contentDescription="@string/push_notification_icon"
                 android:padding="6dp"
-                android:visibility="invisible"
-                app:layout_constraintStart_toEndOf="@+id/module_title"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_error_black_24dp" />
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/value_label"
+                app:layout_constraintTop_toBottomOf="@+id/module_title"
+                app:srcCompat="@drawable/ic_network_error" />
 
             <ProgressBar
                 android:id="@+id/risk_loading"
