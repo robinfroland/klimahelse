@@ -118,18 +118,21 @@ class DashboardFragment : Fragment() {
                 airqualityModule.dangerIndicator =
                     forecast[currentTime].riskValue
             }
+            airqualityModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             humidityModule.dangerIndicator =
                 forecast[1].riskValue
+            humidityModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
             uvModule.dangerIndicator =
                 forecast[0].riskValue
+            uvModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
     }

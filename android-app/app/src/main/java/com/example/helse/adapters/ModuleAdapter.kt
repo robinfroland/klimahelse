@@ -1,5 +1,6 @@
 package com.example.helse.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,13 +30,21 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
         val moduleIcon = enabledModules[position].iconResourceId
         val category = enabledModules[position].category
         val value = enabledModules[position].dangerIndicator
+        val isLoading = enabledModules[position].isLoading
 
+        holder.module.network_error.visibility = View.INVISIBLE
         holder.module.module_icon.setImageResource(moduleIcon)
         holder.module.module_title.text = category
         holder.module.value_label.text = value
 
+        if (isLoading) {
+            holder.module.risk_loading.visibility = View.VISIBLE
+        } else {
+            holder.module.risk_loading.visibility = View.INVISIBLE
+        }
+
         // Set correct risk label
-        when(value) {
+        when (value) {
             LOW_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)
             MEDIUM_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
             HIGH_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_high)
@@ -43,6 +52,10 @@ class ModuleAdapter(private var enabledModules: ArrayList<Module>) : RecyclerVie
             LOW_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
             GOOD_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_low)
             HIGH_HUMIDITY_VALUE -> holder.module.value_label.setBackgroundResource(R.drawable.indicator_danger_medium)
+            RISK_NOT_AVAILABLE -> {
+                holder.module.network_error.visibility = View.VISIBLE
+                holder.module.value_label.text = "Feil oppstått"
+            }
         }
 
         if (preferences.isNotificationEnabled(enabledModules[position])) {
