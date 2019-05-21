@@ -14,7 +14,6 @@ fun calculateRiskFor(metric: AirqualityMetrics, value: Double): String {
 
     val values = airqualityMetricRanges[metric]
     if (values == null || values.size != 3) {
-        println("Something went pretty wrong lol, you fucked up")
         return ""
     }
     val low = values[0]
