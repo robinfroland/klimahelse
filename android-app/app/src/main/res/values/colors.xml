@@ -2,7 +2,7 @@
 <resources>
     <!-- Primary color palette -->
     <color name="colorPrimary">#577BE9</color>
-    <color name="colorPrimaryDark">#4B56E9</color>
+    <color name="colorPrimaryDark">#2734C0</color>
     <color name="colorPrimaryLight">#6A6DEA</color>
 
     <!-- Secondary color palette -->
@@ -10,7 +10,7 @@
     <!-- Danger indicator colors -->
     <color name="colorDangerVeryHigh">#D7402E</color>
     <color name="colorDangerHigh">#E07E00</color>
-    <color name="colorDangerMedium">#E6C52F</color>
+    <color name="colorDangerMedium">#E6C740</color>
     <color name="colorDangerLow">#33AD3A</color>
     <color name="colorSaharaYellow">#DFD16D</color>
 
