@@ -95,7 +95,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         LOW_VALUE -> R.color.colorDangerLowAlpha
                         MEDIUM_VALUE -> R.color.colorDangerMediumAlpha
                         HIGH_VALUE -> R.color.colorDangerHighAlpha
-                        VERY_HIGH_VALUE -> R.color.colorDangerVeryHigh
+                        VERY_HIGH_VALUE -> R.color.colorDangerVeryHighAlpha
                         else -> R.color.colorGreyDark
                     }
                     color = ContextCompat.getColor(context!!, color)
