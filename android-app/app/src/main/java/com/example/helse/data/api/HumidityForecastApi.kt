@@ -11,12 +11,13 @@ private const val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weathe
 class HumidityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
-    fun fetchHumidity(): MutableList<HumidityForecast> {
+    val humidityForecastURL = createHumidityURI(location.latitude, location.longitude)
+
+    fun fetchHumidity(url: String = humidityForecastURL): MutableList<HumidityForecast> {
         lateinit var response: Response
         return try {
-            val uri = createHumidityURI(location.latitude, location.longitude)
             val request = Request.Builder()
-                .url(uri)
+                .url(url)
                 .build()
 
             response = client.newCall(request).execute()

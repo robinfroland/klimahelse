@@ -10,13 +10,13 @@ import okhttp3.Response
 object LocationApi {
     const val STATIONS_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/stations"
 
-    fun fetchAllLocations(): MutableList<Location> {
+    fun fetchAllLocations(url: String = STATIONS_BASE_URL): MutableList<Location> {
         val client = OkHttpClient()
 
         lateinit var response: Response
         return try {
             val request = Request.Builder()
-                .url(STATIONS_BASE_URL)
+                .url(url)
                 .get()
                 .build()
 

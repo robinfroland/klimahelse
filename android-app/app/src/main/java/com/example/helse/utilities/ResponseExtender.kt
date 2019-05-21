@@ -36,7 +36,7 @@ fun Response.parseAirqualityResponse(location: Location): MutableList<Airquality
     val data = JSONObject(this.body()?.string()).getJSONObject("data").getJSONArray("time")
     val aqiForecastTimeArray = ArrayList<AirqualityForecast>()
 
-    for (i in 0 until 24) {
+    for (i in 0 until data.length()) {
         val jsonObj = data.getJSONObject(i)
         val to = jsonObj.getString("to")
         val from = jsonObj.getString("from")
@@ -167,10 +167,6 @@ fun Response.parseHumidityResponse(currentLocation: Location): MutableList<Humid
                 while (parser.next() != XmlPullParser.END_DOCUMENT) {
                     if (parser.eventType != XmlPullParser.START_TAG) {
                         continue
-                    }
-
-                    if (parsedResponse.size == 24) {
-                        break
                     }
 
                     if (parser.name == "time") {

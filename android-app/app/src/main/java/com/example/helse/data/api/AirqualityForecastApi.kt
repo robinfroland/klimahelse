@@ -13,11 +13,12 @@ private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weat
 class AirqualityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
-    fun fetchAirqualityFromURL(): MutableList<AirqualityForecast> {
+    private val airqualityForecastURL = buildCoordinateURI(location.latitude, location.longitude)
+    fun fetchAirqualityFromURL(url: String = airqualityForecastURL): MutableList<AirqualityForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()
-                .url(buildCoordinateURI(location.latitude, location.longitude))
+                .url(url)
                 .build()
 
             response = client.newCall(request).execute()

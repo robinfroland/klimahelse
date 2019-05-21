@@ -14,13 +14,14 @@ object UvForecastApi {
     private val selectedLocation = Injector.getLocation(AppContext.getAppContext())
     private val client = OkHttpClient()
 
-    fun fetchUv(): MutableList<UvForecast> {
+    // Get URI's for today, tomorrow, and overtomorrow
+    private val uvForecastURL = fetchUvURI()
+
+    fun fetchUv(url: String = uvForecastURL): MutableList<UvForecast> {
         lateinit var response: Response
         return try {
-            val uri = fetchUvURI()
-            // Get URI's for today, tomorrow, and overtomorrow
             val request = Request.Builder()
-                .url(uri)
+                .url(url)
                 .build()
 
             response = client.newCall(request).execute()
