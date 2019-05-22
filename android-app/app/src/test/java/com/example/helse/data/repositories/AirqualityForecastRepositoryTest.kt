@@ -1,6 +1,7 @@
 package com.example.helse.data.repositories
 
 
+import androidx.test.core.app.ApplicationProvider
 import com.example.helse.alnabruLocation
 import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.LocalDatabase
@@ -13,6 +14,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 
 @RunWith(
     RobolectricTestRunner::class
@@ -28,9 +30,10 @@ class AirqualityForecastRepositoryTest {
     fun airquality_forecast_add_and_get(){
         server.enqueue(MockResponse().setBody(goodAirqualitySampleResponse))
 
+
         val airqualityRepository =
             AirqualityForecastRepository(
-                LocalDatabase.getInstance().airqualityDao(),
+                LocalDatabase.getInstance(ApplicationProvider.getApplicationContext()).airqualityDao(),
                 AirqualityForecastApi(alnabruLocation)
             )
 

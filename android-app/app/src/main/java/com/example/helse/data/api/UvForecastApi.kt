@@ -1,6 +1,7 @@
 package com.example.helse.data.api
 
 import android.util.Xml
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.entities.emptyUvForecast
 import com.example.helse.utilities.*
@@ -11,12 +12,10 @@ import org.xmlpull.v1.XmlPullParser
 
 object UvForecastApi {
 
-    private val selectedLocation = Injector.getLocation(AppContext.getAppContext())
     private val client = OkHttpClient()
 
-    // Get URI's for today, tomorrow, and overtomorrow
-
-    fun fetchUv(url: String = fetchUvURI() ): MutableList<UvForecast> {
+    // fetchUvURI gets UV-URI's for today, tomorrow, and overtomorrow
+    fun fetchUv(url: String = fetchUvURI(), selectedLocation: Location = Injector.getLocation(AppContext.getAppContext()) ): MutableList<UvForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()

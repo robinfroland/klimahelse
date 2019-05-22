@@ -95,9 +95,8 @@ class HumidityFragment : Fragment() {
                 timeList.add(forecasts[i])
             }
 
-            val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
             viewAdapter.notifyDataSetChanged()
-            setScreenToChosenTime(forecasts[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
+            setSliderToChosenTime(forecasts[1 + OFFSET_FOR_HORIZONTAL_SLIDER], 1)
         })
     }
 
@@ -118,7 +117,7 @@ class HumidityFragment : Fragment() {
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setScreenToChosenTime(forecast: HumidityForecast, index: Int) {
+    fun setSliderToChosenTime(forecast: HumidityForecast, index: Int) {
         viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         initGauge(forecast)
         val date: Date = SimpleDateFormat(ORIGINAL_DATE_PATTERN, Locale(("NO"))).parse(forecast.from)

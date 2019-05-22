@@ -95,7 +95,7 @@ class AirqualityFragment : Fragment() {
                 }
                 viewAdapter.notifyDataSetChanged()
                 val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
+                setSliderToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
             }
         })
     }
@@ -116,7 +116,7 @@ class AirqualityFragment : Fragment() {
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setScreenToChosenTime(forecast: AirqualityForecast, index: Int) {
+    fun setSliderToChosenTime(forecast: AirqualityForecast, index: Int) {
         viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         o3_concentration.text = getString(R.string.concentration, forecast.o3_concentration)
         no2_concentration.text = getString(R.string.concentration, forecast.no2_concentration)

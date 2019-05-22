@@ -35,7 +35,7 @@ class AirqualityHorizontalAdapter(private val timeList: MutableList<AirqualityFo
         }
 
         holder.view.risk_circle.setOnClickListener {
-            airqualityFragment.setScreenToChosenTime(timeList[index], index)
+            airqualityFragment.setSliderToChosenTime(timeList[index], index)
         }
     }
 

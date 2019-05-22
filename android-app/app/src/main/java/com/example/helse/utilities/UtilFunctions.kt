@@ -25,7 +25,8 @@ fun calculateRiskFor(metric: AirqualityMetrics, value: Double): String {
         value <= low -> LOW_VALUE
         value <= medium -> MEDIUM_VALUE
         value <= high -> HIGH_VALUE
-        else -> VERY_HIGH_VALUE
+        value >= high -> VERY_HIGH_VALUE
+        else -> ""
     }
 }
 
@@ -42,6 +43,7 @@ fun calculateOverallRiskValue(
     }
 
     return when {
+        highestRisk == 0 -> ""
         highestRisk <= 2 -> LOW_VALUE
         highestRisk <= 3 -> MEDIUM_VALUE
         highestRisk <= 4 -> HIGH_VALUE
@@ -57,7 +59,6 @@ fun convertRiskToInt(riskString: String): Int {
         VERY_HIGH_VALUE -> 5
         // Something went wrong, don't count it
         else -> 0
-        // Divide by 4 to get average
     }
 }
 
