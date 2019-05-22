@@ -8,10 +8,15 @@ import okhttp3.Response
 
 private const val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/locationforecast/1.9/?"
 
-class HumidityForecastApi(val location: Location) {
+class HumidityForecastApi : RemoteForecastData<HumidityForecast> {
+    override fun buildCoordinateURI(latitude: Double, longitude: Double): String {
+        return "${HUMIDITY_BASE_URL}lat=$latitude&lon=$longitude"
+    }
+
+
     private val client = OkHttpClient()
 
-    fun fetchHumidity(): MutableList<HumidityForecast> {
+    override fun fetchForecast(location: Location): List<HumidityForecast> {
         lateinit var response: Response
         return try {
             val uri = createHumidityURI(location.latitude, location.longitude)

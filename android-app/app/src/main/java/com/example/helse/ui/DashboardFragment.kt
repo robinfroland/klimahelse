@@ -1,6 +1,5 @@
 package com.example.helse.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,14 +16,13 @@ import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.LocalDatabase
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.Module
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.DashboardViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,13 +37,14 @@ class DashboardFragment : Fragment() {
     private lateinit var uvModule: Module
     private lateinit var humidityModule: Module
     private lateinit var preferences: Preferences
-    private var timer = 2
+    private lateinit var location: Location
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         preferences = Injector.getAppPreferences(requireContext())
+        location = preferences.getLocation()
         enabledModules = arrayListOf()
         viewAdapter = ModuleAdapter(enabledModules, this)
 
@@ -76,15 +75,15 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val location = preferences.getLocation()
         val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
                 airqualityForecastRepository =
-                    AirqualityForecastRepository(database.airqualityDao(), AirqualityForecastApi(location))
+                    AirqualityForecastRepository(database.airqualityDao(), AirqualityForecastApi())
                 humidityForecastRepository =
-                    HumidityForecastRepository(database.humidityDao(), HumidityForecastApi(location))
-                uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi)
+                    HumidityForecastRepository(database.humidityDao(), HumidityForecastApi())
+                uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi())
+                mLocation = location
             }
     }
 

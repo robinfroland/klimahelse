@@ -10,19 +10,17 @@ import com.example.helse.utilities.*
 class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityForecastApi
-) {
+) : ForecastRepository<AirqualityForecast> {
+
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
-    // Default location is the location selected by the user
-    fun fetchAirquality(): MutableList<AirqualityForecast> {
-        val location = airqualityApi.location
+    override fun getForecast(location: Location): List<AirqualityForecast> {
+        lateinit var airqualityForecast: List<AirqualityForecast>
 
-        lateinit var airqualityForecast: MutableList<AirqualityForecast>
-
-        if (dataIsStale(location)) {
-            // If data is stale and api fetch is needed
+        if (fetchIsNeeded(location)) {
+            // If data is stale or never fetched and data retrieval from remote source is needed
             airqualityDao.delete(location.stationID)
-            airqualityForecast = airqualityApi.fetchAirqualityFromURL()
+            airqualityForecast = airqualityApi.fetchForecast(location)
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
@@ -30,15 +28,15 @@ class AirqualityForecastRepository(
         } else {
             // Retrieve data from database
             airqualityForecast = airqualityDao.get(location.stationID)
-            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL()
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchForecast(location)
         }
-        if (airqualityForecast.size == 0) {
+        if (airqualityForecast.isEmpty()) {
             return mutableListOf(emptyAirqualityForecast)
         }
         return airqualityForecast
     }
 
-    private fun dataIsStale(location: Location): Boolean {
+    override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
         if (airqualityDao.get(location.stationID).size < 20) {

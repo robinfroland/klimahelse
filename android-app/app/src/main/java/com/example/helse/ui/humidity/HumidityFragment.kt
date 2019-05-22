@@ -15,6 +15,7 @@ import com.example.helse.adapters.HumidityHorizontalAdapter
 import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.HumidityForecast
+import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.utilities.Injector
@@ -29,6 +30,7 @@ class HumidityFragment : Fragment() {
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
     private lateinit var viewModel: HumidityViewModel
+    private lateinit var location: Location
     private var timeList = mutableListOf<HumidityForecast>()
 
     override fun onCreateView(
@@ -41,6 +43,7 @@ class HumidityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        location = Injector.getLocation(requireContext())
 
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
@@ -56,8 +59,7 @@ class HumidityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        val selectedLocation = Injector.getLocation(requireContext())
-        location.text = selectedLocation.location
+        location_text.text = location.location
 
 
     }
@@ -83,13 +85,14 @@ class HumidityFragment : Fragment() {
                 humidityRepository =
                     HumidityForecastRepository(
                         LocalDatabase.getInstance(requireContext()).humidityDao(),
-                        HumidityForecastApi(location)
+                        HumidityForecastApi()
                     )
+                mLocation = location
             }
     }
 
     private fun observeDataStream() {
-        viewModel.getHumdityForecast().observe(this, Observer { forecasts ->
+        viewModel.getHumidityForecast().observe(this, Observer { forecasts ->
             timeList.clear()
             for (i in 0 until 24) {
                 timeList.add(forecasts[i])

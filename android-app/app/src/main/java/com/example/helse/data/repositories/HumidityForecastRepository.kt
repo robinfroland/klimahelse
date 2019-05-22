@@ -10,18 +10,17 @@ import com.example.helse.utilities.*
 class HumidityForecastRepository(
     private val humidityDao: HumidityDao,
     private val humidityApi: HumidityForecastApi
-) {
+) : ForecastRepository<HumidityForecast> {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val location: Location = preferences.getLocation()
 
-    fun fetchHumidity(): MutableList<HumidityForecast> {
-        lateinit var humidityForecast: MutableList<HumidityForecast>
+    override fun getForecast(location: Location): List<HumidityForecast> {
+        lateinit var humidityForecast: List<HumidityForecast>
 
-        if (dataIsStale()) {
-            // If data is stale an api fetch is needed
+        if (fetchIsNeeded(location)) {
+            // If data is stale or never fetched and data retrieval from remote source is needed
             humidityDao.deleteAll()
-            humidityForecast = humidityApi.fetchHumidity()
+            humidityForecast = humidityApi.fetchForecast(location)
             humidityDao.insert(humidityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_HUMIDTY, System.currentTimeMillis()
@@ -36,7 +35,7 @@ class HumidityForecastRepository(
         return humidityForecast
     }
 
-    private fun dataIsStale(): Boolean {
+    override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
         if (humidityDao.getAll().size < 1) {

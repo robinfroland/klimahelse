@@ -11,18 +11,17 @@ import com.example.helse.utilities.*
 class UvForecastRepository(
     private val uvDao: UVDao,
     private val uvApi: UvForecastApi
-) {
+) : ForecastRepository<UvForecast> {
 
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val location: Location = preferences.getLocation()
 
-    fun fetchUv(): MutableList<UvForecast> {
-        lateinit var uvForecast: MutableList<UvForecast>
+    override fun getForecast(location: Location): List<UvForecast> {
+        lateinit var uvForecast: List<UvForecast>
 
-        if (dataIsStale()) {
-            // If data is stale and api fetch is needed
+        if (fetchIsNeeded(location)) {
+            // If data is stale or never fetched and data retrieval from remote source is needed
             uvDao.deleteAll()
-            uvForecast = uvApi.fetchUv()
+            uvForecast = uvApi.fetchForecast(location)
             uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
                 emptyLocation, LAST_API_CALL_UV, System.currentTimeMillis()
@@ -51,7 +50,7 @@ class UvForecastRepository(
         return uvForecast
     }
 
-    private fun dataIsStale(): Boolean {
+    override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(emptyLocation, LAST_API_CALL_UV)
         val currentTime = System.currentTimeMillis()
         if (uvDao.getAll().size < 10) {

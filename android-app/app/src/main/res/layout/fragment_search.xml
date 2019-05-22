@@ -29,7 +29,7 @@
             app:srcCompat="@drawable/ic_my_location" />
 
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/location_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
