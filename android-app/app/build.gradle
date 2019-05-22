@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testOptions.unitTests.includeAndroidResources = true
         multiDexEnabled true
     }
     testOptions {
@@ -50,6 +51,10 @@ dependencies {
     implementation "androidx.core:core-ktx:1.0.2"
     implementation 'androidx.preference:preference:1.1.0-alpha05'
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "javax.xml.bind:jaxb-api:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-core:2.2.11"
+    implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
+    implementation "javax.activation:activation:1.1.1"
 
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-messaging:18.0.0'
@@ -95,7 +100,7 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.13.1'
     testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.3.0'
     testImplementation "org.robolectric:robolectric:4.2"
-    testImplementation 'org.robolectric:shadows-support-v4:3.0'
+    testImplementation "androidx.test:core:1.1.0"
 
     //Background processing
     implementation "androidx.work:work-runtime-ktx:2.0.1"
