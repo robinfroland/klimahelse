@@ -7,6 +7,8 @@ import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.utilities.*
 
+private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
+
 class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
     private val airqualityApi: AirqualityForecastApi
@@ -14,7 +16,7 @@ class AirqualityForecastRepository(
     private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     // Default location is the location selected by the user
-    fun fetchAirquality(): MutableList<AirqualityForecast> {
+    fun fetchAirquality(url: String = AIRQUALITY_BASE_URL ): MutableList<AirqualityForecast> {
         val location = airqualityApi.location
 
         lateinit var airqualityForecast: MutableList<AirqualityForecast>
@@ -22,7 +24,7 @@ class AirqualityForecastRepository(
         if (dataIsStale(location)) {
             // If data is stale and api fetch is needed
             airqualityDao.delete(location.stationID)
-            airqualityForecast = airqualityApi.fetchAirqualityFromURL()
+            airqualityForecast = airqualityApi.fetchAirqualityFromURL(url)
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
@@ -30,7 +32,7 @@ class AirqualityForecastRepository(
         } else {
             // Retrieve data from database
             airqualityForecast = airqualityDao.get(location.stationID)
-            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL()
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL(url)
         }
         if (airqualityForecast.size == 0) {
             return mutableListOf(emptyAirqualityForecast)

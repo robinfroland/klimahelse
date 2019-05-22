@@ -15,9 +15,8 @@ object UvForecastApi {
     private val client = OkHttpClient()
 
     // Get URI's for today, tomorrow, and overtomorrow
-    private val uvForecastURL = fetchUvURI()
 
-    fun fetchUv(url: String = uvForecastURL): MutableList<UvForecast> {
+    fun fetchUv(url: String = fetchUvURI() ): MutableList<UvForecast> {
         lateinit var response: Response
         return try {
             val request = Request.Builder()

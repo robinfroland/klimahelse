@@ -8,17 +8,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
-
 class AirqualityForecastApi(val location: Location) {
     private val client = OkHttpClient()
 
-    private val airqualityForecastURL = buildCoordinateURI(location.latitude, location.longitude)
-    fun fetchAirqualityFromURL(url: String = airqualityForecastURL): MutableList<AirqualityForecast> {
+    fun fetchAirqualityFromURL(url: String): MutableList<AirqualityForecast> {
         lateinit var response: Response
+        val airqualityForecastURL = buildCoordinateURI(location.latitude, location.longitude, url)
         return try {
             val request = Request.Builder()
-                .url(url)
+                .url(airqualityForecastURL)
                 .build()
 
             response = client.newCall(request).execute()
@@ -30,7 +28,7 @@ class AirqualityForecastApi(val location: Location) {
         }
     }
 
-    private fun buildCoordinateURI(lat: Double, lon: Double): String {
-        return "${AIRQUALITY_BASE_URL}lat=$lat&lon=$lon&areaclass=grunnkrets"
+    private fun buildCoordinateURI(lat: Double, lon: Double, url: String): String {
+        return "${url}lat=$lat&lon=$lon&areaclass=grunnkrets"
     }
 }
