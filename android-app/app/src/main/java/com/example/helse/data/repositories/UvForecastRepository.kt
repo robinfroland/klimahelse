@@ -1,5 +1,6 @@
 package com.example.helse.data.repositories
 
+import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.UVDao
 import com.example.helse.data.entities.Location
@@ -10,10 +11,9 @@ import com.example.helse.utilities.*
 
 class UvForecastRepository(
     private val uvDao: UVDao,
-    private val uvApi: UvForecastApi
+    private val uvApi: RemoteForecastData<UvForecast>,
+    private val preferences: Preferences
 ) : ForecastRepository<UvForecast> {
-
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     override fun getForecast(location: Location): List<UvForecast> {
         lateinit var uvForecast: List<UvForecast>
@@ -66,10 +66,11 @@ class UvForecastRepository(
         // Singleton instantiation of repository
         fun getInstance(
             uvDao: UVDao,
-            uvForecastApi: UvForecastApi
+            uvForecastApi: RemoteForecastData<UvForecast>,
+            preferences: Preferences
         ) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: UvForecastRepository(uvDao, uvForecastApi)
+                INSTANCE ?: UvForecastRepository(uvDao, uvForecastApi, preferences)
                     .also { INSTANCE = it }
             }
     }

@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
+import com.example.helse.data.repositories.ForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class UvViewModel : ViewModel() {
-    lateinit var uvRepository: UvForecastRepository
+    lateinit var uvRepository: ForecastRepository<UvForecast>
     lateinit var mLocation: Location
 
     fun getUvForecast() = forecasts

@@ -1,6 +1,7 @@
 package com.example.helse.data.repositories
 
 import com.example.helse.data.api.HumidityForecastApi
+import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
@@ -9,10 +10,9 @@ import com.example.helse.utilities.*
 
 class HumidityForecastRepository(
     private val humidityDao: HumidityDao,
-    private val humidityApi: HumidityForecastApi
+    private val humidityApi: RemoteForecastData<HumidityForecast>,
+    private val preferences: Preferences
 ) : ForecastRepository<HumidityForecast> {
-
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     override fun getForecast(location: Location): List<HumidityForecast> {
         lateinit var humidityForecast: List<HumidityForecast>
@@ -38,7 +38,7 @@ class HumidityForecastRepository(
     override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
-        if (humidityDao.getAll().size < 1) {
+        if (humidityDao.getAll().isEmpty()) {
             return true
         }
 
@@ -52,10 +52,11 @@ class HumidityForecastRepository(
         // Singleton instantiation of repository
         fun getInstance(
             humidityDao: HumidityDao,
-            humidityForecastApi: HumidityForecastApi
+            humidityForecastApi: RemoteForecastData<HumidityForecast>,
+            preferences: Preferences
         ) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: HumidityForecastRepository(humidityDao, humidityForecastApi)
+                INSTANCE ?: HumidityForecastRepository(humidityDao, humidityForecastApi, preferences)
                     .also { INSTANCE = it }
             }
     }

@@ -75,14 +75,11 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
-                airqualityForecastRepository =
-                    AirqualityForecastRepository(database.airqualityDao(), AirqualityForecastApi())
-                humidityForecastRepository =
-                    HumidityForecastRepository(database.humidityDao(), HumidityForecastApi())
-                uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi())
+                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext())
+                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext())
+                uvForecastRepository = Injector.getUvForecastRepository(requireContext())
                 mLocation = location
             }
     }
@@ -114,7 +111,8 @@ class DashboardFragment : Fragment() {
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             if (forecast.size < 24) {
-                airqualityModule.dangerIndicator = RISK_NOT_AVAILABLE
+                airqualityModule.dangerIndicator =
+                    RISK_NOT_AVAILABLE
             } else {
                 airqualityModule.dangerIndicator =
                     forecast[currentTime].riskValue

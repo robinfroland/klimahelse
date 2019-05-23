@@ -80,11 +80,7 @@ class AirqualityFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airqualityRepository =
-                    AirqualityForecastRepository(
-                        LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                        AirqualityForecastApi()
-                    )
+                airqualityRepository = Injector.getAirqualityForecastRepository(requireContext())
                 mLocation = location
             }
     }

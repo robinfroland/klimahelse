@@ -66,11 +66,7 @@ class UvFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
-                uvRepository =
-                    UvForecastRepository(
-                        LocalDatabase.getInstance(requireContext()).uvDao(),
-                        UvForecastApi()
-                    )
+                uvRepository = Injector.getUvForecastRepository(requireContext())
                 mLocation = location
             }
 

@@ -13,13 +13,9 @@ import org.xmlpull.v1.XmlPullParser
 private const val UV_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/uvforecast/1.0/available"
 
 class UvForecastApi : RemoteForecastData<UvForecast> {
-
-
-    private val selectedLocation = Injector.getLocation(AppContext.getAppContext())
     private val client = OkHttpClient()
 
     override fun fetchForecast(location: Location): MutableList<UvForecast> {
-        lateinit var response: Response
         return try {
             val uri = buildCoordinateURI(location.latitude, location.longitude)
             // Get URI's for today, tomorrow, and overtomorrow
@@ -27,15 +23,13 @@ class UvForecastApi : RemoteForecastData<UvForecast> {
                 .url(uri)
                 .build()
 
-            response = client.newCall(request).execute()
-
-            response.parseUvResponse(selectedLocation)
+            val response = client.newCall(request).execute()
+            response.parseUvResponse(location)
         } catch (e: Exception) {
             println("fetchUv() failed with exception $e")
             mutableListOf(emptyUvForecast)
         }
     }
-
 
     // Fetch URI's from endpoint. Return URI for today.
     // Tomorrow and day after tomorrow available later if wanted(just return the list instead of index 0

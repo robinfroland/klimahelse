@@ -1,6 +1,6 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
@@ -9,10 +9,9 @@ import com.example.helse.utilities.*
 
 class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
-    private val airqualityApi: AirqualityForecastApi
+    private val airqualityApi: RemoteForecastData<AirqualityForecast>,
+    private val preferences: Preferences
 ) : ForecastRepository<AirqualityForecast> {
-
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
 
     override fun getForecast(location: Location): List<AirqualityForecast> {
         lateinit var airqualityForecast: List<AirqualityForecast>
@@ -53,10 +52,11 @@ class AirqualityForecastRepository(
         // Singleton instantiation of repository
         fun getInstance(
             airqualityDao: AirqualityDao,
-            airqualityForecastApi: AirqualityForecastApi
+            airqualityForecastApi: RemoteForecastData<AirqualityForecast>,
+            preferences: Preferences
         ) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: AirqualityForecastRepository(airqualityDao, airqualityForecastApi)
+                INSTANCE ?: AirqualityForecastRepository(airqualityDao, airqualityForecastApi, preferences)
                     .also { INSTANCE = it }
             }
     }
