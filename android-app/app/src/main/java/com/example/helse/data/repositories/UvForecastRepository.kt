@@ -19,8 +19,8 @@ class UvForecastRepository(
 
         if (fetchIsNeeded(location)) {
             // If data is stale or never fetched and data retrieval from remote source is needed
-            uvDao.deleteAll()
             uvForecast = uvApi.fetchForecast(location)
+            uvDao.deleteAll()
             uvDao.insertAll(uvForecast)
             preferences.setLastApiCall(
                 emptyLocation, LAST_API_CALL_UV, System.currentTimeMillis()

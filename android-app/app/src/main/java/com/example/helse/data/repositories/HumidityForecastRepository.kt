@@ -18,8 +18,8 @@ class HumidityForecastRepository(
 
         if (fetchIsNeeded(location)) {
             // If data is stale or never fetched and data retrieval from remote source is needed
-            humidityDao.deleteAll()
             humidityForecast = humidityApi.fetchForecast(location)
+            humidityDao.deleteAll()
             humidityDao.insert(humidityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_HUMIDTY, System.currentTimeMillis()
