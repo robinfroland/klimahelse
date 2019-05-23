@@ -7,7 +7,6 @@ import com.example.helse.data.entities.emptyUvForecast
 import com.example.helse.utilities.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 import org.xmlpull.v1.XmlPullParser
 
 private const val UV_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/uvforecast/1.0/available"

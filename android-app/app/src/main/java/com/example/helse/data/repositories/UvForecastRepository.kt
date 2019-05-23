@@ -1,7 +1,6 @@
 package com.example.helse.data.repositories
 
 import com.example.helse.data.api.RemoteForecastData
-import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.UVDao
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.ForecastRepository
-import com.example.helse.data.repositories.HumidityForecastRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch

@@ -7,10 +7,7 @@ import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.ForecastRepository
-import com.example.helse.data.repositories.HumidityForecastRepository
-import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.AIRQUALITY_MODULE
 import com.example.helse.utilities.HUMIDITY_MODULE
 import com.example.helse.utilities.UV_MODULE

@@ -1,6 +1,5 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
