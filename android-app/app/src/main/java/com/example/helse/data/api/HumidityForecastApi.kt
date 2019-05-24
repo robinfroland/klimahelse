@@ -10,13 +10,12 @@ private const val HUMIDITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weathe
 class HumidityForecastApi : RemoteForecastData<HumidityForecast> {
     private val client = OkHttpClient()
 
-    val humidityForecastURL = buildCoordinateURI(location.latitude, location.longitude)
+    override fun fetchForecast(location: Location, url: String): List<HumidityForecast> {
 
-    override fun fetchForecast(location: Location, url: String = humidityForecastURL): List<HumidityForecast> {
         return try {
-            val uri = buildCoordinateURI(location.latitude, location.longitude)
+            val uri = buildCoordinateURI(location.latitude, location.longitude, url)
             val request = Request.Builder()
-                .url(url)
+                .url(uri)
                 .build()
 
             val response = client.newCall(request).execute()
@@ -27,7 +26,13 @@ class HumidityForecastApi : RemoteForecastData<HumidityForecast> {
         }
     }
 
-    override fun buildCoordinateURI(latitude: Double, longitude: Double): String {
-        return "${HUMIDITY_BASE_URL}lat=$latitude&lon=$longitude"
+    override fun buildCoordinateURI(latitude: Double, longitude: Double, url: String): String {
+        return if (url == "") {
+            // Production setting
+            "${HUMIDITY_BASE_URL}lat=$latitude&lon=$longitude"
+        } else {
+            // Test setting
+            url
+        }
     }
 }

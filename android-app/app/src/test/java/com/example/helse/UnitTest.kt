@@ -231,7 +231,7 @@ class UnitTest {
     fun parse_bad_humidity_response_is_not_equal_to_sample() {
         server.enqueue(MockResponse().setBody(badHumiditySampleResponse))
 
-        val parsedResponse = HumidityForecastApi(alnabruLocation).fetchHumidity(serverUrl)
+        val parsedResponse = HumidityForecastApi(alnabrubLocation).fetchHumidity(serverUrl)
 
         assertNotEquals(
             parsedHumidityResponse,
