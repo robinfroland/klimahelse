@@ -3,18 +3,21 @@ package com.example.helse.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.UvForecastRepository
+import com.example.helse.data.repositories.ForecastRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class UvViewModel : ViewModel() {
+    lateinit var uvRepository: ForecastRepository<UvForecast>
+    lateinit var mLocation: Location
 
-    lateinit var uvRepository: UvForecastRepository
+    fun getUvForecast() = forecasts
 
-    private val forecasts: MutableLiveData<MutableList<UvForecast>> by lazy {
-        MutableLiveData<MutableList<UvForecast>>().also {
+    private val forecasts: MutableLiveData<List<UvForecast>> by lazy {
+        MutableLiveData<List<UvForecast>>().also {
             loadForecast()
         }
     }
@@ -22,10 +25,8 @@ class UvViewModel : ViewModel() {
     private fun loadForecast() {
 
         viewModelScope.launch {
-            val deferred = async(Dispatchers.IO) { uvRepository.fetchUv() }
+            val deferred = async(Dispatchers.IO) { uvRepository.getForecast(mLocation) }
             forecasts.value = deferred.await()
         }
     }
-
-    fun getUvForecast() = forecasts
 }

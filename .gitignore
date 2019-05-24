@@ -10,7 +10,9 @@
 */.idea/codeStyles/Project.xml
 */.idea/inspectionProfiles/
 */.idea/codeStyles/Project.xml
-*./idea
+**/idea/**
+./idea/
+**./idea/**
 */.idea/encodings.xml
 */local.properties
 .DS_Store
@@ -18,4 +20,8 @@
 /captures
 .externalNativeBuild
 /server/node_modules
+
+android-app/app/.kotlintest/
+android-app/app/debug/
+android-app/app/release/
 signature.jks

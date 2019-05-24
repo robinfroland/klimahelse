@@ -1,6 +1,6 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.HumidityForecastApi
+import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.database.HumidityDao
 import com.example.helse.data.entities.HumidityForecast
 import com.example.helse.data.entities.Location
@@ -9,19 +9,17 @@ import com.example.helse.utilities.*
 
 class HumidityForecastRepository(
     private val humidityDao: HumidityDao,
-    private val humidityApi: HumidityForecastApi
-) {
+    private val humidityApi: RemoteForecastData<HumidityForecast>,
+    private val preferences: Preferences
+) : ForecastRepository<HumidityForecast> {
 
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
-    private val location: Location = preferences.getLocation()
+    override fun getForecast(location: Location): List<HumidityForecast> {
+        lateinit var humidityForecast: List<HumidityForecast>
 
-    fun fetchHumidity(): MutableList<HumidityForecast> {
-        lateinit var humidityForecast: MutableList<HumidityForecast>
-
-        if (dataIsStale()) {
-            // If data is stale an api fetch is needed
+        if (fetchIsNeeded(location)) {
+            // If data is stale or never fetched and data retrieval from remote source is needed
+            humidityForecast = humidityApi.fetchForecast(location)
             humidityDao.deleteAll()
-            humidityForecast = humidityApi.fetchHumidity()
             humidityDao.insert(humidityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_HUMIDTY, System.currentTimeMillis()
@@ -36,10 +34,10 @@ class HumidityForecastRepository(
         return humidityForecast
     }
 
-    private fun dataIsStale(): Boolean {
+    override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
-        if (humidityDao.getAll().size < 1) {
+        if (humidityDao.getAll().isEmpty()) {
             return true
         }
 
@@ -53,10 +51,11 @@ class HumidityForecastRepository(
         // Singleton instantiation of repository
         fun getInstance(
             humidityDao: HumidityDao,
-            humidityForecastApi: HumidityForecastApi
+            humidityForecastApi: RemoteForecastData<HumidityForecast>,
+            preferences: Preferences
         ) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: HumidityForecastRepository(humidityDao, humidityForecastApi)
+                INSTANCE ?: HumidityForecastRepository(humidityDao, humidityForecastApi, preferences)
                     .also { INSTANCE = it }
             }
     }

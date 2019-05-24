@@ -10,11 +10,11 @@ import com.example.helse.data.entities.UvForecast
 interface UVDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(uvList: MutableList<UvForecast>)
+    fun insertAll(uvList: List<UvForecast>)
 
     @Query("DELETE FROM uvForecast")
     fun deleteAll()
 
     @Query("SELECT * FROM uvForecast")
-    fun getAll(): MutableList<UvForecast>
+    fun getAll(): List<UvForecast>
 }

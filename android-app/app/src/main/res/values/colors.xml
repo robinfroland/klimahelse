@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Primary color palette -->
-    <color name="colorPrimary">#577BE9</color>
-    <color name="colorPrimaryDark">#4B56E9</color>
+    <color name="colorPrimary">#5B77D3</color>
+    <color name="colorPrimaryDark">#101DC2</color>
     <color name="colorPrimaryLight">#6A6DEA</color>
 
     <!-- Secondary color palette -->
@@ -10,20 +10,17 @@
     <!-- Danger indicator colors -->
     <color name="colorDangerVeryHigh">#D7402E</color>
     <color name="colorDangerHigh">#E07E00</color>
-    <color name="colorDangerMedium">#E6C52F</color>
+    <color name="colorDangerMedium">#E6C740</color>
     <color name="colorDangerLow">#33AD3A</color>
     <color name="colorSaharaYellow">#DFD16D</color>
 
 
     <!-- Gradient colors -->
     <color name="colorTransparent">#00FFFFFF</color>
-    <color name="colorGradientStart">#D9FF43</color>
-    <color name="colorGradientCenter">#F67831</color>
-    <color name="colorGradientEnd">#FF1493</color>
 
     <!-- Dot indicators -->
     <color name="colorDotWhite">#FFFFFF</color>
-    <color name="colorDot">#0277bd</color>
+    <color name="colorDot">@color/colorPrimaryDark</color>
 
     <!-- Push notification -->
     <color name="colorPushIconDisabled">#80FFFFFF</color>
@@ -41,15 +38,9 @@
     <color name="fade_end_color">#00FFFFFF</color>
 
     <!-- Miscellaneous -->
-    <color name="colorAccent">#C2185B</color>
-    <color name="colorError">#CC0000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteUnselected">#80FFFFFF</color>
     <color name="colorGreyDark">#1B1B1B</color>
     <color name="colorGreyLight">#3D3D3D</color>
-    <color name="colorWhite_transparent">#31FFFFFF</color>
-    <color name="moduleCardBackground">#26FFFFFF</color>
-    <color name="colorBottomNavbar">#3391CA</color>
-    <color name="colorLightGrey">#D3D3D3</color>
     <color name="colorLightBlueGrey">#DBE3EA</color>
 </resources>

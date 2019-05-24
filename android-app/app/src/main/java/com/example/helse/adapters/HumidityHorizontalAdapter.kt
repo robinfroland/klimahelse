@@ -33,7 +33,7 @@ class HumidityHorizontalAdapter(private val timeList: MutableList<HumidityForeca
         }
 
         holder.view.risk_circle.setOnClickListener {
-            humidityFragment.setScreenToChosenTime(timeList[index], index)
+            humidityFragment.setSliderToChosenTime(timeList[index], index)
         }
     }
 

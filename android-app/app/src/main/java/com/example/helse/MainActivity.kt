@@ -1,13 +1,11 @@
 package com.example.helse
 
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -28,11 +26,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
-        setFirstLaunch()
+        checkFirstLaunch()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment)
-        subscribePushNotification()
         setupNavBars()
         updateDeviceLocation()
     }
@@ -69,8 +66,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     private fun setupNavBars() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -80,9 +75,10 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
         setupDynamicToolbarUi()
     }
 
-    private fun setFirstLaunch() {
+    private fun checkFirstLaunch() {
         val preferences = Injector.getAppPreferences(this)
         if (preferences.isFirstLaunch()) {
+            subscribePushNotification()
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
         }
@@ -99,6 +95,8 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     private fun setupDynamicToolbarUi() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
         // Change toolbar and colors according to fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             toolbar.setBackgroundColor(Color.TRANSPARENT)

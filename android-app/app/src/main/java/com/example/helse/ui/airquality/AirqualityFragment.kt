@@ -15,13 +15,13 @@ import com.example.helse.adapters.AirqualityHorizontalAdapter
 import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.data.entities.AirqualityForecast
+import com.example.helse.data.entities.Location
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.AirqualityViewModel
 import kotlinx.android.synthetic.main.fragment_airquality.*
 import java.util.*
 import java.text.SimpleDateFormat
-
 
 class AirqualityFragment : Fragment() {
 
@@ -30,6 +30,7 @@ class AirqualityFragment : Fragment() {
     private lateinit var viewModel: AirqualityViewModel
     private lateinit var viewManager: LinearLayoutManager
     private lateinit var navController: NavController
+    private lateinit var location: Location
     private var timeList = mutableListOf<AirqualityForecast>()
 
     override fun onCreateView(
@@ -38,6 +39,7 @@ class AirqualityFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         preferences = Injector.getAppPreferences(requireContext())
+        location = preferences.getLocation()
         return inflater.inflate(R.layout.fragment_airquality, container, false)
     }
 
@@ -57,8 +59,7 @@ class AirqualityFragment : Fragment() {
             layoutManager = viewManager
         }
 
-        val selectedLocation = Injector.getLocation(requireContext())
-        location.text = selectedLocation.location
+        location_text.text = location.location
 
     }
 
@@ -79,23 +80,20 @@ class AirqualityFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(AirqualityViewModel::class.java)
             .apply {
-                airqualityRepository =
-                    AirqualityForecastRepository(
-                        LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                        AirqualityForecastApi(preferences.getLocation())
-                    )
+                airqualityRepository = Injector.getAirqualityForecastRepository(requireContext())
+                mLocation = location
             }
     }
 
     private fun observeDataStream() {
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecasts ->
-            if (forecasts.size != 0) {
+            if (forecasts.isNotEmpty()) {
                 for (i in 0 until forecasts.size) {
                     timeList.add(forecasts[i])
                 }
                 viewAdapter.notifyDataSetChanged()
                 val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                setScreenToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
+                setSliderToChosenTime(timeList[hourOfDay + OFFSET_FOR_HORIZONTAL_SLIDER], hourOfDay)
             }
         })
     }
@@ -116,7 +114,7 @@ class AirqualityFragment : Fragment() {
         gauge_img.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
     }
 
-    fun setScreenToChosenTime(forecast: AirqualityForecast, index: Int) {
+    fun setSliderToChosenTime(forecast: AirqualityForecast, index: Int) {
         viewManager.scrollToPositionWithOffset(index + OFFSET_FOR_HORIZONTAL_SLIDER_CENTER, 0)
         o3_concentration.text = getString(R.string.concentration, forecast.o3_concentration)
         no2_concentration.text = getString(R.string.concentration, forecast.no2_concentration)
