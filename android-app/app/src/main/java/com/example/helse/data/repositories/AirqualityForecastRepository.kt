@@ -21,8 +21,8 @@ class AirqualityForecastRepository(
 
         if (fetchIsNeeded(location)) {
             // If data is stale or never fetched and data retrieval from remote source is needed
-            airqualityDao.delete(location.stationID)
             airqualityForecast = airqualityApi.fetchForecast(location)
+            airqualityDao.delete(location.stationID)
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
