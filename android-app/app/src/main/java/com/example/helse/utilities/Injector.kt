@@ -52,5 +52,4 @@ object Injector {
             getAppPreferences(context)
         )
     }
-
 }

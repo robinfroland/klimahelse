@@ -24,5 +24,4 @@
 android-app/app/.kotlintest/
 android-app/app/debug/
 android-app/app/release/
-/signature.jks
-
+signature.jks

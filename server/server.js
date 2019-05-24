@@ -77,13 +77,13 @@ async function getAirquality() {
     });
 
   if (highestRisk === 0) {
-    return 'veldig bra';
+    return 'Bra';
   } else if (highestRisk === 1) {
-    return 'middles';
+    return 'Moderat';
   } else if (highestRisk === 2) {
-    return 'dårlig';
+    return 'Dårlig';
   } else {
-    return 'veldig dårlig';
+    return 'Svært dårlig';
   }
 }
 
@@ -114,13 +114,13 @@ async function getUVForecast() {
       })
       .then(uv_value => {
         if (uv_value <= 2.9) {
-          return 'lav';
+          return 'Lav';
         } else if (uv_value <= 5.9) {
-          return 'middels';
+          return 'Moderat';
         } else if (uv_value <= 7.9) {
-          return 'hoy';
+          return 'Høy';
         } else {
-          return 'veldig hoy';
+          return 'Svært høy';
         }
       })
   );
@@ -129,35 +129,42 @@ async function getUVForecast() {
 
 async function sendNotif() {
   var hour = new Date().getHours();
-  if (hour === 7) {
-    var airquality = await getAirquality();
-    var uvForecast = await getUVForecast();
-
-    const topic = 'weather';
-    const message = `Hei, i dag er luftkvaliteten ${airquality} og uv-strålingen ${uvForecast}`;
-
-    console.log(`Sending message to all users: ${message.data.data}`);
-
-    const url = 'https://fcm.googleapis.com/fcm/send';
-    await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization:
-          'key=AAAATRvyT7s:APA91bFVC2kb2h0ReoNIacHBxPtk1E7kdBkOyw46pRKWrgIxmHyN-eKk3EcbBRMWHdPh7QXfQSwZ3DreX5DFCLQVs53BOP8_ByAopIgUqnU_CqBPILebRNSo2jf3oxxl6BSzY6QpeI2-',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        notification: {
-          title: 'Daglig rapport',
-          body: message
+  var minutes = new Date().getMinutes();
+  console.log(`Hour is ${hour} and minutes is ${minutes}`)
+  if (hour === 17 || hour === 06 || hour === 15) {
+    if (minutes === 0 || (minutes === 45 && hour == 15)) {
+      console.log("Oh no, its sending a notif lol")
+      var airquality = await getAirquality();
+      var uvForecast = await getUVForecast();
+  
+      const topic = 'weather';
+      const message = `Luftkvalitet: ${airquality}\nUV-stråling: ${uvForecast}`
+  
+      console.log(`Sending message to all users: ${message}`);
+  
+      const url = 'https://fcm.googleapis.com/fcm/send';
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization:
+            'key=AAAATRvyT7s:APA91bFVC2kb2h0ReoNIacHBxPtk1E7kdBkOyw46pRKWrgIxmHyN-eKk3EcbBRMWHdPh7QXfQSwZ3DreX5DFCLQVs53BOP8_ByAopIgUqnU_CqBPILebRNSo2jf3oxxl6BSzY6QpeI2-',
+          'Content-Type': 'application/json'
         },
-        to: '/topics/weather'
-      })
-    });
-  } else {
-    console.log('Dont you dare send notif now lol');
+        body: JSON.stringify({
+          notification: {
+            title: 'Status i dag',
+            body: message
+          },
+          to: '/topics/weather'
+        })
+      });
+    } else {
+      console.log('Dont you dare send notif now lol');
+    }
   }
 }
 
-setInterval(sendNotif, 1000 * 60 * 60);
+sendNotif()
+
+setInterval(sendNotif, 1000 * 60);
 

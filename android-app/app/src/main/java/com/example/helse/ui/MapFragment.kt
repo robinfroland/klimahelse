@@ -1,7 +1,9 @@
 package com.example.helse.ui
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
@@ -56,17 +59,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
-    override fun onMapReady(p0: GoogleMap?) {
-        if (p0 == null) {
+    override fun onMapReady(googleMap: GoogleMap?) {
+        if (googleMap == null) {
             return
         }
-        map = p0
+        map = googleMap
+
+        try {
+            val success =
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.google_map_style))
+            if (!success) {
+                Log.e("ME", "Style parsing fialed")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e("ME", "Cant find style")
+        }
 
         GlobalScope.launch {
             runCatching {
                 val locations = Injector.getLocationRepository(requireContext()).getAllLocations()
 
-                addAirqualityToMap(p0, locations)
+                addAirqualityToMap(googleMap, locations)
             }
         }
         val selectedLocation = preferences.getLocation()
@@ -82,7 +95,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private suspend fun addAirqualityToMap(
-        p0: GoogleMap,
+        googleMap: GoogleMap,
         locations: MutableList<Location>
     ) {
         GlobalScope.launch {
@@ -100,7 +113,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     }
                     color = ContextCompat.getColor(context!!, color)
                     requireActivity().runOnUiThread {
-                        addCircleToMap(p0, location, color)
+                        addCircleToMap(googleMap, location, color)
                     }
                     if (i == locations.size - 1) progress_spinner.visibility = View.INVISIBLE
                 }
@@ -108,8 +121,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun addCircleToMap(p0: GoogleMap, location: Location, riskColor: Int) {
-        p0.addCircle(
+    private fun addCircleToMap(googleMap: GoogleMap, location: Location, riskColor: Int) {
+        googleMap.addCircle(
             CircleOptions().center(
                 LatLng(
                     location.latitude,
