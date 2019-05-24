@@ -1,11 +1,11 @@
 package com.example.helse.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -16,14 +16,13 @@ import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.api.HumidityForecastApi
 import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.LocalDatabase
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.Module
 import com.example.helse.data.repositories.AirqualityForecastRepository
 import com.example.helse.data.repositories.HumidityForecastRepository
 import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
 import com.example.helse.viewmodels.DashboardViewModel
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,14 +37,16 @@ class DashboardFragment : Fragment() {
     private lateinit var uvModule: Module
     private lateinit var humidityModule: Module
     private lateinit var preferences: Preferences
+    private lateinit var location: Location
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         preferences = Injector.getAppPreferences(requireContext())
+        location = preferences.getLocation()
         enabledModules = arrayListOf()
-        viewAdapter = ModuleAdapter(enabledModules)
+        viewAdapter = ModuleAdapter(enabledModules, this)
 
         initModules()
         initViewModel()
@@ -74,15 +75,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val location = preferences.getLocation()
-        val database = LocalDatabase.getInstance(requireContext())
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
             .apply {
-                airqualityForecastRepository =
-                    AirqualityForecastRepository(database.airqualityDao(), AirqualityForecastApi(location))
-                humidityForecastRepository =
-                    HumidityForecastRepository(database.humidityDao(), HumidityForecastApi(location))
-                uvForecastRepository = UvForecastRepository(database.uvDao(), UvForecastApi)
+                airqualityForecastRepository = Injector.getAirqualityForecastRepository(requireContext())
+                humidityForecastRepository = Injector.getHumidityForecastRepository(requireContext())
+                uvForecastRepository = Injector.getUvForecastRepository(requireContext())
+                mLocation = location
             }
     }
 
@@ -113,25 +111,34 @@ class DashboardFragment : Fragment() {
 
         viewModel.getAirqualityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             if (forecast.size < 24) {
-                airqualityModule.dangerIndicator = RISK_NOT_AVAILABLE
+                airqualityModule.dangerIndicator =
+                    RISK_NOT_AVAILABLE
             } else {
                 airqualityModule.dangerIndicator =
                     forecast[currentTime].riskValue
             }
+            airqualityModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getHumidityForecast().observe(viewLifecycleOwner, Observer { forecast ->
             humidityModule.dangerIndicator =
                 forecast[1].riskValue
+            humidityModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
 
         viewModel.getUvForecast().observe(viewLifecycleOwner, Observer { forecast ->
             uvModule.dangerIndicator =
                 forecast[0].riskValue
+            uvModule.isLoading = false
             viewAdapter.notifyDataSetChanged()
         })
+    }
+
+    fun retryDatafetch(moduleKey: String) {
+        "Prøver på nytt..".toast(context, Toast.LENGTH_SHORT)
+        viewModel.retryDatafetch(moduleKey)
     }
 
     private fun initModules() {

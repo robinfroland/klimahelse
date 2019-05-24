@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import com.example.helse.R
 import com.example.helse.data.api.UvForecastApi
 import com.example.helse.data.database.LocalDatabase
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
 import com.example.helse.data.repositories.UvForecastRepository
 import com.example.helse.utilities.*
@@ -19,13 +20,13 @@ import kotlinx.android.synthetic.main.fragment_uv.*
 import kotlinx.android.synthetic.main.fragment_uv.gauge
 import kotlinx.android.synthetic.main.fragment_uv.gauge_img
 import kotlinx.android.synthetic.main.fragment_uv.risk_label
-import kotlinx.android.synthetic.main.fragment_uv.location
 import kotlinx.android.synthetic.main.fragment_uv.toolbar_title
 
 class UvFragment : Fragment() {
 
     private lateinit var navController: NavController
     private lateinit var viewModel: UvViewModel
+    private lateinit var location: Location
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,14 +38,15 @@ class UvFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        location = Injector.getLocation(requireContext())
+
         navController = Navigation.findNavController(view)
         toolbar_title.text = navController.currentDestination?.label
 
         initViewModel()
         observeDataStream()
 
-        val selectedLocation = Injector.getLocation(requireContext())
-        location.text = selectedLocation.location
+        location_text.text = location.location
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -64,8 +66,10 @@ class UvFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(UvViewModel::class.java)
             .apply {
-                uvRepository = UvForecastRepository(LocalDatabase.getInstance(requireContext()).uvDao(), UvForecastApi)
+                uvRepository = Injector.getUvForecastRepository(requireContext())
+                mLocation = location
             }
+
     }
 
     private fun observeDataStream() {

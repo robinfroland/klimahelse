@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ic_location" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/location_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -37,8 +37,8 @@
         android:text="@string/superlocation"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/location"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
+        app:layout_constraintStart_toStartOf="@+id/location_text"
+        app:layout_constraintTop_toBottomOf="@+id/location_text" />
 
     <View
         android:layout_width="fill_parent"

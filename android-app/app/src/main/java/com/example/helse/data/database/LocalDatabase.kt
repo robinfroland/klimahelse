@@ -17,7 +17,6 @@ import com.example.helse.data.entities.UvForecast
     ], version = 1, exportSchema = false
 )
 abstract class LocalDatabase : RoomDatabase() {
-
     abstract fun locationDao(): LocationDao
     abstract fun airqualityDao(): AirqualityDao
     abstract fun humidityDao(): HumidityDao

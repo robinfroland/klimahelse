@@ -25,7 +25,7 @@ class LocationAdapter(val clickListener: (Location) -> Unit) : RecyclerView.Adap
     override fun onBindViewHolder(holder: LocationViewHolder, index: Int) {
         val location = locationList[index].location
         val superlocation = locationList[index].superlocation
-        holder.view.location.text = location
+        holder.view.location_text.text = location
         holder.view.superlocation.text = superlocation
         holder.view.setOnClickListener { clickListener(locationList[index]) }
     }

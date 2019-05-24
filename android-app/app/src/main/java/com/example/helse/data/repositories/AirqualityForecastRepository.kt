@@ -1,6 +1,6 @@
 package com.example.helse.data.repositories
 
-import com.example.helse.data.api.AirqualityForecastApi
+import com.example.helse.data.api.RemoteForecastData
 import com.example.helse.data.database.AirqualityDao
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.Location
@@ -11,20 +11,18 @@ private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weat
 
 class AirqualityForecastRepository(
     private val airqualityDao: AirqualityDao,
-    private val airqualityApi: AirqualityForecastApi
-) {
-    private val preferences: Preferences = Injector.getAppPreferences(AppContext.getAppContext())
+    private val airqualityApi: RemoteForecastData<AirqualityForecast>,
+    private val preferences: Preferences
+) : ForecastRepository<AirqualityForecast> {
 
     // Default location is the location selected by the user
-    fun fetchAirquality(url: String = AIRQUALITY_BASE_URL ): MutableList<AirqualityForecast> {
-        val location = airqualityApi.location
+    override fun getForecast(location: Location, url: String = AIRQUALITY_BASE_URL): List<AirqualityForecast> {
+        lateinit var airqualityForecast: List<AirqualityForecast>
 
-        lateinit var airqualityForecast: MutableList<AirqualityForecast>
-
-        if (dataIsStale(location)) {
-            // If data is stale and api fetch is needed
+        if (fetchIsNeeded(location)) {
+            // If data is stale or never fetched and data retrieval from remote source is needed
             airqualityDao.delete(location.stationID)
-            airqualityForecast = airqualityApi.fetchAirqualityFromURL(url)
+            airqualityForecast = airqualityApi.fetchForecast(location, url)
             airqualityDao.insert(airqualityForecast)
             preferences.setLastApiCall(
                 location, LAST_API_CALL_AIRQUALITY, System.currentTimeMillis()
@@ -32,15 +30,15 @@ class AirqualityForecastRepository(
         } else {
             // Retrieve data from database
             airqualityForecast = airqualityDao.get(location.stationID)
-            if (airqualityForecast.isEmpty()) return airqualityApi.fetchAirqualityFromURL(url)
+            if (airqualityForecast.isEmpty()) return airqualityApi.fetchForecast(location, url)
         }
-        if (airqualityForecast.size == 0) {
+        if (airqualityForecast.isEmpty()) {
             return mutableListOf(emptyAirqualityForecast)
         }
         return airqualityForecast
     }
 
-    private fun dataIsStale(location: Location): Boolean {
+    override fun fetchIsNeeded(location: Location): Boolean {
         val previousFetchTime = preferences.getLastApiCall(location, LAST_API_CALL_AIRQUALITY)
         val currentTime = System.currentTimeMillis()
         if (airqualityDao.get(location.stationID).size < 20) {
@@ -57,10 +55,11 @@ class AirqualityForecastRepository(
         // Singleton instantiation of repository
         fun getInstance(
             airqualityDao: AirqualityDao,
-            airqualityForecastApi: AirqualityForecastApi
+            airqualityForecastApi: RemoteForecastData<AirqualityForecast>,
+            preferences: Preferences
         ) =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: AirqualityForecastRepository(airqualityDao, airqualityForecastApi)
+                INSTANCE ?: AirqualityForecastRepository(airqualityDao, airqualityForecastApi, preferences)
                     .also { INSTANCE = it }
             }
     }

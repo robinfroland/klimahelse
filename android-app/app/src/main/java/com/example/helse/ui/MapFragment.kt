@@ -95,14 +95,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         LOW_VALUE -> R.color.colorDangerLowAlpha
                         MEDIUM_VALUE -> R.color.colorDangerMediumAlpha
                         HIGH_VALUE -> R.color.colorDangerHighAlpha
-                        VERY_HIGH_VALUE -> R.color.colorDangerVeryHigh
+                        VERY_HIGH_VALUE -> R.color.colorDangerVeryHighAlpha
                         else -> R.color.colorGreyDark
                     }
                     color = ContextCompat.getColor(context!!, color)
                     requireActivity().runOnUiThread {
                         addCircleToMap(p0, location, color)
                     }
-                    if (i == locations.size-1) progress_spinner.visibility = View.INVISIBLE
+                    if (i == locations.size - 1) progress_spinner.visibility = View.INVISIBLE
                 }
             }
         }
@@ -125,12 +125,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return GlobalScope.async {
             val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
-            val airqualityRepo = AirqualityForecastRepository(
-                LocalDatabase.getInstance(requireContext()).airqualityDao(),
-                AirqualityForecastApi(location)
-            )
+            val airqualityRepo =
+                Injector.getAirqualityForecastRepository(requireContext())
 
-            val airquality = airqualityRepo.fetchAirquality()
+            val airquality = airqualityRepo.getForecast(location)
             airquality[hourOfDay]
         }
     }

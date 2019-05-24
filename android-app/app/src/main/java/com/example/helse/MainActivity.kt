@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     private fun setupNavBars() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -99,6 +97,8 @@ class MainActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceS
     }
 
     private fun setupDynamicToolbarUi() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
         // Change toolbar and colors according to fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
             toolbar.setBackgroundColor(Color.TRANSPARENT)

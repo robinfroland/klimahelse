@@ -6,29 +6,35 @@ import com.example.helse.data.entities.emptyAirqualityForecast
 import com.example.helse.utilities.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.Response
 
-class AirqualityForecastApi(val location: Location) {
+private const val AIRQUALITY_BASE_URL = "https://in2000-apiproxy.ifi.uio.no/weatherapi/airqualityforecast/0.1/?"
+
+class AirqualityForecastApi : RemoteForecastData<AirqualityForecast> {
     private val client = OkHttpClient()
 
-    fun fetchAirqualityFromURL(url: String): MutableList<AirqualityForecast> {
-        lateinit var response: Response
-        val airqualityForecastURL = buildCoordinateURI(location.latitude, location.longitude, url)
+    override fun fetchForecast(location: Location, url: String?): List<AirqualityForecast> {
+        lateinit var airqualityForecastURL: String
+        if (url.isNull()) {
+            airqualityForecastURL = buildCoordinateURI(location.latitude, location.longitude, url)
+        } else {
+            airqualityForecastURL = url
+        }
+        
         return try {
+            val uri = airqualityForecastURL
             val request = Request.Builder()
                 .url(airqualityForecastURL)
                 .build()
 
-            response = client.newCall(request).execute()
-
+            val response = client.newCall(request).execute()
             response.parseAirqualityResponse(location)
         } catch (e: Exception) {
             println("fetchAirqualityFromURL() failed with exception $e")
-            mutableListOf(emptyAirqualityForecast)
+            listOf(emptyAirqualityForecast)
         }
     }
 
-    private fun buildCoordinateURI(lat: Double, lon: Double, url: String): String {
-        return "${url}lat=$lat&lon=$lon&areaclass=grunnkrets"
+    override fun buildCoordinateURI(latitude: Double, longitude: Double, url: String): String {
+        return "${url}lat=$latitude&lon=$longitude&areaclass=grunnkrets"
     }
 }

@@ -5,17 +5,27 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.helse.data.entities.AirqualityForecast
 import com.example.helse.data.entities.HumidityForecast
+import com.example.helse.data.entities.Location
 import com.example.helse.data.entities.UvForecast
-import com.example.helse.data.repositories.AirqualityForecastRepository
-import com.example.helse.data.repositories.HumidityForecastRepository
-import com.example.helse.data.repositories.UvForecastRepository
-import com.example.helse.utilities.Injector
+import com.example.helse.data.repositories.ForecastRepository
+import com.example.helse.utilities.AIRQUALITY_MODULE
+import com.example.helse.utilities.HUMIDITY_MODULE
+import com.example.helse.utilities.UV_MODULE
 import kotlinx.coroutines.*
 
 class DashboardViewModel : ViewModel() {
-    lateinit var airqualityForecastRepository: AirqualityForecastRepository
-    lateinit var humidityForecastRepository: HumidityForecastRepository
-    lateinit var uvForecastRepository: UvForecastRepository
+    lateinit var airqualityForecastRepository: ForecastRepository<AirqualityForecast>
+    lateinit var humidityForecastRepository: ForecastRepository<HumidityForecast>
+    lateinit var uvForecastRepository: ForecastRepository<UvForecast>
+    lateinit var mLocation: Location
+
+    fun retryDatafetch(moduleKey: String) {
+        when(moduleKey) {
+            AIRQUALITY_MODULE -> loadAirqualityForecast()
+            HUMIDITY_MODULE -> loadHumidityForecast()
+            UV_MODULE -> loadUvData()
+        }
+    }
 
     fun getAirqualityForecast() = airqualityData
 
@@ -23,20 +33,20 @@ class DashboardViewModel : ViewModel() {
 
     fun getUvForecast() = uvData
 
-    private val airqualityData: MutableLiveData<MutableList<AirqualityForecast>> by lazy {
-        MutableLiveData<MutableList<AirqualityForecast>>().also {
+    private val airqualityData: MutableLiveData<List<AirqualityForecast>> by lazy {
+        MutableLiveData<List<AirqualityForecast>>().also {
             loadAirqualityForecast()
         }
     }
 
-    private val humidityData: MutableLiveData<MutableList<HumidityForecast>> by lazy {
-        MutableLiveData<MutableList<HumidityForecast>>().also {
+    private val humidityData: MutableLiveData<List<HumidityForecast>> by lazy {
+        MutableLiveData<List<HumidityForecast>>().also {
             loadHumidityForecast()
         }
     }
 
-    private val uvData: MutableLiveData<MutableList<UvForecast>> by lazy {
-        MutableLiveData<MutableList<UvForecast>>().also {
+    private val uvData: MutableLiveData<List<UvForecast>> by lazy {
+        MutableLiveData<List<UvForecast>>().also {
             loadUvData()
         }
     }
@@ -44,7 +54,7 @@ class DashboardViewModel : ViewModel() {
     private fun loadAirqualityForecast() {
         viewModelScope.launch {
             airqualityData.value = withContext(Dispatchers.IO) {
-                airqualityForecastRepository.fetchAirquality()
+                airqualityForecastRepository.getForecast(mLocation)
             }
         }
     }
@@ -52,7 +62,7 @@ class DashboardViewModel : ViewModel() {
     private fun loadHumidityForecast() {
         viewModelScope.launch {
             humidityData.value = withContext(Dispatchers.IO) {
-                humidityForecastRepository.fetchHumidity()
+                humidityForecastRepository.getForecast(mLocation)
             }
         }
     }
@@ -60,7 +70,7 @@ class DashboardViewModel : ViewModel() {
     private fun loadUvData() {
         viewModelScope.launch {
             uvData.value = withContext(Dispatchers.IO) {
-                uvForecastRepository.fetchUv()
+                uvForecastRepository.getForecast(mLocation)
             }
         }
     }

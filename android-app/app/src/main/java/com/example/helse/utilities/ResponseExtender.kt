@@ -1,6 +1,5 @@
 package com.example.helse.utilities
 
-import android.util.Log
 import android.util.Xml
 import com.example.helse.data.entities.*
 import okhttp3.Response
