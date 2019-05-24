@@ -12,6 +12,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import org.robolectric.RobolectricTestRunner
 
 /**
@@ -177,7 +178,7 @@ class UnitTest {
     fun parse_airquality_response_returns_AirqualityForecast() {
         server.enqueue(MockResponse().setBody(goodAirqualitySampleResponse))
 
-        val parsedResponse = AirqualityForecastApi(alnabruLocation).fetchAirqualityFromURL(serverUrl)
+        val parsedResponse = AirqualityForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertEquals(
             parsedAirqualityResponse,
@@ -189,7 +190,7 @@ class UnitTest {
     fun parse_bad_airquality_response_is_not_equal_to_sample() {
         server.enqueue(MockResponse().setBody(badAirqualitySampleResponse))
 
-        val parsedResponse = AirqualityForecastApi(alnabruLocation).fetchAirqualityFromURL(serverUrl)
+        val parsedResponse = AirqualityForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertNotEquals(
             parsedAirqualityResponse,
@@ -201,7 +202,7 @@ class UnitTest {
     fun parse_wrong_airquality_response_returns_empty_forecast() {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
-        val parsedResponse = AirqualityForecastApi(alnabruLocation).fetchAirqualityFromURL(serverUrl)
+        val parsedResponse = AirqualityForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertEquals(
             mutableListOf(emptyAirqualityForecast),
@@ -214,7 +215,7 @@ class UnitTest {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
         shouldNotThrow<Error> {
-            AirqualityForecastApi(alnabruLocation).fetchAirqualityFromURL(serverUrl)
+            AirqualityForecastApi().fetchForecast(alnabruLocation, serverUrl)
         }
     }
 
@@ -222,7 +223,7 @@ class UnitTest {
     fun parse_humidity_response_returns_formatted_humidity() {
         server.enqueue(MockResponse().setBody(goodHumiditySampleResponse))
 
-        val parsedResponse = HumidityForecastApi(alnabruLocation).fetchHumidity(serverUrl)
+        val parsedResponse = HumidityForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertEquals(parsedHumidityResponse, parsedResponse)
     }
@@ -231,7 +232,7 @@ class UnitTest {
     fun parse_bad_humidity_response_is_not_equal_to_sample() {
         server.enqueue(MockResponse().setBody(badHumiditySampleResponse))
 
-        val parsedResponse = HumidityForecastApi(alnabrubLocation).fetchHumidity(serverUrl)
+        val parsedResponse = HumidityForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertNotEquals(
             parsedHumidityResponse,
@@ -244,7 +245,7 @@ class UnitTest {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
         shouldNotThrow<Error> {
-            HumidityForecastApi(emptyLocation).fetchHumidity(serverUrl)
+            HumidityForecastApi().fetchForecast(alnabruLocation, serverUrl)
         }
     }
 
@@ -252,7 +253,7 @@ class UnitTest {
     fun parse_uv_response_returns_formatted_uv() {
         server.enqueue(MockResponse().setBody(goodUVSampleResponse))
 
-        val parsedResponse = UvForecastApi.fetchUv(serverUrl, alnabruLocation)
+        val parsedResponse = UvForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertEquals(parsedUvResponse, parsedResponse)
     }
@@ -261,7 +262,7 @@ class UnitTest {
     fun parse_bad_uv_response_is_not_equal_to_sample() {
         server.enqueue(MockResponse().setBody(badUVSampleResponse))
 
-        val parsedResponse = UvForecastApi.fetchUv(serverUrl, alnabruLocation)
+        val parsedResponse = UvForecastApi().fetchForecast(alnabruLocation, serverUrl)
 
         assertNotEquals(
             parsedUvResponse,
@@ -274,7 +275,7 @@ class UnitTest {
         server.enqueue(MockResponse().setBody(wrongResponse))
 
         shouldNotThrow<Error> {
-            UvForecastApi.fetchUv(serverUrl, alnabruLocation)
+            UvForecastApi().fetchForecast(alnabruLocation, serverUrl)
         }
     }
 }

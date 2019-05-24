@@ -147,6 +147,7 @@ fun Response.parseUvResponse(currentLocation: Location): MutableList<UvForecast>
     } catch (error: NumberFormatException) {
         println("parseUvResponse failed with error: $error")
     } finally {
+
         return uvForecast
     }
 }

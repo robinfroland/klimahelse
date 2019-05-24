@@ -6,6 +6,7 @@ import com.example.helse.alnabruLocation
 import com.example.helse.data.api.AirqualityForecastApi
 import com.example.helse.data.database.LocalDatabase
 import com.example.helse.goodAirqualitySampleResponse
+import com.example.helse.utilities.Injector
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -27,17 +28,18 @@ class AirqualityForecastRepositoryTest {
 
 
     @Test
-    fun airquality_forecast_add_and_get(){
+    fun airquality_forecast_add_and_get() {
         server.enqueue(MockResponse().setBody(goodAirqualitySampleResponse))
 
 
         val airqualityRepository =
             AirqualityForecastRepository(
                 LocalDatabase.getInstance(ApplicationProvider.getApplicationContext()).airqualityDao(),
-                AirqualityForecastApi(alnabruLocation)
+                AirqualityForecastApi(),
+                Injector.getAppPreferences(ApplicationProvider.getApplicationContext())
             )
 
-        val parsedResponse = airqualityRepository.fetchAirquality()
+        val parsedResponse = airqualityRepository.fetchIsNeeded(alnabruLocation)
 
         assertEquals(parsedResponse, goodAirqualitySampleResponse)
 
